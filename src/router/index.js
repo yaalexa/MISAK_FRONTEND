@@ -46,6 +46,10 @@ import MostrarTipoMaterial from '../views/TipoMaterial/Mostrar.vue';
 import CrearAreas from '../views/Areas/Crear.vue';
 import EditarAreas from '../views/Areas/Editar.vue';
 import MostrarAreas from '../views/Areas/Mostrar.vue';
+
+//para Areas
+import mostarUU from '../views/UsuarioU/usuarioU.vue';
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -196,6 +200,11 @@ name: 'MostrarAreas',
 path: '/Areas',
 component: MostrarAreas
 },
+{
+  name: 'mostarUU',
+  path: '/UsuarioU',
+  component: mostarUU
+  },
 
 ]
 
