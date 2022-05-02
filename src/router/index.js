@@ -48,7 +48,7 @@ import EditarAreas from '../views/Areas/Editar.vue';
 import MostrarAreas from '../views/Areas/Mostrar.vue';
 
 //para Areas
-import mostarUU from '../views/UsuarioU/usuarioU.vue';
+import mostarUU from '../views/UsuarioU/comunero.vue';
 
 Vue.use(VueRouter)
 

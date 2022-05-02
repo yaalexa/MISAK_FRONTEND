@@ -50,7 +50,7 @@
                   <router-link exact-active-class="active" to="/reportes" class="nav-link" aria-current="page">REPORTES</router-link>
                 </li>
                  <li data-toggle="collapse" data-target="#new" class="collapsed">
-                  <router-link exact-active-class="active" to="/usuarioU" class="nav-link" aria-current="page">VistaUsuario</router-link>
+                  <router-link exact-active-class="active" to="/usuarioU" class="nav-link" aria-current="page">COMUNERO</router-link>
                 </li>
                  </ul>  
      </div>
