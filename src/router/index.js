@@ -49,7 +49,10 @@ import MostrarAreas from '../views/Areas/Mostrar.vue';
 
 //para Areas
 import mostarUU from '../views/UsuarioU/comunero.vue';
-
+//reportes
+import Reportes from '../views/reportes/vista.vue';
+import ReportesDescargas from '../views/reportes/Descargas.vue';
+import ReportesVisualizacion from '../views/reportes/Visualizacion.vue';
 Vue.use(VueRouter)
 
 const routes = [
@@ -205,6 +208,21 @@ component: MostrarAreas
   path: '/UsuarioU',
   component: mostarUU
   },
+  {
+    name: 'VistaReporte',
+    path: '/vistaReporte',
+    component: Reportes
+  },
+  {
+    name: 'Descargas',
+    path: '/Descargas',
+    component: ReportesDescargas
+  },
+  {
+    name: 'Visualizacion',
+    path: '/Visualizacion',
+    component: ReportesVisualizacion
+  }
 
 ]
 
