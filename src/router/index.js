@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+
+import Home from '../views/home/Casa.vue'
+//import Home from '../views/Home.vue'
 import Register from '../views/Register.vue'
 import Dashboard from '../views/material/Dashboard.vue';
 import welcome from '../views/welcome.vue';
@@ -53,6 +55,12 @@ import mostarUU from '../views/UsuarioU/comunero.vue';
 import Reportes from '../views/reportes/vista.vue';
 import ReportesDescargas from '../views/reportes/Descargas.vue';
 import ReportesVisualizacion from '../views/reportes/Visualizacion.vue';
+
+import Bar from '@/components/charts/Bar.vue';
+import LineChartGenerator from '@/components/charts/Line.vue';
+import Doughnut from '@/components/charts/Doughnut.vue';
+
+import Casa from '../views/Home.vue';
 Vue.use(VueRouter)
 
 const routes = [
@@ -222,6 +230,26 @@ component: MostrarAreas
     name: 'Visualizacion',
     path: '/Visualizacion',
     component: ReportesVisualizacion
+  },
+  {
+    name: 'Grafica',
+    path: '/Grafica',
+    component: Bar
+  },
+  {
+    name:'GraficaLinea',
+    path: '/GraficaLinea',
+    component: LineChartGenerator
+  },
+  {
+    name:'Doughnut',
+    path: '/Doughnut',
+    component: Doughnut
+  },
+  {
+    name:'Casa',
+    path:'/Casa',
+    component: Casa
   }
 
 ]

@@ -16,6 +16,8 @@
                     <label for="datepicker-sm">Arias:</label>
                     <b-form-select id="example-locales" v-model="locale" :options="locales" class="mb-2"></b-form-select>
                     <b-button variant="outline-primary">Busar</b-button>
+                     <br>
+                      <Bar/>
                     <table class="table">
                         <thead>
                             <tr>
@@ -43,6 +45,7 @@
 
 <script>
 import Header from '@/components/Header.vue';
+import Bar from '@/components/charts/Bar.vue';
 import Footer from '@/components/Footer.vue';
 import axios from 'axios';
 export default {
@@ -59,6 +62,7 @@ export default {
     components:{
         Header,
       //  Footer
+      Bar
     },
     
 }
