@@ -1,176 +1,200 @@
 <template>
- <div class="pantalla">
-        <div class="cara1">
+
+    <div class="pantalla">
+         <div class="cara1">
             <header>
                 <Header/>
             </header>
         </div>
-        <div class="cara2">
+            <div class="cara2">
           <section>
+         
 
-            <div class="container  izquierda">
+    <div class="container izquierda">
                  <h1>NUEVO MATERIAL</h1>
-                 <form action="" class="form-horizontal">
-                    <div class="form-group left">
-                       <label for="" class="control-label col-sm-2">Nombre</label>
-                       <div class="col-sm-10">
-                          <input type="text" class="form-control" name="name" id="name" v-model="form.name">
-                       </div>
-                    </div>
-                  <div class="form-group left row">
-                      <div class="col">
-                            <label for="" class="control-label col-sm-3">Año</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" name="year" id="year" v-model="form.year">
-                            </div>
-                        </div>
-                        <div class="col">
-                          <label for="" class="control-label col-sm-5">ISBN</label>
-                          <div class="col-sm-7">
-                             <input type="text" class="form-control" name="isbn" id="isbn" v-model="form.isbn">
-                          </div>
-                        </div> 
-                    </div>
-                    <div class="form-group left row">
-                      <div class="col">
-                            <label for="" class="control-label col-sm-3"># Paginas</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" name="num_pages" id="num_pages" v-model="form.num_pages">
-                            </div>
-                        </div>
-                        <div class="col">
-                          <label for="" class="control-label col-sm-5">Prioridad</label>
-                          <div class="col-sm-7">
-                             <input type="text" class="form-control" name="priority" id="priority" v-model="form.priority">
-                          </div>
-                        </div> 
-                    </div>
-                   <div class="form-group left row">
-                      <div class="col">
-                            <label for="" class="control-label col-sm-3">Pdf</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" name="pdf" id="pdf" v-model="form.pdf">
-                            </div>
-                        </div>
-                        <div class="col">
-                          <label for="" class="control-label col-sm-5">Imagen</label>
-                          <div class="col-sm-7">
-                             <input type="text" class="form-control"  name="img" id="img" v-model="form.img">
-                          </div>
-                        </div> 
-                    </div>
-                   
-                    <div class="form-group left row">
-                     <!--  <div class="col">
-                            <label for="" class="control-label col-sm-3">USUARIO MATERIAL</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" name="material_users_id" id="material_users_id" v-model="form.material_users_id">
-                            </div>
-                        </div>-->
-                   
-                        <div class="col">
-                          <label for="" class="control-label col-sm-3">Tipo </label>
-                          <div class="col-sm-7">
-                             <select class="form-control" v-model="form.TipoMaterial">
-                                <option v-for="TipoMaterial in TipoMaterial" v-bind:value="TipoMaterial.id"> {{ TipoMaterial.name }}
-                                </option>
-                                </select>
-                            </div>
-                          </div>
-                          <div class="col">
-                          <label for="" class="control-label col-sm-5">Editorial</label>
-                          <div class="col-sm-7">
-                             <select class="form-control" v-model="form.editorial">
-                                <option v-for="editorial in editorial" v-bind:value="editorial.id"> {{ editorial.name }}
-                                </option>
-                                </select>
-                                
-                          </div>
-                        </div> 
-                       
-                    </div>
-                     <div class="form-group left row">
-                    <div class="col">
-                          <label for="" class="control-label col-sm-3">Areas </label>
-                          <div class="col-sm-7">
-                             <select class="form-control" v-model="form.areas">
-                                <option v-for="areas in areas" v-bind:value="areas.id"> {{ areas.name }}
-                                </option>
-                                </select>
-                              
-                               
-                            </div>
-                            
-                          </div>
-                    </div>
-                    <!--
-                    <div class="form-group left row">
-                      <div class="col">
-                            <label for="" class="control-label col-sm-3">ID AUTOR</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" name="author_books_id" id="author_books_id" v-model="form.author_books_id">
-                            </div>
-                        </div>
-                        <div class="col">
-                          <label for="" class="control-label col-sm-5">EDITORIAL ID</label>
-                          <div class="col-sm-7">
-                             <input type="text" class="form-control" name="editorial_id" id="editorial_id" v-model="form.editorial_id">
-                          </div>
-                        </div> 
-                    </div>
-                  <div class="form-group left row">
-                      <div class="col">
-                            <label for="" class="control-label col-sm-3">ID AREA</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" name="area_id" id="area_id" v-model="form.area_id">
-                            </div>
-                        </div>
-                        <div class="col">
-                          <label for="" class="control-label col-sm-5">ID NIVELES DE EDUCACION</label>
-                          <div class="col-sm-7">
-                             <input type="text" class="form-control" name="material_educational_leves_id" id="material_educational_leves_id" v-model="form.material_educational_leves_id">
-                          </div>
-                        </div> 
-                    </div>
-                    -->
+      <div class="form-group left">
+        <label for="" class="control-label col-sm-2">NOMBRE</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            class="form-control"
+            name="name"
+            id="name"
+            v-model="formData.name"
+          />
+        </div>
+      </div>
+      <div class="form-group left row">
+        <div class="col">
+          <label for="" class="control-label col-sm-3">AÑO</label>
+          <div class="col-sm-7">
+            <input
+              type="text"
+              class="form-control"
+              name="year"
+              id="year"
+              v-model="formData.year"
+            />
+          </div>
+        </div>
+        <div class="col">
+          <label for="" class="control-label col-sm-5">ISBN</label>
+          <div class="col-sm-7">
+            <input
+              type="text"
+              class="form-control"
+              name="isbn"
+              id="isbn"
+              v-model="formData.isbn"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="form-group left row">
+        <div class="col">
+          <label for="" class="control-label col-sm-3">PAGINAS</label>
+          <div class="col-sm-7">
+            <input
+              type="text"
+              class="form-control"
+              name="num_pages"
+              id="num_pages"
+              v-model="formData.num_pages"
+            />
+          </div>
+        </div>
+        <div class="col">
+          <label for="" class="control-label col-sm-5">PRIORIDAD</label>
+          <div class="col-sm-7">
+            <input
+              type="text"
+              class="form-control"
+              name="priority"
+              id="priority"
+              v-model="formData.priority"
+            />
+          </div>
+        </div>
+      </div>
 
-                    <div class="form-group">
-                      <button type="button" class="btn btn-primary" v-on:click="guardar()" >Guardar</button>
-                      <button type="button" class="btn btn-dark margen" v-on:click="salir()"  >Salir</button>
-                    </div> 
-                </form>
+      <div class="form-group left row">
+        <div class="col">
+          <label for="" class="control-label col-sm-5">EDITORIAL</label>
+          <div class="col-sm-7">
+            <select class="form-control" v-model="formData.editorial">
+            <option v-for="editorial in editorial" v-bind:value="editorial.id"> {{ editorial.name }}
+             </option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <label for="" class="control-label col-sm-3">AREA</label>
+          <div class="col-sm-7">
+           <select class="form-control" v-model="formData.areas">
+            <option v-for="areas in areas" v-bind:value="areas.id"> {{ areas.name }}
+             </option>
+            </select>
+          </div>
+        </div>
+        </div>
+               <div class="form-group left row">
+        <div class="col">
+          <label for="" class="control-label col-sm-5">TIPO MATERIAL</label>
+          <div class="col-sm-7">
+            <select class="form-control" v-model="formData.TipoMaterial">
+            <option v-for="TipoMaterial in TipoMaterial" v-bind:value="TipoMaterial.id"> {{ TipoMaterial.name }}
+             </option>
+            </select>
+          </div>
+        </div>
+        
+        </div>       
 
+      <div class="form-group left row">
+        <div class="col">
+        <label for="pdf1" class="control-label col-sm-5">PDF</label>
+        <div class="col-sm-10">
+          <input
+            type="file"
+            accept="application/pdf"
+            @change="pdfObtenidoMethodo"
+            name="pdf"
+            id="pdf"
+            
+          />
+        </div>
+        </div>
+      <div class="col">
+        <label for="imagen" class="control-label col-sm-3">IMAGEN</label>
+        <div class="col-sm-7">
+        <input
+          type="file"
+          accept="application/img"
+          @change="imagenObtenidaMethodo"
+          name="img"
+          id="imagen1"
+        />
+      </div>
 
-            </div>
-        <!-- <Footer /> -->
-</section>
-</div>
+      <br>
+      <!-- <figure>
+        <img :src="imagen1" width="200" height="200" alt="Foto-Libro" />
+      </figure> -->
+      
+      </div>
+
+      </div>
+
 
 </div>
+      <br /><br />
+
+      <!-- :src="material.img" -->
+      
+
+      <div class="form-group">
+        <button type="button" class="btn btn-primary" @click="guardarGuardar()">
+          Guardar
+        </button>
+        <button type="button" class="btn btn-dark margen" v-on:click="salir()">
+          Salir
+        </button>
+      </div>
+      </section>
+   </div>
+    </div>
 </template>
+
+
+
+
 <script>
-import Header from '@/components/Header.vue'
+import Header from "@/components/Header.vue";
 //import Footer from '@/components/Footer.vue'
-import axios from 'axios';
+import axios, { Axios } from "axios";
 export default {
-    name:"Nuevo",
-    data:function(){
-        return {
-            TipoMaterial:null,
-            editorial:null,
-            selected:"",
-            form:{
-                "name":"",
-                "isbn" : "",
-                "year": "", 
-                "num_pages" : "",
-                "priority":"",
-                 "img" : "",
-                "pdf" :""
-            }
-        }
-    },
-    mounted(){
+  name: "Nuevo",
+  props: ["imageUrl"],
+  data: function () {
+
+    return {
+    TipoMaterial:null,
+    editorial:null,
+    areas:null,
+     selected:"",
+      formData: {
+        name: "",
+        isbn: "",
+        year: "",
+        num_pages: "",
+        priority: "",
+        pdf: "",
+        img: "",
+       
+      },
+    };
+  },
+    mounted:function(){
            let direccion = "http://localhost:8000/api/type_materials";
         axios.get(direccion).then((result) => {
         this.TipoMaterial = result.data;
@@ -184,47 +208,115 @@ export default {
         this.areas = result.data;
         });
     },
-    components:{
-        Header,
-        //Footer
+
+  components: {
+    Header,
+    //Footer
+  },
+    
+  methods: {
+
+    /* Codigo de imagen */
+    imagenObtenidaMethodo(e) {
+      let file = e.target.files[0];
+      console.log("CargaImagen", file);
+      this.formData.img = file;
+      this.cargarImagenNuevo(file);
     },
-    methods:{
-       
-        guardar(){
-            
-            axios.post("http://127.0.0.1:8000/api/materials",this.form)
-            .then(data =>{
-                console.log(data);
-                this.makeToast("Hecho","materila creado","success");
-                this.$router.push("/dashboard");
-            }).catch( e =>{
-                console.log(e);
-                 this.makeToast("Error","Error al guardar","error");
-            })
-        },
-        salir(){
-            this.$router.push("/dashboard");
-        },
-        makeToast(titulo,texto,tipo) {
-            this.toastCount++
-            this.$bvToast.toast(texto, {
-            title: titulo,
-            variant: tipo,
-            autoHideDelay: 5000,
-            appendToast: true
-            })
-        }
-        
+
+    cargarImagenNuevo(file) {
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        this.imagenMiniatura = e.target.result;
+      };
+      reader.readAsDataURL(file);
+      console.log("miniatura", reader);
+    },
+
+    /* Codigo del PDF */
+    pdfObtenidoMethodo(e){
+      let pdfs = e.target.files[0];
+      console.log("CargaPDF", pdfs);
+      this.formData.pdf= pdfs;
+      this.cargarPdf(pdfs);
+    },
+ 
+
+    cargarPdf(){
+      let find = new FileReader();
+      find.onload = (e) =>{
+        this.pdfMiniatura = e.target.result;
+      }
+    },
+
+    guardarGuardar() {
+      let formDataDataCambiar = new FormData();
+      formDataDataCambiar.append("name", this.formData.name);
+      formDataDataCambiar.append("isbn", this.formData.isbn);
+      formDataDataCambiar.append("year", this.formData.year);
+      formDataDataCambiar.append("num_pages", this.formData.num_pages);
+      formDataDataCambiar.append("priority", this.formData.priority);
+      formDataDataCambiar.append("pdf", this.formData.pdf);
+      formDataDataCambiar.append("img", this.formData.img);
+      formDataDataCambiar.append("editorial_id", this.formData.editorial_id),
+      formDataDataCambiar.append("area_id", this.formData.area_id);
+
+      axios
+        .post("http://127.0.0.1:8000/api/materials", formDataDataCambiar)
+        .then((data) => {
+          console.log(data);
+          this.makeToast("Hecho", "material creado", "success");
+          this.$router.push("/dashboard");
+        })
+        .catch((e) => {
+          console.log(e);
+          this.makeToast("Error", "Error al guardar", "error");
+        });
+    },
+    salir() {
+      this.$router.push("/dashboard");
+    },
+    makeToast(titulo, texto, tipo) {
+      this.toastCount++;
+      this.$bvToast.toast(texto, {
+        title: titulo,
+        variant: tipo,
+        autoHideDelay: 5000,
+        appendToast: true,
+      });
+    },
+  },
+  computed: {
+    imagen1() {
+      return this.imagenMiniatura;
+    },
+    pdf1(){
+      return this.pdfMiniatura;
+    }
+  },
+};
+</script>
+
+<style scoped>
+ body{
+        margin: 0%;
+    }
+    .pantalla{
+        display: flex;
+        overflow:hidden;
+    }
+    .cara1{
+        height: 100vh;
+        width: 20%;
         
     }
-}
-</script>
-<style scoped>
-.left{
-    text-align:  left;
-}
-   .izquierda{
+    .cara2{
+        width: 90%;
+        height: 100vh;
+        overflow:auto;
+    }
+    .izquierda{
         text-align: left;
-        width: 70%;
+        width: 50%;
     }
 </style>
