@@ -13,8 +13,7 @@
 
       <div v-for="todo in todos" :key=todo.id>
         <div>
-          <img 
-          :src='todo.img' 
+          <img  :src="`http://127.0.0.1:8000/storage/${todo.img}`"
           :alt="todo.name" 
           style="height: 200px; width: 200px"
           accept= 'application/img'>

@@ -19,9 +19,9 @@
     
  
     <div class="row mt-3">
- 
+        <input class="w-full rounded-lg p-4 m-4" placeholder="Buscar " type="text" v-model="search">
       <div class="col-md-4" v-for="item in items" v-bind:key="item.id"> 
- 
+        
         <div class="card mb-3">
           
           <div class="card-body">
@@ -47,9 +47,9 @@
                                     <th>AÑO</th>
                                     <th>PAGINAS</th>
                                     <!--
-                                    <th>priority</th>-->
+                                    <th>priority</th>
                                     <th>PDF</th>
-                                    <th>IMAGEN</th>
+                                    <th>IMAGEN</th>-->
                                     <!--
                                     <th>material_users_id</th>
                                     <th>type_material_id</th>
@@ -69,9 +69,9 @@
                                     <td>{{ material.year }}</td>
                                     <td>{{ material.num_pages }}</td>
                                    <!--
-                                    <td>{{ material.priority }}</td>  -->
+                                    <td>{{ material.priority }}</td> 
                                     <td>{{ material.pdf }}</td>
-                                    <td>{{ material.img }}</td>
+                                    <td>{{ material.img }}</td> -->
                                      <!--
                                     <td>{{ material.material_users_id }}</td>
                                     <td>{{ material.type_material_id }}</td>
@@ -109,7 +109,9 @@ export default {
     data(){
         return {
             material:null,
-            pagina:1
+            pagina:1,
+            list : null,
+             search: ""
         }
     },
     components:{
@@ -135,6 +137,7 @@ export default {
     
      
     },
+    
     mounted:function(){
         let direccion = "http://localhost:8000/api/materials";
         axios.get(direccion).then((result) => {
