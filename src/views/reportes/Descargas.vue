@@ -42,7 +42,7 @@
         </div>
     </div>
 </template>
-
+ 
 <script>
 import Header from '@/components/Header.vue';
 import Bar from '@/components/charts/Bar.vue';
