@@ -55,6 +55,8 @@ export default {
        .then( data =>{
          console.log(data.data.status)
            if(data.data.status == "1"){
+             sessionStorage.setItem('user', JSON.stringify(data.data.access_token));
+             sessionStorage.setItem('userid', JSON.stringify(data.data.usr_id));
             // localStorage.token = data.data.result.token;
              this.$router.push('/welcome');
            }else{
