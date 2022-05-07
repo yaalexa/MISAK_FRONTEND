@@ -31,7 +31,7 @@
                    <router-link exact-active-class="active" to="/TipoMaterial" class="nav-link" aria-current="page">TIPO MATERIAL</router-link>
                
                 </li>  
-
+ 
               
                 
                    <li data-toggle="collapse" data-target="#new" class="collapsed">

@@ -59,7 +59,7 @@ import ReportesVisualizacion from '../views/reportes/Visualizacion.vue';
 import Bar from '@/components/charts/Bar.vue';
 import LineChartGenerator from '@/components/charts/Line.vue';
 import Doughnut from '@/components/charts/Doughnut.vue';
-
+ 
 import Casa from '../views/Home.vue';
 
 //ver pdf

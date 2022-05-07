@@ -76,7 +76,7 @@
           </div>
         </div>
       </div>
-
+ 
       <div class="form-group left row">
         <div class="col">
           <label for="" class="control-label col-sm-5">EDITORIAL</label>

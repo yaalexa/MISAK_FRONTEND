@@ -10,7 +10,7 @@
       <div class="header">
         <h1 class="titulo">MATERIAL</h1>
       </div>
-
+ 
       <div v-for="todo in todos" :key=todo.id>
         <div>
           <img class="img" :src="`http://127.0.0.1:8000/storage/${todo.img}`"> <br>
