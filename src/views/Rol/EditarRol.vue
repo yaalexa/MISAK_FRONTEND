@@ -53,7 +53,7 @@ export default {
     methods:{
         /* alert:${this.$route.params.id}, */
         async mostrarRol(){
-            await this.axios.get(`http://localhost:8000/api/rols/{$this.$route.params.id}`).then(response=>{
+            await this.axios.get(`http://localhost:8000/api/rols/${this.$route.params.id}`).then(response=>{
                 const {name} = response.data
                 this.rol.name = name
             }).catch(error=>{

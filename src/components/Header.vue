@@ -42,6 +42,16 @@
                   <li data-toggle="collapse" data-target="#new" class="collapsed">
                   <router-link exact-active-class="active" to="/usuarios" class="nav-link" aria-current="page">USUARIOS</router-link>
                 </li>
+                <li data-toggle="collapse" data-target="#new" class="collapsed">
+                  <router-link
+                    exact-active-class="active"
+                    to="/mostrar"
+                    class="nav-link"
+                    aria-current="page"
+                    >ROLES
+                  </router-link>
+              </li>
+
                <!-- <li data-toggle="collapse" data-target="#new" class="collapsed">
                   <router-link exact-active-class="active" to="/rol" class="nav-link" aria-current="page"> ROLES </router-link>
                 </li>-->
