@@ -1,8 +1,12 @@
 <template>
-  <div>
-     <Header />
+  <div class="pantalla">
+      <div class="cara1">
+            <header>
+                <Header/>
+            </header>
+        </div>
         <br>
-        esto es editarRol.vue
+       
     <div class="container  izquierda">
         <div class="col text-left">
             <h1> Roles </h1>
@@ -53,11 +57,13 @@ export default {
     methods:{
         /* alert:${this.$route.params.id}, */
         async mostrarRol(){
-            await this.axios.get(`http://localhost:8000/api/rols/${this.$route.params.id}`).then(response=>{
-                const {name} = response.data
-                this.rol.name = name
+            await this.axios.get(`http://localhost:8000/api/rols/{$this.$route.params.id}`).then(response=>{
+                const {name} = response.data;
+                this.rol.name = name;
+                console.log("estoy en then metodo mostrar rol")
             }).catch(error=>{
-                console.log(error)
+                alert(error);
+                console.log(error);
             })
             /* this.$router.push("/mostrar"); */
 

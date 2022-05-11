@@ -1,5 +1,5 @@
 <template>
-         <div class="pantalla">
+      <div class="pantalla">
         <div class="cara1">
             <header>
                 <Header/>
