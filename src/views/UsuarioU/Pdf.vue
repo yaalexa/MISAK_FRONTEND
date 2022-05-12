@@ -18,7 +18,6 @@
 <script>
 import axios from "axios";
 import Header from "@/components/Header.vue";
-
 export default {
   data() {
     return {
@@ -59,5 +58,4 @@ export default {
   width: 100%;
   height: 100vh;
 }
-
 </style>
