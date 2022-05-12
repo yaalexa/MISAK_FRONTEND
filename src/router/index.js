@@ -117,7 +117,36 @@ const routes = [{
         name: 'Nuevo',
         component: Nuevo
     },
-
+    {
+      name: 'CrearEditorial',
+      path: '/CrearEdit',
+      component: CrearEditorial
+    },
+    {
+    name: 'EditarEditorial',
+    path: '/Editar/:id',
+    component: EditarEditorial
+    },
+    {
+    name: 'MostrarEditorial',
+    path: '/Editorial',
+    component: MostrarEditorial
+    },
+    {
+      name: 'CrearNivelEducativo',
+      path: '/CrearNivelEducativo',
+      component: CrearNivelEdicativo
+    },
+    {
+    name: 'EditarNivelEducativo',
+    path: '/Editar/:id',
+    component: EditarNivelEdicativo
+    },
+    {
+    name: 'MostrarNivelEducativo',
+    path: '/NivelEducativo',
+    component: MostrarNivelEdicativo
+    },
 {
   name: 'Mostrar',
   path: '/mostrar',
