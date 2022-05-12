@@ -13,15 +13,13 @@
  
       <div v-for="todo in todos" :key=todo.id>
         <div>
-          <img  :src="`http://127.0.0.1:8000/storage/${todo.img}`"
-          :alt="todo.name" 
-          style="height: 200px; width: 200px"
-          accept= 'application/img'>
+          <img class="img" :src="`http://127.0.0.1:8000/storage/${todo.img}`"> <br>
+          <iframe  :src="`http://127.0.0.1:8000/storage/${todo.pdf}`"></iframe>
           <h1>{{todo.name}}</h1>
           <h3>{{todo.isbn}}</h3>
           <h3>{{todo.num_pages}}</h3>
           <h3>{{todo.priority}}</h3>
-          <h3>{{todo.pdf}}</h3>
+          <button type="button" class="btn btn-dark margen" v-on:click="Ver()">Ver</button>
           <h3>{{todo.year}}</h3>
         </div>
       </div>
@@ -70,6 +68,9 @@ export default {
         })
         .catch((errorgrave) => console.log(errorgrave));
     },
+    Ver(){
+            this.$router.push("/Pdf");
+        },
   },
 };
 </script>
@@ -100,6 +101,11 @@ export default {
   padding: 50px;
   background-position: 100%;
   background-attachment: fixed;
+}
+.img{
+  margin: auto;
+  width: 200px;
+  height: 200px;
 }
 
 </style>

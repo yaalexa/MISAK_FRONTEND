@@ -24,7 +24,7 @@
                       <button type="button" class="btn btn-primary" v-on:click="editar()" >Editar</button>
                       
                      
-                     <a type="button" @click="salir()" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Salir</a>
+                     <a type="button" @click="salir()" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />sSalir</a>
                      
                  
                 </form>

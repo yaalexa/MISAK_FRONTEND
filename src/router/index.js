@@ -9,7 +9,7 @@ import welcome from '../views/welcome.vue';
 
 import Editar from '../views/material/Editar.vue';
 import Nuevo from '../views/material/Nuevo.vue';
- // componentes para tipo de material
+// componentes para tipo de material
 
 
 import CrearEditorial from '../views/Editorial/Crear.vue';
@@ -17,9 +17,9 @@ import EditarEditorial from '../views/Editorial/Editar';
 import MostrarEditorial from '../views/Editorial/Mostrar.vue';
 
 //para usuarios
-import Usuarios from'../views/usuarios/usuarios.vue';
-import Unuevo from'../views/usuarios/unuevo.vue';
-import actualizarusuarios from'../views/usuarios/actualizarUsuario.vue';
+import Usuarios from '../views/usuarios/usuarios.vue';
+import Unuevo from '../views/usuarios/unuevo.vue';
+import actualizarusuarios from '../views/usuarios/actualizarUsuario.vue';
 
 //para nivel educativo
 
@@ -61,90 +61,62 @@ import LineChartGenerator from '@/components/charts/Line.vue';
 import Doughnut from '@/components/charts/Doughnut.vue';
  
 import Casa from '../views/Home.vue';
+
+//ver pdf
+import Pdf from '../views/UsuarioU/Pdf'
+
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path:'/usuarios',
-    name:'/usuarios',
-    component: Usuarios
-  },
-  {
-    path:'/actualizarusuarios/:id',
-    name:'/actualizarusuarios',
-    component: actualizarusuarios
-  },
-  {
-    path:'/unuevo',
-    name:'/unuevo',
-    component: Unuevo
-  },
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/welcome',
-    name: 'welcome',
-    component: welcome
-  },
-  {
-    path: '/Library',
-    name: 'Library',
-    component: Library
-  },
-  {
-    path: '/Register',
-    name: 'Register',
-    component: Register
-  },
-  {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: Dashboard
-  },
-  {
-    path: '/editar/:id',
-    name: 'Editar',
-    component: Editar
-  },
-  {
-    path: '/nuevo',
-    name: 'Nuevo',
-    component: Nuevo
-  },
- 
-{
-  name: 'CrearEditorial',
-  path: '/CrearEdit',
-  component: CrearEditorial
-},
-{
-name: 'EditarEditorial',
-path: '/Editar/:id',
-component: EditarEditorial
-},
-{
-name: 'MostrarEditorial',
-path: '/Editorial',
-component: MostrarEditorial
-},
-{
-  name: 'CrearNivelEducativo',
-  path: '/CrearNivelEducativo',
-  component: CrearNivelEdicativo
-},
-{
-name: 'EditarNivelEducativo',
-path: '/Editar/:id',
-component: EditarNivelEdicativo
-},
-{
-name: 'MostrarNivelEducativo',
-path: '/NivelEducativo',
-component: MostrarNivelEdicativo
-},
+const routes = [{
+        path: '/usuarios',
+        name: '/usuarios',
+        component: Usuarios
+    },
+    {
+        path: '/actualizarusuarios/:id',
+        name: '/actualizarusuarios',
+        component: actualizarusuarios
+    },
+    {
+        path: '/unuevo',
+        name: '/unuevo',
+        component: Unuevo
+    },
+    {
+        path: '/',
+        name: 'Home',
+        component: Home
+    },
+    {
+        path: '/welcome',
+        name: 'welcome',
+        component: welcome
+    },
+    {
+        path: '/Library',
+        name: 'Library',
+        component: Library
+    },
+    {
+        path: '/Register',
+        name: 'Register',
+        component: Register
+    },
+    {
+        path: '/dashboard',
+        name: 'Dashboard',
+        component: Dashboard
+    },
+    {
+        path: '/editar/:id',
+        name: 'Editar',
+        component: Editar
+    },
+    {
+        path: '/nuevo',
+        name: 'Nuevo',
+        component: Nuevo
+    },
 
 {
   name: 'Mostrar',
@@ -250,15 +222,19 @@ component: MostrarAreas
     name:'Casa',
     path:'/Casa',
     component: Casa
-  }
+  },
+  {
+    name: 'Pdf',
+    path: '/Pdf',
+    component: Pdf
+}
 
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes
 })
 
 export default router
-
