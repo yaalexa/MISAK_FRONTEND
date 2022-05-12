@@ -142,7 +142,7 @@ export default {
         },
         
         salir(){
-            this.$router.push("/rol");
+            this.$router.push("/welcome");
         },
 
 

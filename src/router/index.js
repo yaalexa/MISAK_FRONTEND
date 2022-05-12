@@ -147,8 +147,8 @@ component: MostrarNivelEdicativo
 },
 
 {
-  name: 'MostrarRol',
-  path: '/rol',
+  name: 'Mostrar',
+  path: '/mostrar',
   component: Mostrar
 },
 {
