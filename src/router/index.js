@@ -5,7 +5,7 @@ import Home from '../views/home/Casa.vue'
 //import Home from '../views/Home.vue'
 import Register from '../views/Register.vue'
 import Dashboard from '../views/material/Dashboard.vue';
-import welcome from '../views/welcome.vue';
+import welcome from '../views/Library.vue';
 
 import Editar from '../views/material/Editar.vue';
 import Nuevo from '../views/material/Nuevo.vue';

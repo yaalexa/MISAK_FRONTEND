@@ -8,7 +8,7 @@
 
     <div class="cara2">
             <section>       
- 
+      <div class="izquierda">
       <div class="col-md-12">
       
         <h1>MATERIAL </h1> 
@@ -16,15 +16,9 @@
  
       </div>
  
-    
- 
-    <div class="row mt-3">
-        <input class="w-full rounded-lg p-4 m-4" placeholder="Buscar " type="text" v-model="search">
-      
- 
-    </div>
-
-                <button class="btn btn-success" v-on:click="nuevo()" >Nuevo Material</button>
+               <div class="boton">
+                <button class="btn btn-success" v-on:click="nuevo()" ><b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon></button>
+               </div>
                 <br><br>
                 <table class="table table-hover">
                 <thead>
@@ -72,9 +66,10 @@
                                     <button class="btn btn-primary btn-sm" @click="editar(material.id)">+</button>
                                    
                                     <button class="btn btn-secondary btn-sm" @click="editar(material.id)">-</button>-->
-                                    <router-link :to='{name:"Editar", params:{id:material.id}}' class="btn btn-info"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> Editar</router-link>
-                                <a type="button" @click="borrar(material.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Borrar</a>
-                                 <a type="button" @click="autormaterial(material.id, material.name)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Asignacion Autor</a>
+                                    <router-link :to='{name:"Editar", params:{id:material.id}}' class="btn btn-primary"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> <b-icon icon="pencil" aria-hidden="true"></b-icon></router-link>
+                                <a type="button" @click="borrar(material.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon icon="trash-fill" aria-hidden="true"></b-icon></a>
+                                 <a type="button" @click="autormaterial(material.id, material.name)" class="btn btn-warning"><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon icon="person-check" aria-hidden="true"></b-icon></a>
+                                 
                                 </td>
                                    
                     </tr>
@@ -82,7 +77,7 @@
                 </tbody>
                 </table>
 
-           
+           </div>
             </section>
  </div>
       
@@ -158,5 +153,14 @@ export default {
     .cara2{
         width: 80%;
         height: 100vh;
+    }
+    .izquierda{
+         text-align: center;
+        width:70%;
+        margin-left: 10%;
+        align-content: center;
+    }
+    .boton{
+       text-align: left; 
     }
 </style>

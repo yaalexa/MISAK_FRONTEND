@@ -5,13 +5,14 @@
     <div class="brand"> 
        <img src="@/assets/logo.png" id="icon" alt="User Icon" />
     </div>
+    <br>
     <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
     <div v-if="this.administrador">
         <div class="menu-list">
             <ul id="menu-content" class="menu-content collapse out">
-                <li data-toggle="collapse" data-target="#new" class="collapsed">
+                 <!--<li data-toggle="collapse" data-target="#new" class="collapsed">
                 <router-link exact-active-class="active" to="/welcome" class="nav-link" aria-current="page">HOME</router-link>
-                </li>
+                </li>-->
                 <li data-toggle="collapse" data-target="#new" class="collapsed">
                 <router-link exact-active-class="active" to="/Library" class="nav-link" aria-current="page">BIBLIOTECA</router-link>
                 </li>
@@ -181,23 +182,23 @@ export default {
   font-family: verdana;
   font-size: 12px;
   font-weight: 200;
-  background-color: #2e353d;
+    background: linear-gradient(to top, #16223f, 5%, #16223f);
   color: #e1ffff;
   background-image:url("@/assets/fondo.png") ;
-   opacity: 0.7;
+   opacity: 0.9;
  
   height: 100vh;
   width: 100%;
 }
 .nav-side-menu .brand {
-  background-color: #23282e;
+  background-color: #335d91;
   line-height: 50px;
   
   width: 100%;
   text-align: center;
   font-size: 14px;
   background-image:url("@/assets/fondo.png") ;
-   opacity: 0.7;
+   opacity: 0.9;
 }
 .nav-side-menu .toggle-btn {
   display: none;
@@ -297,9 +298,9 @@ export default {
     text-align: center;
   }
   .brand {
-    text-align: left !important;
+    text-align: center !important;
     font-size: 22px;
-    padding-left: 20px;
+    padding-left: 10px;
     line-height: 50px !important;
   }
 
