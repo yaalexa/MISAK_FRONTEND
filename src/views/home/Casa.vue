@@ -9,7 +9,7 @@
               <b-navbar variant="faded" type="light">
                 <b-navbar-brand href="/Casa">
                   <img
-                    src="@/assets/logo.png"
+                    src="@/assets/fondoo.jpg"
                     class="d-inline-block align-top"
                     height="50px"
                     width="50px"
@@ -25,18 +25,18 @@
               <b-nav class="ul" pills>
                 <b-nav-item>Inicio</b-nav-item>
                 <b-nav-item>Catalogos</b-nav-item>
-
+<!-- 
                 <b-nav-item-dropdown
                   id="my-nav-dropdown"
                   text="Coleciones"
                   toggle-class="nav-link-custom"
                   right
-                >
-                  <b-dropdown-item>One</b-dropdown-item>
+                > -->
+                 <!--  <b-dropdown-item>One</b-dropdown-item>
                   <b-dropdown-item>Two</b-dropdown-item>
                   <b-dropdown-divider></b-dropdown-divider>
                   <b-dropdown-item>Three</b-dropdown-item>
-                </b-nav-item-dropdown>
+                </b-nav-item-dropdown> -->
 
                 <b-nav-item>Contacto</b-nav-item>
                 <b-nav-item href="/casa">Ingresar|Registrar</b-nav-item>
@@ -50,7 +50,7 @@
       <div class="box">
         <div class="nav-biblo">
           <img
-            src="@/assets/logo.png"
+            src="@/assets/fondoo.jpg"
             alt="Biblioteca Virtual"
             height="100px"
             width="100px"

@@ -117,7 +117,7 @@ const routes = [
  
 {
   name: 'CrearEditorial',
-  path: '/CrearEdit',
+  path: '/CrearEditorial',
   component: CrearEditorial
 },
 {
@@ -198,7 +198,7 @@ component: MostrarTipoMaterial
 },
 {
   name: 'CrearAreas',
-  path: '/Crear',
+  path: '/CrearAreas',
   component: CrearAreas
 },
 {

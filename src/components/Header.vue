@@ -3,7 +3,7 @@
 <div class="nav-side-menu">
  
     <div class="brand"> 
-       <img src="@/assets/logo.png" id="icon" alt="User Icon" />
+       <img src="@/assets/fondoo.jpg" id="icon" alt="User Icon" />
     </div>
     <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
   
