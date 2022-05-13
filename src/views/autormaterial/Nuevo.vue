@@ -7,8 +7,8 @@
         </div>
         <div class="cara2">
             <section>
-                <h1>AUTORES</h1> 
-                <button class="btn btn-success" v-on:click="crear()" >Crear Autor</button>
+                <h1>AUTORES PARA ASIGNAR</h1> 
+                <a type="submit" @click="nuevaasignacion()" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Guardar</a>
                     <table class="table">
                         <thead>
                             <tr>
@@ -16,7 +16,7 @@
                             <th scope="col">Nombre</th>
                             <th scope="col">Dirrecion</th>
                             <th scope="col">Telefono</th>
-                            <th scope="col">Editar | Borrar</th>
+                            <th scope="col">Asignar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -26,12 +26,11 @@
                             <td>{{ Autores.address }}</td>
                             <td>{{ Autores.phone }}</td>
                             <td>
-                                <router-link :to='{name:"EditarAutores", params:{id:Autores.id}}' class="btn btn-info"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> Editar</router-link>
-                                <a type="button" @click="borrarAutores(Autores.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Borrar</a>
+                               <input type="checkbox" id="" :value="Autores.id" v-model="formData.author_id"> 
                             </td>
                             </tr>
                         </tbody>
-                </table>
+                    </table>
             </section>    
         </div>
     </div>
@@ -45,7 +44,11 @@ export default {
     name:"MostrarAutor",
     data(){
         return {
-            Autores:[]
+            Autores:[],
+            formData: {
+                author_id:[],
+                material_id:""
+            }          
         }
     },
     components:{
@@ -64,19 +67,33 @@ export default {
                 this.Autores = []
             })
         },
-        crear(){
-            
-                this.$router.push('/CrearAutor');
-            },
-        borrarAutores(id){
-            if(confirm("¿Confirma eliminar el registro?")){
-                this.axios.delete(`http://127.0.0.1:8000/api/authors/${id}`).then(response=>{
-                    this.mostrarAutores()
-                }).catch(error=>{
-                    console.log(error)
+        asignarAutores(id){
+            this.axios.post(`http://127.0.0.1:8000/api/author_materials/${this.$route.params.id},${id}`).then((data) => {
+            console.log(data);
+            this.makeToast("Hecho", "material creado", "success");
+            this.$router.push("/autormaterial");
+        })
+
+        },
+        nuevaasignacion() {
+            let formDataAutor = new FormData();
+            formDataAutor.append("material_id", this.$route.params.id);
+            formDataAutor.append("author_id", this.formData.author_id);
+            axios
+                .post("http://127.0.0.1:8000/api/author_materials", formDataAutor)
+                .then((data) => {
+                console.log(data);
+                this.alert("Hecho", "autor asignado creado", "success");
                 })
-            }
+                .catch((e) => {
+                console.log(e);
+                this.makeToast("Error", "Error al guardar", "error");
+                });
+                this.$router.push("/dashboard");
+
         }
+        
+        
     }
 }
 </script>
