@@ -7,28 +7,18 @@
         </div>
         <div class="cara2">
             <section>
+                <div class="contenedortabla">
                 <h1>Editorial</h1> 
                  <router-link :to='{name:"CrearEditorial"}' class="btn btn-success">Crear editorial</router-link>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Editorial</th>
-                            <th scope="col">Editar | Borrar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr  v-for="editorial in editorial" :key="editorial.id">
-                            <td>{{ editorial.id }}</td>
-                            <td>{{ editorial.name }}</td>
-                            <td>
-                                <router-link :to='{name:"EditarEditorial", params:{id:editorial.id}}' class="btn btn-info"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> Editar</router-link>
-                                <a type="button" @click="borrarEditorial(editorial.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Borrar</a>
-                            </td>
-                            </tr>
-                        </tbody>
-                </table>
-            </section>    
+                     <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"></b-pagination>
+                    <b-table id="my-table" :items="editorial" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table" :style="{ width:'80%' ,  }">
+                        <template #cell(Acciones)="row">
+                               <router-link :to='{name:"EditarEditorial", params:{id:row.item.id}}' class="btn btn-info"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> Editar</router-link>
+                                <a type="button" @click="borrarEditorial(row.item.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Borrar</a>
+                        </template>
+                    </b-table>
+                    </div>
+            </section> 
         </div>
     </div>
 </template>
@@ -40,13 +30,26 @@ import axios from 'axios';
 export default {
     name:"MostrarEditorial",
     data(){
+        
         return {
-            editorial:[]
+            perPage: 7, //numero de filas que va a tener por pagina
+            currentPage: 1,//donde va a iniciar la paginacion
+            editorial:[],
+             fields: [
+                {key: 'id', label: '#'},
+                {key: 'name', label: 'Nombre'},
+                "Acciones"
+                ]
         }
     },
     components:{
         Header,
       //  Footer
+    },
+    computed: {
+      rows() {
+        return this.editorial.length
+      }
     },
     mounted(){
         this.mostrarEditorial()
@@ -68,6 +71,9 @@ export default {
                     console.log(error)
                 })
             }
+        },
+        EditarEditorial(id){
+
         }
     }
 }
@@ -88,5 +94,19 @@ export default {
     .cara2{
         width: 80%;
         height: 100vh;
+         text-align: center;
+    }
+    .table thead{
+        background-color: #23282e;
+        text-align: center;
+        font-size: 14px;
+        background-image:url("@/assets/fondo.png") ;
+        opacity: 0.7;
+        color:white;
+    }
+    .contenedortabla{
+        width:80%;
+         text-align: center;
+         margin-left: 20%;
     }
 </style>

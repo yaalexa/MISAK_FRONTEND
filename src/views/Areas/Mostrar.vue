@@ -4,30 +4,21 @@
             <header>
                 <Header/>
             </header>
-        </div>
+    </div>
         <div class="cara2">
             <section>
+              <div class="contenedortabla">
                 <h1>Areas</h1> 
                  <router-link :to='{name:"CrearAreas"}' class="btn btn-success">Crear Areas</router-link>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Editar | Borrar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr  v-for="areas in areas" :key="areas.id">
-                            <td>{{ areas.id }}</td>
-                            <td>{{ areas.name }}</td>
-                            <td>
-                                <router-link :to='{name:"EditarAreas", params:{id:areas.id}}' class="btn btn-info"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> Editar</router-link>
-                                <a type="button" @click="borrarAreas(areas.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Borrar</a>
-                            </td>
-                            </tr>
-                        </tbody>
-                </table>
+                 <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"></b-pagination>
+                  <b-table id="my-table" :items="Areas" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table" :style="{ width:'80%' ,  }">
+                    <template #cell(Acciones)="row">
+                        <router-link :to='{name:"EditarAreas", params:{id:row.item.id}}' class="btn btn-info"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> Editar</router-link>
+                        <a type="button" @click="borrarAreas(row.item.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Borrar</a>
+                    </template>
+ 
+                  </b-table>
+              </div>
             </section>    
         </div>
     </div>
@@ -41,39 +32,55 @@ export default {
     name:"MostrarAreas",
     data(){
         return {
-            areas:[]
+            perPage: 7, //numero de filas que va  atener por pagina
+            currentPage: 1, //donde va a iniciar la paginacion
+            Areas:[],
+             fields: [
+                {key: 'id', label: '#',},
+                {key: 'name', label: 'Nombre'},
+                "Acciones"
+                ]
         }
     },
     components:{
         Header,
       //  Footer
     },
+    computed: {
+      rows() {
+        return this.Areas.length
+      }
+    },
     mounted(){
-        this.mostrarareas()
+        this.mostrarAreas()
     },
     methods:{
-        async mostrarareas(){
+        async mostrarAreas(){
             await this.axios.get('http://127.0.0.1:8000/api/areas').then(response=>{
-                this.areas = response.data
+                this.Areas = response.data
             }).catch(error=>{
                 console.log(error)
-                this.areas = []
+                this.Areas = []
             })
         },
-        borrarEditorial(id){
+        borrarAreas(id){
             if(confirm("¿Confirma eliminar el registro?")){
                 this.axios.delete(`http://127.0.0.1:8000/api/areas/${id}`).then(response=>{
-                    this.mostrarareas()
+                    this.mostrarAreas()
                 }).catch(error=>{
                     console.log(error)
                 })
             }
+        },
+        EditarAreas(id){
+
         }
     }
 }
 </script>
 
 <style>
+
     body{
         margin: 0%;
     }
@@ -88,5 +95,18 @@ export default {
     .cara2{
         width: 80%;
         height: 100vh;
+    }
+    .table thead{
+   background-color: #23282e;
+   text-align: center;
+   font-size: 14px;
+   background-image:url("@/assets/fondo.png") ;
+   opacity: 0.7;
+   color:white;
+    }
+    .contenedortabla{
+        width: 80%;
+        text-align: center;
+        margin-left: 20%;
     }
 </style>

@@ -74,7 +74,7 @@
                                     <button class="btn btn-secondary btn-sm" @click="editar(material.id)">-</button>-->
                                     <router-link :to='{name:"Editar", params:{id:material.id}}' class="btn btn-info"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> Editar</router-link>
                                 <a type="button" @click="borrar(material.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Borrar</a>
-                                 
+                                 <a type="button" @click="autormaterial(material.id, material.name)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Asignacion Autor</a>
                                 </td>
                                    
                     </tr>
@@ -121,8 +121,12 @@ export default {
                     console.log(error)
                 })
             }
-        }
-    
+        },
+          autormaterial(id, name){
+                //this.$router.push('/autormaterial/' +id);
+                this.$router.push({name: "autormaterial",params:{id: id, name: name}
+});
+            },
      
     },
     

@@ -64,7 +64,9 @@ import Casa from '../views/Home.vue';
 
 //ver pdf
 import Pdf from '../views/UsuarioU/Pdf';
-
+// daniel cruz
+import Autormaterial from '../views/autormaterial/Mostrar.vue';
+import AsignarAutores from '../views/autormaterial/Nuevo.vue';
 Vue.use(VueRouter)
 
 const routes = [{
@@ -256,6 +258,16 @@ component: MostrarAreas
     name: 'Pdf',
     path: '/Pdf',
     component: Pdf
+},
+{
+  name: 'autormaterial',
+  path: '/autormaterial/:id,:name',
+  component: Autormaterial
+},
+{
+  name: 'AsignarAutores',
+  path: '/AsignarAutores/:id',
+  component: AsignarAutores
 }
 
 ]
