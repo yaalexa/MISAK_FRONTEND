@@ -13,67 +13,106 @@
 </template>
 
 <script>
-import { Doughnut } from 'vue-chartjs/legacy'
+import { Doughnut } from "vue-chartjs/legacy";
 import {
   Chart as ChartJS,
   Title,
   Tooltip,
   Legend,
   ArcElement,
-  CategoryScale
-} from 'chart.js'
-ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale)
+  CategoryScale,
+} from "chart.js";
+ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
 export default {
-  name: 'DoughnutChart',
+  name: "DoughnutChart",
   components: {
-    Doughnut
+    Doughnut,
   },
   props: {
     chartId: {
       type: String,
-      default: 'doughnut-chart'
+      default: "doughnut-chart",
     },
     datasetIdKey: {
       type: String,
-      default: 'label'
+      default: "label",
     },
     width: {
       type: Number,
-      default: 400
+      default: 400,
     },
     height: {
       type: Number,
-      default: 400
+      default: 400,
     },
     cssClasses: {
-      default: '',
-      type: String
+      default: "",
+      type: String,
     },
     styles: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
     plugins: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
+  },
+  methods: {
+    mostrarReportei() {
+      this.axios
+        .get("http://127.0.0.1:8000/api/Reportes")
+        .then((response) => {
+          this.consumo = response.data;
+          // console.log(this.consumo);
+          this.graficar();
+        })
+        .catch((error) => {
+          console.log(error);
+          this.consumo = [];
+        });
+    },
+     graficar() {
+      for (let i of this.consumo) {
+        if (i.detalle_material == "descargas") {
+          this.descargas = this.descargas + 1;
+        }
+        if (i.detalle_material == "visualizacion") {
+          this.vistas = this.vistas + 1;
+        }
+      }
+      // eslint-disable
+      this. chartData= {
+        labels: ["Descargas", "Visualizacion"],
+        datasets: [
+          {
+            label: "grafica",
+            backgroundColor: ['#41B883', '#E46651'],
+            data: [this.descargas, this.vistas],
+          },
+        ],
+      },
+      console.log(this.descargas);
+      console.log(this.vistas);
+    },
+    
   },
   data() {
     return {
-      chartData: {
-        labels: ['VueJs', 'EmberJs', 'ReactJs', 'AngularJs'],
-        datasets: [
-          {
-            backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
-            data: [40, 20, 80, 10]
-          }
-        ]
-      },
+      // variables
+      consumo: "",
+      descargas: 0,
+      vistas: 0,
+      chartData:{},
+     
       chartOptions: {
         responsive: true,
-        maintainAspectRatio: false
-      }
-    }
-  }
-}
+        maintainAspectRatio: false,
+      },
+    };
+  },
+  mounted() {
+    this.mostrarReportei();
+  },
+};
 </script>
