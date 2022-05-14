@@ -9,14 +9,59 @@
             <section>
                 <div class="contenedortabla">
                 <h1>Editorial</h1> 
+
+<!--input buscador-->
+      <div class="input-group">
+       <input
+          type="text"
+          v-model="inputSearch"
+          class="form-control"
+          placeholder="Ingrese el nombre de la editorial " 
+          style="width : 400px; heigth : 400px"
+   />
+   <button
+          type="submit"
+          @click=" buscareditorial(inputSearch)"
+          v-on:click="errored=true"     
+          class="btn btn-success"
+        >
+          Buscar
+        </button>
+   </div>
+<!---fin de inpt buscador-->
+
                  <router-link :to='{name:"CrearEditorial"}' class="btn btn-success">Crear editorial</router-link>
-                     <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"></b-pagination>
+                 
+                 <!--para la tabla de buscador-->
+
+
+<div v-if="errored == true">
+ <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"  ></b-pagination>
+                    <b-table id="my-table" :items="buscarE" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table" :style="{ width:'80%' ,  }"  >
+                        <template #cell(acciones)="row">
+                            <router-link :to='{name:"EditarEditorial", params:{id:row.item.id}}' class="btn btn-info"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> Editar</router-link>
+                                <a type="button" @click="borrarEditorial(row.item.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Borrar</a>
+                        </template>
+                    </b-table>
+                    </div>
+
+                 <!-- fin de la tabla buscador-->
+
+
+
+
+
+                  <!--tabla de mostrar todos los editoriales-->
+                  <div  v-if="errored == false">
+                    <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"></b-pagination>
                     <b-table id="my-table" :items="editorial" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table" :style="{ width:'80%' ,  }">
                         <template #cell(Acciones)="row">
                                <router-link :to='{name:"EditarEditorial", params:{id:row.item.id}}' class="btn btn-info"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> Editar</router-link>
                                 <a type="button" @click="borrarEditorial(row.item.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Borrar</a>
                         </template>
                     </b-table>
+                    </div>
+                    <!--fin de tabla mostrar todos los editoriales-->
                     </div>
             </section> 
         </div>
@@ -35,11 +80,15 @@ export default {
             perPage: 7, //numero de filas que va a tener por pagina
             currentPage: 1,//donde va a iniciar la paginacion
             editorial:[],
+            buscarE:[],
              fields: [
                 {key: 'id', label: '#'},
                 {key: 'name', label: 'Nombre'},
                 "Acciones"
-                ]
+                ],
+                             errored:false,
+                   inputSearch: "",
+                   name:""
         }
     },
     components:{
@@ -53,6 +102,7 @@ export default {
     },
     mounted(){
         this.mostrarEditorial()
+        this.buscareditorial();
     },
     methods:{
         async mostrarEditorial(){
@@ -74,7 +124,21 @@ export default {
         },
         EditarEditorial(id){
 
-        }
+        },
+        //para el buscador de editorial
+        buscareditorial(name) {
+            
+      this.axios
+        .get("http://127.0.0.1:8000/api/editorials/" + name)
+        .then((response) => {
+        this.buscarE=response.data.material;
+        console.log(buscarE)
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
     }
 }
 </script>

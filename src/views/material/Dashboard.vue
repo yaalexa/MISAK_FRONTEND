@@ -17,6 +17,8 @@
                    
  
       </div>
+
+      <!--para el input de buscador-->
       <div class="input-group">
        <input
           type="text"
@@ -34,6 +36,8 @@
           Buscar
         </button>
    </div>
+
+   <!--fin de input buscador-->
                <div class="boton">
                            
                 <button class="btn btn-success" v-on:click="nuevo()" ><b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon></button>
@@ -55,10 +59,6 @@
 
 
 <!--fin del buscador-->
-
-
-
-
 
 
 <div v-if="errored == false">
@@ -98,6 +98,7 @@ export default {
              search: "",
              errored:false,
                    inputSearch: "",
+                   name:null
 
         }
     },
@@ -144,6 +145,19 @@ export default {
                 })
             }
         },
+                buscareditorial(name) {
+            
+      this.axios
+        .get("http://127.0.0.1:8000/api/editorials/" + name)
+        .then((response) => {
+        this.buscarE=response.data;
+        console.log(buscarE)
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
           autormaterial(id, name){
                 //this.$router.push('/autormaterial/' +id);
                 this.$router.push({name: "autormaterial",params:{id: id, name: name}

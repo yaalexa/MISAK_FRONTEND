@@ -9,7 +9,50 @@
             <section>
               <div class="contenedortabla">
                 <h1>Areas</h1> 
+
+<!--para el input de buscador-->
+      <div class="input-group">
+       <input
+          type="text"
+          v-model="inputSearch"
+          class="form-control"
+          placeholder="Ingrese el nombre del libro " 
+          style="width : 400px; heigth : 400px"
+   />
+   <button
+          type="submit"
+          @click="buscarAreas(inputSearch)"
+          v-on:click="errored=true"     
+          class="btn btn-success"
+        >
+          Buscar
+        </button>
+   </div>
+
+   <!--fin de input buscador-->
+
+<!--para la tabla de byscador-->
+
+              <div v-if="errored==true">
+                 <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"></b-pagination>
+                  <b-table id="my-table" :items="buscarA" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table" :style="{ width:'80%' ,  }">
+                    <template #cell(Acciones)="row">
+                        <router-link :to='{name:"EditarAreas", params:{id:row.item.id}}' class="btn btn-info"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> Editar</router-link>
+                        <a type="button" @click="borrarAreas(row.item.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Borrar</a>
+                    </template>
+ 
+                  </b-table>
+</div>
+
+<!--fin de la tabla buscador-->
+
                  <router-link :to='{name:"CrearAreas"}' class="btn btn-success">Crear Areas</router-link>
+                 
+
+
+
+                 <!--tabla mostrar todo areas-->
+                 <div v-if="errored==false">
                  <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"></b-pagination>
                   <b-table id="my-table" :items="Areas" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table" :style="{ width:'80%' ,  }">
                     <template #cell(Acciones)="row">
@@ -18,6 +61,8 @@
                     </template>
  
                   </b-table>
+</div>
+                  <!--fin de tabla momstrar todo areas-->
               </div>
             </section>    
         </div>
@@ -35,11 +80,15 @@ export default {
             perPage: 7, //numero de filas que va  atener por pagina
             currentPage: 1, //donde va a iniciar la paginacion
             Areas:[],
+            buscarA:[],
              fields: [
                 {key: 'id', label: '#',},
                 {key: 'name', label: 'Nombre'},
                 "Acciones"
-                ]
+                ],
+                            errored:false,
+                   inputSearch: "",
+                   name:null
         }
     },
     components:{
@@ -55,6 +104,19 @@ export default {
         this.mostrarAreas()
     },
     methods:{
+                        buscarAreas(name) {
+            
+      this.axios
+        .get("http://127.0.0.1:8000/api/areas/" + name)
+        .then((response) => {
+        this.buscarA=response.data.material;
+        console.log(buscarA)
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
         async mostrarAreas(){
             await this.axios.get('http://127.0.0.1:8000/api/areas').then(response=>{
                 this.Areas = response.data
