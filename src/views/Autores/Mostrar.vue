@@ -1,3 +1,4 @@
+/* //Cambios Zareth Gissella */
 <template>
     <div class="pantalla">
         <div class="cara1">
@@ -109,9 +110,4 @@ export default {
    opacity: 0.7;
    color:white;
     }
-   /*  .contendortabla{
-        width: 80%;
-        align-items: center;
-        margin-left: 20%;
-    } */
 </style>

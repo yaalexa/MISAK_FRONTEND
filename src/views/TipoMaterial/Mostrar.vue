@@ -1,3 +1,4 @@
+/* //Cambios Zareth Gissella */
 <template>
     <div class="pantalla">
         <div class="cara1">
@@ -99,5 +100,13 @@ export default {
      .tablas{
         margin-left: 100px;
         align-content: center;    
+    }
+     .table thead{
+  background-color: #23282e;
+  text-align: center;
+  font-size: 14px;
+  background-image:url("@/assets/fondo.png") ;
+   opacity: 0.7;
+   color:white;
     }
 </style>
