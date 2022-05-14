@@ -256,7 +256,7 @@ component: MostrarAreas
   },
   {
     name: 'Pdf',
-    path: '/Pdf',
+    path: '/Pdf/:id',
     component: Pdf
 },
 {

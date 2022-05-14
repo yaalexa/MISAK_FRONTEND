@@ -170,7 +170,7 @@ export default {
   },
   mounted:function(){
       this.form.materialid = this.$route.params.id;
-      axios.get("http://localhost:8000/api/materials/?id="+ this.form.materialid)
+      axios.get(`http://localhost:8000/api/materials/${this.form.materialid}`)
       .then( datos => {
         
         this.form.name = datos.data[0].name;
