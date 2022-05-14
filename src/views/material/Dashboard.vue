@@ -6,6 +6,8 @@
             </header>
         </div>
 
+
+
     <div class="cara2">
             <section>       
       <div class="izquierda">
@@ -15,68 +17,59 @@
                    
  
       </div>
- 
+      <div class="input-group">
+       <input
+          type="text"
+          v-model="inputSearch"
+          class="form-control"
+          placeholder="Ingrese el nombre del libro " 
+          style="width : 400px; heigth : 400px"
+   />
+   <button
+          type="submit"
+          @click="buscarmaterial(inputSearch)"
+          v-on:click="errored=true"     
+          class="btn btn-success"
+        >
+          Buscar
+        </button>
+   </div>
                <div class="boton">
+                           
                 <button class="btn btn-success" v-on:click="nuevo()" ><b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon></button>
-               </div>
-                <br><br>
-                <table class="table table-hover">
-                <thead>
-                    <tr>
-                                     <th>#</th>
-                                    <th>NOMBRE</th>
-                                    <th>ISB</th>
-                                    <th>AÑO</th>
-                                    <th>PAGINAS</th>
-                                    <!--
-                                    <th>priority</th>
-                                    <th>PDF</th>
-                                    <th>IMAGEN</th>-->
-                                    <!--
-                                    <th>material_users_id</th>
-                                    <th>type_material_id</th>
-                                    <th>author_books_id</th>
-                                    <th>editorial_id</th>
-                                    <th>area_id</th>
-                                    <th>material_educational_leves_id</th>-->
-                                    <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                        <tr v-for="material in material" :key="material.id">
-                                    <td>{{ material.id }}</td>
-                                    <td>{{ material.name }}</td>
-                                    <td>{{ material.isbn }}</td>
-                                    <td>{{ material.year }}</td>
-                                    <td>{{ material.num_pages }}</td>
-                                   <!--
-                                    <td>{{ material.priority }}</td> 
-                                    <td>{{ material.pdf }}</td>
-                                    <td>{{ material.img }}</td> -->
-                                     <!--
-                                    <td>{{ material.material_users_id }}</td>
-                                    <td>{{ material.type_material_id }}</td>
-                                    <td>{{ material.author_books_id }}</td>
-                                    <td>{{ material.editorial_id }}</td>
-                                    <td>{{ material.area_id }}</td>
-                                    <td>{{ material.material_educational_leves_id }}</td>-->
-                                     <td>
-                                    <!--
-                                    <button class="btn btn-primary btn-sm" @click="editar(material.id)">+</button>
-                                   
-                                    <button class="btn btn-secondary btn-sm" @click="editar(material.id)">-</button>-->
-                                    <router-link :to='{name:"Editar", params:{id:material.id}}' class="btn btn-primary"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> <b-icon icon="pencil" aria-hidden="true"></b-icon></router-link>
-                                <a type="button" @click="borrar(material.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon icon="trash-fill" aria-hidden="true"></b-icon></a>
-                                 <a type="button" @click="autormaterial(material.id, material.name)" class="btn btn-warning"><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon icon="person-check" aria-hidden="true"></b-icon></a>
-                                 
-                                </td>
-                                   
-                    </tr>
-                     
-                </tbody>
-                </table>
+            </div>
 
+<!-- para el buscardor-->
+<div v-if="errored == true">
+
+               <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"  ></b-pagination>
+                    <b-table id="my-table" :items="buscar" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table" :style="{ width:'80%' ,  }"  >
+                        <template #cell(acciones)="row">
+                            <router-link :to='{name:"editar", params:{id:row.item.id}}' class="btn btn-info"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> Editar</router-link>
+                                <a type="button" @click="borrar(row.item.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Borrar</a>
+                        </template>
+                    </b-table>
+                    </div>
+
+
+
+
+<!--fin del buscador-->
+
+
+
+
+
+
+<div v-if="errored == false">
+               <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"  ></b-pagination>
+                    <b-table id="my-table" :items="material" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table" :style="{ width:'80%' ,  }"  >
+                        <template #cell(acciones)="row">
+                            <router-link :to='{name:"editar", params:{id:row.item.id}}' class="btn btn-info"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> Editar</router-link>
+                                <a type="button" @click="borrar(row.item.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Borrar</a>
+                        </template>
+                    </b-table>
+                    </div>
            </div>
             </section>
  </div>
@@ -91,19 +84,53 @@ export default {
     name:"Dashboard",
     data(){
         return {
-            material:null,
+            perPage: 7,
+             currentPage:1,
+             material:[],
+             buscar:[],
+             fields: [
+                {key: 'id', label: '#',},
+                {key: 'name', label: 'Nombre'},
+                "acciones"
+                ],
             pagina:1,
             list : null,
-             search: ""
+             search: "",
+             errored:false,
+                   inputSearch: "",
+
         }
     },
     components:{
         Header,
       //  Footer
     },
+                computed: {
+            rows(){
+                return this.material.length
+      
+            }},
+                    mounted(){
+            this.mostarMateriales();
+        },
     methods:{
+                    buscarmaterial(name) {
+     
+      console.log(name);
+
+      this.axios
+        .get("http://127.0.0.1:8000/api/materials/" + name)
+        .then((response) => {
+        this.buscar=response.data.material;
+        console.log(this.buscar);
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
             editar(id){
-                this.$router.push('/editar/' + id);
+                this.$router.push('/editar:' + id);
             },
             nuevo(){
                 this.$router.push('/nuevo');
@@ -111,7 +138,7 @@ export default {
              borrar(id){
             if(confirm("¿Confirma eliminar el registro?")){
                 this.axios.delete(`http://127.0.0.1:8000/api/materials/${id}`).then(response=>{
-                     this.$router.push("/dashboard");
+                     this.mostarMateriales()
                 }).catch(error=>{
                     console.log(error)
                 })
@@ -122,16 +149,20 @@ export default {
                 this.$router.push({name: "autormaterial",params:{id: id, name: name}
 });
             },
+            async mostarMateriales(){
+              await this.axios.get('http://127.0.0.1:8000/api/materials/').then(response=>{
+                     this.material=response.data;
+                     console.log(material)
+                
+                }).catch(error=>{
+                    console.log(error)
+                })
+        
+    }
      
     },
     
-    mounted:function(){
-        let direccion = "http://localhost:8000/api/materials";
-        axios.get(direccion).then((result) => {
-        this.material = result.data;
-        });
-        
-    }
+
 
 
     
