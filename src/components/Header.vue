@@ -71,10 +71,19 @@
                 
           </li>
      </div>
+     
      <fieldset>
           <div class="contenedor">
             <table>
               <thead>
+                <tr>
+                  <input
+                    type="button"
+                    name="cerar"
+                    value="CERRAR SESION"
+                    v-on:click="cerrarTodo()"
+                  />
+                </tr>
                 <tr>
                   <td >Usuario: {{usuario.user.name}} Rol: {{rolName}}</td>
                 </tr>
@@ -104,12 +113,7 @@
             </table>
           </div>
         </fieldset> 
-        <input
-          type="button"
-          name="cerar"
-          value="CerrarSesion"
-          v-on:click="cerrarTodo()"
-        />
+        
    </div>
  </section>
 </template>
