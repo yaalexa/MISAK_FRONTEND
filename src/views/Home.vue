@@ -57,8 +57,17 @@ export default {
            if(data.data.status == "1"){
              sessionStorage.setItem('user', JSON.stringify(data.data.access_token));
              sessionStorage.setItem('userid', JSON.stringify(data.data.usr_id));
-            // localStorage.token = data.data.result.token;
-             this.$router.push('/welcome');
+             sessionStorage.setItem('rolid', JSON.stringify(data.data.rll_id));
+             var rol = JSON.parse(sessionStorage.getItem("rolid"));
+
+             if(rol==1){
+            
+                this.$router.push('/welcome');
+              }
+              else{
+                this.$router.push('/usuariou');
+              }
+
            }else{
              this.error = true;
              this.error_msg = data.data.result.error_msg;

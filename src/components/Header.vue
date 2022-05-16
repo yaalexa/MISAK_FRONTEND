@@ -156,11 +156,11 @@ export default {
           console.log("usuarioUsrrolid", this.usuario.user.rol_id);
 
           if(this.usuario.user.rol_id == 2){
-            this.administrador = true;
-            this.rolName ="Administrador";
-          }else{
             this.administrador = false;
             this.rolName ="Comunero";
+          }else{
+            this.administrador = true;
+            this.rolName ="Administrador";
           }
           console.log("usuarioName", this.rolName);
           
