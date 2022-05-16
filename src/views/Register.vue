@@ -279,6 +279,7 @@ export default {
        .then( data =>{
            if(data.data.status == "1"){
             // localStorage.token = data.data.result.token;
+          
              this.$router.push('/');
            }else{
              this.error = true;

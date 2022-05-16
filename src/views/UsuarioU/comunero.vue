@@ -14,6 +14,15 @@
       <div class="contenedor2">
        
       </div>
+      <div>
+          <b-nav small>
+            <b-nav-item active>Categoria</b-nav-item>
+            <b-nav-item>Autor</b-nav-item>
+            <b-nav-item>Tipo </b-nav-item>
+            <b-nav-item>Editorial </b-nav-item>
+            <b-nav-item disabled>Disabled</b-nav-item>
+          </b-nav>
+</div>
     </div>
 
     <div class="contenedor4">
@@ -21,10 +30,19 @@
       <input type="" name="" id="buscar" class="barra">
       <button class="boton">Buscar</button>
       
+
+    </div>
+    <div class="contenedor4">
+       <b-pagination v-model="currentPage" 
+       :total-rows="todos.length" 
+       :per-page="perPage" first-text="First" 
+       prev-text="Prev" next-text="Next" last-text="Last"></b-pagination>
     </div>
 
     <div class="contenedor3">
-      <div v-for="todo in todos" :key="todo.id" class="bloque2">
+       
+      <div v-for="todo in todos.slice((currentPage-1)*perPage,(currentPage-1)*perPage+perPage)" :key="todo.id" class="bloque2">
+      
         <div>
           <b-card
             img
@@ -34,7 +52,12 @@
             tag="articulo"
             style="max-width: 15rem"
             class="card"
+            
+            header-bg-variant="dark"
+            header-text-variant="white"
+            border-variant="dark"
           >
+          
             <img
               :src="`http://127.0.0.1:8000/storage/${todo.img}`"
               style="height: 200px; width: 200px"
@@ -49,11 +72,14 @@
               <h10> Prioridad: {{ todo.priority }}</h10
               ><br />
 
-              <button type="button" class="btn btn-dark margen" v-on:click="Ver(todo.id)">Ver</button>
+              <button type="button" class="btn btn-primary margen" v-on:click="Ver(todo.id)">Ver</button>
             </div>
           </b-card>
         </div>
+        
       </div>
+      <br>
+      
     </div>
 
 
@@ -69,6 +95,8 @@ import Header from "@/components/Header.vue";
 export default {
   data() {
     return {
+      perPage: 8,
+      currentPage: 1,
       todos: {
         img: "",
         name: "",
@@ -90,7 +118,12 @@ export default {
     this.getTodos();
     this.paginate(this.perPage, 0);
   },
-
+computed: {
+        rows() {
+          return this.todos.length
+        },
+        
+      },
 
   methods: {
      Ver(id){
@@ -110,6 +143,12 @@ export default {
 </script>
 
 <style scoped>
+page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #d71e1e;
+    border-color: #d30944;
+}
 .contenedor_todo {
   border: 1px solid black;
   background: #16223f;
@@ -130,6 +169,10 @@ export default {
   color: white;
   padding-left: 20px;
 }
+.title{
+  background: #16223f;
+  color: white;
+}
 .contenedor2 {
   /* border: 1px solid red; */
   padding-top: 10px;
@@ -142,7 +185,7 @@ export default {
 
 .contenedor4 {
   
-  margin: 100px;
+  margin: 30px;
   display: flex;
   justify-content: center;
 }
@@ -174,7 +217,7 @@ export default {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  margin: 30px;
+  margin: 20px;
 }
 .card {
   border: 1px solid black;

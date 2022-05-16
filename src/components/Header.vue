@@ -7,7 +7,7 @@
     </div>
     <br>
     <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
-    <div v-if="this.administrador">
+    <div >
         <div class="menu-list">
             <ul id="menu-content" class="menu-content collapse out">
                  <!--<li data-toggle="collapse" data-target="#new" class="collapsed">
@@ -57,18 +57,18 @@
                   <li data-toggle="collapse" data-target="#new" class="collapsed">
                   <router-link exact-active-class="active" to="/vistaReporte" class="nav-link" aria-current="page">REPORTES</router-link>
                 </li>
-                 <li data-toggle="collapse" data-target="#new" class="collapsed">
+                <!-- <li data-toggle="collapse" data-target="#new" class="collapsed">
                   <router-link exact-active-class="active" to="/usuarioU" class="nav-link" aria-current="page">COMUNERO</router-link>
-                </li>
+                </li>-->
                  </ul> 
                   </div>
       </div>   
-     <div v-else>
+    <!-- <div>
           <li data-toggle="collapse" data-target="#new" class="collapsed">
                 <router-link exact-active-class="active" to="/Welcome" class="nav-link" aria-current="page">Mi vista de usuario comunero</router-link>
 
           </li> 
-     </div>   
+     </div> -->  
      <fieldset >
       <div class="contenedor"> 
         <table>

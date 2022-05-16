@@ -115,7 +115,7 @@
 			            <select class="form-control" v-model="selected">
                                 <option v-for="rol in rol" v-bind:value="rol.id"> {{ rol.name }}
                                 </option>
-                                </select>
+                        </select>
                  
                   
 				 </div>
@@ -162,7 +162,7 @@ export default {
     }
   },
    mounted:function(){
-      
+     
          this.axios.get('http://localhost:8000/api/rols').then(response=>{
                 this.rol = response.data
             });

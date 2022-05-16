@@ -5,6 +5,8 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import VueAxios from 'vue-axios'
 import Axios from 'axios'
 import axios from 'axios'
+import VueSession from 'vue-session';
+Vue.use(VueSession)
 
 Vue.config.productionTip = true
 Vue.use(BootstrapVue);

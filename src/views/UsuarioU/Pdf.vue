@@ -31,7 +31,7 @@
         
       </div>
       <br>
-      <button type="button" class="btn btn-dark margen" v-on:click="descargar(todo.pdf)">Descargar</button>
+      <button type="button" class="btn btn-dark margen" v-on:click="downloadWithAxios('','material' )">Descargar</button>
        </section>
     </div>
 
@@ -42,7 +42,7 @@
 /* import func from 'vue-editor-bridge'; */
 import axios from "axios";
 import Header from "@/components/Header.vue";
-
+import {saveAs} from 'file-saver';
 export default {
   data() {
     return {
@@ -68,12 +68,32 @@ export default {
   },
 
   methods: {
-      descargar(id){
-          var iframe = document.createElement("iframe");
-          iframe.style.display = "none";
-          iframe.src =`http://127.0.0.1:8000/storage/${id}`
-          document.body.appendChild(iframe);
-      },
+     
+    downloadWithAxios(url, title) {
+     axios({
+              url: 'http://127.0.0.1:8000/storage/file/mmOpFZeOeGw7HznrRbSgjULSCC43healRfuHo8B8.pdf', // download file link goes here
+          method: 'GET',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded',
+  'Access-Control-Allow-Origin' :'*',
+'Access-Control-Allow-Credentials': true,
+  'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+  "X-Requested-With": "XMLHttpRequest",
+   'Connection': 'keep-alive',
+
+  },
+          responseType: 'blob', 
+        }).then((res) => {
+          var FILE = window.URL.createObjectURL(new Blob([res.data]));
+        
+          var docUrl = document.createElement('x');
+          docUrl.href = FILE;
+          docUrl.setAttribute('download', 'sample.pdf');
+          document.body.appendChild(docUrl);
+          docUrl.click();
+            });
+
+    },
+  
     getTodos() {
       axios
         .get(`http://127.0.0.1:8000/api/materials/${this.$route.params.id}`)
