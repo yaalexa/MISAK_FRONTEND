@@ -263,17 +263,36 @@ export default {
   },
   data: function(){
     return {
-         name:"",
-         full_name:"",
-         email:"",
-         password:"",
-         password_confirmation:"",
-         document_type:"", 
-         document_number:"",
-         certificate_misak:"",
-         rol_id:2
+            rol:null,
+            rolTmp:null,
+            selected:"",
+            form: {
+               name:"",
+               full_name:"",
+               email:"",
+               password:"",
+               password_confirmation:"",
+               document_type:"", 
+               document_number:"",
+               certificate_misak:"",
+               rol_id:""
+            } 
     }
+
   },
+  mounted:function(){
+      
+         this.axios.get('http://localhost:8000/api/rols').then(response=>{
+                this.rol = response.data
+            });
+            /* console.log("rolesito",this.rol); */
+            this.rol.splice(0,1);
+            this.rol = this.rol.shift();
+            this.rol.forEach(element => {
+                 console.log("element");
+            });
+        
+    },
   methods:{
     register(){
         let json = {
@@ -285,7 +304,7 @@ export default {
              "document_type":this.document_type,
              "document_number":this.document_number,
              "certificate_misak":this.certificate_misak,
-             "rol_id":2
+             "rol_id":this.selected,
         };
         axios.post('http://localhost:8000/api/register', json)
        .then( data =>{
