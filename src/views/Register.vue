@@ -91,9 +91,7 @@
 				     <div class="col-xs-4">
 		 	              <label class="pass">Certificado misak</label></div>
 				  <div class="col-xs-8">
-			             <input type="text" name="certificado misak" id="certificate_misak" v-model="certificate_misak" placeholder="Certificado misak" class="form-control">
-				             <br> 
-
+			             <input type="text" name="certificado misak" id="certificate_misak" v-model="certificate_misak" placeholder="Certificado misak" class="form-control"> 
                      </div>
                    </div>
 		  </div>
@@ -105,13 +103,14 @@
 			            <select class="form-control" v-model="selected">
                                 <option v-for="rol in rol" v-bind:value="rol.id"> {{ rol.name }}
                                 </option>
-                                </select>
+                           </select>
                           </div>
                 </div>
 		  </div>
             <div>
             <button type="button" class="btn btn-primary" v-on:click="register()">Registrarme</button>            
 	 </div> 
+      <br>
       </div>	 
       </form>
 		  
@@ -131,8 +130,8 @@
     box-shadow: 2px 5px 5px 0px #eee;
      max-width: 700px;
      padding-top: 10px;
-     height: 700px;
-     margin-top: 50px;
+     height: 800px;
+     margin-top: 25px;
      background-repeat:no-repeat;
 	 background-size:cover;
 }
@@ -283,14 +282,13 @@ export default {
   mounted:function(){
       
          this.axios.get('http://localhost:8000/api/rols').then(response=>{
-                this.rol = response.data
+                this.rol = response.data.slice(1,response.data.length);
+         
             });
-            /* console.log("rolesito",this.rol); */
-            this.rol.splice(0,1);
-            this.rol = this.rol.shift();
-            this.rol.forEach(element => {
-                 console.log("element");
-            });
+         
+
+            
+            
         
     },
   methods:{
