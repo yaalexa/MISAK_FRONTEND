@@ -15,35 +15,41 @@
       
         <h1>MATERIAL </h1> 
                    
- 
+        <br>
       </div>
-      <div class="input-group">
-       <input
-          type="text"
-          v-model="inputSearch"
-          class="form-control"
-          placeholder="Ingrese el nombre del libro " 
-          style="width : 400px; heigth : 400px"
-   />
-   <button
-          type="submit"
-          @click="buscarmaterial(inputSearch)"
-          v-on:click="errored=true"     
-          class="btn btn-success"
-        >
-          Buscar
+      
+               <div class="form-group left row" >
+                 <div class="control-label col-sm-5" style="text-align: left">         
+                <button class="btn btn-success" v-on:click="nuevo()" >Nuevo <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon></button>
+                </div> 
+                <div class="control-label col-sm-7" style="text-align: left">  
+                <div class="input-group" style="text-align: right">
+                
+                <input
+                        type="text"
+                        v-model="inputSearch"
+                        class="form-control"
+                        placeholder="Ingrese el nombre del libro " 
+                        style="width : 40px;"
+                />
+                <button
+                        type="submit"
+                        @click="buscarmaterial(inputSearch)"
+                        v-on:click="errored=true"     
+                        class="btn btn-success"
+                        >
+         <b-icon icon="search" aria-hidden="true"></b-icon>
         </button>
    </div>
-               <div class="boton">
-                           
-                <button class="btn btn-success" v-on:click="nuevo()" ><b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon></button>
+   <br>
+   </div>
             </div>
 
 <!-- para el buscardor-->
 <div v-if="errored == true">
 
-               <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"  ></b-pagination>
-                    <b-table id="my-table" :items="buscar" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table" :style="{ width:'80%' ,  }"  >
+              
+                    <b-table id="my-table" :items="buscar" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table"   >
                         <template #cell(acciones)="row">
                             <router-link :to='{name:"editar", params:{id:row.item.id}}' class="btn btn-info"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> Editar</router-link>
                                 <a type="button" @click="borrar(row.item.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Borrar</a>
@@ -62,8 +68,8 @@
 
 
 <div v-if="errored == false">
-               <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"  ></b-pagination>
-                    <b-table id="my-table" :items="material" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table" :style="{ width:'80%' ,  }"  >
+               
+                    <b-table id="my-table" :items="material" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table"   >
                         <template #cell(acciones)="row">
 
                             <router-link :to='{name:"Editar", params:{id:row.item.id}}' class="btn btn-primary"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> <b-icon icon="pencil" aria-hidden="true"></b-icon></router-link>
@@ -74,6 +80,7 @@
                         </template>
                     </b-table>
                     </div>
+                     <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"  ></b-pagination>
            </div>
             </section>
  </div>
@@ -95,6 +102,10 @@ export default {
              fields: [
                 {key: 'id', label: '#',},
                 {key: 'name', label: 'Nombre'},
+                {key: 'isbn', label: 'ISBN'},
+                {key: 'num_pages', label: '# Pag'},
+                {key: 'priority', label: 'Prioridad'},
+                {key: 'year', label: 'Año'},
                 "acciones"
                 ],
             pagina:1,
@@ -167,27 +178,32 @@ export default {
 }
 </script>
 <style  scoped>
-   
+  
    body{
         margin: 0%;
     }
     .pantalla{
         display: flex;
+         overflow:hidden;
     }
     .cara1{
         height: 100vh;
         width: 20%;
-        
+        overflow:hidden;
     }
     .cara2{
+        
         width: 80%;
         height: 100vh;
+        overflow:hidden;
     }
     .izquierda{
+        margin-top: 1%;
          text-align: center;
         width:70%;
         margin-left: 10%;
         align-content: center;
+        overflow:hidden;
     }
     .boton{
        text-align: left; 

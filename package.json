@@ -20,6 +20,7 @@
     "vue-chartjs": "^4.0.7",
     "vue-img-preview": "^1.1.1",
     "vue-jasper": "^1.0.10",
+    "vue-pdf-app": "^2.1.0",
     "vue-router": "^3.5.1",
     "vue-session": "^1.0.0",
     "vue-sidebar-menu-akahon": "^0.1.4",

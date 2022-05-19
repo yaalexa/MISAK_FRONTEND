@@ -185,7 +185,7 @@ export default {
     background: linear-gradient(to top, #16223f, 5%, #16223f);
   color: #e1ffff;
   background-image:url("@/assets/fondo.png") ;
-   opacity: 0.9;
+   
  
   height: 100vh;
   width: 100%;
