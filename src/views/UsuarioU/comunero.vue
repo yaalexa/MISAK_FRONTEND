@@ -106,6 +106,14 @@ export default {
         pdf: "",
         year: "",
       },
+      mtr_usr: {
+        manejo_users: "no se que va aqui",
+        detalle_material: "visualizado",
+        date_download: "2022-05-18 23:54:10",
+        material_id: "",
+        users_id: 5
+
+      },
      
     };
   },
@@ -127,7 +135,17 @@ computed: {
 
   methods: {
      Ver(id){
+            /* dateTime(this.mtr_usr.date_download); */
+            var usrid = JSON.parse(sessionStorage.getItem("userid"));
+            this.mtr_usr.users_id = usrid;
+            this.mtr_usr.material_id = id;
+            axios
+            .post("http://127.0.0.1:8000/api/material__users",this.mtr_usr)
+            .then(response => {
+              console.log(response)
+            });
             this.$router.push(`/Pdf/${id}`);
+
         },
     getTodos() {
       axios
