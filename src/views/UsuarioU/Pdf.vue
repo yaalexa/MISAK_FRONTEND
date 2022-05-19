@@ -31,7 +31,10 @@
         
       </div>
       <br>
-      <button type="button" class="btn btn-dark margen" v-on:click="downloadWithAxios('','material' )">Descargar</button>
+      <div v-if="todos.priority != 1">
+          <button type="button" class="btn btn-dark margen" v-on:click="downloadWithAxios('${this.$route.params.id}','','material' )">Descargar</button>  
+      </div>
+      
        </section>
     </div>
 
@@ -55,6 +58,14 @@ export default {
         pdf: "",
         year: "",
       },
+       mtr_usr: {
+        manejo_users: "no se que va aqui",
+        detalle_material: "descargado",
+        date_download: "2022-05-18 23:54:10",
+        /* date_download: Date.now(), */
+        material_id: "",
+        users_id: ""
+      },
       todos: null,
     };
   },
@@ -69,7 +80,16 @@ export default {
 
   methods: {
      
-    downloadWithAxios(url, title) {
+    downloadWithAxios(id,url, title) {
+            var usrid = JSON.parse(sessionStorage.getItem("userid"));
+            this.mtr_usr.users_id = usrid;
+            this.mtr_usr.material_id = id;
+            axios
+            .post("http://127.0.0.1:8000/api/material__users",this.mtr_usr)
+            .then(response => {
+              console.log(response)
+            });
+
      axios({
               url: 'http://127.0.0.1:8000/storage/file/mmOpFZeOeGw7HznrRbSgjULSCC43healRfuHo8B8.pdf', // download file link goes here
           method: 'GET',
@@ -81,6 +101,7 @@ export default {
    'Connection': 'keep-alive',
 
   },
+
           responseType: 'blob', 
         }).then((res) => {
           var FILE = window.URL.createObjectURL(new Blob([res.data]));
@@ -91,6 +112,7 @@ export default {
           document.body.appendChild(docUrl);
           docUrl.click();
             });
+
 
     },
   

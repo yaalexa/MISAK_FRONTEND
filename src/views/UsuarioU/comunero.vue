@@ -110,9 +110,9 @@ export default {
         manejo_users: "no se que va aqui",
         detalle_material: "visualizado",
         date_download: "2022-05-18 23:54:10",
+        /* date_download: Date.now(), */
         material_id: "",
-        users_id: 5
-
+        users_id: ""
       },
      
     };
@@ -130,12 +130,15 @@ computed: {
         rows() {
           return this.todos.length
         },
+        /* now: function () {
+         return Date.now()
+        } */
         
       },
 
   methods: {
-     Ver(id){
-            /* dateTime(this.mtr_usr.date_download); */
+     Ver(id){            
+            /* this.mtr_usr.date_download = Date.now(); */ 
             var usrid = JSON.parse(sessionStorage.getItem("userid"));
             this.mtr_usr.users_id = usrid;
             this.mtr_usr.material_id = id;
@@ -145,7 +148,6 @@ computed: {
               console.log(response)
             });
             this.$router.push(`/Pdf/${id}`);
-
         },
     getTodos() {
       axios
