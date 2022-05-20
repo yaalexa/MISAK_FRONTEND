@@ -15,23 +15,19 @@
         <h1 class="titulo">Libreria Virtual</h1>
       </div>
       <div class="contenedor2">
-       
       </div>
     </div>
-
     <div class="contenedor3">
           <section>
-     
- 
       <div class="archive" v-for="todo in todos" :key=todo.id>
-        
-          
           <iframe class="archive" :src="`http://127.0.0.1:8000/storage/${todo.pdf}`"></iframe>
-          
-        
+    <!-- <vue-pdf-app style="height: 100vh;" pdf="https://www.seducoahuila.gob.mx/leer/assets/cuentos-breves.pdf"
+           @after-created="afterCreatedHandler"
+           @open="openHandler"
+           @pages-rendered="pagesRenderedHandler"></vue-pdf-app>-->
       </div>
       <br>
-      <button type="button" class="btn btn-dark margen" v-on:click="downloadWithAxios('','material' )">Descargar</button>
+      <button type="button" class="btn btn-dark margen" v-on:click="downloadWithAxios( )">Descargar</button>
        </section>
     </div>
 
@@ -42,10 +38,15 @@
 /* import func from 'vue-editor-bridge'; */
 import axios from "axios";
 import Header from "@/components/Header.vue";
-import {saveAs} from 'file-saver';
+import VuePdfApp from "vue-pdf-app";
+import "vue-pdf-app/dist/icons/main.css";
+import Loader from "@/components/Loader.vue";
 export default {
   data() {
+    
     return {
+      name: "PdfjsInteraction",
+      info: [],
       todos: {
         img: "",
         name: "",
@@ -60,7 +61,17 @@ export default {
   },
 
   components: {
-    
+  
+    "vue-pdf-app": () => ({
+      component: new Promise((res) => {
+        return setTimeout(
+          () => res(import(/* webpackChunkName: "vue-pdf-app" */ "vue-pdf-app")),
+          4000
+        );
+      }),
+      loading: Loader,
+    }),
+  
   },
 
   mounted() {
@@ -68,17 +79,40 @@ export default {
   },
 
   methods: {
+      afterCreatedHandler(pdfApp) {
+      // to prevent browser tab title changing to pdf document name
+      pdfApp.isViewerEmbedded = true;
+    },
+    async openHandler(pdfApp) {
+      this.info = [];
+      const info = await pdfApp.pdfDocument
+        .getMetadata()
+        .catch(console.error.bind(console));
+      if (!info) return;
+      const props = Object.keys(info.info);
+      props.forEach((prop) => {
+        const obj = {
+          name: prop,
+          value: info.info[prop],
+        };
+        this.info.push(obj);
+      });
+    },
+    pagesRenderedHandler(pdfApp) {
+      setTimeout(() => (pdfApp.pdfViewer.currentScaleValue = "page-height"));
+    },
+  
      
-    downloadWithAxios(url, title) {
+    downloadWithAxios( ) {
      axios({
               url: 'http://127.0.0.1:8000/storage/file/mmOpFZeOeGw7HznrRbSgjULSCC43healRfuHo8B8.pdf', // download file link goes here
           method: 'GET',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded',
-  'Access-Control-Allow-Origin' :'*',
-'Access-Control-Allow-Credentials': true,
-  'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-  "X-Requested-With": "XMLHttpRequest",
-   'Connection': 'keep-alive',
+           'Access-Control-Allow-Origin' :'*',
+           'Access-Control-Allow-Credentials': true,
+           'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+           "X-Requested-With": "XMLHttpRequest",
+           'Connection': 'keep-alive',
 
   },
           responseType: 'blob', 

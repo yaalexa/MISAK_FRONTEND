@@ -12,7 +12,7 @@
         <h1 class="titulo">Libreria Virtual</h1>
       </div>
       <div class="contenedor2">
-       
+      
       </div>
       <div>
           <b-nav small>
@@ -38,7 +38,8 @@
        :per-page="perPage" first-text="First" 
        prev-text="Prev" next-text="Next" last-text="Last"></b-pagination>
     </div>
-
+    
+          
     <div class="contenedor3">
        
       <div v-for="todo in todos.slice((currentPage-1)*perPage,(currentPage-1)*perPage+perPage)" :key="todo.id" class="bloque2">
@@ -63,6 +64,7 @@
               style="height: 200px; width: 200px"
               accept="application/img"
             />
+          
             <div class="">
               <h1>{{ todo.name }}</h1>
               <h10>ISBN: {{ todo.isbn }}</h10

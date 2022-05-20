@@ -7,8 +7,6 @@
 	<div class="row ">
 	 <form action="" v-on:submit.prevent="register">
 
-	<div class="row ">
-		 
          <div class="col-sm-12">
 		     <div class="row">
 			     <div class="col-xs-4">
@@ -38,7 +36,7 @@
 		         </div>
 		     </div>
 		 </div>
-
+          
 
                                <div class="col-sm-12">
              <div class="row">
@@ -92,15 +90,28 @@
 		 	              <label class="pass">Certificado misak</label></div>
 				  <div class="col-xs-8">
 			             <input type="text" name="certificado misak" id="certificate_misak" v-model="certificate_misak" placeholder="Certificado misak" class="form-control">
-				             <br> 
+				             
 
                      </div>
           </div>
 		  </div>
+             <div class="col-sm-12">
+		      <div class="row">
+				     <div class="col-xs-4">
+		 	              <label class="firstname">Rol</label></div>
+				     <div class="col-xs-8">
+			            <select class="form-control" v-model="selected">
+                                <option v-for="rol in rol" v-bind:value="rol.id"> {{ rol.name }}
+                                </option>
+                           </select>
+                          </div>
+                </div>
+		  </div>
             <div>
+               <br>   
             <button type="button" class="btn btn-primary" v-on:click="register()">Registrarme</button>            
 	 </div> 
-      </div>	 
+   	 
       </form>
 		  
       </div>
@@ -119,7 +130,7 @@
     box-shadow: 2px 5px 5px 0px #eee;
      max-width: 700px;
      padding-top: 10px;
-     height: 700px;
+     height: 750px;
      margin-top: 50px;
      background-repeat:no-repeat;
 	 background-size:cover;
@@ -136,7 +147,7 @@ font-family: "Poppins", sans-serif;
 
 .new_conten{
 	 background-image:url("@/assets/Screenshot_2.png");
-  height: 100vh;
+      height: 100vh;
 	 background-repeat:no-repeat;
 	 background-size:cover;
 	 width:100%;
@@ -251,6 +262,10 @@ export default {
   },
   data: function(){
     return {
+         rol:null,
+         rolTmp:null,
+         selected:"",
+         form: {
          name:"",
          full_name:"",
          email:"",
@@ -259,9 +274,19 @@ export default {
          document_type:"", 
          document_number:"",
          certificate_misak:"",
-         rol_id:2
+         rol_id:""
+         }
     }
   },
+    mounted:function(){
+      
+            this.axios.get('http://localhost:8000/api/rols').then(response=>{
+                this.rol = response.data.slice(1,response.data.length);
+         
+            });
+         
+        
+    },
   methods:{
     register(){
         let json = {
@@ -273,7 +298,7 @@ export default {
              "document_type":this.document_type,
              "document_number":this.document_number,
              "certificate_misak":this.certificate_misak,
-             "rol_id":2
+             "rol_id":this.selected,
         };
         axios.post('http://localhost:8000/api/register', json)
        .then( data =>{

@@ -20,7 +20,7 @@
       
                <div class="form-group left row" >
                  <div class="control-label col-sm-5" style="text-align: left">         
-                <button class="btn btn-success" v-on:click="nuevo()" >Nuevo <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon></button>
+                <button class="btn btn-warning" v-on:click="nuevo()" >Nuevo <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon></button>
                 </div> 
                 <div class="control-label col-sm-7" style="text-align: left">  
                 <div class="input-group" style="text-align: right">
@@ -51,8 +51,11 @@
               
                     <b-table id="my-table" :items="buscar" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table"   >
                         <template #cell(acciones)="row">
-                            <router-link :to='{name:"editar", params:{id:row.item.id}}' class="btn btn-info"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> Editar</router-link>
-                                <a type="button" @click="borrar(row.item.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Borrar</a>
+                           <router-link :to='{name:"Editar", params:{id:row.item.id}}' class="btn btn-warning"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> <b-icon icon="pencil" aria-hidden="true"></b-icon></router-link>
+                                <a type="button" @click="borrar(row.item.id)" class="btn btn-secondary"><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon icon="trash-fill" aria-hidden="true"></b-icon></a>
+                                 <a type="button" @click="autormaterial(row.item.id, row.item.name)" class="btn btn-sucess" ><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon icon="person-check" aria-hidden="true" variant="secondary"></b-icon></a>
+                                 <a type="button" @click="educationallevel(row.item.id, row.item.name)" class="btn btn-sucess"><b-icon icon="bar-chart-fill" flip-h flip-v></b-icon></a>
+
                         </template>
                     </b-table>
                     </div>
@@ -72,10 +75,10 @@
                     <b-table id="my-table" :items="material" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table"   >
                         <template #cell(acciones)="row">
 
-                            <router-link :to='{name:"Editar", params:{id:row.item.id}}' class="btn btn-primary"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> <b-icon icon="pencil" aria-hidden="true"></b-icon></router-link>
-                                <a type="button" @click="borrar(row.item.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon icon="trash-fill" aria-hidden="true"></b-icon></a>
-                                 <a type="button" @click="autormaterial(row.item.id, row.item.name)" class="btn btn-warning"><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon icon="person-check" aria-hidden="true"></b-icon></a>
-
+                            <router-link :to='{name:"Editar", params:{id:row.item.id}}' class="btn btn-warning"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> <b-icon icon="pencil" aria-hidden="true"></b-icon></router-link>
+                                <a type="button" @click="borrar(row.item.id)" class="btn btn-secondary"><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon icon="trash-fill" aria-hidden="true"></b-icon></a>
+                                 <a type="button" @click="autormaterial(row.item.id, row.item.name)" class="btn btn-sucess"><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon icon="person-check" aria-hidden="true"></b-icon></a>
+                                 <a type="button" @click="educationallevel(row.item.id, row.item.name)" class="btn btn-sucess"><b-icon icon="bar-chart-fill" flip-h flip-v></b-icon></a>
                            
                         </template>
                     </b-table>
@@ -128,11 +131,14 @@ export default {
             this.mostarMateriales();
         },
     methods:{
-                    buscarmaterial(name) {
-     
+                educationallevel(id, name){
+                this.$router.push({name: "nivelmaterial",params:{id: id, name: name}
+                });
+                  },
+     buscarmaterial(name) {
       console.log(name);
       this.axios
-        .get("http://127.0.0.1:8000/api/materials/" + name)
+        .get("http://127.0.0.1:8000/api/buscar/" + name)
         .then((response) => {
         this.buscar=response.data.material;
         console.log(this.buscar);
