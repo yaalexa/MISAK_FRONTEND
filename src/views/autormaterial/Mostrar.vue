@@ -65,7 +65,6 @@ export default {
     methods:{
         crearautor(){
             this.$router.push(`/AsignarAutores/${this.$route.params.id}`);
-
         },
         borrarautorasignado(id){
             if(confirm("¿Confirma eliminar el registro?")){
@@ -78,7 +77,6 @@ export default {
             }
         }
     }
-
 }
 </script>
 

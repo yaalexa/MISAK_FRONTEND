@@ -5,7 +5,7 @@ import Home from '../views/home/Casa.vue'
 //import Home from '../views/Home.vue'
 import Register from '../views/Register.vue'
 import Dashboard from '../views/material/Dashboard.vue';
-import welcome from '../views/welcome.vue';
+import welcome from '../views/Library.vue';
 
 import Editar from '../views/material/Editar.vue';
 import Nuevo from '../views/material/Nuevo.vue';
@@ -62,9 +62,11 @@ import Doughnut from '@/components/charts/Doughnut.vue';
 
 import Casa from '../views/Home.vue';
 
+//ver pdf
+import Pdf from '../views/UsuarioU/Pdf';
+// daniel cruz
 import Autormaterial from '../views/autormaterial/Mostrar.vue';
 import AsignarAutores from '../views/autormaterial/Nuevo.vue';
-
 Vue.use(VueRouter)
 
 const routes = [{
@@ -117,153 +119,156 @@ const routes = [{
         name: 'Nuevo',
         component: Nuevo
     },
-
     {
-        name: 'CrearEditorial',
-        path: '/CrearEdit',
-        component: CrearEditorial
+      name: 'CrearEditorial',
+      path: '/CrearEdit',
+      component: CrearEditorial
     },
     {
-        name: 'EditarEditorial',
-        path: '/Editar/:id',
-        component: EditarEditorial
+    name: 'EditarEditorial',
+    path: '/Editar/:id',
+    component: EditarEditorial
     },
     {
-        name: 'MostrarEditorial',
-        path: '/Editorial',
-        component: MostrarEditorial
+    name: 'MostrarEditorial',
+    path: '/Editorial',
+    component: MostrarEditorial
     },
     {
-        name: 'CrearNivelEducativo',
-        path: '/CrearNivelEducativo',
-        component: CrearNivelEdicativo
+      name: 'CrearNivelEducativo',
+      path: '/CrearNivelEducativo',
+      component: CrearNivelEdicativo
     },
     {
-        name: 'EditarNivelEducativo',
-        path: '/Editar/:id',
-        component: EditarNivelEdicativo
+    name: 'EditarNivelEducativo',
+    path: '/Editar/:id',
+    component: EditarNivelEdicativo
     },
     {
-        name: 'MostrarNivelEducativo',
-        path: '/NivelEducativo',
-        component: MostrarNivelEdicativo
+    name: 'MostrarNivelEducativo',
+    path: '/NivelEducativo',
+    component: MostrarNivelEdicativo
     },
-
-    {
-        name: 'MostrarRol',
-        path: '/rol',
-        component: Mostrar
-    },
-    {
-        path: '/editarrol/:id',
-        name: 'EditarRol',
-        component: EditarRol
-    },
-    {
-        path: '/crearrol',
-        name: 'CrearRol',
-        component: CrearRol
-    },
-    {
-        path: '/rol2',
-        name: 'rol2',
-        component: Rol2
-    },
-    {
-        name: 'CrearAutor',
-        path: '/CrearAutor',
-        component: CrearAutores
-    },
-    {
-        name: 'EditarAutor',
-        path: '/Editar/:id',
-        component: EditarAutores
-    },
-    {
-        name: 'MostrarAutor',
-        path: '/Autores',
-        component: MostrarAutores
-    },
-    {
-        name: 'CrearTipoMaterial',
-        path: '/CrearTipoMaterial',
-        component: CrearTipoMaterial
-    },
-    {
-        name: 'EditarTipoMaterial',
-        path: '/EditarTipoMaterial/:id',
-        component: EditarTipoMaterial
-    },
-    {
-        name: 'MostrarTipoMaterial',
-        path: '/TipoMaterial',
-        component: MostrarTipoMaterial
-    },
-    {
-        name: 'CrearAreas',
-        path: '/Crear',
-        component: CrearAreas
-    },
-    {
-        name: 'EditarAreas',
-        path: '/Editar/:id',
-        component: EditarAreas
-    },
-    {
-        name: 'MostrarAreas',
-        path: '/Areas',
-        component: MostrarAreas
-    },
-    {
-        name: 'mostarUU',
-        path: '/UsuarioU',
-        component: mostarUU
-    },
-    {
-        name: 'VistaReporte',
-        path: '/vistaReporte',
-        component: Reportes
-    },
-    {
-        name: 'Descargas',
-        path: '/Descargas',
-        component: ReportesDescargas
-    },
-    {
-        name: 'Visualizacion',
-        path: '/Visualizacion',
-        component: ReportesVisualizacion
-    },
-    {
-        name: 'Grafica',
-        path: '/Grafica',
-        component: Bar
-    },
-    {
-        name: 'GraficaLinea',
-        path: '/GraficaLinea',
-        component: LineChartGenerator
-    },
-    {
-        name: 'Doughnut',
-        path: '/Doughnut',
-        component: Doughnut
-    },
-    {
-        name: 'Casa',
-        path: '/Casa',
-        component: Casa
-    },
-    {
-        name: 'autormaterial',
-        path: '/autormaterial/:id,:name',
-        component: Autormaterial
-    },
-    {
-        name: 'AsignarAutores',
-        path: '/AsignarAutores/:id',
-        component: AsignarAutores
-    }
+{
+  name: 'Mostrar',
+  path: '/mostrar',
+  component: Mostrar
+},
+{
+  path: '/editarrol/:id',
+  name: 'EditarRol',
+  component: EditarRol
+},
+{
+  path: '/crearrol',
+  name: 'CrearRol',
+  component: CrearRol
+},
+{
+  path: '/rol2',
+  name: 'rol2',
+  component: Rol2
+},
+{
+  name: 'CrearAutor',
+  path: '/CrearAutor',
+  component: CrearAutores
+},
+{
+  name: 'EditarAutor',
+  path: '/Editar/:id',
+  component: EditarAutores
+},
+{
+  name: 'MostrarAutor',
+  path: '/Autores',
+  component: MostrarAutores
+},
+{
+  name: 'CrearTipoMaterial',
+  path: '/CrearTipoMaterial',
+  component: CrearTipoMaterial
+},
+{
+name: 'EditarTipoMaterial',
+path: '/EditarTipoMaterial/:id',
+component: EditarTipoMaterial
+},
+{
+name: 'MostrarTipoMaterial',
+path: '/TipoMaterial',
+component: MostrarTipoMaterial
+},
+{
+  name: 'CrearAreas',
+  path: '/Crear',
+  component: CrearAreas
+},
+{
+name: 'EditarAreas',
+path: '/Editar/:id',
+component: EditarAreas
+},
+{
+name: 'MostrarAreas',
+path: '/Areas',
+component: MostrarAreas
+},
+{
+  name: 'mostarUU',
+  path: '/UsuarioU',
+  component: mostarUU
+  },
+  {
+    name: 'VistaReporte',
+    path: '/vistaReporte',
+    component: Reportes
+  },
+  {
+    name: 'Descargas',
+    path: '/Descargas',
+    component: ReportesDescargas
+  },
+  {
+    name: 'Visualizacion',
+    path: '/Visualizacion',
+    component: ReportesVisualizacion
+  },
+  {
+    name: 'Grafica',
+    path: '/Grafica',
+    component: Bar
+  },
+  {
+    name:'GraficaLinea',
+    path: '/GraficaLinea',
+    component: LineChartGenerator
+  },
+  {
+    name:'Doughnut',
+    path: '/Doughnut',
+    component: Doughnut
+  },
+  {
+    name:'Casa',
+    path:'/Casa',
+    component: Casa
+  },
+  {
+    name: 'Pdf',
+    path: '/Pdf/:id',
+    component: Pdf
+},
+{
+  name: 'autormaterial',
+  path: '/autormaterial/:id,:name',
+  component: Autormaterial
+},
+{
+  name: 'AsignarAutores',
+  path: '/AsignarAutores/:id',
+  component: AsignarAutores
+}
 
 ]
 

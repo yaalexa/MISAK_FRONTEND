@@ -5,13 +5,14 @@
     <div class="brand"> 
        <img src="@/assets/logo.png" id="icon" alt="User Icon" />
     </div>
+    <br>
     <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
-  
+    <div >
         <div class="menu-list">
             <ul id="menu-content" class="menu-content collapse out">
-                <li data-toggle="collapse" data-target="#new" class="collapsed">
+                 <!--<li data-toggle="collapse" data-target="#new" class="collapsed">
                 <router-link exact-active-class="active" to="/welcome" class="nav-link" aria-current="page">HOME</router-link>
-                </li>
+                </li>-->
                 <li data-toggle="collapse" data-target="#new" class="collapsed">
                 <router-link exact-active-class="active" to="/Library" class="nav-link" aria-current="page">BIBLIOTECA</router-link>
                 </li>
@@ -31,7 +32,7 @@
                    <router-link exact-active-class="active" to="/TipoMaterial" class="nav-link" aria-current="page">TIPO MATERIAL</router-link>
                
                 </li>  
-
+ 
               
                 
                    <li data-toggle="collapse" data-target="#new" class="collapsed">
@@ -42,68 +43,162 @@
                   <li data-toggle="collapse" data-target="#new" class="collapsed">
                   <router-link exact-active-class="active" to="/usuarios" class="nav-link" aria-current="page">USUARIOS</router-link>
                 </li>
-               <!-- <li data-toggle="collapse" data-target="#new" class="collapsed">
-                  <router-link exact-active-class="active" to="/rol" class="nav-link" aria-current="page"> ROLES </router-link>
-                </li>-->
+                  <li data-toggle="collapse" data-target="#new" class="collapsed">
+                  <router-link
+                    exact-active-class="active"
+                    to="/mostrar"
+                    class="nav-link"
+                    aria-current="page"
+                    >ROLES
+                  </router-link>
+              </li>
+              
                  <!--reportes-->
                   <li data-toggle="collapse" data-target="#new" class="collapsed">
                   <router-link exact-active-class="active" to="/vistaReporte" class="nav-link" aria-current="page">REPORTES</router-link>
                 </li>
-                 <li data-toggle="collapse" data-target="#new" class="collapsed">
+                <!-- <li data-toggle="collapse" data-target="#new" class="collapsed">
                   <router-link exact-active-class="active" to="/usuarioU" class="nav-link" aria-current="page">COMUNERO</router-link>
-                </li>
-                 </ul>  
-     </div>
+                </li>-->
+                 </ul> 
+                  </div>
+      </div>   
+    <!-- <div>
+          <li data-toggle="collapse" data-target="#new" class="collapsed">
+                <router-link exact-active-class="active" to="/Welcome" class="nav-link" aria-current="page">Mi vista de usuario comunero</router-link>
+
+          </li> 
+     </div> -->  
      <fieldset >
       <div class="contenedor"> 
         <table>
-            <thead>
-                  <tr>
-                      <td class="td">Tipo Usuario: {{}} </td>
-                  </tr>
-                  <tr>
-                     <td> <img src="@/assets/sena.png" id="icon" ></td> 
-                  </tr>
-                 
-            </thead>
-            <tbody>
-                  <td class="td"> Nombre: {{}} </td>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="7" class="centro">Servicio Nacional de Aprendizaje SENA</td>
+                   <tr>
+                  <td >Usuario: {{usuario.user.name}} Rol: {{rolName}}</td>
                 </tr>
-            </tfoot>
-        </table>
-      </div>
-    </fieldset> 
-</div>
-    </section>
-</template>
 
+                <tr>
+                  <td class="td">Servicio Nacional de Aprendizaje SENA</td>
+                </tr>
+                <tr>
+                  <td><img src="@/assets/sena.png" id="icon"></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="7" class="centro">
+                    Centro de Teleinformática y Producción Industrial
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="7" class="centro">CTPI-Popayán Alto Cauca</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <!-- <td class="td"> Servicio Nacional de Aprendizaje SENA </td>  -->
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </fieldset> 
+        <input
+          type="button"
+          name="cerar"
+          value="CerrarSesion"
+          v-on:click="cerrarTodo()"
+        />
+        
+   </div>
+ </section>
+</template>
+<script>
+import axios from "axios";
+export default {
+  name: "dashboard",
+  mounted() {
+    var obj = JSON.parse(sessionStorage.getItem("user"));
+    var usrid = JSON.parse(sessionStorage.getItem("userid"));
+    var rolusr2 = JSON.parse(sessionStorage.getItem("rolusr"));
+    this.obtenerUsuario(usrid);
+    
+  },
+  created() {},
+  data: function () {
+    return {
+      usuario: {
+        certificate_misak: "",
+        document_number: "",
+        document_type: "",
+        email: "",
+        email_verified_at: null,
+        full_name: "",
+        id: null,
+        name: "",
+        password: "",
+        rol_id: null,
+      },
+      administrador: false,
+      rolName: null,
+    };
+  },
+  methods: {
+    async obtenerUsuario(usrid) {
+      axios
+        .get("http://localhost:8000/api/users/"+usrid)
+        .then((response) => {
+          /* const {name} = response.data
+                this.rol.name = name */
+          this.usuario = response.data;
+          
+          console.log("usuarioDatos", this.usuario);
+          console.log("usuarioUsrrolid", this.usuario.user.rol_id);
+          if(this.usuario.user.rol_id == 2){
+            this.administrador = true;
+            this.rolName ="Administrador";
+          }else{
+            this.administrador = false;
+            this.rolName ="Comunero";
+          }
+          console.log("usuarioName", this.rolName);
+          
+        })
+        .catch((errore) => {
+          console.log(errore);
+        });
+          
+    },
+    async cerrarTodo(obj) {
+      if (confirm("¿Confirma cerrar sesión?")){
+        sessionStorage.clear();
+        this.$router.push("/casa");
+        }  
+      },     
+  },
+};
+</script>
 <style>
 .nav-side-menu {
   overflow: auto;
   font-family: verdana;
   font-size: 12px;
   font-weight: 200;
-  background-color: #2e353d;
+    background: linear-gradient(to top, #16223f, 5%, #16223f);
   color: #e1ffff;
   background-image:url("@/assets/fondo.png") ;
-   opacity: 0.7;
+   
  
   height: 100vh;
   width: 100%;
 }
 .nav-side-menu .brand {
-  background-color: #23282e;
+  background-color: #335d91;
   line-height: 50px;
   
   width: 100%;
   text-align: center;
   font-size: 14px;
   background-image:url("@/assets/fondo.png") ;
-   opacity: 0.7;
+   opacity: 0.9;
 }
 .nav-side-menu .toggle-btn {
   display: none;
@@ -203,9 +298,9 @@
     text-align: center;
   }
   .brand {
-    text-align: left !important;
+    text-align: center !important;
     font-size: 22px;
-    padding-left: 20px;
+    padding-left: 10px;
     line-height: 50px !important;
   }
 

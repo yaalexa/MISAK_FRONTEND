@@ -37,7 +37,7 @@
                   <b-dropdown-divider></b-dropdown-divider>
                   <b-dropdown-item>Three</b-dropdown-item>
                 </b-nav-item-dropdown>
-
+ 
                 <b-nav-item>Contacto</b-nav-item>
                 <b-nav-item href="/casa">Ingresar|Registrar</b-nav-item>
               </b-nav>

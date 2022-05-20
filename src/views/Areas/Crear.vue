@@ -8,15 +8,17 @@
         </div>
         <div class="cara2">
             <section>
+                
                 <form @submit.prevent="crear">
                     <div>
-                        <h1>Crear Nuevo Areas</h1>
-                        <label for="">name: </label>
+                        <h1>Crear Area</h1>
+                        <label for="">Nombre:  </label>
                         <input type="text" v-model="areas.name">
                         <br><br>
                     </div>
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary">Guardar</button>
+                           <a type="button" @click="salir()" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Salir</a>
                     </div>    
                 </form>    
             </section>
@@ -44,13 +46,24 @@ export default {
       //  Footer
     },
     methods:{
+        salir(){
+        this.$router.push("/Areas");
+      },
         async crear(){
             await this.axios.post('http://127.0.0.1:8000/api/areas',this.areas).then(response=>{
                 this.$router.push({name:"MostrarAreas"})
             }).catch(error=>{
                 console.log(error)
             })
-        }
+        },
+       
     }
 }
 </script>
+<style scoped>
+  .cara2{
+      margin-top: 5%;
+     
+        overflow: hidden;
+    }
+</style>

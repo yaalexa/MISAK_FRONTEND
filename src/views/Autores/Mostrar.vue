@@ -6,32 +6,40 @@
             </header>
         </div>
         <div class="cara2">
-            <section>
+            <section class="contenedorautor">
                 <h1>AUTORES</h1> 
-                <button class="btn btn-success" v-on:click="crear()" >Crear Autor</button>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Dirrecion</th>
-                            <th scope="col">Telefono</th>
-                            <th scope="col">Editar | Borrar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr  v-for="Autores in Autores" :key="Autores.id">
-                            <td>{{ Autores.id }}</td>
-                            <td>{{ Autores.name }}</td>
-                            <td>{{ Autores.address }}</td>
-                            <td>{{ Autores.phone }}</td>
-                            <td>
-                                <router-link :to='{name:"EditarAutores", params:{id:Autores.id}}' class="btn btn-info"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> Editar</router-link>
-                                <a type="button" @click="borrarAutores(Autores.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Borrar</a>
-                            </td>
-                            </tr>
-                        </tbody>
-                </table>
+               
+                    <div class="form-group left row" >
+                 <div class="control-label col-sm-5" style="text-align: left">  
+                 <b-button  v-on:click="crear()" class="btn btn-warning">Nuevo
+                 <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon></b-button>       
+
+                </div> 
+                <div class="control-label col-sm-7" style="text-align: left">  
+                <div class="input-group" style="text-align: right">
+                
+                        <b-form-input
+                        v-model="filter"
+                        type="search"
+                        placeholder="Buscar Autores"
+                        > </b-form-input>
+                
+       
+   </div>
+   <br>
+   </div>
+            </div>
+
+                <b-table :filter="filter" id="my-table" :items="Autores" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table">
+                    <template #cell(Acciones)="row">
+                              <router-link :to='{name:"EditarAutor", params:{id:row.item.id}}' class="btn btn-warning"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> <b-icon icon="pencil" aria-hidden="true"></b-icon></router-link>
+                            <a type="button" @click="borrarAutores(row.item.id)" class="btn btn-secondary"><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon icon="trash-fill" aria-hidden="true"></b-icon></a>
+                       
+                    </template>
+ 
+                  </b-table>
+                   <b-pagination align="center" v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"></b-pagination>
+              
             </section>    
         </div>
     </div>
@@ -45,12 +53,28 @@ export default {
     name:"MostrarAutor",
     data(){
         return {
-            Autores:[]
+            fields: [
+                {key: 'id', label: '#',},
+                {key: 'name', label: 'Nombre'},
+                {key: 'phone', label: 'Telefono'},
+                {key: 'address', label: 'Direccion'},
+                "Acciones"
+                ],
+            Autores:[],
+            filter:null,
+            perPage: 7, //numero de filas que va  atener por pagina
+            currentPage: 1, //donde va a iniciar la paginacion
         }
+        
     },
     components:{
         Header,
       //  Footer
+    },
+    computed: {
+      rows() {
+        return this.Autores.length
+      }
     },
     mounted(){
         this.mostrarAutores()
@@ -65,7 +89,6 @@ export default {
             })
         },
         crear(){
-            
                 this.$router.push('/CrearAutor');
             },
         borrarAutores(id){
@@ -94,7 +117,8 @@ export default {
         
     }
     .cara2{
-        width: 80%;
-        height: 100vh;
+        overflow: auto;
+    height: 100vh;
+      width: 70%;
     }
 </style>

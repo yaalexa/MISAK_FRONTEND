@@ -9,20 +9,45 @@
         </div>
         <div class="cara2">
             <form @submit.prevent="actualizar">
-                <div>
+                <div class="contenedorautor">
                     <section>
                         <h1>Editar Autor</h1>
-                        <label for="">Nivel Educativo: </label>
-                        <input type="text" v-model="Autor.name">
-                        <label for="">Autor: </label>
-                        <input type="text" v-model="Autor.address">
-                        <label for="">Autor: </label>
-                        <input type="text" v-model="Autor.phone">
-                        <br><br>
+                         <div class="col-sm-12">
+		     <div class="row">
+			     <div class="col-xs-4">
+                     <label class="lastname">Nombre Completo:</label>
+                     </div>
+				<div class ="col-xs-8">	 
+		             <input type="text" name="lname" id="full_name" v-model="Autor.name"  class="form-control last">
+                </div>
+		     </div>
+		 </div>
+
+                    <div class="col-sm-12">
+             <div class="row">
+			     <div class="col-xs-4">
+          	         <label class="firstname">Direccion :</label> </div>
+		         <div class="col-xs-8">
+		             <input type="text" name="fname" id="name" v-model="Autor.address"  class="form-control ">
+             </div>
+		      </div>
+		 </div>
+               <div class="col-sm-12">
+             <div class="row">
+			     <div class="col-xs-4">
+          	         <label class="firstname">Telefono :</label> </div>
+		         <div class="col-xs-8">
+		             <input type="text" name="fname" id="name" v-model="Autor.phone"  class="form-control ">
+             </div>
+		      </div>
+		 </div>
+    
+                      
                     </section>
                 </div>   
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                <div class="botonautor">
+                    <button type="submit" class="btn btn-warning">Guardar</button>
+                    <button type="button" class="btn btn-secondary" v-on:click="salir()"  >  Salir  </button>
                 </div>  
             </form>        
 
@@ -56,16 +81,22 @@ export default {
         this.mostrarAutor()
     },
     methods:{
+        salir(){
+           this.$router.push({name:"MostrarAutor"})
+        },
         async mostrarAutor(){
-            await this.axios.get(`http://127.0.0.1:8000/api/authors/${this.$route.params.id}`).then(response=>{
-                const { name} = response.data
-                this.Autor.name = name
-              
-            }).catch(error=>{
-                console.log(error)
-            })
+        
+        axios.get("http://localhost:8000/api/authors/?id="+ this.$route.params.id)
+       .then( datos => {
+        
+        this.Autor.name = datos.data[0].name;
+         this.Autor.address = datos.data[0].address;
+         this.Autor.phone = datos.data[0].phone;
+        
+        })
         },
         async actualizar(){
+            
             await this.axios.put(`http://127.0.0.1:8000/api/authors/${this.$route.params.id}`,this.Autor).then(response=>{
                 this.$router.push({name:"MostrarAutor"})
             }).catch(error=>{
@@ -75,3 +106,32 @@ export default {
     }
 }
 </script>
+<style>
+    body{
+        margin: 0%;
+    }
+    .pantalla{
+        display: flex;
+    }
+    .cara1{
+        height: 100vh;
+        width: 20%;
+        
+    }
+    .cara2{
+        overflow: auto;
+    height: 100vh;
+      width: 80%;
+    
+    }
+     .contenedorautor{
+      margin-top: 3%;
+      width: 70%;
+      display: block;
+      margin-left: 10%;
+      
+    }
+    .botonautor{
+        margin:5%;
+    }
+</style>

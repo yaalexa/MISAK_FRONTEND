@@ -73,7 +73,6 @@ export default {
             this.makeToast("Hecho", "material creado", "success");
             this.$router.push("/autormaterial");
         })
-
         },
         nuevaasignacion() {
             let formDataAutor = new FormData();
@@ -90,7 +89,6 @@ export default {
                 this.makeToast("Error", "Error al guardar", "error");
                 });
                 this.$router.push("/dashboard");
-
         }
         
         

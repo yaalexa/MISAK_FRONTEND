@@ -76,7 +76,7 @@
           </div>
         </div>
       </div>
-
+ 
       <div class="form-group left row">
         <div class="col">
           <label for="" class="control-label col-sm-5">EDITORIAL</label>
@@ -178,9 +178,7 @@ export default {
   data: function () {
 
     return {
-    TipoMaterial:null,
-    editorial:null,
-    areas:null,
+    
      selected:"",
       formData: {
         name: "",
@@ -190,7 +188,9 @@ export default {
         priority: "",
         pdf: "",
         img: "",
-       
+        editorial:"",
+        areas:"",
+        TipoMaterial:""
       },
     };
   },
@@ -258,8 +258,9 @@ export default {
       formDataDataCambiar.append("priority", this.formData.priority);
       formDataDataCambiar.append("pdf", this.formData.pdf);
       formDataDataCambiar.append("img", this.formData.img);
-      formDataDataCambiar.append("editorial_id", this.formData.editorial_id),
-      formDataDataCambiar.append("area_id", this.formData.area_id);
+      formDataDataCambiar.append("editorial_id", this.formData.editorial),
+      formDataDataCambiar.append("area_id", this.formData.areas);
+      formDataDataCambiar.append("type_material_id", this.formData.TipoMaterial);
 
       axios
         .post("http://127.0.0.1:8000/api/materials", formDataDataCambiar)

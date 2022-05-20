@@ -1,13 +1,17 @@
 <template>
  <div class="pantalla">
+ 
         <div class="cara1">
+           
             <header>
                 <Header/>
             </header>
         </div>
         <div class="cara2">
+           
           <section>
       <b-container fluid class="">
+       
   <b-row>
     <b-col>
       <b-img  fluid :src="imagem" alt="Image 1" class="text-center"></b-img>
@@ -47,6 +51,7 @@
 </template>
 <script>
 import Header from '@/components/Header.vue';
+import Menu from '@/components/Menu.vue';
 import imagem from "@/assets/material.png";
 import imagee from "@/assets/Editorial.png";
 import imagea from "@/assets/autor.png";
@@ -70,6 +75,7 @@ export default {
     },
     components:{
         Header,
+         Menu,
       //  Footer
     },
  

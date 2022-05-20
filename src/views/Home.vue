@@ -32,11 +32,12 @@
 
 <script>
 import axios from 'axios';
+import VueSession from 'vue-session';
 
 export default {
   name: 'Login',
   components: {
-
+ VueSession
   },
   data: function(){
     return {
@@ -55,8 +56,19 @@ export default {
        .then( data =>{
          console.log(data.data.status)
            if(data.data.status == "1"){
+               this.$session.start()
+               this.$session.set('sactum', data.data.access_token)
+               this.$session.set('useridd', data.data.usr_id)
+               this.$session.set('rol_id', data.data.rol_id)
+             sessionStorage.setItem('user', JSON.stringify(data.data.access_token));
+             sessionStorage.setItem('userid', JSON.stringify(data.data.usr_id));
             // localStorage.token = data.data.result.token;
+            if( data.data.rol_id==1){
              this.$router.push('/welcome');
+             }
+             else{
+               this.$router.push('/usuarioU');
+             }
            }else{
              this.error = true;
              this.error_msg = data.data.result.error_msg;

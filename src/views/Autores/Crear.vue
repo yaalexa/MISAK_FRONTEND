@@ -9,19 +9,47 @@
         <div class="cara2">
             <section>
                 <form @submit.prevent="crear">
-                    <div>
-                        <h1>Crear Autores</h1>
-                        <label for="">name: </label>
-                        <input type="text" v-model="Autor.name">
-                        <label for="">address: </label>
-                        <input type="text" v-model="Autor.address">
-                        <label for="">phone: </label>
-                        <input type="text" v-model="Autor.phone">
-                        <br><br>
-                    </div>
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                    </div>    
+                    
+                      <div class="contenedorautor">
+                    <section>
+                        <h1>Crear Autor</h1>
+                         <div class="col-sm-12">
+		     <div class="row">
+			     <div class="col-xs-4">
+                     <label class="lastname">Nombre Completo:</label>
+                     </div>
+				<div class ="col-xs-8">	 
+		             <input type="text" name="nombre" id="nombre" placeholder="Ingrese Nombre Completo" v-model="Autor.name"  class="form-control last">
+                </div>
+		     </div>
+		 </div>
+
+                    <div class="col-sm-12">
+             <div class="row">
+			     <div class="col-xs-4">
+          	         <label class="firstname">Direccion :</label> </div>
+		         <div class="col-xs-8">
+		             <input type="text" name="fname" id="name" placeholder="Ingrese Direccion"  v-model="Autor.address"  class="form-control ">
+             </div>
+		      </div>
+		 </div>
+               <div class="col-sm-12">
+             <div class="row">
+			     <div class="col-xs-4">
+          	         <label class="firstname">Telefono :</label> </div>
+		         <div class="col-xs-8">
+		             <input type="text" name="fname" id="name" placeholder="Ingrese Telefono"  v-model="Autor.phone"  class="form-control ">
+             </div>
+		      </div>
+		 </div>
+    
+                      
+                    </section>
+                </div>   
+                <div class="botonautor">
+                    <button type="submit" class="btn btn-warning">Guardar</button>
+                    <button type="button" class="btn btn-secondary" v-on:click="salir()"  >  Salir  </button>
+                </div>    
                 </form>    
             </section>
 
@@ -56,7 +84,10 @@ export default {
             }).catch(error=>{
                 console.log(error)
             })
-        }
+        },
+        salir(){
+           this.$router.push({name:"MostrarAutor"})
+        },
     }
 }
 </script>

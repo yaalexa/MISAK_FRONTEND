@@ -79,7 +79,7 @@ export default {
   },
   mounted:function(){
       this.form.areasid= this.$route.params.id;
-      axios.get("http://localhost:8000/api/areas/?id="+ this.form.areasid)
+      axios.get(`http://localhost:8000/api/areas/${this.form.areasid}`)
       .then( datos => {
         
         this.form.name = datos.data[0].name;
@@ -108,6 +108,7 @@ export default {
         height: 100vh;
     }
     .izquierda{
+      margin-top: 5%;
         text-align: left;
         width: 50%;
     }
