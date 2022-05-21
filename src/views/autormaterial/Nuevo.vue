@@ -7,8 +7,10 @@
         </div>
         <div class="cara2">
             <section>
-                <h1>AUTORES PARA ASIGNAR</h1> 
-                <a type="submit" @click="nuevaasignacion()" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Guardar</a>
+                <h1>ASIGNAR  AUTORES</h1> 
+                <a type="submit" @click="nuevaasignacion()" class="btnguardar"><!-- <font-awesome-icon icon="fa-solid fa-trash-can" /> -->Guardar</a>
+                <br>
+                <br>
                     <table class="table">
                         <thead>
                             <tr>
@@ -109,7 +111,21 @@ export default {
         
     }
     .cara2{
-        width: 80%;
-        height: 100vh;
+        width: 50%;
+        text-align: center;
+        margin:100px;
+        height: 80vh;
+    }
+    .btnguardar{
+        background-color: #ffca2c;
+        border-color: #ffc720;
+        border-radius: 5px;
+        color: black; 
+        text-decoration: none;
+        font-size: 18px;
+        text-align: center;
+        width: 90px;
+        height: 40px;
+    
     }
 </style>

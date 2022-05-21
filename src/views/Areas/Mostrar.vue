@@ -7,8 +7,8 @@
     </div>
         <div class="cara2">
             <section>
-              <div class="contenedortabla">
                 <h1>Areas</h1> 
+                 <div class="contenedortabla">
                  <router-link :to='{name:"CrearAreas"}' class="btn btn-success">Crear Areas</router-link>
                  <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"></b-pagination>
                   <b-table id="my-table" :items="Areas" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table" :style="{ width:'80%' ,  }">

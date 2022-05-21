@@ -6,30 +6,19 @@
             </header>
         </div>
         <div class="cara2">
-            <section>
-                <h1>ASIGNACION AUTOR</h1> 
-                <label for="" class="control-label col-sm-2">NOMBRE MATERIAL</label>
-                <input type="text" id="nombrematerial" name="nombrematerial" v-model="nombrematerial" disabled=isDisabled>
-                <a type="button" @click="crearautor()" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Asignar Autor</a>
-                 <table class="table">
-                        <thead>
-                            <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Borrar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr  v-for="Author_material in Author_material" :key="Author_material.id">
-                            <td>{{ Author_material.id }}</td>
-                            <td>{{ Author_material.name }}</td>
-                            <td>
-                               <!-- <router-link :to='{name:"EditarEditorial", params:{id:authors.id}}' class="btn btn-info"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> Editar</router-link> -->
-                                <a type="button" @click="borrarautorasignado(Author_material.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Borrar</a>
-                            </td>
-                            </tr>
-                        </tbody>
-                </table>
+            <section class_="contenedor">
+              <div class="contenedortabla">
+                <h1>ASIGNAR AUTOR</h1> 
+                 <router-link :to='{name:"AsignarAutores"}' class="btn btn-success">Crear Autor-Material</router-link>
+                 <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"></b-pagination>
+                  <b-table id="my-table" :items="Autormaterial" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table" :style="{ width:'80%' ,  }">
+                    <template #cell(Acciones)="row">
+                        <router-link :to='{name:"Autormaterial", params:{id:row.item.id}}' class="btn btn-info"><font-awesome-icon icon="fa-solid fa-pen-to-square" />Asignar Autor</router-link>
+                        <a type="button" @click="borrarAsignacion(row.item.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Borrar</a>
+                    </template>
+ 
+                  </b-table>
+              </div>
             </section>    
         </div>
     </div>
@@ -41,13 +30,20 @@ import Footer from '@/components/Footer.vue';
 import axios from 'axios'; 
 export default {
     
-    name:"MostrarAutoresmaterial",
+    name:"MostrarAutormaterial",
     data(){
         return {
-            Author_material:null,
-            Autores:null,
-            nombrematerial:null,
+              perPage: 7, //numero de filas que va  atener por pagina
+            currentPage: 1, //donde va a iniciar la paginacion
+            Autormaterial:[],
+             fields: [
+                {key: 'id', label: '#',},
+                {key: 'material_id', label: 'Material'},
+                {key: 'author_id', label:'Autor'},
+                "Acciones"
+                ]
         }
+        
     },
     components:{
         Header,
@@ -81,6 +77,7 @@ export default {
 </script>
 
 <style>
+
     body{
         margin: 0%;
     }
@@ -95,5 +92,18 @@ export default {
     .cara2{
         width: 80%;
         height: 100vh;
+    }
+    .table thead{
+   background-color: #23282e;
+   text-align: center;
+   font-size: 14px;
+   background-image:url("@/assets/fondo.png") ;
+   opacity: 0.7;
+   color:white;
+    }
+    .contenedortabla{
+        width: 80%;
+        text-align: center;
+        margin-left: 20%;
     }
 </style>

@@ -106,14 +106,14 @@
 		         <div class="row">
 				     <div class="col-xs-4">
 		 	              <label class="pass">Rol</label></div>
-				  <div class="col-xs-8">
-			            <select class="form-control" v-model="selected">
-                                <option v-for="rol in rol" v-bind:value="rol.id"> {{ rol.name }}
+<!-- 				  <div class="col-xs-8">
+			            <select class="form-control" v-model="selected"
+                        ><option v-for="rol in rol" v-bind:value="rol.id"> {{ rol.name }}
                                 </option>
                                 </select>
                  
                   
-				 </div>
+				 </div> -->
           </div>
 		  </div>
          

@@ -1,62 +1,31 @@
 <template>
- <div class="pantalla">
-        <div class="cara1">
+    <div class="pantalla">
+        <div class="cara3">
             <header>
                 <Header/>
             </header>
         </div>
-        <div class="cara2">
-        <section>
-        <h1>USUARIOS </h1> 
         
-        <input type="text" v-model="buscar" class="form-control" placeholder="Ingrese el documento de la persona a buscar "/>
-
- 
-
-        <button class="btn btn-primary" v-on:click="Buscar()" >Buscar</button>
-        <button class="btn btn-primary" v-on:click="unuevo()" >Registrar nuevo usuario</button>
-
-        <!--<button class="btn btn-primary" v-on:click="errored=true">Mostrar todo</button>-->
-        <br><br>
-        <div class="container izquierda" >
-                <table class="table table-hover">
-                <thead>
-                    <tr>
-                                     <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Nombre</th>
-                                    <th>Email</th>
-                                    <th>Tipo Documento</th>
-                                    <th># Documento</th>
-                                    <th>Codigo Misak</th>
-                                     <th>Acciones</th>
-
-
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                        <tr v-for="usuarios in usuarios" :key="usuarios.id">
-                                    <td>{{ usuarios.id }}</td>
-                                    <td>{{ usuarios.name }}</td>
-                                    <td>{{ usuarios.full_name }}</td>
-                                    <td>{{ usuarios.email}}</td>                                    
-                                    <td>{{ usuarios.document_type}}</td>
-                                    <td>{{ usuarios.document_number}}</td>
-                                    <td>{{usuarios.certificate_misak}}</td>
-                                     <td>
-                                 <button class="btn btn-primary" v-on:click="actualizar(usuarios.id)" >Editar</button>
-                                <a type="button" @click="borrar(usuarios.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Borrar</a>
-                                </td>
-                    </tr>
-                     
-                </tbody>
-                </table>
-
-</div>
-</section>
-</div>
+          <div class="cara2">      
+                        <section>
+                    <h1>USUARIOS</h1>  
+                    <div class="contenedortabla">
+                 <router-link :to='{name:"unnuevo"}' class="btn btn-success">Crear Usuario</router-link>
+                 <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"></b-pagination>
+                  <b-table id="my-table" :items="Usuarios" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table" :style="{ width:'80%' ,  }">
+                    <template #cell(Acciones)="row">
+                        <router-link :to='{name:"actualizarUsuario", params:{id:row.item.id}}' class="btn btn-info"><font-awesome-icon icon="fa-solid fa-pen-to-square" />Editar Usuario</router-link>
+                        <a type="button" @click="borrarUsuario(row.item.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Borrar</a>
+                        
+                    </template>
+                 
+                  </b-table>
+        </div>        
+    </section>
     </div>
+</div>
+
+
 </template>
 <script>
 //importamos axios
@@ -64,6 +33,27 @@ import Header from '@/components/Header.vue'
 import axios from 'axios'
 export default {
     name:'Usuarios',
+      data(){
+        return {
+            perPage: 7, //numero de filas que va  atener por pagina
+            currentPage: 1, //donde va a iniciar la paginacion
+            Usuarios:[],
+             fields: [
+                {key: 'id', label: '#',},
+                {key: 'name', label: 'Nombre'},
+                {key: 'full name', label: 'Nombre completo'},
+                {key: 'document_type', label: 'Tipo de documento'},
+                {key: 'document_number', label: 'Número de documento'},
+                {key: 'certificate_misak', label: 'Certificado Misak'},
+                {key: 'email', label: 'Email'},
+                {key: 'email_verified_at', label: 'Confirma tu Email'},
+                {key: 'pdf', label: 'Pdf'},
+                {key: 'img', label: 'Imagen'},
+
+                "Acciones"
+                ]
+        }
+    },
       components:{
     Header,
     //Footer
@@ -135,6 +125,11 @@ export default {
     .izquierda{
         text-align: left;
         width: 80%;
+    }
+      .contenedortabla{
+        width: 80%;
+        text-align: center;
+        margin-left: 20%;
     }
    
 </style>

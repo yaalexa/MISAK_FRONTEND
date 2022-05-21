@@ -1,4 +1,4 @@
-<template>
+   <template>
     <div class="pantalla">
         <div class="cara1">
             <header>
@@ -6,90 +6,55 @@
             </header>
         </div>
 
-    <div class="cara2">
-            <section>
-                    <h1> Roles </h1>
-                 
-                 <form  class="form-horizontal">
-                     <div class="form-group row">
-                        <label for="" class="control-label"> Nuevo rol </label>
-
-                        <div class="col-sm-4">
-                            <!-- <input type="text" class="form-control"   v-model="form.name" placeholder="Ejemplo: Admin"> -->
-                        </div>
-                        
-
-                        <div class="col-sm-4">
-                            <button type="button" class="btn btn-primary" v-on:click="crearRol()"> Crear </button>
-                           <!-- <router-link :to='{name:"CrearRol",params:{name:form.name}}' class="btn btn-info"><i class="fas fa-edit"> Crear </i></router-link> -->
-                        </div>
-                    </div>
-                 </form> 
-                  <div class="form-group left">
+ <div class="cara2">      
+                        <section>
+                    <h1>ROLES </h1>  
+                    <div class="contenedortabla">
+                 <router-link :to='{name:"CrearRol"}' class="btn btn-success">Crear Rol</router-link>
+                 <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"></b-pagination>
+                  <b-table id="my-table" :items="Rol" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table" :style="{ width:'80%' ,  }">
+                    <template #cell(Acciones)="row">
+                        <router-link :to='{name:"EditarRol", params:{id:row.item.id}}' class="btn btn-info"><font-awesome-icon icon="fa-solid fa-pen-to-square" />Editar</router-link>
+                        <a type="button" @click="borrarRol(row.item.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Borrar</a>
                        
-                      <button type="button" class="btn btn-dark margen" v-on:click="salir()"  > Salir </button>
-                 </div>
-                    <br>
-                    <div class="form-group">
-                      <!-- <button type="button" class="btn btn-primary" v-on:click="guardar()" > Buscar </button>
-                      <button type="button" class="btn btn-dark margen" v-on:click="salir()"  > Salir </button> -->
-                      <div class="col-12 mb-2" >
-                            <!-- llamamos al componente para Crear rol  -->
-                            <!-- <router-link :to='{name:"mostrar"}' class="btn btn-success"><i class="fas fa-plus-circle"> Mostrar Roles</i></router-link> -->
-                       </div>
-                    </div>
-
-                    <br>
-                    
-                    <div class="col-12">             
-                       <div class="table-responsive">
-                          <table class="table table-bordered">
-                             <thead class="bg-primary text-white">
-                                <tr>
-                                   <th>ID</th>
-                                   <th>Nombre</th>
-                                   <th>Accion</th>
-                                </tr>
-                             </thead>
-                             <tbody>
-                                <tr v-for="rol in rol" :key="rol.id">
-                                   <td>{{ rol.id }}</td>
-                                   <td>{{ rol.name }}</td>
-                                   <td>
-                                       <!-- llamamos al componente para Editar     -->
-                                       <router-link :to='{name:"EditarRol",params:{id:rol.id}}' class="btn btn-info"><i class="fas fa-edit"> editar </i></router-link>
-                                        <a type="button" @click="borrarRol(rol.id)" class="btn btn-danger"><i class="fas fa-trash">eliminar</i></a>
-                                    </td>
-                                </tr>
-                             </tbody>
-                                
-                            </table>
-                        </div>                          
-                    </div>   
-            
-        <!-- <Footer /> -->
+                    </template>
+                 
+                  </b-table>
+        </div> 
+      <!--   <section>       
+       <div class="control-label-col-sm-7" style="text-alingn:left">
+           <div class="input group" style="text-alingn:right">
+               <b-form-input
+               v-model="filter"
+               type="search"
+               placeholder="Buscar"></b-form-input>
+               </div>
+               </section> -->
+                             
 </section>
     </div>  
     </div>
+       
 </template>
 <script scope>
-import Header from '@/components/Header.vue'
-import CrearRol from '@/views/Rol/CrearRol.vue'
-//import Footer from '@/components/Footer.vue'
+
+import Header from '@/components/Header.vue';
+import Footer from '@/components/Footer.vue';
 import axios from 'axios';
 export default {
     name:"MostrarRol",
-    
-    
+       
     data:function(){
         return {
-            
-            rol:[
-             
-            ], 
-            form:{
-             "name" : ""
-            }
+
+            perPage: 7, //numero de filas que va  atener por pagina
+            currentPage: 1, //donde va a iniciar la paginacion
+            Rol:[],
+             fields: [
+                {key: 'id', label: '#',},
+                {key: 'name', label: 'Nombre'},
+                "Acciones"
+                ],
         }
     },
     
@@ -98,6 +63,11 @@ export default {
           CrearRol,
         //Footer
     },
+     computed: {
+      rows() {
+        return this.rol.length
+      }
+     },
     mounted(){
         this.mostrarRol()
     },
@@ -107,24 +77,12 @@ export default {
                 this.rol = response.data
             }).catch(error=>{
                 console.log(error)
+                 this.rol= []
             })
         },
-        buscar(){
-            this.emailAbuscar.find('email.rol').then(response=>{
-                this.rol = response.data
-            }).catch(error=>{
-                console.log(error)
-            })
-        },
-        async actualizar(){
-            /* await this.axios.put(`/api/editorial/${this.$route.params.id}`,this.editorial).then(response=>{
-                this.$router.push({name:"mostrarEditorial"})
-            }).catch(error=>{
-                console.log(error)
-            }) */
-        },
+
         async crearRol(){
-             this.$router.push("/crearrol");
+             this.$router.push("/CrearRol");
         },
         borrarRol(id){
             if(confirm("¿Confirma eliminar el registro?")){
@@ -136,13 +94,25 @@ export default {
             }
         },
 
-        guardar(){
-            
-
+        nuevoRol() {
+            let formDataRol = new FormData();
+            formDataRol.append("rol_id", this.$route.params.id);
+            formDataRol.append("name", this.formData.name);
+            axios
+                .post("http://127.0.0.1:8000/api/rols", formDataRol)
+                .then((data) => {
+                console.log(data);
+                this.alert("Hecho", "Rol creado", "success");
+                })
+                .catch((e) => {
+                console.log(e);
+                this.makeToast("Error", "Error al guardar", "error");
+                });
+                this.$router.push("/dashboard");
         },
         
         salir(){
-            this.$router.push("/welcome");
+            this.$router.push("/Header");
         },
 
 
@@ -184,5 +154,24 @@ export default {
     .cara2{
         width: 80%;
         height: 100vh;
+    }
+      .table thead{
+   background-color: #23282e;
+   text-align: center;
+   font-size: 14px;
+   background-image:url("@/assets/fondo.png") ;
+   opacity: 0.7;
+   color:white;
+    }
+    .contenedortabla{
+        width: 80%;
+        text-align: center;
+        margin-left: 20%;
+        border-radius: 5px;
+        color: black; 
+        text-decoration: none;
+        font-size: 18px;
+        text-align: center;
+    
     }
 </style>

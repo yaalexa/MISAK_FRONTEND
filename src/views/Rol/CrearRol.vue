@@ -7,31 +7,23 @@
         </div>
 
     <div class="cara2">
-            <section>     
-        <form @submit.prevent="guardar" class="form-horizontal">
-            <div class="form-group row">
+            <section>
                 
-                 <label for="" class="control-label"> Creando rol </label>
-                 <div class="col-sm-4">
-                      <input type="text" class="form-control" v-model="form.name" placeholder="nombre del rol" >
-                 </div>
-                 <div class="col-sm-4">
-                      <button type="submit" class="btn btn-primary">Guardar</button>
-                      
-                 </div>
-            </div>                          
-        </form>
-        <div class="form-group left">
-             <button type="button" class="btn btn-dark margen" v-on:click="salir()"  > Salir </button>
-        </div>
-        <br>
-                
-           
- 
- 
+                 <label for="" class="crearrol"> CREAR ROL </label>
+                 <br>
+                 <br>
+              
+                      <input type="text" class="namerol" v-model="form.name" placeholder="Nombre del rol" >
+                   <br>
+                 <br>
+              
+                      <button type="submit" class="btng">Guardar</button>
+                    
+             <button type="button" class="btnsalir" v-on:click="salir()"  > Salir </button>
   </section>
-   </div>
-  </div>  
+    </div>
+  </div>
+
 </template>
 
 <script>
@@ -92,4 +84,46 @@ export default {
     text-align: left;
     width: 50%;
 }
+  .crearrol{
+        background-color: rgba(38, 119, 38, 0.87);
+        border-color:  rgba(38, 119, 38, 0.87);
+        border-radius: 5px;
+        color: white; 
+        text-decoration: none;
+        font-size: 18px;
+        text-align: center;
+        width: 100px;
+        height: 60px;
+    
+    }
+    .namerol{
+        border-radius: 5px;
+        width: 350px;
+        height: 50px;
+        text-decoration: none;
+    }
+    .btng{
+        margin-left: 10px;
+        background-color:rgb(0, 140, 255);
+        border-color:rgb(0, 174, 255);
+        border-radius: 5px;
+        color: white; 
+        text-decoration: none;
+        font-size: 18px;
+        text-align: center;
+        width: 90px;
+        height: 40px;
+    }
+    .btnsalir{
+        margin-left: 10px;
+        background-color: rgb(240, 39, 39);
+        border-color:rgb(214, 39, 39);
+        border-radius: 5px;
+        color: white; 
+        text-decoration: none;
+        font-size: 18px;
+        text-align: center;
+        width: 90px;
+        height: 40px;
+    }
 </style>
