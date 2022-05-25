@@ -1,6 +1,6 @@
 <template>
     <div class="cara2">
-
+      <Menu1/>
       <section>
           <div class="archive" v-for="todo in todos" :key=todo.id>
               <iframe class="archive" :src="`http://127.0.0.1:8000/storage/${todo.pdf}`"></iframe>
@@ -15,7 +15,7 @@
 <script>
 /* import func from 'vue-editor-bridge'; */
 import axios from "axios";
-import Header from "@/components/Header.vue";
+import Menu1 from "@/components/Menu1.vue";
 import {saveAs} from 'file-saver';
 export default {
   data() {
@@ -34,7 +34,7 @@ export default {
   },
 
   components: {
-    
+    Menu1
   },
 
   mounted() {
@@ -89,10 +89,13 @@ export default {
     width: 100%;
 }
 .archive{
-  margin-top: -20px;
-    width: 70vw;
-    height: 50vw;
+  margin-top:20px;
+    width: 99vw;
+    height: 100vw;
     display: inline-block;
+}
+section{
+  background-color:  #323639;
 }
 
 </style>
