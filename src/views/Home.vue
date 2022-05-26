@@ -21,7 +21,7 @@
                 <router-link class="fadeIn fourth" to="/Register">Registrate</router-link> 
                 <button type="button" class="btn btn-secondary" v-on:click="salir()"  >  Salir  </button><br> <br>
                 <!-- Remind Passowrd -->
-                <div class="alert alert-danger" role="alert" v-if="error">
+                <div class="alert alert-danger" role="alert" v-if="error">hj
                    {{error_msg}}
                 </div>
 
