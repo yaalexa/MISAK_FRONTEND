@@ -1,40 +1,31 @@
 <template>
-    <div class="cara2">
+  <div>
       <Menu1/>
-      <section>
-          <div class="archive" v-for="todo in todos" :key=todo.id>
-              <iframe class="archive" :src="`http://127.0.0.1:8000/storage/${todo.pdf}`"></iframe>
-          </div>
-          <br>
-          <button type="button" class="btn btn-dark margen" v-on:click="downloadWithAxios('','material' )">Descargar</button>
-       </section>
-    </div>
-
+      <section class="cont">
+        <div class="archive" >
+          <b-embed class="archive" frameborder="0" v-bind:src="this.pdfsrc+'#toolbar=0'"  />
+        </div>
+        <br><br>
+        <button type="button" class="btn btn-dark margen" v-on:click="downloadWithAxios( )">Descargar</button>
+      </section>
+  </div>
 </template>
 
 <script>
-/* import func from 'vue-editor-bridge'; */
 import axios from "axios";
 import Menu1 from "@/components/Menu1.vue";
-import {saveAs} from 'file-saver';
 export default {
   data() {
+    
     return {
-      todos: {
-        img: "",
-        name: "",
-        isbn: "",
-        num_pages: "",
-        priority: "",
-        pdf: "",
-        year: "",
-      },
-      todos: null,
+    
+      descargara:null,
+      pdfsrc:null
     };
   },
 
   components: {
-    Menu1
+      Menu1,
   },
 
   mounted() {
@@ -42,38 +33,32 @@ export default {
   },
 
   methods: {
-     
-    downloadWithAxios(url, title) {
-     axios({
-              url: 'http://127.0.0.1:8000/storage/file/mmOpFZeOeGw7HznrRbSgjULSCC43healRfuHo8B8.pdf', // download file link goes here
-          method: 'GET',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded',
-  'Access-Control-Allow-Origin' :'*',
-'Access-Control-Allow-Credentials': true,
-  'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-  "X-Requested-With": "XMLHttpRequest",
-   'Connection': 'keep-alive',
-
-  },
-          responseType: 'blob', 
-        }).then((res) => {
-          var FILE = window.URL.createObjectURL(new Blob([res.data]));
-        
-          var docUrl = document.createElement('x');
-          docUrl.href = FILE;
-          docUrl.setAttribute('download', 'sample.pdf');
-          document.body.appendChild(docUrl);
-          docUrl.click();
-            });
-
-    },
+    
+    downloadWithAxios( ) {
+      axios({
+      url: `http://127.0.0.1:8000/api/download/${this.$route.params.id}`,
+      method: 'GET',
+      responseType: 'blob',
+      }).then((response) => {
+     var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+     this.descargara=response.data;
+     var fileLink = document.createElement('a');
+     fileLink.href = fileURL;
+     fileLink.setAttribute('download', 'file.pdf');
+     document.body.appendChild(fileLink);
+     fileLink.click();
+        });
+   },
   
-    getTodos() {
-      axios
-        .get(`http://127.0.0.1:8000/api/materials/${this.$route.params.id}`)
+   async getTodos() {
+     await axios
+        .get(`http://127.0.0.1:8000/api/download/${this.$route.params.id}`,{responseType: 'arraybuffer'  })
         .then((response) => {
-          this.todos = response.data;
-          console.log("hola", this.todos);
+          var fileURL = window.URL.createObjectURL(new Blob([response.data],{ 'type': 'application/pdf' }));
+          var fileLink = document.createElement('a');
+           fileLink.href = fileURL;
+            fileLink.setAttribute('download', 'file.pdf');
+           this.pdfsrc= document.body.appendChild(fileLink)
         })
         .catch((errorgrave) => console.log(errorgrave));
     },
@@ -85,17 +70,15 @@ export default {
 </script>
 
 <style scoped>
-.cara2{
-    width: 100%;
+.cont{
+  justify-content: center;
 }
+
 .archive{
-  margin-top:20px;
-    width: 99vw;
-    height: 100vw;
+  margin: 3vw;
+    width: 80vw;
+    height: 50vw;
     display: inline-block;
-}
-section{
-  background-color:  #323639;
 }
 
 </style>

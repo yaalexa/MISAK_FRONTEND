@@ -12,7 +12,7 @@
         </div>
         <div>
           <b-nav  class="menu">
-            <b-nav-item>INICIO</b-nav-item>
+            <b-nav-item><router-link to="/UsuarioU">INICIO</router-link></b-nav-item>
             <b-nav-item>NOSOTROS</b-nav-item>
             <b-nav-item>CULTURA</b-nav-item>
           </b-nav>
@@ -27,9 +27,9 @@
   display: flex;
   justify-content: space-between;
   align-content: center;
-  position: absolute;
   align-items: center;
   width: 100vw;
+  position: fixed;
   
 }
 .contenedor1 {
@@ -45,11 +45,12 @@
   padding-left: 20px;
 }
 .menu a:hover {
-    background: #e20c0c;
-    color: rgb(8, 0, 0);
+    background: linear-gradient(to top, rgb(44, 43, 43), 5%, #ffffff);
+    color: rgb(0, 0, 0);
 }
 a{
-    color: white;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
 }
 
 </style>
