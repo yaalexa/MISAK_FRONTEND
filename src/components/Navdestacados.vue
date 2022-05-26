@@ -2,10 +2,21 @@
  <section>
 <div class="nav-side-menu">
 
-    <b-table id="tablavisualizacion" :items="visual"  class="tablavisualizacion">
+  <h7 class="tittle">LOS MAS VISUALIZADOS</h7>
+  <br><br>
 
+  <b-list-group >
+  <b-list-group-item class="list-group-item-dark" v-for="visual in visual" v-bind:key="visual.id"> {{visual.name}} &nbsp; <b-icon icon="star-fill" animation="fade" scale="2" variant="danger"></b-icon>&nbsp; {{visual.conteo}} </b-list-group-item>
+  </b-list-group>
 
-    </b-table>
+  <div><br><br></div>
+
+  <h7 class="tittle">LOS MAS DESCARGADOS</h7>
+  <br><br>
+
+  <b-list-group >
+  <b-list-group-item class="list-group-item-dark" v-for="descarga in descarga" v-bind:key="descarga.id"> {{descarga.name}} &nbsp; <b-icon icon="star-fill" animation="fade" scale="2" variant="danger"></b-icon>&nbsp; {{descarga.conteo}} </b-list-group-item>
+  </b-list-group>
  
         
    </div>
@@ -19,12 +30,14 @@ import axios from "axios";
 export default{
     data(){
         return{
-            visual:null
+            visual:null,
+            descarga:null
             
         };
     },
     mounted(){
         this.destvisual();
+        this.destdescarga();
     },
     methods: {
         destvisual(){
@@ -33,20 +46,35 @@ export default{
              this.visual = response.data;
 
          }) 
+        },
+        destdescarga(){
+        axios.get('http://127.0.0.1:8000/api/descargasuser')
+        .then(response=>{
+            this.descarga = response.data;
+        })
+            
         }
+        
+
     }
+
 }
 </script>
 
 <style>
+.tittle{
+  color:darkblue;
+  
+}
 .nav-side-menu {
   overflow: auto;
   font-family: verdana;
   font-size: 12px;
   font-weight: 200;
-    background: linear-gradient(to top, #16223f, 5%, #16223f);
-  color: #e1ffff;
-  background-image:url("@/assets/fondo.png") ;
+    background: linear-gradient(to top, #aab0c0, 5%, #d3d3d4);
+  color: #9aaaaa;
+  /*background-image:url("@/assets/fondo.png") ;*/
+  background-color: #75838f;
    
  
   height: 100vh;
@@ -59,7 +87,7 @@ export default{
   width: 100%;
   text-align: center;
   font-size: 14px;
-  background-image:url("@/assets/fondo.png") ;
+  /*background-image:url("@/assets/fondo.png") ;*/
    opacity: 0.9;
 }
 .nav-side-menu .toggle-btn {
@@ -146,6 +174,7 @@ export default{
     position: relative;
     width: 100%;
     margin-bottom: 10px;
+    
   }
   .nav-side-menu .toggle-btn {
     display: block;
@@ -185,4 +214,6 @@ body {
     text-align: center;
     color: #e1ffff;
 }
+
+
 </style>

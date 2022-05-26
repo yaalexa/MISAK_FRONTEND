@@ -22,16 +22,14 @@
             <b-nav-item>Editorial </b-nav-item>
             <b-nav-item disabled>Disabled</b-nav-item>
           </b-nav>
-</div>
+    </div>  
     </div>
-    <div class="navega">
-    <NavdestacadosVue>
-
-      
-
-       </NavdestacadosVue>
-       </div>
-    <div class="contenido">
+    <div class="caras">
+      <div class="navega">
+        <NavdestacadosVue>
+          </NavdestacadosVue>
+        </div>
+      <div class="contenido">
 
     <div class="contenedor4">
       
@@ -88,8 +86,9 @@
         </div>
         
       </div>
-      <br>
       
+      
+    </div>
     </div>
     </div>
 
@@ -238,8 +237,14 @@ page-item.active .page-link {
 .contenido{
   width: 80%;
   margin-left:20%;
+  
 }
 .navega{
   width: 20%;
+}
+.caras{
+  display: flex;
+  justify-content: center;
+  margin-right: 11vw;
 }
 </style>
