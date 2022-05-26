@@ -1,51 +1,6 @@
 <template>
   <div>
-    <header>
-      <b-container class="bv-example-row">
-        <b-row>
-          <b-col cols="6" md="4">
-            <div>
-              <!-- Image and text -->
-              <b-navbar variant="faded" type="light">
-                <b-navbar-brand href="/Casa">
-                  <img
-                    src="@/assets/logo.png"
-                    class="d-inline-block align-top"
-                    height="50px"
-                    width="50px"
-                    alt="Kitten"
-                  />
-                  Libreria virtual
-                </b-navbar-brand>
-              </b-navbar>
-            </div>
-          </b-col>
-          <b-col class="header" cols="12" md="8">
-            <div>
-              <b-nav class="ul" pills>
-                <b-nav-item>Inicio</b-nav-item>
-                <b-nav-item>Catalogos</b-nav-item>
-
-                <b-nav-item-dropdown
-                  id="my-nav-dropdown"
-                  text="Coleciones"
-                  toggle-class="nav-link-custom"
-                  right
-                >
-                  <b-dropdown-item>One</b-dropdown-item>
-                  <b-dropdown-item>Two</b-dropdown-item>
-                  <b-dropdown-divider></b-dropdown-divider>
-                  <b-dropdown-item>Three</b-dropdown-item>
-                </b-nav-item-dropdown>
- 
-                <b-nav-item>Contacto</b-nav-item>
-                <b-nav-item href="/casa">Ingresar|Registrar</b-nav-item>
-              </b-nav>
-            </div>
-          </b-col>
-        </b-row>
-      </b-container>
-    </header>
+    <MenuInicial/>
     <div class="mgBa">
       <div class="box">
         <div class="nav-biblo">
@@ -275,8 +230,12 @@
 </template>
 
 <script>
+import MenuInicial from "@/components/MenuInicial.vue";
 export default {
   name: "Casa",
+  components:{
+    MenuInicial,
+  },
   data() {
     return {
       slide: 0,
@@ -286,9 +245,6 @@ export default {
 };
 </script>
 <style scoped>
-body {
-  
-}
 header {
   display: flex;
   background: #16223f;

@@ -14,11 +14,12 @@
                 <!-- Login Form -->
                 <form  v-on:submit.prevent="login">
                   <input type="text" id="email" class="fadeIn second" name="login" placeholder="Correo" v-model="email">
-                  <input type="text" id="password" class="fadeIn third" name="login" placeholder="Password" v-model="password">
+                  <input type="password" id="password" class="form-control password1" name="login" placeholder="Contraseña" v-model="password">
                   <input type="submit" class="fadeIn fourth" value="Log In">
                   
                 </form>
-                <router-link class="fadeIn fourth" to="/Register">Registrate</router-link>
+                <router-link class="fadeIn fourth" to="/Register">Registrate</router-link> 
+                <button type="button" class="btn btn-secondary" v-on:click="salir()"  >  Salir  </button><br> <br>
                 <!-- Remind Passowrd -->
                 <div class="alert alert-danger" role="alert" v-if="error">
                    {{error_msg}}
@@ -74,7 +75,10 @@ export default {
              this.error_msg = data.data.result.error_msg;
            }
         })
-    }
+    },
+    salir(){
+           this.$router.push({name:"/Casa"})
+        },
   }
 }
 </script>
@@ -361,6 +365,22 @@ input[type=text]:placeholder {
 
 #icon {
   width:60%;
+}
+.form-control{
+  background-color: #f6f6f6;
+    border: none;
+    color: #0d0d0d;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    width: 85%;
+    border: 2px solid #f6f6f6;
+    transition: all 0.5s ease-in-out;
+    border-radius: 5px 5px 5px 5px;
+
 }
 
 
