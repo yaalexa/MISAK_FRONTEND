@@ -64,10 +64,12 @@
                   </div>
       </div>   
     <div>
+       <!-- 
           <li data-toggle="collapse" data-target="#new" class="collapsed">
                 <router-link exact-active-class="active" to="/usuarioU" class="nav-link" aria-current="page">Vista Comunero</router-link>
 
           </li> 
+          -->
      </div>  
      <fieldset >
       <div class="contenedor"> 

@@ -259,7 +259,7 @@ component: MostrarAreas
   },
   {
     name: 'Pdf',
-    path: '/Pdf/:id',
+    path: '/Pdf/:id,:pr',
     component: Pdf
 },
 {

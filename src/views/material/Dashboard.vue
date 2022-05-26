@@ -169,7 +169,7 @@ export default {
             async mostarMateriales(){
               await this.axios.get('http://127.0.0.1:8000/api/materials/').then(response=>{
                      this.material=response.data;
-                     console.log(material)
+                     console.log(this.material);
                 
                 }).catch(error=>{
                     console.log(error)
