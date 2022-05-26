@@ -7,7 +7,6 @@
         </div>
 
 
-
     <div class="cara2">
             <section>       
       <div class="izquierda">

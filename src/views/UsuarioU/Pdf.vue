@@ -1,30 +1,12 @@
-<template>
-    
-
+<template>  
 <div class="cara2">
-
-        <div class="contenedor_todo">
-      <div class="contenedor1">
-        <img
-          src="@/assets/logo.png"
-          class="logo"
-          height="80px"
-          width="80px"
-          alt="Kitten"
-        />
-        <h1 class="titulo">Libreria Virtual</h1>
-      </div>
-      <div class="contenedor2">
-      </div>
-    </div>
+ <Menu1/>
+      
     <div class="contenedor3">
           <section>
-      <div class="archive" v-for="todo in todos" :key=todo.id>
-          <iframe class="archive" :src="`http://127.0.0.1:8000/storage/${todo.pdf}`"></iframe>
-    <!-- <vue-pdf-app style="height: 100vh;" pdf="https://www.seducoahuila.gob.mx/leer/assets/cuentos-breves.pdf"
-           @after-created="afterCreatedHandler"
-           @open="openHandler"
-           @pages-rendered="pagesRenderedHandler"></vue-pdf-app>-->
+      <div class="archive" >
+         
+           <b-embed class="archive" frameborder="0" v-bind:src="this.pdfsrc+'#toolbar=0'"  />
       </div>
       <br>
       <button type="button" class="btn btn-dark margen" v-on:click="downloadWithAxios( )">Descargar</button>
@@ -37,41 +19,19 @@
 <script>
 /* import func from 'vue-editor-bridge'; */
 import axios from "axios";
-import Header from "@/components/Header.vue";
-import VuePdfApp from "vue-pdf-app";
-import "vue-pdf-app/dist/icons/main.css";
-import Loader from "@/components/Loader.vue";
+import Menu1 from "@/components/Menu1.vue";
 export default {
   data() {
     
     return {
-      name: "PdfjsInteraction",
-      info: [],
-      todos: {
-        img: "",
-        name: "",
-        isbn: "",
-        num_pages: "",
-        priority: "",
-        pdf: "",
-        year: "",
-      },
-      todos: null,
+    
+      descargara:null,
+      pdfsrc:null
     };
   },
 
   components: {
-  
-    "vue-pdf-app": () => ({
-      component: new Promise((res) => {
-        return setTimeout(
-          () => res(import(/* webpackChunkName: "vue-pdf-app" */ "vue-pdf-app")),
-          4000
-        );
-      }),
-      loading: Loader,
-    }),
-  
+        Menu1
   },
 
   mounted() {
@@ -79,61 +39,37 @@ export default {
   },
 
   methods: {
-      afterCreatedHandler(pdfApp) {
-      // to prevent browser tab title changing to pdf document name
-      pdfApp.isViewerEmbedded = true;
-    },
-    async openHandler(pdfApp) {
-      this.info = [];
-      const info = await pdfApp.pdfDocument
-        .getMetadata()
-        .catch(console.error.bind(console));
-      if (!info) return;
-      const props = Object.keys(info.info);
-      props.forEach((prop) => {
-        const obj = {
-          name: prop,
-          value: info.info[prop],
-        };
-        this.info.push(obj);
-      });
-    },
-    pagesRenderedHandler(pdfApp) {
-      setTimeout(() => (pdfApp.pdfViewer.currentScaleValue = "page-height"));
-    },
-  
-     
+    
     downloadWithAxios( ) {
-     axios({
-              url: 'http://127.0.0.1:8000/storage/file/mmOpFZeOeGw7HznrRbSgjULSCC43healRfuHo8B8.pdf', // download file link goes here
-          method: 'GET',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded',
-           'Access-Control-Allow-Origin' :'*',
-           'Access-Control-Allow-Credentials': true,
-           'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-           "X-Requested-With": "XMLHttpRequest",
-           'Connection': 'keep-alive',
-
-  },
-          responseType: 'blob', 
-        }).then((res) => {
-          var FILE = window.URL.createObjectURL(new Blob([res.data]));
-        
-          var docUrl = document.createElement('x');
-          docUrl.href = FILE;
-          docUrl.setAttribute('download', 'sample.pdf');
-          document.body.appendChild(docUrl);
-          docUrl.click();
-            });
-
-    },
+      axios({
+      url: `http://127.0.0.1:8000/api/download/${this.$route.params.id}`,
+      method: 'GET',
+      responseType: 'blob',
+      }).then((response) => {
+     var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+     this.descargara=response.data;
+     var fileLink = document.createElement('a');
+     fileLink.href = fileURL;
+     fileLink.setAttribute('download', 'file.pdf');
+     document.body.appendChild(fileLink);
+     fileLink.click();
+        });
+   },
   
-    getTodos() {
-      axios
-        .get(`http://127.0.0.1:8000/api/materials/${this.$route.params.id}`)
+   async getTodos() {
+     await axios
+        .get(`http://127.0.0.1:8000/api/download/${this.$route.params.id}`,{responseType: 'arraybuffer'  })
         .then((response) => {
-          this.todos = response.data;
-          console.log("hola", this.todos);
+          var fileURL = window.URL.createObjectURL(new Blob([response.data],{ 'type': 'application/pdf' }));
+          var fileLink = document.createElement('a');
+           fileLink.href = fileURL;
+            fileLink.setAttribute('download', 'file.pdf');
+           this.pdfsrc= document.body.appendChild(fileLink)
+
+      
+        // this.pdfsrc = VuePdfApp.createLoadingTask(objectUrl);
+          
+          
         })
         .catch((errorgrave) => console.log(errorgrave));
     },
@@ -217,8 +153,8 @@ export default {
     
 }
 .archive{
-    width: 100vh;
-    height: 80vh;
+    width: 130vh;
+    height: 150vh;
     display: inline-block;
 }
 

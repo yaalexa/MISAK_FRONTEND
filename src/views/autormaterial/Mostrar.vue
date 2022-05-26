@@ -7,30 +7,43 @@
         </div>
         <div class="cara2">
             <section>
-                <h1>ASIGNACION AUTOR</h1> 
-                <label for="" class="control-label col-sm-2">NOMBRE MATERIAL</label>
-                <input type="text" id="nombrematerial" name="nombrematerial" v-model="nombrematerial" disabled=isDisabled>
-                <a type="button" @click="crearautor()" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Asignar Autor</a>
-                 <table class="table">
-                        <thead>
-                            <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Borrar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr  v-for="Author_material in Author_material" :key="Author_material.id">
-                            <td>{{ Author_material.id }}</td>
-                            <td>{{ Author_material.name }}</td>
-                            <td>
-                               <!-- <router-link :to='{name:"EditarEditorial", params:{id:authors.id}}' class="btn btn-info"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> Editar</router-link> -->
-                                <a type="button" @click="borrarautorasignado(Author_material.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Borrar</a>
-                            </td>
-                            </tr>
-                        </tbody>
-                </table>
+     
+              <div class="contenedortablaareas">
+                <h1>ASIGNACION AUTOR</h1>  
+                <div class="form-group left row" >
+                <label for="" class="control-label ">NOMBRE MATERIAL: {{this.nombrematerial}}</label>
+                
+                  <br>
+                 <div class="control-label col-sm-5" style="text-align: left"> 
+                 
+                  <a type="button" @click="asigautor()" class="btn btn-warning"> <b-icon icon="plus-circle-fill" aria-hidden="true">Asignar Autor</b-icon></a> 
+                </div> 
+                <div class="control-label col-sm-7" style="text-align: left">  
+                <div class="input-group" style="text-align: right">
+                
+                        <b-form-input
+                        v-model="filter"
+                        type="search"
+                        placeholder="Buscar"
+                        > </b-form-input>
+            </div>
+            <br>
+            </div>
+            </div>
+              
+                  <b-table :filter="filter" id="my-table" :items="Author_material" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table">
+                    <template #cell(Acciones)="row">
+                          
+                            <a type="button" @click="borrarautorasignado(row.item.id)" class="btn btn-secondary"><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon icon="trash-fill" aria-hidden="true"></b-icon></a>
+
+                    </template>
+ 
+                  </b-table>
+                   <b-pagination align="center" v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"></b-pagination>
+              </div>
+               
             </section>    
+            
         </div>
     </div>
 </template>
@@ -47,33 +60,48 @@ export default {
             Author_material:null,
             Autores:null,
             nombrematerial:null,
+            filter:null,
+            perPage: 7, //numero de filas que va  atener por pagina
+            currentPage: 1, //donde va a iniciar la paginacion
+            Areas:[],
+             fields: [
+                {key: 'id', label: '#',},
+                {key: 'name', label: 'Nombre'},
+                "Acciones"
+                ]
         }
+    },
+  computed: {
+      rows() {
+        return this.Author_material.length
+      }
     },
     components:{
         Header,
       //  Footer
     },
-    mounted:function(){
-        this.nombrematerial=this.$route.params.name;
+    mounted(){
+        this.autoresasignados()
+    },
+    methods:{
+        autoresasignados(){
+            this.nombrematerial=this.$route.params.name;
         let direccion = `http://127.0.0.1:8000/api/author_materials/${this.$route.params.id}`;
         axios.get(direccion).then((result) => {
         this.Author_material = result.data;
         });
-       
-        
-    },
-    methods:{
-        crearautor(){
+        },
+        asigautor(){
             this.$router.push(`/AsignarAutores/${this.$route.params.id}`);
         },
         borrarautorasignado(id){
             if(confirm("¿Confirma eliminar el registro?")){
                 this.axios.delete(`http://127.0.0.1:8000/api/author_materials/${id}`).then(response=>{
-                    //this.mostrarAutores()
+                   this.autoresasignados();
                 }).catch(error=>{
                     console.log(error)
                 });
-                this.$router.push("/autormaterial/:id,:name");
+                
             }
         }
     }
@@ -95,5 +123,7 @@ export default {
     .cara2{
         width: 80%;
         height: 100vh;
+      
     }
+    
 </style>

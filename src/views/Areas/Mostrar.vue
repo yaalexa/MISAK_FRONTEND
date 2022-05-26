@@ -199,7 +199,7 @@ export default {
     justify-content: center;
   }
 .active {
-  background-color: red;
+  
 }
     body{
         margin: 0%;

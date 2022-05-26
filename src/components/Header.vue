@@ -63,12 +63,12 @@
                  </ul> 
                   </div>
       </div>   
-    <!-- <div>
+    <div>
           <li data-toggle="collapse" data-target="#new" class="collapsed">
-                <router-link exact-active-class="active" to="/Welcome" class="nav-link" aria-current="page">Mi vista de usuario comunero</router-link>
+                <router-link exact-active-class="active" to="/usuarioU" class="nav-link" aria-current="page">Vista Comunero</router-link>
 
           </li> 
-     </div> -->  
+     </div>  
      <fieldset >
       <div class="contenedor"> 
         <table>

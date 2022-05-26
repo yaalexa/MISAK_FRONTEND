@@ -6,32 +6,41 @@
             </header>
         </div>
         <div class="cara2">
-            <section>
+             
+             <section>
+     
+              <div class="contenedortablaareas">
                 <h1>AUTORES PARA ASIGNAR</h1> 
-                <a type="submit" @click="nuevaasignacion()" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Guardar</a>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Dirrecion</th>
-                            <th scope="col">Telefono</th>
-                            <th scope="col">Asignar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr  v-for="Autores in Autores" :key="Autores.id">
-                            <td>{{ Autores.id }}</td>
-                            <td>{{ Autores.name }}</td>
-                            <td>{{ Autores.address }}</td>
-                            <td>{{ Autores.phone }}</td>
-                            <td>
-                               <input type="checkbox" id="" :value="Autores.id" v-model="formData.author_id"> 
-                            </td>
-                            </tr>
-                        </tbody>
-                    </table>
-            </section>    
+                <div class="form-group left row" >
+                 <div class="control-label col-sm-5" style="text-align: left"> 
+                    <a type="submit" @click="nuevaasignacion()" class="btn btn-danger"><b-icon icon="plus-circle-fill" aria-hidden="true">Guardar</b-icon></a> 
+              
+                </div> 
+                <div class="control-label col-sm-7" style="text-align: left">  
+                <div class="input-group" style="text-align: right">
+                
+                        <b-form-input
+                        v-model="filter"
+                        type="search"
+                        placeholder="Buscar"
+                        > </b-form-input>
+            </div>
+            <br>
+            </div>
+            </div>
+              
+                  <b-table :filter="filter" id="my-table" :items="Autores" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table">
+                    <template #cell(seleccionar)="row">
+                          
+                           <input type="checkbox" id="" :value="row.item.id" v-model="formData.author_id"> 
+
+                    </template>
+ 
+                  </b-table>
+                   <b-pagination align="center" v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"></b-pagination>
+              </div>
+               
+            </section>      
         </div>
     </div>
 </template>
@@ -48,12 +57,28 @@ export default {
             formData: {
                 author_id:[],
                 material_id:""
-            }          
+            } ,
+            filter:null,
+            perPage: 7, //numero de filas que va  atener por pagina
+            currentPage: 1, //donde va a iniciar la paginacion
+            Areas:[],
+             fields: [
+                {key: 'id', label: '#',},
+                {key: 'name', label: 'Nombre'},
+                {key: 'address', label: 'Direccion'},
+                 {key: 'phone', label: 'Telefono'},
+                "Seleccionar"
+                ]         
         }
     },
     components:{
         Header,
       //  Footer
+    },
+     computed: {
+      rows() {
+        return this.Autores.length
+      }
     },
     mounted(){
         this.mostrarAutores()
@@ -113,3 +138,4 @@ export default {
         height: 100vh;
     }
 </style>
+

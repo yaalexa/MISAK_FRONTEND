@@ -1,90 +1,38 @@
 <template>
-  <div>
-    <div class="contenedor_todo">
-      <div class="contenedor1">
-        <img
-          src="@/assets/logo.png"
-          class="logo"
-          height="80px"
-          width="80px"
-          alt="Kitten"
-        />
-        <h1 class="titulo">Libreria Virtual</h1>
-      </div>
-      <div class="contenedor2">
-      
-      </div>
-      <div>
-          <b-nav small>
-            <b-nav-item active>Categoria</b-nav-item>
-            <b-nav-item>Autor</b-nav-item>
-            <b-nav-item>Tipo </b-nav-item>
-            <b-nav-item>Editorial </b-nav-item>
-            <b-nav-item disabled>Disabled</b-nav-item>
-          </b-nav>
-</div>
-    </div>
-
-    <div class="contenedor4">
-      
-      <input type="" name="" id="buscar" class="barra">
-      <button class="boton">Buscar</button>
-      
-
-    </div>
-    <div class="contenedor4">
-       <b-pagination v-model="currentPage" 
-       :total-rows="todos.length" 
-       :per-page="perPage" first-text="First" 
-       prev-text="Prev" next-text="Next" last-text="Last"></b-pagination>
-    </div>
-    
-          
-    <div class="contenedor3">
-       
-      <div v-for="todo in todos.slice((currentPage-1)*perPage,(currentPage-1)*perPage+perPage)" :key="todo.id" class="bloque2">
-      
-        <div>
-          <b-card
+ <div id="contenedor">
+   <div id="cabecera"><Menu1/></div>
+       <div id="menu"> 
+             <NavdestacadosVue/>
+         </div>
+       <div id="contenido">
+          <div id="contenido2">
+        <VueSlickCarousel v-bind="settings" class="carousel">
+		    <div  v-for="todo in todos" :key="todo.id" >
+          <b-card 
             img
-            src="../assets/fondo.png"
             alt=""
             img-top
             tag="articulo"
-            style="max-width: 15rem"
-            class="card"
-            
             header-bg-variant="dark"
             header-text-variant="white"
             border-variant="dark"
+            style="max-width: 15rem "
           >
-          
-            <img
-              :src="`http://127.0.0.1:8000/storage/${todo.img}`"
-              style="height: 200px; width: 200px"
-              accept="application/img"
-            />
-          
-            <div class="">
-              <h1>{{ todo.name }}</h1>
-              <h10>ISBN: {{ todo.isbn }}</h10
-              ><br />
-              <h10>Número de páginas: {{ todo.num_pages }}</h10
-              ><br />
-              <h10> Prioridad: {{ todo.priority }}</h10
-              ><br />
-
-              <button type="button" class="btn btn-primary margen" v-on:click="Ver(todo.id)">Ver</button>
-            </div>
+          <b-card-body>
+                    
+                    ISBN: {{ todo.isbn }}
+                    <b-card-text>Prioridad: {{ todo.priority }}</b-card-text>
+                    <button type="button" class="btn btn-primary margen" v-on:click="Ver(todo.id)">Ver</button>
+                    <b-card-footer variant="secondary">
+                        <b-card-text >{{ todo.name}}</b-card-text>
+                    </b-card-footer>
+                </b-card-body>
           </b-card>
-        </div>
-        
       </div>
-      <br>
-      
-    </div>
-
-
+    
+	</VueSlickCarousel>
+     </div>
+     </div>
   </div>
 </template>
 
@@ -92,13 +40,30 @@
 
 import axios from "axios";
 import Header from "@/components/Header.vue";
-
-
+import { VueCardCarousel } from "vue-card-carousel";
+import { Glide, GlideSlide } from 'vue-glide-js'
+import VueSlickCarousel from 'vue-slick-carousel'
+import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+import Menu1 from "@/components/Menu1.vue";
+import NavdestacadosVue from "@/components/NavDestacados.vue";
 export default {
   data() {
     return {
+      settings: {
+					"dots": true,
+					"slidesToShow": 2,
+					"slidesToScroll": 1,
+          "infinite": true,
+          "speed": 500,
+          "rows": 2,
+          "slidesPerRow": 1,
+          "breakpoint": 1024,
+				},
+        
       perPage: 8,
       currentPage: 1,
+      visual:null,
       todos: {
         img: "",
         name: "",
@@ -108,17 +73,30 @@ export default {
         pdf: "",
         year: "",
       },
-     
+       mtr_usr: {
+        manejo_users: "no se que va aqui",
+        detalle_material: "descargado",
+        date_download: "2022-05-18 23:54:10",
+        material_id: "",
+        users_id: ""
+      },
     };
   },
 
   components: {
     Header,
+    VueCardCarousel,
+   [Glide.name]: Glide,
+    [GlideSlide.name]: GlideSlide,
+    VueSlickCarousel,
+    Menu1,
+    NavdestacadosVue,
   },
 
   mounted() {
     this.getTodos();
-    this.paginate(this.perPage, 0);
+    this.getVisul();
+  
   },
 computed: {
         rows() {
@@ -128,7 +106,18 @@ computed: {
       },
 
   methods: {
+    
      Ver(id){
+
+            var usrid = JSON.parse(sessionStorage.getItem("userid"));
+            this.mtr_usr.users_id = usrid;
+            this.mtr_usr.material_id = id;
+            axios
+            .post("http://127.0.0.1:8000/api/material__users",this.mtr_usr)
+            .then(response => {
+              console.log(response)
+            });
+            this.$router.push(`/Pdf/${id}`);
             this.$router.push(`/Pdf/${id}`);
         },
     getTodos() {
@@ -137,6 +126,17 @@ computed: {
         .then((response) => {
           this.todos = response.data;
           console.log("hola", this.todos);
+          
+        })
+        .catch((errorgrave) => console.log(errorgrave));
+    },
+    async getVisul() {
+     await axios
+        .get("http://127.0.0.1:8000/api/mvisual")
+        .then((response) => {
+          this.visual = response.data;
+          console.log("hola", this.visual);
+          
         })
         .catch((errorgrave) => console.log(errorgrave));
     },
@@ -145,84 +145,46 @@ computed: {
 </script>
 
 <style scoped>
-page-item.active .page-link {
-    z-index: 3;
-    color: #fff;
-    background-color: #d71e1e;
-    border-color: #d30944;
-}
-.contenedor_todo {
-  border: 1px solid black;
-  background: #16223f;
-  display: flex;
-  justify-content: space-between;
-}
-.contenedor1 {
-  /* border: 1px solid red; */
-  display: flex;
-  align-items: center;
-}
-.logo {
-  border: 1px blueviolet;
-  padding: 4px;
-}
-.titulo {
-  /* border: 1px solid red; */
-  color: white;
-  padding-left: 20px;
-}
-.title{
-  background: #16223f;
-  color: white;
-}
-.contenedor2 {
-  /* border: 1px solid red; */
-  padding-top: 10px;
-}
-.ingresar {
-  /* border: 1px solid black; */
-  color: white;
-  width: 80%;
-}
+      .slick-slider {
+       width: 100%;
+       
+        }
+        ::v-deep .slick-arrow:before {
+         color: #2f3241;
+        opacity: 1;
+        }
+      .card {
+      border: 1px solid black;
+      margin: 15px;
+        }
 
-.contenedor4 {
-  
-  margin: 30px;
-  display: flex;
-  justify-content: center;
-}
-.barra{
-  
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.5;
-  display: block;
-  width: 70%;
-  padding: 10.5px 10px;
-  transition: all 0.2s;
-  color:#16223f;
-  border: 1px solid rgba(0, 0, 0, 0.442);
-  border-radius: 4px;
-  background-color: white;
-  background-clip: padding-box;
-}
-.boton{
-  border-color: #16223f;
-  border-radius: 4px;
-  color: white;
-  background-color: #16223f;
-  margin-left: 5px;
-}
-
-.contenedor3 {
-  /* border: 1px solid red; */
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin: 20px;
-}
-.card {
-  border: 1px solid black;
-  margin: 15px;
-}
+      #cabecera {
+        color:#ff9;
+        height:80px;
+      }
+      #contenedor {
+        width:100%;
+      }
+      #contenido {
+        float:left;
+        height:500px;
+        padding:10px;
+        width:80%;
+       
+      }
+        #contenido2 {
+        float:left;
+        height:500px;
+        padding:10px;
+        width:90%;
+        padding: 5%;
+      }
+      #menu {
+        background: linear-gradient(to top, #aab0c0, 5%, #d3d3d4);
+        float:left;
+        height:auto;
+        padding:20px;
+        width:20%;
+      }
+      
 </style>
