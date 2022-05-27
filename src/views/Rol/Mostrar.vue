@@ -91,6 +91,7 @@
                  <b-button class="btn btn-secondary" @click="close()"> Cerrar </b-button>
             </template>
          </b-modal>
+         <a href="" @click.prevent="printme" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
      </div>
   </div>
 </template>
@@ -133,6 +134,11 @@ export default {
         this.mostrarRoles()
     },
     methods:{
+         printInvoice(){ 
+
+        window.print()
+
+      },
         editarrol(){
              axios.put(`http://localhost:8000/api/rols/${this.selectedUserid}`,{name:this.selectedUsernom}) 
           .then(response=>{

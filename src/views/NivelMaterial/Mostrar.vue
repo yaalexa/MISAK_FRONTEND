@@ -7,30 +7,43 @@
         </div>
         <div class="cara2">
             <section>
-                <h1>ASIGNAR NIVEL DE EDUCACIÓN</h1> 
-                <label for="" class="control-label col-sm-2">NOMBRE DEL NIVEL DE EDUCACIÓN</label>
-                <input type="text" id="nivelmaterial" name="nivelmaterial" v-model="nivelmaterial" disabled=isDisabled>
-                <a type="button" @click="crearnivelmaterial()" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Asignar Nivel de Educación</a>
-                 <table class="table">
-                        <thead>
-                            <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Borrar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr  v-for="Nivel_material in Nivel_material" :key="Nivel_material.id">
-                            <td>{{ Nivel_material.id }}</td>
-                            <td>{{ Nivel_material.name }}</td>
-                            <td>
-                               <!-- <router-link :to='{name:"EditarEditorial", params:{id:authors.id}}' class="btn btn-info"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> Editar</router-link> -->
-                                <a type="button" @click="borrarasignado(Nivel_material.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Borrar</a>
-                            </td>
-                            </tr>
-                        </tbody>
-                </table>
+     
+              <div class="contenedortablaareas">
+                <h1>ASIGNAR NIVEL DEL MATERIAL</h1>  
+                <div class="form-group left row" >
+                <label for="" class="control-label ">NOMBRE NIVEL MATERIAL: {{this.nombrematerial}}</label>
+                
+                  <br>
+                 <div class="control-label col-sm-5" style="text-align: left"> 
+                 
+                  <a type="button" @click="asignivel()" class="btn btn-warning"> <b-icon icon="plus-circle-fill" aria-hidden="true">Asignar Nivel Educativo</b-icon></a> 
+                </div> 
+                <div class="control-label col-sm-7" style="text-align: left">  
+                <div class="input-group" style="text-align: right">
+                
+                        <b-form-input
+                        v-model="filter"
+                        type="search"
+                        placeholder="Buscar"
+                        > </b-form-input>
+            </div>
+            <br>
+            </div>
+            </div>
+              
+                  <b-table :filter="filter" id="my-table" :items="Material_educational" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table">
+                    <template #cell(Acciones)="row">
+                          
+                            <a type="button" @click="borrarnivelasignado(row.item.id)" class="btn btn-secondary"><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon icon="trash-fill" aria-hidden="true"></b-icon></a>
+
+                    </template>
+ 
+                  </b-table>
+                   <b-pagination align="center" v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"></b-pagination>
+              </div>
+               
             </section>    
+            
         </div>
     </div>
 </template>
@@ -44,35 +57,51 @@ export default {
     name:"MostrarNivelMaterial",
     data(){
         return {
-            Nivel_material:null,
+            Material_educational:null,
             Nivel:null,
             nombrematerial:null,
+            filter:null,
+            perPage: 7, //numero de filas que va  atener por pagina
+            currentPage: 1, //donde va a iniciar la paginacion
+            Areas:[],
+             fields: [
+                {key: 'id', label: '#',},
+                {key: 'name', label: 'Nombre'},
+                "Acciones"
+                ]
         }
+    },
+  computed: {
+      rows() {
+        return this.Material_educational.length
+      }
     },
     components:{
         Header,
       //  Footer
     },
-    mounted:function(){
-        this.nivelmaterial=this.$route.params.name;
-        let direccion = `http://127.0.0.1:8000/api/material__educational_levels/${this.$route.params.id}`;
-        axios.get(direccion).then((result) => {
-        this.Nivel_material = result.data;
-        });
-       
-        
+    mounted(){
+        this.nivelasignado()
     },
     methods:{
-        crearnivelmaterial(){
+        nivelasignado(){
+            this.nombrematerial=this.$route.params.name;
+        let direccion = `http://127.0.0.1:8000/api/material__educational_levels/${this.$route.params.id}`;
+        axios.get(direccion).then((result) => {
+        this.Material_educational = result.data;
+        });
+        },
+        asignivel(){
             this.$router.push(`/AsignarMaterial/${this.$route.params.id}`);
         },
-        borrarasignado(id){
+        borrarnivelasignado(id){
             if(confirm("¿Confirma eliminar el registro?")){
                 this.axios.delete(`http://127.0.0.1:8000/api/material__educational_levels/${id}`).then(response=>{
+                   this.nivelasignado();
                 }).catch(error=>{
                     console.log(error)
                 });
-                this.$router.push("/nivelmaterial/:id,:name");
+                
             }
         }
     }
@@ -94,5 +123,7 @@ export default {
     .cara2{
         width: 80%;
         height: 100vh;
+      
     }
+    
 </style>
