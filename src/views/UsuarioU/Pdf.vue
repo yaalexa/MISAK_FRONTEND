@@ -126,40 +126,17 @@ export default {
 }
 
 .contenedor4 {
-  
   margin: 100px;
   display: flex;
   justify-content: center;
-}
-.barra{
-  
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.5;
-  display: block;
-  width: 70%;
-  padding: 10.5px 10px;
-  transition: all 0.2s;
-  color:#16223f;
-  border: 1px solid rgba(0, 0, 0, 0.442);
-  border-radius: 4px;
-  background-color: white;
-  background-clip: padding-box;
-}
-.boton{
-  border-color: #16223f;
-  border-radius: 4px;
-  color: white;
-  background-color: #16223f;
-  margin-left: 5px;
 }
 
 .contenedor3 {
   /* border: 1px solid red; */
   display: flex;
+  margin-top: 10%;
   justify-content: center;
-  
-  margin: 30px;
+ 
 }
 .cara2{
     width: 100%;
@@ -168,7 +145,7 @@ export default {
 .archive{
     width: 130vh;
     height: 150vh;
-    display: inline-block;
+    display:flex;
 }
 
 </style>

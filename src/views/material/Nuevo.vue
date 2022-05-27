@@ -90,10 +90,11 @@
         <div class="col">
           <label for="" class="control-label col-sm-3">AREA</label>
           <div class="col-sm-7">
-           <select class="form-control" v-model="formData.areas">
-            <option v-for="areas in areas" v-bind:value="areas.id"> {{ areas.name }}
-             </option>
+             <select class="form-control" v-model="formData.areas">
+              <option v-for="areas in areas" v-bind:value="areas.id"> {{ areas.name }}
+               </option>
             </select>
+           
           </div>
         </div>
         </div>
@@ -108,7 +109,8 @@
           </div>
         </div>
         
-        </div>       
+        </div>  
+        
 
       <div class="form-group left row">
         <div class="col">
@@ -179,7 +181,7 @@ export default {
 
     return {
     
-     selected:"",
+      selected:"",
       formData: {
         name: "",
         isbn: "",
@@ -192,21 +194,25 @@ export default {
         areas:"",
         TipoMaterial:""
       },
+      areas:null,
+      TipoMaterial:null,
+      editorial:null,
     };
   },
     mounted:function(){
-           let direccion = "http://localhost:8000/api/type_materials";
-        axios.get(direccion).then((result) => {
+           
+        axios.get("http://localhost:8000/api/type_materials").then((result) => {
         this.TipoMaterial = result.data;
         });
-        let direccion2 = "http://127.0.0.1:8000/api/editorials";
-        axios.get(direccion2).then((result) => {
+       
+        axios.get("http://127.0.0.1:8000/api/editorials").then((result) => {
         this.editorial = result.data;
         });
-        let direccion3 = "http://127.0.0.1:8000/api/areas";
-        axios.get(direccion3).then((result) => {
+      
+        axios.get("http://127.0.0.1:8000/api/areas").then((result) => {
         this.areas = result.data;
         });
+          
     },
 
   components: {

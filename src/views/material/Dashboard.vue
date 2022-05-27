@@ -121,18 +121,19 @@ export default {
         Header,
       //  Footer
     },
-                computed: {
-            rows(){
-                return this.material.length
+      computed: {
+      rows(){
+   return this.material.length
       
-            }},
-                    mounted(){
+    }},
+            mounted(){
             this.mostarMateriales();
-        },
+            
+   },
     methods:{
-                educationallevel(id, name){
-                this.$router.push({name: "nivelmaterial",params:{id: id, name: name}
-                });
+        educationallevel(id, name){
+       this.$router.push({name: "nivelmaterial",params:{id: id, name: name}
+       });
                   },
      buscarmaterial(name) {
       console.log(name);
@@ -200,7 +201,7 @@ export default {
         
         width: 80%;
         height: 100vh;
-        overflow:hidden;
+        overflow:auto;
     }
     .izquierda{
         margin-top: 1%;

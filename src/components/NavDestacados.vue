@@ -2,7 +2,7 @@
  <section>
 <div class="nav-side-menu1">
 
-  <h7 class="tittle">LOS MAS VISUALIZADOS</h7>
+  <h6 class="tittle">LOS MAS VISUALIZADOS</h6>
   <br><br>
 
   <b-list-group >
@@ -11,7 +11,7 @@
 
   <div><br><br></div>
 
-  <h7 class="tittle">LOS MAS DESCARGADOS</h7>
+  <h6 class="tittle">LOS MAS DESCARGADOS</h6>
   <br><br>
 
   <b-list-group >
@@ -62,7 +62,7 @@ export default{
   
 }
 .nav-side-menu1 {
-  overflow: auto;
+  overflow: hidden;
   font-family: verdana;
   font-size: 12px;
   font-weight: 200;

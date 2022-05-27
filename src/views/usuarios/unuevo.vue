@@ -97,7 +97,7 @@
                       <div class="col-sm-12">
 		         <div class="row">
 				     <div class="col-xs-4">
-		 	              <label class="pass">Certificado misak</label>
+		 	              <label class="pass">Còdigo Misak</label>
                      </div>
 				  <div class="col-xs-8">
 			             <input type="text" name="certificado misak" id="certificate_misak" v-model="certificate_misak" placeholder="Certificado misak" class="form-control">
