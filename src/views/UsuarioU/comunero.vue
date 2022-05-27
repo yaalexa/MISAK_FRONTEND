@@ -203,15 +203,7 @@ export default {
     
         
     },
-    async getVisul() {
-      await axios
-        .get("http://127.0.0.1:8000/api/visualmuser")
-        .then((response) => {
-          this.visual = response.data;
-          console.log("hola", this.visual);
-        })
-        .catch((errorgrave) => console.log(errorgrave));
-    },
+   
   },
 };
 </script>
@@ -273,7 +265,7 @@ export default {
          height: 100vh;
         padding:20px;
         width:20%;
-        overflow:aut;
+        overflow:auto;
       }
       
 </style>
