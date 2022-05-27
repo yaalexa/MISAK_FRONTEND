@@ -6,24 +6,26 @@
          </div>
        <div id="contenido">
           <div id="contenido2">
-            <b-input-group-text>
-               <form class="form-inline my-2 my-lg-0">
-                    <input
-                        class="form-control mr-sm-2 buscador"
-                        type="search"
-                        placeholder="Buscar por autor, nombre del libro..."
-                        aria-label="Search"
-                        v-model="buscador"
-                        @keyup="buscarLibros"
-                    >
-                </form>
-                <button type="button" class="btn btn-secondary margen" v-on:click="getSearch()" >Ver</button>
-            </b-input-group-text>
+          <div class="contenedor4">
+          <b-input-group-text>
+            <form class="form-inline my-2 my-lg-0">
+            <input 
+              class="form-control mr-sm-2 buscador"
+              type="search"
+              placeholder="Buscar por material...."
+              aria-label="Search"
+              v-model="buscador"
+              />
+            </form>
+            <button type="button" class="btn btn-secondary margen" v-on:click="getTodos()">Buscar</button>
+          </b-input-group-text>
+        </div>
+        <!-- Aqui termina el buscador -V-->
               
-             <input type="text" v-model="buscar" class="form-control" placeholder="Ejemplo: Charmander"/>   
+           
         <VueSlickCarousel v-bind="settings" class="carousel">
         
-		    <div  v-for="todo in todos" :key="todo.id" >
+		    <div  v-for="todos in todos" :key="todos.id" >
           <b-card 
             img
             alt=""
@@ -32,16 +34,16 @@
             header-bg-variant="dark"
             header-text-variant="white"
             border-variant="dark"
-            :footer="`${todo.name}`"
+            :footer="`${todos.name}`"
             footer-tag="footer"
             footer-bg-variant="warning"
           >
                 
           <b-card-body>
-                   <b-img thumbnail center  :src="`http://127.0.0.1:8000/storage/${todo.img}`" class="imagen" fluid alt="Fluid image"></b-img>
-                    ISBN: {{ todo.isbn }}
-                    <b-card-text>Prioridad: {{ todo.priority }}</b-card-text>
-                    <button type="button" class="btn btn-secondary margen" v-on:click="Ver(todo.id,todo.priority)">Ver</button>
+                   <b-img thumbnail center  :src="`http://127.0.0.1:8000/storage/${todos.img}`" class="imagen" fluid alt="Fluid image"></b-img>
+                    ISBN: {{ todos.isbn }}
+                    <b-card-text>Prioridad: {{ todos.priority }}</b-card-text>
+                    <button type="button" class="btn btn-secondary margen" v-on:click="Ver(todos.id,todos.priority)">Ver</button>
                 </b-card-body>
           </b-card>
       </div>
@@ -68,6 +70,7 @@ export default {
     return {
      pr:null,
      id:null,
+     buscador:null,
     searchText :null,
     setTimeoutBuscador: '',
       settings: {
@@ -125,53 +128,47 @@ export default {
   
   },
   
-computed: {
-        rows() {
-          return this.todos.length
-        },
-        
-      },
    
   methods: {
-  
-  buscarLibros(){
-    clearTimeout( this.setTimeoutBuscador )
-            this.setTimeoutBuscador = setTimeout(this.getTodos, 360)
-  },
-     Ver(id,priority){
-
-            var usrid = JSON.parse(sessionStorage.getItem("userid"));
-            this.mtr_usr.users_id = usrid;
-            this.mtr_usr.material_id = id;
-            axios
-            .post("http://127.0.0.1:8000/api/material__users",this.mtr_usr)
-            .then(response => {
-              console.log(response)
-            });
-            this.$router.push({name: "Pdf",params:{id: id, pr: priority}});
-          
-        },
-    getTodos() {
+    buscarmaterial() {
+      clearTimeout(this.setTimeoutBuscador)
+        this.setTimeoutBuscador = setTimeout(this.getTodos,360)
+    },
+    Ver(id, priority) {
+      var usrid = JSON.parse(sessionStorage.getItem("userid"));
+      this.mtr_usr.users_id = usrid;
+      this.mtr_usr.material_id = id;
       axios
-        .get("http://127.0.0.1:8000/api/search", {
-                params: {
-                    buscador: this.buscador
-                }
-            })
+        .post("http://127.0.0.1:8000/api/material__users", this.mtr_usr)
+        .then((response) => {
+          console.log(response);
+        });
+      this.$router.push({ name: "Pdf", params: { id: id, pr: priority } });
+    },
+    getTodos(buscador) {
+    
+      axios
+        .get("http://127.0.0.1:8000/api/search",{
+          params:{
+            buscador:this.buscador
+          }
+        })
         .then((response) => {
           this.todos = response.data;
           console.log("hola", this.todos);
-          
+          this.buscador=null;
+
         })
         .catch((errorgrave) => console.log(errorgrave));
+    
+        
     },
     async getVisul() {
-     await axios
+      await axios
         .get("http://127.0.0.1:8000/api/visualmuser")
         .then((response) => {
           this.visual = response.data;
           console.log("hola", this.visual);
-          
         })
         .catch((errorgrave) => console.log(errorgrave));
     },
