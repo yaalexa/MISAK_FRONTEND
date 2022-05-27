@@ -48,7 +48,7 @@
 			     <div class="col-xs-4">
           	         <label class="firstname">Prioridad: </label></div>
                         <div class="col-xs-8">
-                       <select name="document_type" id="document_type" class="form-control ">
+                       <select name="document_type" id="document_type" class="form-control " v-model="mate.priority">
                              <br>
                              <option value="1">Visualizado</option>
                              <option value="2">Descargado</option>

@@ -65,15 +65,14 @@
         </div>
         <div class="col">
           <label for="" class="control-label col-sm-5">PRIORIDAD</label>
-          <div class="col-sm-7">
-            <input
-              type="text"
-              class="form-control"
-              name="priority"
-              id="priority"
-              v-model="formData.priority"
-            />
-          </div>
+                        <div class="col-xs-8">
+                       <select name="document_type" id="document_type" class="form-control " v-model="formData.priority">
+                             <br>
+                             <option value="1">Visualizado</option>
+                             <option value="2">Descargado</option>
+
+                             </select>   
+             </div>
         </div>
       </div>
  
