@@ -6,52 +6,33 @@
             </header>
         </div>
         <div class="cara2">
-        <section>
+        <section class="contenedorautor">
         <h1>USUARIOS </h1> 
         
-        <input type="text" v-model="buscar" class="form-control" placeholder="Ingrese el documento de la persona a buscar "/>
+        <div class="form-group left row" >
+            <div class="control-label col-sm-5" style="text-align: left">  
+                <b-button v-on:click="unuevo()" class="btn btn-warning">Nuevo <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon></b-button>       
+            </div> 
+            <div class="control-label col-sm-7" style="text-align: left">  
+                <div class="input-group" style="text-align: right">
+                    <b-form-input v-model="filter" type="search" placeholder="Buscar Autores"> </b-form-input>
+                </div>
+                <br>
+            </div>
+        </div>
 
- 
-
-        <button class="btn btn-primary" v-on:click="Buscar()" >Buscar</button>
-        <button class="btn btn-primary" v-on:click="unuevo()" >Registrar nuevo usuario</button>
-
-        <!--<button class="btn btn-primary" v-on:click="errored=true">Mostrar todo</button>-->
-        <br><br>
+         <br><br>
         <div class="container izquierda" >
-                <table class="table table-hover">
-                <thead>
-                    <tr>
-                                     <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Nombre</th>
-                                    <th>Email</th>
-                                    <th>Tipo Documento</th>
-                                    <th># Documento</th>
-                                    <th>Codigo Misak</th>
-                                     <th>Acciones</th>
-
-
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                        <tr v-for="usuarios in usuarios" :key="usuarios.id">
-                                    <td>{{ usuarios.id }}</td>
-                                    <td>{{ usuarios.name }}</td>
-                                    <td>{{ usuarios.full_name }}</td>
-                                    <td>{{ usuarios.email}}</td>                                    
-                                    <td>{{ usuarios.document_type}}</td>
-                                    <td>{{ usuarios.document_number}}</td>
-                                    <td>{{usuarios.certificate_misak}}</td>
-                                     <td>
-                                 <button class="btn btn-primary" v-on:click="actualizar(usuarios.id)" >Editar</button>
-                                <a type="button" @click="borrar(usuarios.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Borrar</a>
-                                </td>
-                    </tr>
-                     
-                </tbody>
-                </table>
+             <b-table :filter="filter" id="my-table" :items="usuarios" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table">
+                    <template #cell(Acciones)="row">
+                              <router-link :to='{name:"actualizarUsuario", params:{id:row.item.id}}' class="btn btn-warning"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> <b-icon icon="pencil" aria-hidden="true"></b-icon></router-link>
+                            <a type="button" @click="borrarAutores(row.item.id)" class="btn btn-secondary"><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon icon="trash-fill" aria-hidden="true"></b-icon></a>
+                       
+                    </template>
+ 
+                  </b-table>
+                  <b-pagination align="center" v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"></b-pagination>
+                
 
 </div>
 </section>
@@ -75,11 +56,31 @@ export default {
     data:function(){
         return{
             usuarios: null,
-          
-           // loading: true,
-           // errored:false
+            fields: [
+            {key:'id', label:'#'},
+            {key:'name', label:'Usuario'},
+            {key:'full_name', label:'Nombre Completo'},
+            {key:'document_type', label:'Tipo de Documento'},
+            {key:'document_number', label:'Numero de Documento'},
+            {key:'certificate_misak', label:'Certificado Misak'},
+            {key:'email', label:'E-mail'},
+            {key:'rol_id', label:'Rol'},
+            "Acciones"
+            
+            ],
+            Autores:[],
+            filter:null,
+            perPage: 7, //numero de filas que va  atener por pagina
+            currentPage: 1, //donde va a iniciar la paginacion
+         // loading: true,
+        // errored:false
 
         };
+    },
+    computed: {
+      rows() {
+        return this.usuarios.length
+      }
     },
       mounted:function(){
         let direccion = "http://localhost:8000/api/users";

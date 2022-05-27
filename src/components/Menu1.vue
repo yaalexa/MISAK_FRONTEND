@@ -12,14 +12,48 @@
         </div>
         <div>
           <b-nav  class="menu">
+                      <button class="btn btn-secondary"
+          type="button"
+          name="cerar"
+          value="CerrarSesion"
+          v-on:click="cerrarTodo()"><b-icon icon="box-arrow-right" aria-hidden="true"></b-icon></button>
             <b-nav-item><router-link to="/UsuarioU">INICIO</router-link></b-nav-item>
             <b-nav-item>NOSOTROS</b-nav-item>
             <b-nav-item>CULTURA</b-nav-item>
+  
           </b-nav>
         </div>
     </div>
   </div>
 </template>
+
+<script>
+
+import axios from "axios";
+
+export default{
+
+mounted(){
+    this.getTodos();
+    this.paginate(this.perPage, 0);
+    var obj = JSON.parse(sessionStorage.getItem("user"));
+
+  },
+
+methods: {
+        async cerrarTodo(obj) {
+      if (confirm("¿Confirma cerrar sesión?")){
+        sessionStorage.clear();
+        this.$router.push("/casa");
+        }  
+      }
+
+
+}
+
+}
+</script>
+
 <style scoped>
 .contenedor_todo {
   border: 1px solid black;

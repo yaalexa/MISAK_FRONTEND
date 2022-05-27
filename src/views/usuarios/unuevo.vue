@@ -121,10 +121,13 @@
 				 </div>
           </div>
 		  </div>
-         
+          <div class="botonautor">
+                    <button type="submit" class="btn btn-warning">Guardar</button>
+                    <button type="button" class="btn btn-secondary" v-on:click="salir()"  >  Salir  </button>
+                </div> 
       
             <div>
-            <button type="button" class="btn btn-primary" v-on:click="register()">Registrar nuevo usuario</button>            
+                    
 	 </div> 
          
       </form>
@@ -191,7 +194,11 @@ export default {
              this.error_msg = data.data.result.error_msg;
            }
         })
-    }
+    },
+    salir(){
+           this.$router.push({name:"Usuarios"})
+        },
+
   }
 
 }
