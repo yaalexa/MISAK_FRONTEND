@@ -17,16 +17,17 @@
               v-model="buscador"
               />
             </form>
-            <button type="button" class="btn btn-secondary margen" v-on:click="getTodos()">Buscar</button>
+            <button type="button" class="btn btn-secondary margen" @click="buscarmaterial(buscador)" v-on:click="errored=true">Buscar</button>
           </b-input-group-text>
         </div>
         <!-- Aqui termina el buscador -V-->
               
-           
+     <div v-if="this.errored==false">    
         <VueSlickCarousel v-bind="settings" class="carousel">
-        
+ 
 		    <div  v-for="todos in todos" :key="todos.id" >
           <b-card 
+          
             img
             alt=""
             img-top
@@ -47,8 +48,40 @@
                 </b-card-body>
           </b-card>
       </div>
-    
+  
+
 	</VueSlickCarousel>
+  </div> 
+     <div v-if="this.errored==true">    
+        <VueSlickCarousel v-bind="settings" class="carousel">
+ 
+		    <div  v-for="material in material" :key="material.id" >
+          <b-card 
+          
+            img
+            alt=""
+            img-top
+            tag="articulo"
+            header-bg-variant="dark"
+            header-text-variant="white"
+            border-variant="dark"
+            :footer="`${material.name}`"
+            footer-tag="footer"
+            footer-bg-variant="warning"
+          >
+                
+          <b-card-body>
+                   <b-img thumbnail center  :src="`http://127.0.0.1:8000/storage/${material.img}`" class="imagen" fluid alt="Fluid image"></b-img>
+                    ISBN: {{ material.isbn }}
+                    <b-card-text>Prioridad: {{ material.priority }}</b-card-text>
+                    <button type="button" class="btn btn-secondary margen" v-on:click="Ver(material.id,material.priority)">Ver</button>
+                </b-card-body>
+          </b-card>
+      </div>
+  
+
+	</VueSlickCarousel>
+  </div> 
      </div>
      </div>
   </div>
@@ -58,7 +91,6 @@
 
 import axios from "axios";
 import Header from "@/components/Header.vue";
-
 import VueSlickCarousel from 'vue-slick-carousel'
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
@@ -87,6 +119,7 @@ export default {
           name: '',
          
         },
+        material:[],
       perPage: 8,
       currentPage: 1,
       visual:null,
@@ -99,7 +132,7 @@ export default {
         pdf: "",
         year: "",
       },
-      
+      errored:false,
        mtr_usr: {
         manejo_users: "no se que va aqui",
         detalle_material: "visualizado",
@@ -112,7 +145,6 @@ export default {
 
   components: {
     Header,
-
     VueSlickCarousel,
     Menu1,
     NavdestacadosVue,
@@ -123,6 +155,7 @@ export default {
             }
         },
   mounted() {
+    
     this.getTodos();
     this.getVisul();
   
@@ -131,8 +164,20 @@ export default {
    
   methods: {
     buscarmaterial() {
-      clearTimeout(this.setTimeoutBuscador)
-        this.setTimeoutBuscador = setTimeout(this.getTodos,360)
+      if(this.buscador){
+      axios .get("http://127.0.0.1:8000/api/search",{
+          params:{
+            buscador:this.buscador
+          }
+        })
+        .then((response) => {
+          this.material = response.data;
+          console.log("hola", this.todos);
+          this.buscador=null;
+
+        })
+        .catch((errorgrave) => console.log(errorgrave));
+        }
     },
     Ver(id, priority) {
       var usrid = JSON.parse(sessionStorage.getItem("userid"));
@@ -145,14 +190,9 @@ export default {
         });
       this.$router.push({ name: "Pdf", params: { id: id, pr: priority } });
     },
-    getTodos(buscador) {
+    getTodos() {
     
-      axios
-        .get("http://127.0.0.1:8000/api/search",{
-          params:{
-            buscador:this.buscador
-          }
-        })
+      axios .get("http://127.0.0.1:8000/api/materials")
         .then((response) => {
           this.todos = response.data;
           console.log("hola", this.todos);

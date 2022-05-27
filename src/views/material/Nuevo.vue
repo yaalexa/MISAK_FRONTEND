@@ -65,15 +65,14 @@
         </div>
         <div class="col">
           <label for="" class="control-label col-sm-5">PRIORIDAD</label>
-          <div class="col-sm-7">
-            <input
-              type="text"
-              class="form-control"
-              name="priority"
-              id="priority"
-              v-model="formData.priority"
-            />
-          </div>
+                        <div class="col-xs-8">
+                       <select name="document_type" id="document_type" class="form-control " v-model="formData.priority">
+                             <br>
+                             <option value="1">Visualizado</option>
+                             <option value="2">Descargado</option>
+
+                             </select>   
+             </div>
         </div>
       </div>
  
@@ -178,7 +177,6 @@ export default {
   name: "Nuevo",
   props: ["imageUrl"],
   data: function () {
-
     return {
     
       selected:"",
@@ -214,14 +212,12 @@ export default {
         });
           
     },
-
   components: {
     Header,
     //Footer
   },
     
   methods: {
-
     /* Codigo de imagen */
     imagenObtenidaMethodo(e) {
       let file = e.target.files[0];
@@ -229,7 +225,6 @@ export default {
       this.formData.img = file;
       this.cargarImagenNuevo(file);
     },
-
     cargarImagenNuevo(file) {
       let reader = new FileReader();
       reader.onload = (e) => {
@@ -238,7 +233,6 @@ export default {
       reader.readAsDataURL(file);
       console.log("miniatura", reader);
     },
-
     /* Codigo del PDF */
     pdfObtenidoMethodo(e){
       let pdfs = e.target.files[0];
@@ -247,14 +241,12 @@ export default {
       this.cargarPdf(pdfs);
     },
  
-
     cargarPdf(){
       let find = new FileReader();
       find.onload = (e) =>{
         this.pdfMiniatura = e.target.result;
       }
     },
-
     guardarGuardar() {
       let formDataDataCambiar = new FormData();
       formDataDataCambiar.append("name", this.formData.name);
@@ -267,7 +259,6 @@ export default {
       formDataDataCambiar.append("editorial_id", this.formData.editorial),
       formDataDataCambiar.append("area_id", this.formData.areas);
       formDataDataCambiar.append("type_material_id", this.formData.TipoMaterial);
-
       axios
         .post("http://127.0.0.1:8000/api/materials", formDataDataCambiar)
         .then((data) => {
