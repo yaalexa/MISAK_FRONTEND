@@ -1,56 +1,69 @@
 <template>
-  <div>
-    <div class="contenedor_todo">
-        <div class="contenedor1">
-            <img
-              src="@/assets/logo.png"
-              class="logo"
-              height="80px"
-              width="80px"
-              alt="Kitten"/>
-              <h1 class="titulo">Libreria Virtual</h1>
-        </div>
-        <div>
-          <b-nav  class="menu">
-            <b-nav-item><router-link to="/UsuarioU">INICIO</router-link></b-nav-item>
-            <b-nav-item>NOSOTROS</b-nav-item>
-            <b-nav-item>CULTURA</b-nav-item>
-            <b-nav-item href="/casa">INGRESAR</b-nav-item>
-          </b-nav>
-        </div>
+  <div class="todo">
+    <div class="fondo">
+        <ul class="ul">
+          <li class="lia"></li>
+          <li><router-link to="/">INICIO</router-link></li>
+          <li><router-link to="/Cultura">CULTURA</router-link></li>
+          <li><router-link to="/Nosotros">NOSOTROS</router-link></li>
+          <li><router-link to="/Casa">INGRESAR</router-link></li>
+          <li class="lib"></li>
+        </ul>
     </div>
+    
   </div>
 </template>
 <style scoped>
-.contenedor_todo {
-  border: 1px solid black;
-  background: #16223f;
+.todo{
   display: flex;
-  justify-content: space-between;
-  align-content: center;
-  align-items: center;
-  width: 100vw;
   position: fixed;
-  
+  width: 100%;
 }
-.contenedor1 {
+.fondo{
+  background-image:url("@/assets/fondo33.jpg");
+  background-size: cover;
+  width: 100%;
+}
+.ul{
   display: flex;
-  align-items: center;
+  justify-content: center;
+  position: static;
+  align-content: center;
+  margin: 0;
+  padding: 0;
 }
-.logo {
-  border: 1px blueviolet;
-  padding: 4px;
+li{
+  margin-right: 4vw;
+  margin-top: 3vw;
+  list-style: none;
 }
-.titulo {
+/* .lia{
+  border-left: 2px solid #ffffff;
+  } */
+.lia::before{
+  content:"_________________________________|";
   color: white;
-  padding-left: 20px;
+  }
+/* .lib{
+  border-right: 2px solid #fffdfd;
+  } */
+.lib::after{
+  content: "|_________________________________";
+  color: white;
+  }
+.hr {
+  height: 10px;
+  border-color: rgb(255, 255, 255);
 }
-.menu a:hover {
-    background: linear-gradient(to top, rgb(44, 43, 43), 5%, #ffffff);
-    color: rgb(0, 0, 0);
+a:hover {
+    background: linear-gradient(to top, rgb(231, 167, 167), 5%, #2d0aca);
+    color: rgb(255, 255, 255);
 }
 a{
     color: rgb(255, 255, 255);
     text-decoration: none;
+}
+.menu{
+  margin-right: 1vw;
 }
 </style>

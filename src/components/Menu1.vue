@@ -12,9 +12,7 @@
         </div>
         <div>
           <b-nav  class="menu">
-            <b-nav-item><router-link to="/UsuarioU">INICIO</router-link></b-nav-item>
-            <b-nav-item>NOSOTROS</b-nav-item>
-            <b-nav-item>CULTURA</b-nav-item>
+            <b-nav-item><router-link class="right" to="/UsuarioU">INICIO</router-link></b-nav-item>
           </b-nav>
         </div>
     </div>
@@ -51,5 +49,8 @@
 a{
     color: rgb(255, 255, 255);
     text-decoration: none;
+}
+.right{
+  margin-right: 2vw;
 }
 </style>

@@ -70,6 +70,8 @@ import AsignarAutores from '../views/autormaterial/Nuevo.vue';
 // carlos
 import Nivelmaterial from '../views/NivelMaterial/Mostrar.vue';
 import AsignarMaterial from '../views/NivelMaterial/Nuevo.vue';
+import Cultura from '../views/home/Cultura.vue'
+import Nosotros from '../views/home/Nosotros.vue'
 Vue.use(VueRouter)
 
 const routes = [{
@@ -259,7 +261,7 @@ component: MostrarAreas
   },
   {
     name: 'Pdf',
-    path: '/Pdf/:id',
+    path: '/Pdf/:id,:pr',
     component: Pdf
 },
 {
@@ -281,6 +283,16 @@ component: MostrarAreas
   name: 'AsignarMaterial',
   path: '/AsignarMaterial/:id',
   component: AsignarMaterial
+},
+{
+  name:'Cultura',
+  path:'/Cultura',
+  component: Cultura
+},
+{
+  name:'Nosotros',
+  path:'/Nosotros',
+  component: Nosotros
 }
 
 ]

@@ -1,7 +1,6 @@
 <template>
  <div class="general">
   <div class="home">
-  
       <div class="wrapper fadeInDown">
               <div id="formContent" class="login" >
                 <!-- Tabs Titles -->
@@ -15,13 +14,13 @@
                 <form  v-on:submit.prevent="login">
                   <input type="text" id="email" class="fadeIn second" name="login" placeholder="Correo" v-model="email">
                   <input type="password" id="password" class="form-control password1" name="login" placeholder="Contraseña" v-model="password">
-                  <input type="submit" class="fadeIn fourth" value="Log In">
+                  <input type="submit" class="fadeIn fourth" value="ENTRAR">
                   
                 </form>
                 <router-link class="fadeIn fourth" to="/Register">Registrate</router-link> 
-                <button type="button" class="btn btn-secondary" v-on:click="salir()"  >  Salir  </button><br> <br>
+                <router-link class="fadeIn fourth volverv" to="/">Volver</router-link><br><br>
                 <!-- Remind Passowrd -->
-                <div class="alert alert-danger" role="alert" v-if="error">hj
+                <div class="alert alert-danger" role="alert" v-if="error">
                    {{error_msg}}
                 </div>
 
@@ -76,9 +75,6 @@ export default {
            }
         })
     },
-    salir(){
-           this.$router.push({name:"/Casa"})
-        },
   }
 }
 </script>
@@ -113,6 +109,9 @@ html {
 body {
   font-family: "Poppins", sans-serif;
 
+}
+.volverv{
+  margin-left: 5vw;
 }
 
 a {
