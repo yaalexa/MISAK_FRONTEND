@@ -37,31 +37,78 @@
         <b-button variant="outline-primary">Busar</b-button>
         <br />
         <LineChartGenerator />
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">material</th>
-              <th scope="col">Imagen</th>
-              <th scope="col">ISBN</th>
-              <th scope="col">Fecha publicación</th>
-              <th scope="col">N Paginas</th>
-              <th scope="col">Area</th>
-              <th scope="col">Educacion</th>
-              <th scope="col">Conteo</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="Reporte in Reporte" :key="Reporte.id">
-              <td>{{ Reporte.name }}</td>
-              <td>{{ Reporte.img }}</td>
-              <td>{{ Reporte.isbn }}</td>
-              <td>{{ Reporte.year }}</td>
-              <td>{{ Reporte.num_pages }}</td>
-              <td>{{ Reporte.area }}</td>
-              <td>{{ Reporte.nivel }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="justify-contentlg-end col-md-5 col-lg-8 mt-2">
+          <paginate-links
+            class="pagination justify-contend-end"
+            for="Reporte"
+            :limit="2"
+            :hide-single-page="true"
+            :show-step-links="true"
+            :full-page="true"
+            :classes="{
+              ul: 'simple-links-container',
+              li: 'simple-links-item',
+              liActive: ['simple-links-item', 'active1'],
+              'li.active': 'active1',
+            }"
+          >
+          </paginate-links>
+        </div>
+        <div class="table-responsive">
+          <paginate
+            ref="paginator"
+            name="Reporte"
+            :list="Reporte"
+            :per="10"
+          >
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">material</th>
+                <th scope="col">Imagen</th>
+                <th scope="col">ISBN</th>
+                <th scope="col">Fecha publicación</th>
+                <th scope="col">N Paginas</th>
+                <th scope="col">Area</th>
+                <th scope="col">Conteo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="Reporte in Reporte" :key="Reporte.id">
+                <td>{{ Reporte.name }}</td>
+                <td>
+                  <img
+                    :src="`http://127.0.0.1:8000/storage/${Reporte.img}`"
+                    accept="application/img"
+                  />
+                </td>
+                <td>{{ Reporte.isbn }}</td>
+                <td>{{ Reporte.year }}</td>
+                <td>{{ Reporte.num_pages }}</td>
+                <td>{{ Reporte.area }}</td>
+                <td>{{ Reporte.conteo }}</td>
+              </tr>
+            </tbody>
+          </table>
+          </paginate>
+        </div>
+        <div>
+          <paginate-links
+            class="pagination justify-contend-end"
+            for="Reporte"
+            :limit="2"
+            :hide-single-page="true"
+            :show-step-links="true"
+            :full-page="true"
+            :classes="{
+              ul: 'simple-links-container',
+              li: 'simple-links-item',
+              liActive: ['simple-links-item', 'active1'],
+              'li.active': 'active1',
+            }"
+          />
+        </div>
+
         <router-link
           :to="{ name: 'CrearNivelEducativo' }"
           class="btn btn-success"
@@ -87,6 +134,8 @@ export default {
         { text: "matematicas" },
       ],
       Reporte: [],
+      paginate: ["reporte_docentefiltrado"],
+
     };
   },
   components: {
@@ -103,6 +152,7 @@ export default {
         .get("http://127.0.0.1:8000/api/Reportes_Visualizacion")
         .then((response) => {
           this.Reporte = response.data;
+          
         })
         .catch((error) => {
           console.log(error);

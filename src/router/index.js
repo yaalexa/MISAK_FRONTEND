@@ -55,6 +55,7 @@ import mostarUU from '../views/UsuarioU/comunero.vue';
 import Reportes from '../views/reportes/vista.vue';
 import ReportesDescargas from '../views/reportes/Descargas.vue';
 import ReportesVisualizacion from '../views/reportes/Visualizacion.vue';
+import ReportesDocente from '../views/reportes/Docentes.vue';
 
 import Bar from '@/components/charts/Bar.vue';
 import LineChartGenerator from '@/components/charts/Line.vue';
@@ -230,6 +231,11 @@ component: MostrarAreas
     name: 'Visualizacion',
     path: '/Visualizacion',
     component: ReportesVisualizacion
+  },
+  {
+    name: 'Rdocente',
+    path: '/Rdocente',
+    component: ReportesDocente
   },
   {
     name: 'Grafica',

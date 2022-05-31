@@ -73,13 +73,13 @@ export default {
         });
     },
      graficar() {
-      for (let i of this.consumo) {
-        if (i.detalle_material == "descargas") {
-          this.descargas = this.descargas + 1;
-        }
-        if (i.detalle_material == "visualizacion") {
-          this.vistas = this.vistas + 1;
-        }
+        for (let i of this.consumo) {
+          if (i.detalle_material == "descargas") {
+            this.descargas = this.descargas + 1;
+          }
+          if (i.detalle_material == "visualizacion") {
+            this.vistas = this.vistas + 1;
+          }
       }
       // eslint-disable
       this. chartData= {
