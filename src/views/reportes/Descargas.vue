@@ -68,8 +68,16 @@
               <td>{{ Reportes_Descargas.conteo }}</td>
             </tr>
           </tbody>
+          <b-pagination
+              align="and"
+              v-model="currentPage"
+              :total-rows="rows"
+              :per-page="perPage"
+              aria-controls="my-table"
+            ></b-pagination>
         </table>
-        <button class="btn" >Descargar reporte</button>
+        
+        <button @click="DownloadreportDE()" class="btn btn-success">Descargar reporte</button>
       </section>
     </div>
   </div>
@@ -91,6 +99,8 @@ export default {
         { text: "matematicas" },
       ],
       Reportes_Descargas: [],
+      perPage: 2, //numero de filas que va a tener por pagina
+      currentPage: 1, //donde va a iniciar la paginacion
     };
   },
   components: {
@@ -114,6 +124,21 @@ export default {
           this.Reportes_Descargas = [];
         });
     },
+    DownloadreportDE(){
+      axios({
+        url: `http://127.0.0.1:8000/api/Report_DEPDF${this.$route.params.id}`,
+        method: 'GET',
+        responseType: 'blob',
+      }).then((response)=>{
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+        this.descargara = response.data;
+        var fileLink = document.createElement('a');
+        fileLink.href = fileURL;
+        fileLink.setAttribute('download','file.pdf');
+        document.body.appendChild(fileLink);
+        fileLink.click();
+      })
+    }
   },
 };
 </script>
@@ -132,5 +157,14 @@ body {
 .cara2 {
   width: 80%;
   height: 100vh;
+}
+.btn-success{
+    background-color: #ffca2c;
+    border-color: #ffc720;
+    color: black;
+}
+thead {
+  background: #16223f;
+  color: white;
 }
 </style>

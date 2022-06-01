@@ -55,7 +55,9 @@
               </thead>
               <tbody>
                 <tr
-                  v-for="Reporte_Docente in paginated('reporte_docentefiltrado') "
+                  v-for="Reporte_Docente in paginated(
+                    'reporte_docentefiltrado'
+                  )"
                   :key="Reporte_Docente.id"
                 >
                   <td>{{ Reporte_Docente.id }}</td>
@@ -83,12 +85,9 @@
             }"
           />
         </div>
-
-        <router-link
-          :to="{ name: 'CrearNivelEducativo' }"
-          class="btn btn-success"
-          >Descargar Reporte</router-link
-        >
+        <button @click="DownloadreportDO()" class="btn btn-success">
+          Descargar reporte
+        </button>
       </section>
     </div>
   </div>
@@ -149,6 +148,21 @@ export default {
         this.filterbusqueda = "";
         this.reporte_docentefiltrado = this.Reporte_Docente;
       }
+    },
+    DownloadreportDO() {
+      axios({
+        url: `http://127.0.0.1:8000/api/Report_DOPDF${this.$route.params.id}`,
+        method: "GET",
+        responseType: "blob",
+      }).then((response) => {
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+        this.descargara = response.data;
+        var fileLink = document.createElement("a");
+        fileLink.href = fileURL;
+        fileLink.setAttribute("download", "file.pdf");
+        document.body.appendChild(fileLink);
+        fileLink.click();
+      });
     },
   },
 };

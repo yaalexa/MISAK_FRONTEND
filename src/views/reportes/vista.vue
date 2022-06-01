@@ -14,8 +14,7 @@
           <div class="card-body">
             <div class="row0">
               <div class="col">
-                <h4>Reportes del material descargado</h4>
-                <span>35000</span>
+                <h4 class="tito">Reportes del material descargado</h4>
               </div>
               <div class="col-auto">
                 <div>
@@ -29,16 +28,15 @@
             </div>
           </div>
           <div class="card-body">
-            <div class="row1">
+            <div class="row0">
               <div class="col">
-                <h4>Reportes del material Visualizado</h4>
-                <span>8500</span>
+                <h4 class="tito">Reportes del material Visualizado</h4>
               </div>
               <div class="col-auto">
                 <div>
                   <router-link
                     :to="{ name: 'Visualizacion' }"
-                    class="btn btn-success"
+                    class="btn btn-success" 
                     >Generar reporte</router-link
                   >
                 </div>
@@ -48,8 +46,7 @@
           <div class="card-body">
             <div class="row0">
               <div class="col">
-                <h4>Reportes de los docentes</h4>
-                <span>35000</span>
+                <h4 class="tito">Reportes de los docentes</h4>
               </div>
               <div class="col-auto">
                 <div>
@@ -108,4 +105,20 @@ export default {
   height: 100vh;
   overflow: auto;
 }
+.card-body{
+  background: #16223f;
+  margin: 4px;
+}
+.row0{
+  background: #16223f;
+}
+.tito{
+  color: aliceblue;
+}
+.btn-success{
+    background-color: #ffca2c;
+    border-color: #ffc720;
+    color: black;
+}
+
 </style>

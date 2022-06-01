@@ -55,41 +55,36 @@
           </paginate-links>
         </div>
         <div class="table-responsive">
-          <paginate
-            ref="paginator"
-            name="Reporte"
-            :list="Reporte"
-            :per="10"
-          >
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">material</th>
-                <th scope="col">Imagen</th>
-                <th scope="col">ISBN</th>
-                <th scope="col">Fecha publicación</th>
-                <th scope="col">N Paginas</th>
-                <th scope="col">Area</th>
-                <th scope="col">Conteo</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="Reporte in Reporte" :key="Reporte.id">
-                <td>{{ Reporte.name }}</td>
-                <td>
-                  <img
-                    :src="`http://127.0.0.1:8000/storage/${Reporte.img}`"
-                    accept="application/img"
-                  />
-                </td>
-                <td>{{ Reporte.isbn }}</td>
-                <td>{{ Reporte.year }}</td>
-                <td>{{ Reporte.num_pages }}</td>
-                <td>{{ Reporte.area }}</td>
-                <td>{{ Reporte.conteo }}</td>
-              </tr>
-            </tbody>
-          </table>
+          <paginate ref="paginator" name="Reporte" :list="Reporte" :per="10">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">material</th>
+                  <th scope="col">Imagen</th>
+                  <th scope="col">ISBN</th>
+                  <th scope="col">Fecha publicación</th>
+                  <th scope="col">N Paginas</th>
+                  <th scope="col">Area</th>
+                  <th scope="col">Conteo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="Reporte in Reporte" :key="Reporte.id">
+                  <td>{{ Reporte.name }}</td>
+                  <td>
+                    <img
+                      :src="`http://127.0.0.1:8000/storage/${Reporte.img}`"
+                      accept="application/img"
+                    />
+                  </td>
+                  <td>{{ Reporte.isbn }}</td>
+                  <td>{{ Reporte.year }}</td>
+                  <td>{{ Reporte.num_pages }}</td>
+                  <td>{{ Reporte.area }}</td>
+                  <td>{{ Reporte.conteo }}</td>
+                </tr>
+              </tbody>
+            </table>
           </paginate>
         </div>
         <div>
@@ -108,12 +103,9 @@
             }"
           />
         </div>
-
-        <router-link
-          :to="{ name: 'CrearNivelEducativo' }"
-          class="btn btn-success"
-          >Descargar Reporte</router-link
-        >
+        <div>
+          <button @click="DownloadreportVI()" class="btn btn-success">Descargar Reporte</button>
+        </div>
       </section>
     </div>
   </div>
@@ -135,7 +127,6 @@ export default {
       ],
       Reporte: [],
       paginate: ["reporte_docentefiltrado"],
-
     };
   },
   components: {
@@ -152,12 +143,26 @@ export default {
         .get("http://127.0.0.1:8000/api/Reportes_Visualizacion")
         .then((response) => {
           this.Reporte = response.data;
-          
         })
         .catch((error) => {
           console.log(error);
           this.Reporte = [];
         });
+    },
+    DownloadreportVI() {
+      axios({
+        url: `http://127.0.0.1:8000/api/Report_ViPDF${this.$route.params.id}`,
+        method: "GET",
+        responseType: "blob",
+      }).then((response) => {
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+        this.descargara = response.data;
+        var fileLink = document.createElement("a");
+        fileLink.href = fileURL;
+        fileLink.setAttribute("download", "file.pdf");
+        document.body.appendChild(fileLink);
+        fileLink.click();
+      });
     },
   },
 };
@@ -179,5 +184,14 @@ body {
   width: 95%;
   height: 100vh;
   overflow: auto;
+}
+.btn-success {
+  color: black;
+  background-color: #ffca2c;
+  border-color: #ffc720;
+}
+thead {
+  background: #16223f;
+  color: white;
 }
 </style>
