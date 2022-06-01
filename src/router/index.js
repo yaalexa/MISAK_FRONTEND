@@ -70,6 +70,11 @@ import AsignarAutores from '../views/autormaterial/Nuevo.vue';
 // carlos
 import Nivelmaterial from '../views/NivelMaterial/Mostrar.vue';
 import AsignarMaterial from '../views/NivelMaterial/Nuevo.vue';
+
+//eduard vista para procesos que ha realizado el comunero
+import Proceso from '../views/UsuarioU/Proceso.vue';
+
+
 Vue.use(VueRouter)
 
 const routes = [{
@@ -281,7 +286,12 @@ component: MostrarAreas
   name: 'AsignarMaterial',
   path: '/AsignarMaterial/:id',
   component: AsignarMaterial
-}
+},
+{
+  path: '/proceso',
+  name: 'Proceso',
+  component: Proceso
+},
 
 ]
 

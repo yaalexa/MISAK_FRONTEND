@@ -15,11 +15,13 @@
             <b-nav-item><router-link to="/UsuarioU">INICIO</router-link></b-nav-item>
             <b-nav-item>NOSOTROS</b-nav-item>
             <b-nav-item>CULTURA</b-nav-item>
+            <b-nav-item href="/proceso">PROCESO</b-nav-item>
           </b-nav>
         </div>
     </div>
   </div>
 </template>
+
 <style scoped>
 .contenedor_todo {
   border: 1px solid black;
