@@ -116,7 +116,7 @@
 <script>
 import axios from "axios";
 export default {
-  name: "dashboard",
+  name: "header",
   mounted() {
     var obj = JSON.parse(sessionStorage.getItem("user"));
     var usrid = JSON.parse(sessionStorage.getItem("userid"));

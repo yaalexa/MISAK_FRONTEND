@@ -82,12 +82,14 @@ const routes = [{
     {
         path: '/actualizarusuarios/:id',
         name: '/actualizarusuarios',
-        component: actualizarusuarios
+        component: actualizarusuarios,
+        meta: { requiresAuth: true }
     },
     {
         path: '/unuevo',
         name: '/unuevo',
-        component: Unuevo
+        component: Unuevo,
+        meta: { requiresAuth: true }
     },
     {
         path: '/',
@@ -97,12 +99,14 @@ const routes = [{
     {
         path: '/welcome',
         name: 'welcome',
-        component: welcome
+        component: welcome,
+        meta: { requiresAuth: true }
     },
     {
         path: '/Library',
         name: 'Library',
-        component: Library
+        component: Library,
+        meta: { requiresAuth: true} 
     },
     {
         path: '/Register',
@@ -112,57 +116,68 @@ const routes = [{
     {
         path: '/dashboard',
         name: 'Dashboard',
-        component: Dashboard
+        component: Dashboard,
+        meta: { requiresAuth: true }
     },
     {
         path: '/editar/:id',
         name: 'Editar',
-        component: Editar
+        component: Editar,
+        meta: { requiresAuth: true }
     },
     {
         path: '/nuevo',
         name: 'Nuevo',
-        component: Nuevo
+        component: Nuevo,
+        meta: { requiresAuth: true }
     },
     {
       name: 'CrearEditorial',
       path: '/CrearEdit',
-      component: CrearEditorial
+      component: CrearEditorial,
+      meta: { requiresAuth: true }
     },
     {
     name: 'EditarEditorial',
     path: '/Editar/:id',
-    component: EditarEditorial
+    component: EditarEditorial,
+        meta: { requiresAuth: true }
     },
     {
     name: 'MostrarEditorial',
     path: '/Editorial',
-    component: MostrarEditorial
+    component: MostrarEditorial,
+    meta: { requiresAuth: true }
     },
     {
       name: 'CrearNivelEducativo',
       path: '/CrearNivelEducativo',
-      component: CrearNivelEdicativo
+      component: CrearNivelEdicativo,
+      meta: { requiresAuth: true }
     },
     {
     name: 'EditarNivelEducativo',
     path: '/Editar/:id',
-    component: EditarNivelEdicativo
+    component: EditarNivelEdicativo,
+    meta: { requiresAuth: true }
     },
     {
     name: 'MostrarNivelEducativo',
     path: '/NivelEducativo',
-    component: MostrarNivelEdicativo
+    component: MostrarNivelEdicativo,
+    meta: { requiresAuth: true }
     },
 {
   name: 'Mostrar',
   path: '/mostrar',
-  component: Mostrar
+  component: Mostrar,
+  meta: { requiresAuth: true }
 },
 {
   path: '/editarrol/:id',
   name: 'EditarRol',
-  component: EditarRol
+  component: EditarRol,
+  meta: { requiresAuth: true }
 },
 {
   path: '/crearrol',
@@ -177,57 +192,68 @@ const routes = [{
 {
   name: 'CrearAutor',
   path: '/CrearAutor',
-  component: CrearAutores
+  component: CrearAutores,
+  meta: { requiresAuth: true }
 },
 {
   name: 'EditarAutor',
   path: '/Editar/:id',
-  component: EditarAutores
+  component: EditarAutores,
+  meta: { requiresAuth: true }
 },
 {
   name: 'MostrarAutor',
   path: '/Autores',
-  component: MostrarAutores
+  component: MostrarAutores,
+  meta: { requiresAuth: true }
 },
 {
   name: 'CrearTipoMaterial',
   path: '/CrearTipoMaterial',
-  component: CrearTipoMaterial
+  component: CrearTipoMaterial,
+  meta: { requiresAuth: true }
 },
 {
 name: 'EditarTipoMaterial',
 path: '/EditarTipoMaterial/:id',
-component: EditarTipoMaterial
+component: EditarTipoMaterial,
+meta: { requiresAuth: true }
 },
 {
 name: 'MostrarTipoMaterial',
 path: '/TipoMaterial',
-component: MostrarTipoMaterial
+component: MostrarTipoMaterial,
+meta: { requiresAuth: true }
 },
 {
   name: 'CrearAreas',
   path: '/Crear',
-  component: CrearAreas
+  component: CrearAreas,
+  meta: { requiresAuth: true }
 },
 {
 name: 'EditarAreas',
 path: '/Editar/:id',
-component: EditarAreas
+component: EditarAreas,
+meta: { requiresAuth: true }
 },
 {
 name: 'MostrarAreas',
 path: '/Areas',
-component: MostrarAreas
+component: MostrarAreas,
+meta: { requiresAuth: true }
 },
 {
   name: 'mostarUU',
   path: '/UsuarioU',
-  component: mostarUU
+  component: mostarUU,
+  meta: { requiresAuth: true }
   },
   {
     name: 'VistaReporte',
     path: '/vistaReporte',
-    component: Reportes
+    component: Reportes,
+    meta: { requiresAuth: true }
   },
   {
     name: 'Descargas',
@@ -242,7 +268,8 @@ component: MostrarAreas
   {
     name: 'Grafica',
     path: '/Grafica',
-    component: Bar
+    component: Bar,
+    meta: { requiresAuth: true }
   },
   {
     name:'GraficaLinea',
@@ -258,31 +285,36 @@ component: MostrarAreas
     name:'Casa',
     path:'/Casa',
     component: Casa
-  },
+    },
   {
     name: 'Pdf',
     path: '/Pdf/:id,:pr',
-    component: Pdf
+    component: Pdf,
+    meta: { requiresAuth: true }
 },
 {
   name: 'autormaterial',
   path: '/autormaterial/:id,:name',
-  component: Autormaterial
+  component: Autormaterial,
+  meta: { requiresAuth: true }
 },
 {
   name: 'AsignarAutores',
   path: '/AsignarAutores/:id',
-  component: AsignarAutores
+  component: AsignarAutores,
+  meta: { requiresAuth: true }
 },
 {
   name: 'nivelmaterial',
   path: '/nivelmaterial/:id,:name',
-  component: Nivelmaterial
+  component: Nivelmaterial,
+  meta: { requiresAuth: true }
 },
 {
   name: 'AsignarMaterial',
   path: '/AsignarMaterial/:id',
-  component: AsignarMaterial
+  component: AsignarMaterial,
+  meta: { requiresAuth: true }
 },
 {
   name:'Cultura',
@@ -302,5 +334,21 @@ const router = new VueRouter({
     base: process.env.BASE_URL,
     routes
 })
+router.beforeEach((to, from, next) => {
+  let usuario=null;
+
+  usuario = JSON.parse(sessionStorage.getItem('usuario'))
+
+  if (to.matched.some((route) => route.meta.requiresAuth)) {
+    if (usuario) {
+      next();
+    } else {
+      
+      router.push ({name: "Casa"})
+    }
+  } else {
+    next();
+  }
+});
 
 export default router

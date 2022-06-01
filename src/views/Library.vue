@@ -60,7 +60,7 @@ import imagetm from "@/assets/tipotm.png";
 import imagetarea from "@/assets/aream.png";
 import axios from 'axios';
 export default {
-    name:"welcome",
+    name:"library",
     data(){
         return {
             material:null,

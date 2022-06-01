@@ -39,7 +39,10 @@ export default {
  VueSession
   },
   data: function(){
+
     return {
+      error:null,
+      error_msg:null,
       email: "",
       password: "",
     
@@ -64,7 +67,7 @@ export default {
             // localStorage.token = data.data.result.token;
             if( data.data.rol_id==1){
              this.$router.push('/welcome');
-             }
+             sessionStorage.setItem('usuario', JSON.stringify(data.data));             }
              else{
                this.$router.push('/usuarioU');
              }
