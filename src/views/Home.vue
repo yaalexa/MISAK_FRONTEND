@@ -70,6 +70,7 @@ export default {
              sessionStorage.setItem('usuario', JSON.stringify(data.data));             }
              else{
                this.$router.push('/usuarioU');
+             sessionStorage.setItem('usuario', JSON.stringify(data.data));                    
              }
            }else{
              this.error = true;
