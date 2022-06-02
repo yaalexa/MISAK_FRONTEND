@@ -68,26 +68,57 @@ export default {
       default: () => []
     }
   },
-  data() {
-    return {
-      chartData: {
-        labels: [
-          'January',
-          'February',
-          'March',
-          'April',
-          'May',
-          'June',
-          'July'
-        ],
+  methods:{
+      MostrarReportes_visualizado() {
+      this.axios
+        .get("http://127.0.0.1:8000/api/Reportes_Visualizacion")
+        .then((response) => {
+          this.consumo = response.data;
+          this.name = response.data;
+          this.conteo = response.data;
+          this.graficar();
+        })
+        .catch((error) => {
+          console.log(error);
+          this.consumo = [];
+        });
+    },
+    graficar(){
+      for(let i of this.name){
+        console.log(i.name);
+        this.nombres.push(i.name);
+      }
+      console.log("nombres: "+this.nombres);
+      for(let i of this.conteo){
+        console.log(i.conteo);
+        this.conteos.push(i.conteo)
+      }
+      console.log("conteo "+ this.conteos);
+
+      this.chartData= {
+        labels: this.nombres,
         datasets: [
           {
-            label: 'Data One',
-            backgroundColor: '#f87979',
-            data: [40, 39, 10, 40, 39, 80, 40]
+            label: 'Materiales',
+            backgroundColor: '#000080',
+            data: this.conteos
           }
-        ] 
-      },
+        ]
+      }
+    },
+  },
+  mounted (){
+    this.MostrarReportes_visualizado();
+
+  },
+  data() {
+    return {
+      consumo : [],
+      name: [],
+      nombres: [],
+      conteo: [],
+      conteos:[],
+      chartData:{},
       chartOptions: {
         responsive: true,
         maintainAspectRatio: false
