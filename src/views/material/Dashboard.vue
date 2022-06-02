@@ -8,84 +8,58 @@
 
 
     <div class="cara2">
-            <section>       
-      <div class="izquierda">
-      <div class="col-md-12">
-      
-        <h1>MATERIAL </h1> 
-                   
-        <br>
-      </div>
-      
-               <div class="form-group left row" >
-                 <div class="control-label col-sm-5" style="text-align: left">         
-                <button class="btn btn-warning" v-on:click="nuevo()" >Nuevo <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon></button>
-                </div> 
-                <div class="control-label col-sm-7" style="text-align: left">  
-                <div class="input-group" style="text-align: right">
-                
-                <input
-                        type="text"
-                        v-model="inputSearch"
-                        class="form-control"
-                        placeholder="Ingrese el nombre del libro " 
-                        style="width : 40px;"
-                />
-                <button
-                        type="submit"
-                        @click="buscarmaterial(inputSearch)"
-                        v-on:click="errored=true"     
-                        class="btn btn-success"
-                        >
-         <b-icon icon="search" aria-hidden="true"></b-icon>
-        </button>
-   </div>
-   <br>
-   </div>
+      <section>
+        <div class="izquierda">
+          <div class="col-md-12">
+            <h1>MATERIAL</h1>
+
+            <br />
+          
+          <!-- Boton nuevo -->
+          <div class="form-group left row">
+            <div class="control-label col-sm-5" style="text-align: left">
+              <button class="btn btn-warning" v-on:click="nuevo()">
+                Nuevo
+                <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon>
+              </button>
+            </div>
+          <!-- -------- -->
+          <!-- Buscador -->
+            <div class="control-label col-sm-7" style="text-align: left">
+              <div class="input-group" style="text-align: right">
+                <b-form-input
+                v-model="filter"
+                type="search"
+                placeholder="Ingrese el nombre del libro"
+                style="width: 40px">
+                </b-form-input>
+              </div>
+              <br>
             </div>
 
-<!-- para el buscardor-->
-<div v-if="errored == true">
-
-              
-                    <b-table id="my-table" :items="buscar" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table"   >
-                        <template #cell(acciones)="row">
+            <b-table :filter="filter" id:="my-table" :items="material" :per-page="perPage"
+                      :current-page="currentPage" class="table" :fields="fields">
+                      <template #cell(acciones)="row">
                            <router-link :to='{name:"Editar", params:{id:row.item.id}}' class="btn btn-warning"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> <b-icon icon="pencil" aria-hidden="true"></b-icon></router-link>
                                 <a type="button" @click="borrar(row.item.id)" class="btn btn-secondary"><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon icon="trash-fill" aria-hidden="true"></b-icon></a>
                                  <a type="button" @click="autormaterial(row.item.id, row.item.name)" class="btn btn-sucess" ><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon icon="person-check" aria-hidden="true" variant="secondary"></b-icon></a>
                                  <a type="button" @click="educationallevel(row.item.id, row.item.name)" class="btn btn-sucess"><b-icon icon="bar-chart-fill" flip-h flip-v></b-icon></a>
 
                         </template>
-                    </b-table>
-                    </div>
 
-
-
-
-<!--fin del buscador-->
-
-
-
-
-
-
-<div v-if="errored == false">
-               
-                    <b-table id="my-table" :items="material" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table"   >
-                        <template #cell(acciones)="row">
-
-                            <router-link :to='{name:"Editar", params:{id:row.item.id}}' class="btn btn-warning"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> <b-icon icon="pencil" aria-hidden="true"></b-icon></router-link>
-                                <a type="button" @click="borrar(row.item.id)" class="btn btn-secondary"><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon icon="trash-fill" aria-hidden="true"></b-icon></a>
-                                 <a type="button" @click="autormaterial(row.item.id, row.item.name)" class="btn btn-sucess"><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon icon="person-check" aria-hidden="true"></b-icon></a>
-                                 <a type="button" @click="educationallevel(row.item.id, row.item.name)" class="btn btn-sucess"><b-icon icon="bar-chart-fill" flip-h flip-v></b-icon></a>
-                           
-                        </template>
-                    </b-table>
-                    </div>
-                     <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"  ></b-pagination>
-           </div>
-            </section>
- </div>
+            </b-table>
+          </div>
+          <!-- Paginacion -->
+          <b-pagination
+            v-model="currentPage"
+            :total-rows="rows"
+            :per-page="perPage"
+            aria-controls="my-table">
+          </b-pagination>
+          </div>
+        </div>
+      </section>
+    </div>
       
     </div>
 </template>
@@ -97,25 +71,27 @@ export default {
     name:"header",
     data(){
         return {
-            perPage: 7,
-             currentPage:1,
-             material:[],
-             buscar:[],
-             fields: [
-                {key: 'id', label: '#',},
-                {key: 'name', label: 'Nombre'},
-                {key: 'isbn', label: 'ISBN'},
-                {key: 'num_pages', label: '# Pag'},
-                {key: 'priority', label: 'Prioridad'},
-                {key: 'year', label: 'Año'},
-                "acciones"
-                ],
-            pagina:1,
-            list : null,
-             search: "",
-             errored:false,
-                   inputSearch: "",
-        }
+      perPage: 7,
+      currentPage: 1,
+      material: [],
+      filter: null,
+      fields: [
+        { key: "id", label: "#" },
+        { key: "NOMBRE", label: "Nombre" },
+        { key: "ISBN", label: "ISBN" },
+        { key: "#PAG", label: "# Pag" },
+        { key: "PRIORIDAD", label: "Prioridad" },
+        { key: "AÑO", label: "Año" },
+        { key: "TIPO MATERIAL", label: "Tipo Material" },
+        { key: "EDITORIAL", label: "Editorial" },
+        { key: "AREA", label: "Area" },
+        "acciones",
+      ],
+      pagina: 1,
+      list: null,
+      search: "",
+      inputSearch: "",
+    };
     },
     components:{
         Header,
@@ -167,16 +143,17 @@ export default {
                 this.$router.push({name: "autormaterial",params:{id: id, name: name}
 });
             },
-            async mostarMateriales(){
-              await this.axios.get('http://127.0.0.1:8000/api/materials/').then(response=>{
-                     this.material=response.data;
-                     console.log(this.material);
-                
-                }).catch(error=>{
-                    console.log(error)
+            async mostarMateriales() {
+                await this.axios
+                .get("http://127.0.0.1:8000/api/visualizacion/")
+                .then((response) => {
+                this.material = response.data;
+                console.log(this.material);
                 })
-        
-    }
+                .catch((error) => {
+                console.log(error);
+                });
+            },
      
     },
     
