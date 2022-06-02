@@ -13,11 +13,13 @@
         <div>
           <b-nav  class="menu">
              <b-nav-item><router-link class="right" to="/UsuarioU">INICIO</router-link></b-nav-item>
+              <b-nav-item href="/proceso">PROCESO</b-nav-item>
             <button class="btn btn-secondary"
           type="button"
           name="cerar"
           value="CerrarSesion"
           v-on:click="cerrarTodo()"><b-icon icon="box-arrow-right" aria-hidden="true"></b-icon></button>
+         
             </b-nav>
         </div>
     </div>

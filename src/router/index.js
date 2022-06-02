@@ -51,6 +51,8 @@ import MostrarAreas from '../views/Areas/Mostrar.vue';
 
 //para Areas
 import mostarUU from '../views/UsuarioU/comunero.vue';
+import Proceso from '../views/UsuarioU/Proceso.vue';
+
 //reportes
 import Reportes from '../views/reportes/vista.vue';
 import ReportesDescargas from '../views/reportes/Descargas.vue';
@@ -73,6 +75,8 @@ import Nivelmaterial from '../views/NivelMaterial/Mostrar.vue';
 import AsignarMaterial from '../views/NivelMaterial/Nuevo.vue';
 import Cultura from '../views/home/Cultura.vue'
 import Nosotros from '../views/home/Nosotros.vue'
+
+
 Vue.use(VueRouter)
 
 const routes = [{
@@ -330,7 +334,13 @@ meta: { requiresAuth: true }
   name:'Nosotros',
   path:'/Nosotros',
   component: Nosotros
-}
+},
+{
+  path: '/proceso',
+  name: 'Proceso',
+  component: Proceso,
+  meta: { requiresAuth: true }
+},
 
 ]
 
