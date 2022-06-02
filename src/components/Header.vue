@@ -75,7 +75,7 @@
       <div class="contenedor"> 
         <table>
                    <tr>
-                  <td >Usuario: {{usuario.user.name}} Rol: {{rolName}}</td>
+                  <td >Usuario: {{this.usuario.user.name}} Rol: {{rolName}}</td>
                 </tr>
 
                 <tr>
@@ -154,7 +154,7 @@ export default {
           
           console.log("usuarioDatos", this.usuario);
           console.log("usuarioUsrrolid", this.usuario.user.rol_id);
-          if(this.usuario.user.rol_id == 2){
+          if(this.usuario.user.rol_id == 1){
             this.administrador = true;
             this.rolName ="Administrador";
           }else{

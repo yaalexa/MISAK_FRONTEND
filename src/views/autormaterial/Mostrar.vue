@@ -21,11 +21,7 @@
                 <div class="control-label col-sm-7" style="text-align: left">  
                 <div class="input-group" style="text-align: right">
                 
-                        <b-form-input
-                        v-model="filter"
-                        type="search"
-                        placeholder="Buscar"
-                        > </b-form-input>
+                        <b-form-input v-model="filter" type="search" placeholder="Buscar"> </b-form-input>
             </div>
             <br>
             </div>
@@ -85,7 +81,7 @@ export default {
     },
     methods:{
         autoresasignados(){
-            this.nombrematerial=this.$route.params.name;
+        this.nombrematerial=this.$route.params.name;
         let direccion = `http://127.0.0.1:8000/api/author_materials/${this.$route.params.id}`;
         axios.get(direccion).then((result) => {
         this.Author_material = result.data;

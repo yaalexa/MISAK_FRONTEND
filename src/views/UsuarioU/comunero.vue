@@ -8,9 +8,9 @@
           <div id="contenido2">
           <div class="contenedor4">
           <b-input-group-text>
-            <form class="form-inline my-2 my-lg-0">
+            <form class="form-inline ">
             <input 
-              class="form-control mr-sm-2 buscador"
+              class="form-control "
               type="search"
               placeholder="Buscar por material...."
               aria-label="Search"
@@ -31,7 +31,7 @@
             img
             alt=""
             img-top
-            tag="articulo"
+          
             header-bg-variant="dark"
             header-text-variant="white"
             border-variant="dark"
@@ -57,7 +57,6 @@
  
 		    <div  v-for="material in material" :key="material.id" >
           <b-card 
-          
             img
             alt=""
             img-top
@@ -90,12 +89,12 @@
 <script>
 
 import axios from "axios";
-import Header from "@/components/Header.vue";
 import VueSlickCarousel from 'vue-slick-carousel'
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 import Menu1 from "@/components/Menu1.vue";
 import NavdestacadosVue from "@/components/NavDestacados.vue";
+
 
 export default {
   data() {
@@ -115,11 +114,8 @@ export default {
           "slidesPerRow": 1,
           "breakpoint": 1024,
 				},
-        item: {
-          name: '',
-         
-        },
-        material:[],
+        
+      material:[],
       perPage: 8,
       currentPage: 1,
       visual:null,
@@ -144,7 +140,6 @@ export default {
   },
 
   components: {
-    Header,
     VueSlickCarousel,
     Menu1,
     NavdestacadosVue,
@@ -157,7 +152,6 @@ export default {
   mounted() {
     
     this.getTodos();
-    this.getVisul();
   
   },
   
@@ -190,10 +184,9 @@ export default {
         });
       this.$router.push({ name: "Pdf", params: { id: id, pr: priority } });
     },
-    getTodos() {
-    
-      axios .get("http://127.0.0.1:8000/api/materials")
-        .then((response) => {
+
+    async getTodos() {
+      await axios.get("http://127.0.0.1:8000/api/materials").then((response) => {
           this.todos = response.data;
           console.log("hola", this.todos);
           this.buscador=null;

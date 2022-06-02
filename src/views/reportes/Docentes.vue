@@ -7,40 +7,22 @@
     </div>
     <div class="cara2">
       <section>
-        <h1>Reporte de Visualizacion del material</h1>
+        <h1>Reporte de Docentes</h1>
         <br />
-        <label for="start">Fecha de inicio:</label>
-        <input
-          type="date"
-          id="start"
-          name="trip-start"
-          value=""
-          min="2018-01-01"
-          max="2050-1-1"
-        />
-        <label for="start">Fecha Final:</label>
-        <input
-          type="date"
-          id="start"
-          name="trip-start"
-          value=""
-          min="2018-01-01"
-          max="2050-1-1"
-        />
-        <label for="datepicker-sm">Arias:</label>
-        <b-form-select
-          id="example-locales"
-          v-model="locale"
-          :options="locales"
-          class="mb-2"
-        ></b-form-select>
-        <b-button variant="outline-primary">Busar</b-button>
+        <div>
+          <input
+            type="search"
+            aria-label="Search"
+            v-model="filterbusqueda"
+            @keyup.prevent="Filtrardocente()"
+          />
+          <button>Buscar</button>
+        </div>
         <br />
-        <LineChartGenerator />
         <div class="justify-contentlg-end col-md-5 col-lg-8 mt-2">
           <paginate-links
             class="pagination justify-contend-end"
-            for="Reporte"
+            for="reporte_docentefiltrado"
             :limit="2"
             :hide-single-page="true"
             :show-step-links="true"
@@ -55,33 +37,36 @@
           </paginate-links>
         </div>
         <div class="table-responsive">
-          <paginate ref="paginator" name="Reporte" :list="Reporte" :per="10">
+          <paginate
+            ref="paginator"
+            name="reporte_docentefiltrado"
+            :list="reporte_docentefiltrado"
+            :per="10"
+          >
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">material</th>
-                  <th scope="col">Imagen</th>
-                  <th scope="col">ISBN</th>
-                  <th scope="col">Fecha publicación</th>
-                  <th scope="col">N Paginas</th>
-                  <th scope="col">Area</th>
-                  <th scope="col">Conteo</th>
+                  <th scope="col">id</th>
+                  <th scope="col">docente</th>
+                  <th scope="col">Visualizado</th>
+                  <th scope="col">Descargados</th>
+                  <th scope="col">detalle</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="Reporte in Reporte" :key="Reporte.id">
-                  <td>{{ Reporte.name }}</td>
+                <tr
+                  v-for="Reporte_Docente in paginated(
+                    'reporte_docentefiltrado'
+                  )"
+                  :key="Reporte_Docente.id"
+                >
+                  <td>{{ Reporte_Docente.id }}</td>
+                  <td>{{ Reporte_Docente.name }}</td>
+                  <td>{{ Reporte_Docente.visualizado }}</td>
+                  <td>{{ Reporte_Docente.descargado }}</td>
                   <td>
-                    <img
-                      :src="`http://127.0.0.1:8000/storage/${Reporte.img}`"
-                      accept="application/img"
-                    />
+                    <button class="buttom">DETALLE</button>
                   </td>
-                  <td>{{ Reporte.isbn }}</td>
-                  <td>{{ Reporte.year }}</td>
-                  <td>{{ Reporte.num_pages }}</td>
-                  <td>{{ Reporte.area }}</td>
-                  <td>{{ Reporte.conteo }}</td>
                 </tr>
               </tbody>
             </table>
@@ -90,7 +75,7 @@
         <div>
           <paginate-links
             class="pagination justify-contend-end"
-            for="Reporte"
+            for="reporte_docentefiltrado"
             :limit="2"
             :hide-single-page="true"
             :show-step-links="true"
@@ -103,9 +88,9 @@
             }"
           />
         </div>
-        <div>
-          <button @click="DownloadreportVI()" class="btn btn-success">Descargar Reporte</button>
-        </div>
+        <button @click="DownloadreportDO()" class="btn btn-success">
+          Descargar reporte
+        </button>
       </section>
     </div>
   </div>
@@ -113,11 +98,10 @@
 
 <script>
 import Header from "@/components/Header.vue";
-import LineChartGenerator from "@/components/charts/Line.vue";
 import Footer from "@/components/Footer.vue";
 import axios from "axios";
 export default {
-  name: "Visualizacion",
+  name: "Rdocente",
   data() {
     return {
       locales: [
@@ -125,33 +109,52 @@ export default {
         { text: "Español" },
         { text: "matematicas" },
       ],
-      Reporte: [],
+      Reporte_Docente: [],
+      reporte_docentefiltrado: [],
+      filterbusqueda: "",
       paginate: ["reporte_docentefiltrado"],
     };
   },
   components: {
     Header,
-    //  Footer
-    LineChartGenerator,
   },
   mounted() {
-    this.MostrarReporteV();
+    this.MostrarReporte_Docente();
   },
   methods: {
-    async MostrarReporteV() {
+    async MostrarReporte_Docente() {
       await this.axios
-        .get("http://127.0.0.1:8000/api/Reportsvisua")
+        .get("http://127.0.0.1:8000/api/ReportsDoc")
         .then((response) => {
-          this.Reporte = response.data;
+          this.Reporte_Docente = response.data;
+          this.reporte_docentefiltrado = response.data;
         })
         .catch((error) => {
           console.log(error);
-          this.Reporte = [];
+          this.Reporte_Docente = [];
         });
     },
-    DownloadreportVI() {
+    Filtrardocente() {
+      let filter = [];
+
+      for (let busq of this.Reporte_Docente) {
+        let docente = busq.name;
+
+        if (docente.indexOf(this.filterbusqueda) >= 0) {
+          filter.push(busq);
+        }
+      }
+
+      this.reporte_docentefiltrado = filter;
+      if (this.reporte_docentefiltrado == 0) {
+        alert("no se a encontrado el usuario");
+        this.filterbusqueda = "";
+        this.reporte_docentefiltrado = this.Reporte_Docente;
+      }
+    },
+    DownloadreportDO() {
       axios({
-        url: `http://127.0.0.1:8000/api/reporteV/`,
+        url: `http://127.0.0.1:8000/api/Reports_DocPdf`,
         method: "GET",
         responseType: "blob",
       }).then((response) => {
@@ -159,7 +162,7 @@ export default {
         this.descargara = response.data;
         var fileLink = document.createElement("a");
         fileLink.href = fileURL;
-        fileLink.setAttribute("download", "Reporte_Visualizacion.pdf");
+        fileLink.setAttribute("download", "file.pdf");
         document.body.appendChild(fileLink);
         fileLink.click();
       });
@@ -174,24 +177,22 @@ body {
 }
 .pantalla {
   display: flex;
-  overflow: hidden;
 }
 .cara1 {
   height: 100vh;
   width: 20%;
 }
 .cara2 {
-  width: 95%;
+  margin-top: 20px;
+  width: 80%;
   height: 100vh;
-  overflow: auto;
 }
-.btn-success {
-  color: black;
+.buttom{
   background-color: #ffca2c;
   border-color: #ffc720;
-}
-thead {
-  background: #16223f;
-  color: white;
+  color: black;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 40px;
 }
 </style>

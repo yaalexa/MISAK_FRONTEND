@@ -7,14 +7,11 @@
         </div>
         <div class="cara2">
           <section>
- <h1> REGISTRO DE NUEVO USUARIO</h1>
+          <h1> REGISTRO DE NUEVO USUARIO</h1>
             <div class="container  izquierda">
   
-    
-	
 
 	 <form action="" v-on:submit.prevent="register">
-
 		 
          <div class="col-sm-12">
 		     <div class="row">
@@ -26,7 +23,6 @@
                 </div>
 		     </div>
 		 </div>
-
                     <div class="col-sm-12">
              <div class="row">
 			     <div class="col-xs-4">
@@ -46,8 +42,6 @@
 		         </div>
 		     </div>
 		 </div>
-
-
                                <div class="col-sm-12">
              <div class="row">
 			     <div class="col-xs-4">
@@ -59,12 +53,10 @@
                              <option value="CE">Cedula De Extrangeria</option>
                              <option value="TI">Targeta de identidad</option>
                                <option value="PEP">PEP</option>
-
                              </select>   
              </div>
 		      </div>
 		 </div>
-
                <div class="col-sm-12">
              <div class="row">
 			     <div class="col-xs-4">
@@ -93,16 +85,14 @@
 				 </div>
           </div>
 		  </div>
-
                       <div class="col-sm-12">
 		         <div class="row">
 				     <div class="col-xs-4">
-		 	              <label class="pass">Còdigo Misak</label>
+		 	              <label class="pass">Certificado misak</label>
                      </div>
 				  <div class="col-xs-8">
 			             <input type="text" name="certificado misak" id="certificate_misak" v-model="certificate_misak" placeholder="Certificado misak" class="form-control">
 				             <br> 
-
                      </div>
           </div>
           
@@ -121,13 +111,17 @@
 				 </div>
           </div>
 		  </div>
-         
-      
+          <div class="botonautor">
+                    <button type="submit" class="btn btn-warning">Guardar</button>
+                    <button type="button" class="btn btn-secondary" v-on:click="salir()"  >  Salir  </button>
+                </div> 
+
             <div>
-            <button type="button" class="btn btn-primary" v-on:click="register()">Registrar nuevo usuario</button>            
+
 	 </div> 
-         
+
       </form>
+
 		  </div>	  
 		 		
 </section>
@@ -191,10 +185,14 @@ export default {
              this.error_msg = data.data.result.error_msg;
            }
         })
-    }
+    },
+    salir(){
+           this.$router.push({name:"Usuarios"})
+        },
   }
-
 }
+
+  
 </script>
 <style scoped>
  

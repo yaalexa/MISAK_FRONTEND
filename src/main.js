@@ -3,12 +3,14 @@ import App from './App.vue'
 import router from './router'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import VueAxios from 'vue-axios'
+import VuePaginate from 'vue-paginate'
 import Axios from 'axios'
 import axios from 'axios'
 import VueSession from 'vue-session';
 Vue.use(VueSession)
 
 Vue.config.productionTip = true
+Vue.use(VuePaginate);
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use( VueAxios, Axios);

@@ -19,9 +19,11 @@
                 </form>
                 <router-link class="fadeIn fourth" to="/Register">Registrate</router-link> 
                 <router-link class="fadeIn fourth volverv" to="/">Volver</router-link><br><br>
+                 <vue-recaptcha ref="recaptcha" sitekey="Your key here" />
                 <!-- Remind Passowrd -->
                 <div class="alert alert-danger" role="alert" v-if="error">
                    {{error_msg}}
+
                 </div>
 
               </div>
@@ -33,10 +35,12 @@
 <script>
 import axios from 'axios';
 import VueSession from 'vue-session';
+ 
 export default {
   name: 'Login',
   components: {
- VueSession
+    VueSession,
+
   },
   data: function(){
     return {
@@ -46,6 +50,7 @@ export default {
     }
   },
   methods:{
+   
     login(){
         let json = {
           "email" : this.email,
@@ -64,13 +69,15 @@ export default {
             // localStorage.token = data.data.result.token;
             if( data.data.rol_id==1){
              this.$router.push('/welcome');
+             sessionStorage.setItem('usuario', JSON.stringify(data.data));      
              }
              else{
                this.$router.push('/usuarioU');
+               sessionStorage.setItem('usuario', JSON.stringify(data.data));      
              }
            }else{
              this.error = true;
-             this.error_msg = data.data.result.error_msg;
+             this.error_msg = alert("verifique credenciales de usuario")
            }
         })
     },

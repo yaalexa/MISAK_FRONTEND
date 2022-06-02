@@ -1,33 +1,44 @@
-
 <template>
-    <div class="pantalla">
+ <div class="pantalla">
         <div class="cara1">
             <header>
                 <Header/>
             </header>
         </div>
-        
-          <div class="cara2">      
-                        <section>
-                    <h1>USUARIOS</h1>  
-                    <div class="contenedortabla">
-                   <button class="btn btn-warning" v-on:click="unuevo()" >Registrar nuevo usuario</button>
-                
-                  <b-table id="my-table" :items="usuarios" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table">
+        <div class="cara2">
+        <section class="contenedorautor">
+        <h1>USUARIOS </h1> 
+
+        <div class="form-group left row" >
+            <div class="control-label col-sm-5" style="text-align: left">  
+                <b-button v-on:click="unuevo()" class="btn btn-warning">Nuevo <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon></b-button>       
+            </div> 
+            <div class="control-label col-sm-7" style="text-align: left">  
+                <div class="input-group" style="text-align: right">
+                    <b-form-input v-model="filter" type="search" placeholder="Buscar Autores"> </b-form-input>
+                </div>
+                <br>
+            </div>
+        </div>
+
+       
+        <div class="" >
+             <b-table :filter="filter" id="my-table" :items="usuarios" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table">
                     <template #cell(Acciones)="row">
-                        <router-link :to='{name:"actualizarUsuario", params:{id:row.item.id}}' class="btn btn-info"><font-awesome-icon icon="fa-solid fa-pen-to-square" />Editar Usuario</router-link>
-                        <a type="button" @click="borrarUsuario(row.item.id)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" />Borrar</a>
-                        
+                              <router-link :to='{name:"/actualizarusuarios", params:{id:row.item.id}}' class="btn btn-warning"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> <b-icon icon="pencil" aria-hidden="true"></b-icon></router-link>
+                            <a type="button" @click="borrarAutores(row.item.id)" class="btn btn-secondary"><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon icon="trash-fill" aria-hidden="true"></b-icon></a>
+
                     </template>
-                 
+
                   </b-table>
-                   <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"></b-pagination>
-        </div>        
-    </section>
-    </div>
+                  <b-pagination align="center" v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"></b-pagination>
+
+
 </div>
+</section>
 
-
+</div>
+    </div>
 </template>
 <script>
 //importamos axios
@@ -35,23 +46,6 @@ import Header from '@/components/Header.vue'
 import axios from 'axios'
 export default {
     name:'Usuarios',
-      data(){
-        return {
-            perPage: 7, //numero de filas que va  atener por pagina
-            currentPage: 1, //donde va a iniciar la paginacion
-            Usuarios:[],
-             fields: [
-                {key: 'id', label: '#'},
-                {key: 'name', label: 'Nombre'},
-                {key: 'full name', label: 'Nombre completo'},
-                {key: 'document_type', label: 'Tipo de documento'},
-                {key: 'document_number', label: 'Número de documento'},
-                {key: 'certificate_misak', label: 'Certificado Misak'},
-                {key: 'email', label: 'Email'},
-                "Acciones"
-                ]
-        }
-    },
       components:{
     Header,
     //Footer
@@ -62,10 +56,30 @@ export default {
     data:function(){
         return{
             usuarios: null,
-          
-           // loading: true,
-           // errored:false
+            fields: [
+            {key:'id', label:'#'},
+            {key:'name', label:'Usuario'},
+            {key:'full_name', label:'Nombre Completo'},
+            {key:'document_type', label:'Tipo de Documento'},
+            {key:'document_number', label:'Numero de Documento'},
+            {key:'certificate_misak', label:'Certificado Misak'},
+            {key:'email', label:'E-mail'},
+            {key:'rol_id', label:'Rol'},
+            "Acciones"
+            
+            ],
+            Autores:[],
+            filter:null,
+            perPage: 7, //numero de filas que va  atener por pagina
+            currentPage: 1, //donde va a iniciar la paginacion
+         // loading: true,
+        // errored:false
         };
+    },
+    computed: {
+      rows() {
+        return this.usuarios.length;
+      }
     },
       mounted:function(){
         let direccion = "http://localhost:8000/api/users";
@@ -85,6 +99,15 @@ export default {
             console.log(error);
         });
         },
+        borrarUsuario(id){
+            if(confirm("¿Confirma eliminar el registro?")){
+                this.axios.delete(`http://127.0.0.1:8000/api/users'/${id}`).then(response=>{
+                     this.$router.push("/usuarios");
+                }).catch(error=>{
+                    console.log(error)
+                })
+            }
+        },
         unuevo(){
                 this.$router.push('/unuevo');
             },
@@ -96,7 +119,6 @@ export default {
     
 }
 </script>
-
 <style  scoped>
   
    body{
@@ -112,18 +134,13 @@ export default {
         
     }
     .cara2{
-        width: 80%;
+        width: 95%;
         height: 100vh;
         overflow:auto;
     }
     .izquierda{
         text-align: left;
-       
-    }
-      .contenedortabla{
         width: 80%;
-        text-align: center;
-        
     }
    
 </style>

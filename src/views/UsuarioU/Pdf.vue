@@ -84,7 +84,10 @@ export default {
           var fileLink = document.createElement('a');
            fileLink.href = fileURL;
             fileLink.setAttribute('download', 'file.pdf');
-           this.pdfsrc= document.body.appendChild(fileLink)
+            this.pdfsrc= document.body.appendChild(fileLink)
+
+           
+            
         })
         .catch((errorgrave) => console.log(errorgrave));
     },

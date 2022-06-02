@@ -27,7 +27,7 @@
 			     <div class="col-xs-4">
           	         <label class="firstname">Usuario :</label> </div>
 		         <div class="col-xs-8">
-		             <input type="text" name="fname" id="name" v-model="name" placeholder="Enter your First Name" class="form-control ">
+		             <input type="text" name="fname" id="name" v-model="form.name" placeholder="Enter your First Name" class="form-control ">
              </div>
 		      </div>
 		 </div>
@@ -43,9 +43,11 @@
 		 </div>
 
 
-                               <div class="col-sm-12">
+             <div class="col-sm-12">
+                                  
              <div class="row">
 			     <div class="col-xs-4">
+                       
           	         <label class="firstname">Tipo de Documento: </label></div>
                         <div class="col-xs-8">
                        <select name="document_type" id="document_type" v-model="document_type" class="form-control ">
@@ -54,12 +56,11 @@
                              <option value="CE">Cedula De Extrangeria</option>
                              <option value="TI">Targeta de identidad</option>
                                <option value="PEP">PEP</option>
-
                              </select>   
              </div>
 		      </div>
 		 </div>
-
+              
                <div class="col-sm-12">
              <div class="row">
 			     <div class="col-xs-4">
@@ -119,7 +120,7 @@
          
       
             <div>
-            <button type="button" class="btn btn-primary" v-on:click="register()">Registrar nuevo usuario</button>            
+            <button type="button" class="btn btn-warning" v-on:click="register()">Guardar</button>            
 	 </div> 
          
       </form>
@@ -143,7 +144,10 @@ export default {
     data(){
         
         return {
+            rol:null,
             response: null,
+            usuario:null,
+            selected:null,
           form:{
          "name":"",
          "full_name":"",
@@ -154,27 +158,28 @@ export default {
          "document_number":"",
          "certificate_misak":"",
          "rol_id":"",   
-        }
+        },
+        
         }
     },
     mounted(){
-        this.mostrarusuario()
+        this.mostrarusuario();
+         this.axios.get('http://localhost:8000/api/rols').then(response=>{
+                this.rol = response.data
+            });
     },
     methods:{
         async mostrarusuario(){
-            await this.axios.get(`http://127.0.0.1:8000/api/users/${this.$route.params.id}`).then(response=>{
-                const persons = response.data;
-                const user = {
-                     name: this.state.name
-                 };
-              
-            }).catch(error=>{
-                console.log(error + "get")
+            await this.axios.get("http://localhost:8000/api/users/"+this.$route.params.id)
+           .then((response) => {
+            this.usuario = response.data;
+            this.name=this.usuario.user.name;
+            this.full_name=this.usuario.user.full_name;
             })
         },
         async actualizar(){
-            await this.axios.put(`http://127.0.0.1:8000/api/users/${this.$route.params.id}`,this.editorial).then(response=>{
-                this.$router.push({name:"mostrarEditorial"})
+            await this.axios.put(`http://127.0.0.1:8000/api/users/${this.$route.params.id}`,this.form).then(response=>{
+                this.$router.push({name:"/usuarios"})
             }).catch(error=>{
                 console.log(error + "put")
             })
