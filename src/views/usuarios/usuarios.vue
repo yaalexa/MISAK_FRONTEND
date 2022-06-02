@@ -25,7 +25,7 @@
         <div class="container izquierda" >
              <b-table :filter="filter" id="my-table" :items="usuarios" :fields="fields" :per-page="perPage" :current-page="currentPage" class="table">
                     <template #cell(Acciones)="row">
-                              <router-link :to='{name:"actualizarUsuario", params:{id:row.item.id}}' class="btn btn-warning"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> <b-icon icon="pencil" aria-hidden="true"></b-icon></router-link>
+                              <router-link :to='{name:"/actualizarusuarios", params:{id:row.item.id}}' class="btn btn-warning"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> <b-icon icon="pencil" aria-hidden="true"></b-icon></router-link>
                             <a type="button" @click="borrarAutores(row.item.id)" class="btn btn-secondary"><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon icon="trash-fill" aria-hidden="true"></b-icon></a>
                        
                     </template>
@@ -44,7 +44,7 @@
 import Header from '@/components/Header.vue'
 import axios from 'axios'
 export default {
-    name:'Usuarios',
+    name:"Usuarios",
       components:{
     Header,
     //Footer
