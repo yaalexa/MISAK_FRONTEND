@@ -11,15 +11,16 @@
                 </div>
 
                 <!-- Login Form -->
-                <form  v-on:submit.prevent="login">
+                <form v-on:submit.prevent="recapt()" action="" method="POST">
                   <input type="text" id="email" class="fadeIn second" name="login" placeholder="Correo" v-model="email">
                   <input type="password" id="password" class="form-control password1" name="login" placeholder="Contraseña" v-model="password">
+                  <div class="catcha"><vue-recaptcha ref="recaptcha" sitekey="6LdCUjcgAAAAAM-G2M8Y4utP2L87TkkGUiHU12YP" /> </div>
                   <input type="submit" class="fadeIn fourth" value="ENTRAR">
                   
                 </form>
                 <router-link class="fadeIn fourth" to="/Register">Registrate</router-link> 
                 <router-link class="fadeIn fourth volverv" to="/">Volver</router-link><br><br>
-                 <vue-recaptcha ref="recaptcha" sitekey="Your key here" />
+                 
                 <!-- Remind Passowrd -->
                 <div class="alert alert-danger" role="alert" v-if="error">
                    {{error_msg}}
@@ -35,21 +36,33 @@
 <script>
 import axios from 'axios';
 import VueSession from 'vue-session';
- 
+import { VueRecaptcha } from 'vue-recaptcha';
 export default {
   name: 'Login',
   components: {
     VueSession,
-
+    VueRecaptcha
   },
   data: function(){
     return {
+      siteKey: '6LdCUjcgAAAAAM-G2M8Y4utP2L87TkkGUiHU12YP',
+      error:null,
+      error_msg:null,
       email: "",
       password: "",
     
     }
   },
   methods:{
+    recapt(){
+      var response = grecaptcha.getResponse();
+    if(response.length == 0){
+      alert("Captcha no verificado")
+      return false;
+    } else {
+      this.login();
+    }
+    },
    
     login(){
         let json = {
@@ -200,6 +213,11 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
   -o-transform: scale(0.95);
   -ms-transform: scale(0.95);
   transform: scale(0.95);
+}
+.catcha{
+  display: inline-block;
+  text-align: center;
+  padding: 15px 32px;
 }
 input[type=text] {
   background-color: #f6f6f6;
