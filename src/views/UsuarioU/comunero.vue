@@ -1,9 +1,11 @@
 <template>
  <div id="contenedor">
-   <div id="cabecera"><Menu1/></div>
+   <div id="cabecera"><Menu1/>
+   </div>
        <div id="menu"> 
              <NavdestacadosVue/>
          </div>
+       
        <div id="contenido">
           <div id="contenido2">
           <div class="contenedor4">

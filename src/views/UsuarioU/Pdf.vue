@@ -1,20 +1,18 @@
 <template>  
-<div class="cara2">
- <Menu1/>
+<div id="contenedor">
+   <div id="cabecera"><Menu1/>
+   </div>
       
-    <div class="contenedor3">
-          <section>
-      <div class="archive" >
-         
-           <b-embed class="archive" frameborder="0" v-bind:src="this.pdfsrc+'#toolbar=0'"  />
-      </div>
+   <div id="contenido">
+      <div id="contenido2">
+           <b-embed class="archivo" frameborder="0" v-bind:src="this.pdfsrc+'#toolbar=0'"  />
       <br>
       <div v-if="this.prioridad != 1">
       <button type="button" class="btn btn-dark margen" v-on:click="downloadWithAxios( )">Descargar</button>
       </div>
-       </section>
+     
     </div>
-
+  </div>
   </div>
 </template>
 
@@ -97,58 +95,37 @@ export default {
 </script>
 
 <style scoped>
-.contenedor_todo {
-  border: 1px solid black;
-  background: #16223f;
-  display: flex;
-  justify-content: space-between;
-}
-.contenedor1 {
-  /* border: 1px solid red; */
-  display: flex;
-  align-items: center;
-}
-.logo {
-  border: 1px blueviolet;
-  padding: 4px;
-}
-.titulo {
-  /* border: 1px solid red; */
-  color: white;
-  padding-left: 20px;
-}
-.contenedor2 {
-  /* border: 1px solid red; */
-  padding-top: 10px;
-  
-}
-.ingresar {
-  /* border: 1px solid black; */
-  color: white;
-  width: 80%;
-}
-
-.contenedor4 {
-  margin: 100px;
-  display: flex;
-  justify-content: center;
-}
-
-.contenedor3 {
-  /* border: 1px solid red; */
-  display: flex;
-  margin-top: 10%;
-  justify-content: center;
- 
-}
-.cara2{
-    width: 100%;
-    
-}
-.archive{
-    width: 130vh;
-    height: 150vh;
-    display:flex;
-}
+ #cabecera {
+        color:#ff9;
+        height:80px;
+        overflow:hidden;
+        display: flex;
+        
+      }
+      #contenedor {
+        width:100%;
+        overflow:hidden;
+        height: 100vh;
+      }
+     #contenido {
+        float:left;
+        height: 100vh;
+        padding:10px;
+        width:100%;
+        overflow: auto;
+      }
+       #contenido2 {
+        float:left;
+        height: 150vh;
+        padding:10px;
+        width:100%;
+        padding: 1%;
+        margin-left: 2%;
+        overflow: auto;
+      }
+      .archivo{
+         height: 100vh;
+         width:80%;
+      }
 
 </style>

@@ -1,18 +1,14 @@
 <template>
-    <div class="pantalla">
-        <div class="cara1">
-            <header>
-               
-            </header>
-            <div id="cabecera"><Menu1/></div>
-            <div id="menu"> 
+   <div id="contenedor">
+   <div id="cabecera"><Menu1/>
+   </div>
+       <div id="menu"> 
              <NavdestacadosVue/>
          </div>
-        </div>
-        <div class="cara2">
-          <section>       
-            <div class="izquierda">
-                  <div class="col-md-12">
+         
+      <div id="contenido">
+          <div id="contenido2">
+          <div class="contenedor4">
                     
                         <h1>HISTORIAL DE CONSULTAS </h1> 
                                 
@@ -45,21 +41,20 @@
   
                     <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"  ></b-pagination>
           </div>
-        </section>
+  
        </div>
     </div>
 </template>
 <script>
-import Header from '@/components/Header.vue';
+
 import Menu1 from "@/components/Menu1.vue";
-import Footer from '@/components/Footer.vue';
 import axios from 'axios';
 import NavdestacadosVue from "@/components/NavDestacados.vue";
 export default {
     name:"Dashboard",
     data(){
         return {
-             perPage: 10,
+             perPage: 7,
              currentPage:1,
              proceso:[],
              filter:null,
@@ -77,9 +72,8 @@ export default {
         }
     },
     components:{
-        Header,
         Menu1,
-      //  Footer
+        NavdestacadosVue,
     },
     computed: {
             rows(){
@@ -98,6 +92,7 @@ export default {
                 }).catch(error=>{
                     console.log(error);
                 });
+
     }
      
     },
@@ -105,34 +100,40 @@ export default {
 }
 </script>
 <style  scoped>
-  
-   body{
-        margin: 0%;
-    }
-    .pantalla{
+    #cabecera {
+        color:#ff9;
+        height:80px;
+        overflow:hidden;
         display: flex;
-         overflow:hidden;
-    }
-    .cara1{
-        height: 100vh;
-        width: 20%;
-        overflow:hidden;
-    }
-    .cara2{
         
-        width: 80%;
+      }
+      #contenedor {
+        width:100%;
+        overflow:hidden;
+         height: 100vh;
+      }
+      #contenido {
+        float:left;
         height: 100vh;
-        overflow:hidden;
-    }
-    .izquierda{
-        margin-top: 1%;
-         text-align: center;
-        width:70%;
-        margin-left: 10%;
-        align-content: center;
-        overflow:hidden;
-    }
-    .boton{
-       text-align: left; 
-    }
+        padding:10px;
+        width:80%;
+        overflow: auto;
+      }
+        #contenido2 {
+        float:left;
+        height: 110vh;
+        padding:10px;
+        width:95%;
+        padding: 1%;
+        margin-left: 2%;
+        overflow: hidden;
+      }
+      #menu {
+        background: linear-gradient(to top, #aab0c0, 5%, #d3d3d4);
+        float:left;
+         height: 100vh;
+        padding:20px;
+        width:20%;
+        overflow:auto;
+      }
 </style>
