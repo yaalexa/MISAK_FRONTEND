@@ -11,12 +11,16 @@
                 </div>
 
                 <!-- Login Form -->
-                <form  v-on:submit.prevent="login">
+                <form  v-on:submit.prevent="recapt()" action="" method="POST">
                   <input type="text" id="email" class="fadeIn second" name="login" placeholder="Correo" v-model="email">
                   <input type="password" id="password" class="form-control password1" name="login" placeholder="Contraseña" v-model="password">
                   <input type="submit" class="fadeIn fourth" value="ENTRAR">
                   
+                  <div ><vue-recaptcha  ref="recaptcha" sitekey="6LdCUjcgAAAAAM-G2M8Y4utP2L87TkkGUiHU12YP" /> </div>
+                
                 </form>
+                
+
                 <router-link class="fadeIn fourth" to="/Register">Registrate</router-link> 
                 <router-link class="fadeIn fourth volverv" to="/">Volver</router-link><br><br>
                 <!-- Remind Passowrd -->
@@ -31,16 +35,20 @@
 </template>
 
 <script>
+  import { VueRecaptcha } from 'vue-recaptcha';
+
 import axios from 'axios';
 import VueSession from 'vue-session';
 export default {
   name: 'Login',
   components: {
- VueSession
+ VueSession,
+ VueRecaptcha
   },
   data: function(){
 
     return {
+      siteKey: '6LdCUjcgAAAAAM-G2M8Y4utP2L87TkkGUiHU12YP',
       error:null,
       error_msg:null,
       email: "",
@@ -48,7 +56,20 @@ export default {
     
     }
   },
+  mounted(){
+  },
   methods:{
+    recapt(){
+          var response = grecaptcha.getResponse();
+
+    if(response.length == 0){
+      alert("Captcha no verificado")
+      return false;
+    } else {
+      this.login();
+    }
+    },
+
     login(){
         let json = {
           "email" : this.email,
@@ -64,10 +85,13 @@ export default {
                this.$session.set('rol_id', data.data.rol_id)
                sessionStorage.setItem('user', JSON.stringify(data.data.access_token));
                sessionStorage.setItem('userid', JSON.stringify(data.data.usr_id));
+
             // localStorage.token = data.data.result.token;
             if( data.data.rol_id==1){
              this.$router.push('/welcome');
-             sessionStorage.setItem('usuario', JSON.stringify(data.data));             }
+             sessionStorage.setItem('usuario', JSON.stringify(data.data));  
+
+             }
              else{
                this.$router.push('/usuarioU');
              sessionStorage.setItem('usuario', JSON.stringify(data.data));                    
