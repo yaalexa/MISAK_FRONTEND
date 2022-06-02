@@ -57,7 +57,7 @@
  
 		    <div  v-for="material in material" :key="material.id" >
           <b-card 
-            img
+            :src="`http://127.0.0.1:8000/storage/${todo.img}`"
             alt=""
             img-top
             tag="articulo"

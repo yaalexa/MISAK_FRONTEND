@@ -115,9 +115,9 @@
                     <button type="submit" class="btn btn-warning">Guardar</button>
                     <button type="button" class="btn btn-secondary" v-on:click="salir()"  >  Salir  </button>
                 </div> 
-
+      
             <div>
-
+                    
 	 </div> 
 
       </form>
@@ -189,9 +189,34 @@ export default {
     salir(){
            this.$router.push({name:"Usuarios"})
         },
+
   }
 }
 
+  
+</script>
+<style scoped>
+ 
+   body{
+        margin: 0%;
+    }
+    .pantalla{
+        display: flex;
+    }
+    .cara1{
+        height: 100vh;
+        width: 20%;
+        
+    }
+    .cara2{
+        width: 80%;
+        height: 100vh;
+    }
+     .izquierda{
+        text-align: left;
+        width: 70%;
+    }
+</style>
   
 </script>
 <style scoped>
