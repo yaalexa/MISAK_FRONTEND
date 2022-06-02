@@ -184,23 +184,20 @@ export default {
   font-family: verdana;
   font-size: 12px;
   font-weight: 200;
-    background: linear-gradient(to top, #16223f, 5%, #16223f);
+  background: linear-gradient(to top, #16223f, 5%, #16223f);
   color: #e1ffff;
   background-image:url("@/assets/fondo.png") ;
-   
- 
   height: 100vh;
   width: 100%;
 }
 .nav-side-menu .brand {
   background-color: #335d91;
   line-height: 50px;
-  
   width: 100%;
   text-align: center;
   font-size: 14px;
   background-image:url("@/assets/fondo.png") ;
-   opacity: 0.9;
+  opacity: 0.9;
 }
 .nav-side-menu .toggle-btn {
   display: none;
