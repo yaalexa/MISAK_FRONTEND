@@ -24,7 +24,7 @@
         </div>
         <!-- Aqui termina el buscador -V-->
               
-     <div v-if="this.errored==false">    
+     <div v-if ="this.errored==false" >    
         <VueSlickCarousel v-bind="settings" class="carousel">
  
 		    <div  v-for="todos in todos" :key="todos.id" >
@@ -54,28 +54,29 @@
 
 	</VueSlickCarousel>
   </div> 
-     <div v-if="this.errored==true">    
-        <VueSlickCarousel v-bind="settings" class="carousel">
+ <div v-if ="this.errored==true" >    
+       <VueSlickCarousel v-bind="settings" class="carousel">
  
-		    <div  v-for="material in material" :key="material.id" >
+		    <div  v-for="libros in libros" :key="todos.id" >
           <b-card 
-            :src="`http://127.0.0.1:8000/storage/${todo.img}`"
+          
+            img
             alt=""
             img-top
-            tag="articulo"
+          
             header-bg-variant="dark"
             header-text-variant="white"
             border-variant="dark"
-            :footer="`${material.name}`"
+            :footer="`${libros.name}`"
             footer-tag="footer"
             footer-bg-variant="warning"
           >
                 
           <b-card-body>
-                   <b-img thumbnail center  :src="`http://127.0.0.1:8000/storage/${material.img}`" class="imagen" fluid alt="Fluid image"></b-img>
-                    ISBN: {{ material.isbn }}
-                    <b-card-text>Prioridad: {{ material.priority }}</b-card-text>
-                    <button type="button" class="btn btn-secondary margen" v-on:click="Ver(material.id,material.priority)">Ver</button>
+                   <b-img thumbnail center  :src="`http://127.0.0.1:8000/storage/${libros.img}`" class="imagen" fluid alt="Fluid image"></b-img>
+                    ISBN: {{ libros.isbn }}
+                    <b-card-text>Prioridad: {{ libros.priority }}</b-card-text>
+                    <button type="button" class="btn btn-secondary margen" v-on:click="Ver(libros.id,libros.priority)">Ver</button>
                 </b-card-body>
           </b-card>
       </div>
@@ -96,8 +97,6 @@ import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 import Menu1 from "@/components/Menu1.vue";
 import NavdestacadosVue from "@/components/NavDestacados.vue";
-
-
 export default {
   data() {
     return {
@@ -116,12 +115,19 @@ export default {
           "slidesPerRow": 1,
           "breakpoint": 1024,
 				},
-        
-      material:[],
       perPage: 8,
       currentPage: 1,
       visual:null,
-      todos: {
+     todos: {
+        img: "",
+        name: "",
+        isbn: "",
+        num_pages: "",
+        priority: "",
+        pdf: "",
+        year: "",
+      },
+      libros: {
         img: "",
         name: "",
         isbn: "",
@@ -145,35 +151,16 @@ export default {
     VueSlickCarousel,
     Menu1,
     NavdestacadosVue,
-  },
-  watch:{
-			search() {
-				return this.getSearch();
-            }
-        },
+  },			
   mounted() {
-    
     this.getTodos();
-  
   },
   
    
   methods: {
-    buscarmaterial() {
-      if(this.buscador){
-      axios .get("http://127.0.0.1:8000/api/search",{
-          params:{
-            buscador:this.buscador
-          }
-        })
-        .then((response) => {
-          this.material = response.data;
-          console.log("hola", this.todos);
-          this.buscador=null;
-
-        })
-        .catch((errorgrave) => console.log(errorgrave));
-        }
+  buscarmaterial() {
+      clearTimeout(this.setTimeoutBuscador)
+        this.setTimeoutBuscador = setTimeout(this.getTodos,360)
     },
     Ver(id, priority) {
       var usrid = JSON.parse(sessionStorage.getItem("userid"));
@@ -187,18 +174,27 @@ export default {
       this.$router.push({ name: "Pdf", params: { id: id, pr: priority } });
     },
 
-    async getTodos() {
-      await axios.get("http://127.0.0.1:8000/api/materials").then((response) => {
-          this.todos = response.data;
-          console.log("hola", this.todos);
-          this.buscador=null;
-
+      getTodos() {
+      if(this.buscador){
+      axios
+        .get(`http://127.0.0.1:8000/api/search/${this.buscador}`)
+        .then((response) => {
+          this.libros = response.data;
+          console.log("hola", this.libros);
         })
         .catch((errorgrave) => console.log(errorgrave));
-    
-        
+         }
+        if(!this.buscador){
+         axios .get(`http://127.0.0.1:8000/api/materials`)
+        .then((response) => {
+          this.todos = response.data;
+          console.log("hola", this.todos);
+        })
+        .catch((errorgrave) => console.log(errorgrave));
+         }
     },
    
+       
   },
 };
 </script>

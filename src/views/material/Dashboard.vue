@@ -44,9 +44,7 @@
                                 <a type="button" @click="borrar(row.item.id)" class="btn btn-secondary"><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon icon="trash-fill" aria-hidden="true"></b-icon></a>
                                  <a type="button" @click="autormaterial(row.item.id, row.item.name)" class="btn btn-sucess" ><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon icon="person-check" aria-hidden="true" variant="secondary"></b-icon></a>
                                  <a type="button" @click="educationallevel(row.item.id, row.item.name)" class="btn btn-sucess"><b-icon icon="bar-chart-fill" flip-h flip-v></b-icon></a>
-
                         </template>
-
             </b-table>
           </div>
           <!-- Paginacion -->
