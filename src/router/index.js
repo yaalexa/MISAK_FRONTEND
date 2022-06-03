@@ -253,7 +253,7 @@ meta: { requiresAuth: true }
   name: 'mostarUU',
   path: '/UsuarioU',
   component: mostarUU,
-  meta: { requiresAuth: true }
+  meta: { requiresAuth1: true }
   },
   {
     name: 'VistaReporte',
@@ -299,7 +299,7 @@ meta: { requiresAuth: true }
     name: 'Pdf',
     path: '/Pdf/:id,:pr',
     component: Pdf,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth1: true }
 },
 {
   name: 'autormaterial',
@@ -339,7 +339,7 @@ meta: { requiresAuth: true }
   path: '/proceso',
   name: 'Proceso',
   component: Proceso,
-  meta: { requiresAuth: true }
+  meta: { requiresAuth1: true }
 },
 
 ]
@@ -351,19 +351,38 @@ const router = new VueRouter({
 })
 router.beforeEach((to, from, next) => {
 let usuario=null;
+let usuario2=null;
 
 usuario = JSON.parse(sessionStorage.getItem('usuario'))
+usuario2 = JSON.parse(sessionStorage.getItem('usuario2'))
 
 if (to.matched.some((route) => route.meta.requiresAuth)) {
   if (usuario) {
     next();
   } else {
-    
+    sessionStorage.clear();
     router.push ({name: "Casa"})
   }
 } else {
   next();
 }
 });
+
+router.beforeEach((to, from, next) => {
+  let usuario2=null;
+  
+  usuario2 = JSON.parse(sessionStorage.getItem('usuario2'))
+  
+  if (to.matched.some((route) => route.meta.requiresAuth1)) {
+    if (usuario2) {
+      next();
+    } else {
+      sessionStorage.clear();
+      router.push ({name: "Casa"})
+    }
+  } else {
+    next();
+  }
+  });
 
 export default router

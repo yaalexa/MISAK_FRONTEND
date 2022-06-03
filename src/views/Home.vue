@@ -86,7 +86,7 @@ export default {
              }
              else{
                this.$router.push('/usuarioU');
-               sessionStorage.setItem('usuario', JSON.stringify(data.data));      
+               sessionStorage.setItem('usuario2', JSON.stringify(data.data));    
              }
            }else{
              this.error = true;
