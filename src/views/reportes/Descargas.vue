@@ -9,24 +9,6 @@
       <section>
         <h1>Reporte de Descargas</h1>
         <br />
-        <label for="start">Fecha de inicio:</label>
-        <input
-          type="date"
-          id="start"
-          name="trip-start"
-          value="2018-07-22"
-          min="2018-01-01"
-          max="2050-1-1"
-        />
-        <label for="start">Fecha Final:</label>
-        <input
-          type="date"
-          id="start"
-          name="trip-start"
-          value="2018-07-22"
-          min="2018-01-01"
-          max="2050-1-1"
-        />
         <label for="datepicker-sm">Arias:</label>
         <b-form-select
           id="example-locales"
@@ -37,38 +19,16 @@
         <b-button variant="outline-primary">Busar</b-button>
         <br />
         <Bar />
-        <table
-          :filter="filter"
+        <b-table
+        :filter="filter"
           id="my-table"
-          :items="descargas"
+          :items="Reportes_Descargas"
           :fields="fields"
           :per-page="perPage"
           :current-page="currentPage"
           class="table"
-        >
-          <thead>
-            <tr>
-              <th scope="col">material</th>
-              <th scope="col">ISBN</th>
-              <th scope="col">Fecha publicación</th>
-              <th scope="col">N Paginas</th>
-              <th scope="col">Area</th>
-              <th scope="col">Conteo</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="Reportes_Descargas in Reportes_Descargas"
-              :key="Reportes_Descargas.id"
-            >
-              <td>{{ Reportes_Descargas.name }}</td>
-              <td>{{ Reportes_Descargas.isbn }}</td>
-              <td>{{ Reportes_Descargas.year }}</td>
-              <td>{{ Reportes_Descargas.num_pages }}</td>
-              <td>{{ Reportes_Descargas.area }}</td>
-              <td>{{ Reportes_Descargas.conteo }}</td>
-            </tr>
-          </tbody>
+          ></b-table>
+        <table>
           <b-pagination
             align="and"
             v-model="currentPage"
@@ -102,7 +62,17 @@ export default {
         { text: "matematicas" },
       ],
       Reportes_Descargas: [],
-      perPage: 2, //numero de filas que va a tener por pagina
+      fields: [
+        {key:"name", label:"nombre"},
+        {key:"isbn", label:"isbn"},
+        {key:"year", label:"año"},
+        {key:"num_pages", label:"numero paginas"},
+        {key:"area", label:"areas"},
+        {key:"conteo", label:"conteo"},
+
+
+        ],
+      perPage: 10, //numero de filas que va a tener por pagina
       currentPage: 1, //donde va a iniciar la paginacion
       descargas: []
     };
@@ -114,7 +84,7 @@ export default {
   },
   computed: {
     rows() {
-      return this.descargas.length;
+      return this.Reportes_Descargas.length;
     },
   },  
   mounted() {
@@ -135,7 +105,7 @@ export default {
     },
     DownloadreportDE() {
       axios({
-        url: `http://127.0.0.1:8000/api/Report_DesPDF`,
+        url: `http://127.0.0.1:8000/api/Report_DesPDF${this.$route.params.id}`,
         method: "GET",
         responseType: "blob",
       }).then((response) => {

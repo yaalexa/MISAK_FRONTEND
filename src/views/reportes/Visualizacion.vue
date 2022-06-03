@@ -9,24 +9,6 @@
       <section>
         <h1>Reporte de Visualizacion del material</h1>
         <br />
-        <label for="start">Fecha de inicio:</label>
-        <input
-          type="date"
-          id="start"
-          name="trip-start"
-          value=""
-          min="2018-01-01"
-          max="2050-1-1"
-        />
-        <label for="start">Fecha Final:</label>
-        <input
-          type="date"
-          id="start"
-          name="trip-start"
-          value=""
-          min="2018-01-01"
-          max="2050-1-1"
-        />
         <label for="datepicker-sm">Arias:</label>
         <b-form-select
           id="example-locales"
@@ -37,67 +19,30 @@
         <b-button variant="outline-primary">Busar</b-button>
         <br />
         <LineChartGenerator />
-        <div class="justify-contentlg-end col-md-5 col-lg-8 mt-2">
-          <paginate-links
-            class="pagination justify-contend-end"
-            for="Reporte"
-            :limit="2"
-            :hide-single-page="true"
-            :show-step-links="true"
-            :full-page="true"
-            :classes="{
-              ul: 'simple-links-container',
-              li: 'simple-links-item',
-              liActive: ['simple-links-item', 'active1'],
-              'li.active': 'active1',
-            }"
-          >
-          </paginate-links>
-        </div>
         <div class="table-responsive">
-          <paginate ref="paginator" name="Reporte" :list="Reporte" :per="10">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">material</th>
-                  <th scope="col">ISBN</th>
-                  <th scope="col">Fecha publicación</th>
-                  <th scope="col">N Paginas</th>
-                  <th scope="col">Area</th>
-                  <th scope="col">Conteo</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="Reporte in Reporte" :key="Reporte.id">
-                  <td>{{ Reporte.name }}</td>
-                  <td>{{ Reporte.isbn }}</td>
-                  <td>{{ Reporte.year }}</td>
-                  <td>{{ Reporte.num_pages }}</td>
-                  <td>{{ Reporte.area }}</td>
-                  <td>{{ Reporte.conteo }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </paginate>
+          <b-table
+            :filter="filter"
+            id="my-table"
+            :items="Reporte"
+            :fields="fields"
+            :per-page="perPage"
+            :current-page="currentPage"
+            class="table"
+          ></b-table>
+          <table>
+            <b-pagination
+              align="and"
+              v-model="currentPage"
+              :total-rows="rows"
+              :per-page="perPage"
+              aria-controls="my-table"
+            ></b-pagination>
+          </table>
         </div>
         <div>
-          <paginate-links
-            class="pagination justify-contend-end"
-            for="Reporte"
-            :limit="2"
-            :hide-single-page="true"
-            :show-step-links="true"
-            :full-page="true"
-            :classes="{
-              ul: 'simple-links-container',
-              li: 'simple-links-item',
-              liActive: ['simple-links-item', 'active1'],
-              'li.active': 'active1',
-            }"
-          />
-        </div>
-        <div>
-          <button @click="DownloadreportVI()" class="btn btn-success">Descargar Reporte</button>
+          <button @click="DownloadreportVI()" class="btn btn-success">
+            Descargar Reporte
+          </button>
         </div>
       </section>
     </div>
@@ -120,12 +65,27 @@ export default {
       ],
       Reporte: [],
       paginate: ["reporte_docentefiltrado"],
+      fields: [
+        { key: "name", label: "nombre" },
+        { key: "isbn", label: "isbn" },
+        { key: "year", label: "año" },
+        { key: "num_pages", label: "numero paginas" },
+        { key: "area", label: "areas" },
+        { key: "conteo", label: "conteo" },
+      ],
+      perPage: 10, //numero de filas que va a tener por pagina
+      currentPage: 1, //donde va a iniciar la paginacion
     };
   },
   components: {
     Header,
     //  Footer
     LineChartGenerator,
+  },
+  computed: {
+    rows() {
+      return this.Reporte.length;
+    },
   },
   mounted() {
     this.MostrarReporteV();
@@ -144,7 +104,7 @@ export default {
     },
     DownloadreportVI() {
       axios({
-        url: `http://127.0.0.1:8000/api/reporteV/`,
+        url: `http://127.0.0.1:8000/api/Report_ViPDF`,
         method: "GET",
         responseType: "blob",
       }).then((response) => {
@@ -152,7 +112,7 @@ export default {
         this.descargara = response.data;
         var fileLink = document.createElement("a");
         fileLink.href = fileURL;
-        fileLink.setAttribute("download", "Reporte_Visualizacion.pdf");
+        fileLink.setAttribute("download", "file.pdf");
         document.body.appendChild(fileLink);
         fileLink.click();
       });
