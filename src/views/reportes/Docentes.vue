@@ -64,26 +64,13 @@
                   <td>{{ Reporte_Docente.name }}</td>
                   <td>{{ Reporte_Docente.visualizado }}</td>
                   <td>{{ Reporte_Docente.descargado }}</td>
+                  <td>
+                    <button class="buttom">DETALLE</button>
+                  </td>
                 </tr>
               </tbody>
             </table>
           </paginate>
-        </div>
-        <div>
-          <paginate-links
-            class="pagination justify-contend-end"
-            for="reporte_docentefiltrado"
-            :limit="2"
-            :hide-single-page="true"
-            :show-step-links="true"
-            :full-page="true"
-            :classes="{
-              ul: 'simple-links-container',
-              li: 'simple-links-item',
-              liActive: ['simple-links-item', 'active1'],
-              'li.active': 'active1',
-            }"
-          />
         </div>
         <button @click="DownloadreportDO()" class="btn btn-success">
           Descargar reporte
@@ -180,7 +167,16 @@ body {
   width: 20%;
 }
 .cara2 {
+  margin-top: 20px;
   width: 80%;
   height: 100vh;
+}
+.buttom{
+  background-color: #ffca2c;
+  border-color: #ffc720;
+  color: black;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 40px;
 }
 </style>

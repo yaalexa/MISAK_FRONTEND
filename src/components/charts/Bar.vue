@@ -13,7 +13,8 @@
 </template>
 
 <script>
-import { Bar } from "vue-chartjs/legacy";
+import { Bar } from 'vue-chartjs/legacy'
+
 import {
   Chart as ChartJS,
   Title,
@@ -21,59 +22,54 @@ import {
   Legend,
   BarElement,
   CategoryScale,
-  LinearScale,
-} from "chart.js";
-ChartJS.register(
-  Title,
-  Tooltip,
-  Legend,
-  BarElement,
-  CategoryScale,
   LinearScale
-);
+} from 'chart.js'
+
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+
 export default {
-  name: "BarChart",
+  name: 'BarChart',
   components: {
-    Bar,
+    Bar
   },
   props: {
     chartId: {
       type: String,
-      default: "bar-chart",
+      default: 'bar-chart'
     },
     datasetIdKey: {
       type: String,
-      default: "label",
+      default: 'label'
     },
     width: {
       type: Number,
-      default: 400,
+      default: 400
     },
     height: {
       type: Number,
-      default: 400,
+      default: 400
     },
     cssClasses: {
-      default: "",
-      type: String,
+      default: '',
+      type: String
     },
     styles: {
       type: Object,
-      default: () => {},
+      default: () => {}
     },
     plugins: {
       type: Array,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
-  methods: {
+  methods:{
     MostrarReportes_Descargas() {
       this.axios
         .get("http://127.0.0.1:8000/api/Reportes_Descargas")
         .then((response) => {
           this.consumo = response.data;
-          this.name = response.data.name;
-          this.descargas = response.data.conteo;
+          this.name = response.data;
+          this.conteo = response.data;
           this.graficar();
         })
         .catch((error) => {
@@ -81,41 +77,47 @@ export default {
           this.consumo = [];
         });
     },
-    graficar() {
-      for(let i of this.consumo){
-        if(i.materials = this.name){
-          this.name
-        }
-        if(i.materials = this.conteo){
-          this.conteo
-        }
+    graficar(){
+      for(let i of this.name){
+        console.log(i.name);
+        this.nombres.push(i.name);
       }
-      this.chartData = {
-        labels: [
-          this.name
-        ],
+      console.log("nombres: "+this.nombres);
+      for(let i of this.conteo){
+        console.log(i.conteo);
+        this.conteos.push(i.conteo)
+      }
+      console.log("conteo "+ this.conteos);
+
+      this.chartData= {
+        labels: this.nombres,
         datasets: [
           {
-            label: "Data One",
-            backgroundColor: "#f87979",
-            data: [this.descargas],
-          },
-        ],
-      };
+            label: 'Materiales',
+            backgroundColor: '#000080',
+            data: this.conteos
+          }
+        ]
+      }
     },
+  },
+  mounted () {
+    this.MostrarReportes_Descargas();
   },
   data() {
     return {
-      consumo: "",
-      name:"",
-      descargas: "",
-      chartData: {},
-
+      consumo : [],
+      name: [],
+      nombres: [],
+      conteo: [],
+      conteos:[],
+      chartData:{},
+      
       chartOptions: {
         responsive: true,
-        maintainAspectRatio: false,
-      },
-    };
-  },
-};
+        maintainAspectRatio: false
+      }
+    }
+  }
+}
 </script>
