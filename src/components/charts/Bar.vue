@@ -65,7 +65,7 @@ export default {
   methods:{
     MostrarReportes_Descargas() {
       this.axios
-        .get("http://127.0.0.1:8000/api/Reportes_Descargas")
+        .get("http://127.0.0.1:8000/api/ReportsDes")
         .then((response) => {
           this.consumo = response.data;
           this.name = response.data;

@@ -60,7 +60,6 @@
               <thead>
                 <tr>
                   <th scope="col">material</th>
-                  <th scope="col">Imagen</th>
                   <th scope="col">ISBN</th>
                   <th scope="col">Fecha publicación</th>
                   <th scope="col">N Paginas</th>
@@ -71,12 +70,6 @@
               <tbody>
                 <tr v-for="Reporte in Reporte" :key="Reporte.id">
                   <td>{{ Reporte.name }}</td>
-                  <td>
-                    <img
-                      :src="`http://127.0.0.1:8000/storage/${Reporte.img}`"
-                      accept="application/img"
-                    />
-                  </td>
                   <td>{{ Reporte.isbn }}</td>
                   <td>{{ Reporte.year }}</td>
                   <td>{{ Reporte.num_pages }}</td>

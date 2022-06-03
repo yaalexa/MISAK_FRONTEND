@@ -49,7 +49,6 @@
           <thead>
             <tr>
               <th scope="col">material</th>
-              <th scope="col">Imagen</th>
               <th scope="col">ISBN</th>
               <th scope="col">Fecha publicación</th>
               <th scope="col">N Paginas</th>
@@ -63,12 +62,6 @@
               :key="Reportes_Descargas.id"
             >
               <td>{{ Reportes_Descargas.name }}</td>
-              <td>
-                <img
-                  :src="`http://127.0.0.1:8000/storage/${Reportes_Descargas.img}`"
-                  accept="application/img"
-                />
-              </td>
               <td>{{ Reportes_Descargas.isbn }}</td>
               <td>{{ Reportes_Descargas.year }}</td>
               <td>{{ Reportes_Descargas.num_pages }}</td>
