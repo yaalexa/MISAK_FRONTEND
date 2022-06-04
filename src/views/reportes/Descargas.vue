@@ -105,7 +105,7 @@ export default {
     },
     DownloadreportDE() {
       axios({
-        url: `http://127.0.0.1:8000/api/Report_DesPDF${this.$route.params.id}`,
+        url: `http://127.0.0.1:8000/api/Report_DesPDF`,
         method: "GET",
         responseType: "blob",
       }).then((response) => {
@@ -113,7 +113,7 @@ export default {
         this.descargara = response.data;
         var fileLink = document.createElement("a");
         fileLink.href = fileURL;
-        fileLink.setAttribute("download", "file.pdf");
+        fileLink.setAttribute("download", "Reporte_Descargado.pdf");
         document.body.appendChild(fileLink);
         fileLink.click();
       });

@@ -86,7 +86,7 @@ export default {
         },
         async mostrarAutor(){
         
-        axios.get("http://localhost:8000/api/authors/?id="+ this.$route.params.id)
+        axios.get("http://localhost:8000/api/authors/"+ this.$route.params.id)
        .then( datos => {
         
         this.Autor.name = datos.data[0].name;

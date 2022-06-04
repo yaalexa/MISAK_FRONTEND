@@ -65,7 +65,7 @@
                   <td>{{ Reporte_Docente.visualizado }}</td>
                   <td>{{ Reporte_Docente.descargado }}</td>
                   <td>
-                    <button class="buttom">DETALLE</button>
+                    <button @click="DownloadreportDODETALLE(Reporte_Docente.id)" class="buttom">DETALLE</button>
                   </td>
                 </tr>
               </tbody>
@@ -162,7 +162,22 @@ export default {
         this.descargara = response.data;
         var fileLink = document.createElement("a");
         fileLink.href = fileURL;
-        fileLink.setAttribute("download", "file.pdf");
+        fileLink.setAttribute("download", "Reporte_Docente.pdf");
+        document.body.appendChild(fileLink);
+        fileLink.click();
+      });
+    },
+    DownloadreportDODETALLE(id_docente) {
+      axios({
+        url: `http://127.0.0.1:8000/api/Reports_DocDePdf/${id_docente}`,
+        method: "GET",
+        responseType: "blob",
+      }).then((response) => {
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+        this.descargara = response.data;
+        var fileLink = document.createElement("a");
+        fileLink.href = fileURL;
+        fileLink.setAttribute("download", "Reporte_Docente_Detallado.pdf");
         document.body.appendChild(fileLink);
         fileLink.click();
       });

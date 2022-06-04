@@ -168,7 +168,7 @@ export default {
             this.$router.push({name:"/usuarios"})
             },
             async mostrarusuario(){
-                axios.get("http://127.0.0.1:8000/api/users/?id="+ this.$route.params.id)
+                axios.get("http://127.0.0.1:8000/api/users/"+ this.$route.params.id)
                 .then(datos => {
                     this.Usuario.name = datos.data[0].name;
                     this.Usuario.full_name = datos.data[0].full_name;

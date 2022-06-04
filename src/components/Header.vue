@@ -10,35 +10,11 @@
     <div >
         <div class="menu-list">
             <ul id="menu-content" class="menu-content collapse out">
-                 <!--<li data-toggle="collapse" data-target="#new" class="collapsed">
-                <router-link exact-active-class="active" to="/welcome" class="nav-link" aria-current="page">HOME</router-link>
-                </li>-->
+                
                 <li data-toggle="collapse" data-target="#new" class="collapsed">
                 <router-link exact-active-class="active" to="/Library" class="nav-link" aria-current="page">BIBLIOTECA</router-link>
                 </li>
-                <!--
-                 <li data-toggle="collapse" data-target="#new" class="collapsed">
-                <router-link exact-active-class="active" to="/dashboard" class="nav-link" aria-current="page">MATERIAL</router-link>
-                </li>
-                  <li data-toggle="collapse" data-target="#new" class="collapsed">
-                <router-link exact-active-class="active" to="/Editorial" class="nav-link" aria-current="page">EDITORIAL</router-link>
-                </li>
-
-                    <li  data-toggle="collapse" data-target="#products" class="collapsed">
-                   <router-link exact-active-class="active" to="/Autores" class="nav-link" aria-current="page">AUTORES</router-link>
-                </li>
-                
-                <li data-toggle="collapse" data-target="#service" class="collapsed">
-                   <router-link exact-active-class="active" to="/TipoMaterial" class="nav-link" aria-current="page">TIPO MATERIAL</router-link>
                
-                </li>  
- 
-              
-                
-                   <li data-toggle="collapse" data-target="#new" class="collapsed">
-                <router-link exact-active-class="active" to="/NivelEducativo" class="nav-link" aria-current="page">NIVEL EDUCATIVO</router-link>
-                </li>-->
-
                 <!--usuario-->
                   <li data-toggle="collapse" data-target="#new" class="collapsed">
                   <router-link exact-active-class="active" to="/usuarios" class="nav-link" aria-current="page">USUARIOS</router-link>
@@ -57,32 +33,26 @@
                   <li data-toggle="collapse" data-target="#new" class="collapsed">
                   <router-link exact-active-class="active" to="/vistaReporte" class="nav-link" aria-current="page">REPORTES</router-link>
                 </li>
-                <!-- <li data-toggle="collapse" data-target="#new" class="collapsed">
-                  <router-link exact-active-class="active" to="/usuarioU" class="nav-link" aria-current="page">COMUNERO</router-link>
-                </li>-->
+               
                  </ul> 
+               
                   </div>
       </div>   
     <div>
-       <!-- 
-          <li data-toggle="collapse" data-target="#new" class="collapsed">
-                <router-link exact-active-class="active" to="/usuarioU" class="nav-link" aria-current="page">Vista Comunero</router-link>
-
-          </li> 
-          -->
+       
      </div>  
      <fieldset >
       <div class="contenedor"> 
         <table>
                    <tr>
-                  <td >Usuario: {{this.usuario.user.name}} Rol: {{rolName}}</td>
+                  <td >Usuario: {{rolName}}</td>
                 </tr>
 
                 <tr>
                   <td class="td">Servicio Nacional de Aprendizaje SENA</td>
                 </tr>
                 <tr>
-                  <td><img src="@/assets/sena.png" id="icon"></td>
+                  <td><img src="@/assets/sena.png" id="sena"></td>
                 </tr>
               </thead>
               <tbody>
@@ -103,12 +73,10 @@
             </table>
           </div>
         </fieldset> 
-        <input
-          type="button"
-          name="cerar"
-          value="CerrarSesion"
-          v-on:click="cerrarTodo()"
-        />
+        
+        <b-button variant="outline-warning"  @click="cerrarTodo()"  class="mb-2">
+      <b-icon icon="power" aria-hidden="true"></b-icon> Logout
+    </b-button>
         
    </div>
  </section>
@@ -127,46 +95,17 @@ export default {
   created() {},
   data: function () {
     return {
-      usuario: {
-        certificate_misak: "",
-        document_number: "",
-        document_type: "",
-        email: "",
-        email_verified_at: null,
-        full_name: "",
-        id: null,
-        name: "",
-        password: "",
-        rol_id: null,
-      },
+     
       administrador: false,
       rolName: null,
+
     };
   },
   methods: {
-    async obtenerUsuario(usrid) {
-      axios
-        .get("http://localhost:8000/api/users/"+usrid)
-        .then((response) => {
-          /* const {name} = response.data
-                this.rol.name = name */
-          this.usuario = response.data;
-          
-          console.log("usuarioDatos", this.usuario);
-          console.log("usuarioUsrrolid", this.usuario.user.rol_id);
-          if(this.usuario.user.rol_id == 1){
-            this.administrador = true;
-            this.rolName ="Administrador";
-          }else{
-            this.administrador = false;
-            this.rolName ="Comunero";
-          }
-          console.log("usuarioName", this.rolName);
-          
-        })
-        .catch((errore) => {
-          console.log(errore);
-        });
+     obtenerUsuario(usrid) { 
+          this.rolName = JSON.parse(sessionStorage.getItem('usuario'));
+          this.rolName=this.rolName.usr_name;
+          this.administrador=this.rolName.usr_name;
           
     },
     async cerrarTodo(obj) {
@@ -312,10 +251,14 @@ body {
   margin: 0px;
   padding: 0px;
 }
-#icon {
-  width:70%;
+#icon{
+width:80%;
   background-position: center center;
-  background-size: 100px auto;
- 
+  
+}
+#sena {
+  width:40%;
+  background-position: center center;
+  opacity: 0.9;
 }
 </style>

@@ -2,13 +2,14 @@
   <div>
     <div class="contenedor_todo">
         <div class="contenedor1">
+          
             <img
-              src="@/assets/logo.png"
+              src="@/assets/logo2.png"
               class="logo"
-              height="80px"
-              width="80px"
+              height="50vh"
+              width="250vh"
               alt="Kitten"/>
-              <h1 class="titulo">Libreria Virtual</h1>
+              <h1 class="titulo"></h1>
         </div>
         <div>
           <b-nav  class="menu">
@@ -60,9 +61,9 @@ methods: {
   justify-content: space-between;
   align-content: center;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   position: fixed;
-  
+  height: 13vh;
 }
 .contenedor1 {
   display: flex;

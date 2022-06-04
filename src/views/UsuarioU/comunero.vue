@@ -29,11 +29,9 @@
  
 		    <div  v-for="todos in todos" :key="todos.id" >
           <b-card 
-          
             img
             alt=""
             img-top
-          
             header-bg-variant="dark"
             header-text-variant="white"
             border-variant="dark"
@@ -228,19 +226,22 @@ export default {
         color:#ff9;
         height:80px;
         overflow:hidden;
-        display: flex;
+        display: block;
       }
       #contenedor {
         width:100%;
         overflow:hidden;
-         height: 100vh;
+        height: 100vh;
+        display:block;
       }
       #contenido {
+        margin-top:2%;
         float:left;
         height: 100vh;
         padding:10px;
         width:80%;
         overflow: auto;
+        justify-content: space-between;
       }
         #contenido2 {
         float:left;
