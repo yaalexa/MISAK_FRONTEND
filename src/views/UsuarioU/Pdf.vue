@@ -57,7 +57,14 @@ export default {
      this.descargara=response.data;
      var fileLink = document.createElement('a');
      fileLink.href = fileURL;
-     fileLink.setAttribute('download', 'file.pdf');
+     //codigo eduard extraemos el tipo de archivo
+     var typer = this.descargara.type;
+     // eduard sacamos la extension y la concatenamos a file
+     var ext = (typer.slice(typer.search('/')+1,typer.length));
+     var file = 'file.'+ext;
+     console.log("type = ",typer);
+     console.log("file =",file);
+     fileLink.setAttribute('download', file);
      document.body.appendChild(fileLink);
      fileLink.click();
         });
@@ -75,16 +82,19 @@ export default {
    async getTodos() {
           this.codigo=this.$route.params.id;
           this.prioridad=this.$route.params.pr;
+          //codigo eduard cambiamos el responsiveType de arraybuffer a blob para obtener el type
      await axios
-        .get(`http://127.0.0.1:8000/api/download/${this.codigo}`,{responseType: 'arraybuffer'  })
+        .get(`http://127.0.0.1:8000/api/download/${this.codigo}`,{responseType: 'blob'  })
         .then((response) => {
-          var fileURL = window.URL.createObjectURL(new Blob([response.data],{ 'type': 'application/pdf' }));
+          //codigo eduard para optener el type
+          this.descargara=response.data;
+          var typer = this.descargara.type;
+          //codigo eduard cambiamos el 'application/pdf' por typer
+          var fileURL = window.URL.createObjectURL(new Blob([response.data],{ 'type': typer }));
           var fileLink = document.createElement('a');
-           fileLink.href = fileURL;
-            fileLink.setAttribute('download', 'file.pdf');
-            this.pdfsrc= document.body.appendChild(fileLink)
-
-           
+          fileLink.href = fileURL;
+          fileLink.setAttribute('download', 'file.pdf');
+          this.pdfsrc= document.body.appendChild(fileLink)
             
         })
         .catch((errorgrave) => console.log(errorgrave));
