@@ -1,90 +1,128 @@
 <template>
  <div id="contenedor">
-   <div id="cabecera"><Menu1/>
+   <div id="cabecera" class="shadow-lg bg-white rounded">
+     <Menu1/>
    </div>
-       <div id="menu"> 
-             <NavdestacadosVue/>
-         </div>
-       
-       <div id="contenido">
-          <div id="contenido2">
-          <div class="contenedor4">
-          <b-input-group-text>
-            <form class="form-inline ">
-            <input 
-              class="form-control "
-              type="search"
-              placeholder="Buscar por material...."
-              aria-label="Search"
-              v-model="buscador"
-              />
-            </form>
+   <b-input-group-text style="background-color:#ffcc00" >
+            <input class="form-control" size="sm" type="search" placeholder="Buscar por material...." aria-label="Search" v-model="buscador" />
+             <b-form-select  class="form-control" size="sm" v-model="selected" :options="opt"></b-form-select>
             <button type="button" class="btn btn-secondary margen" @click="buscarmaterial(buscador)" v-on:click="errored=true">Buscar</button>
-          </b-input-group-text>
+    </b-input-group-text>
+       <div id="contenido">
+         <div>
+          <b-card overlay :img-src="imagep" img-alt="Card Image" text-variant="white"  >
+          </b-card>
         </div>
-        <!-- Aqui termina el buscador -V-->
-              
-     <div v-if ="this.errored==false" >    
-        <VueSlickCarousel v-bind="settings" class="carousel">
- 
-		    <div  v-for="todos in todos" :key="todos.id" >
-          <b-card 
-            img
-            alt=""
-            img-top
-            header-bg-variant="dark"
-            header-text-variant="white"
-            border-variant="dark"
-            :footer="`${todos.name}`"
-            footer-tag="footer"
-            footer-bg-variant="warning"
-          >
-                
-          <b-card-body>
-                   <b-img thumbnail center  :src="`http://127.0.0.1:8000/storage/${todos.img}`" class="imagen" fluid alt="Fluid image"></b-img>
-                    ISBN: {{ todos.isbn }}
-                    <b-card-text>Prioridad: {{ todos.priority }}</b-card-text>
-                    <button type="button" class="btn btn-secondary margen" v-on:click="Ver(todos.id,todos.priority)">Ver</button>
-                </b-card-body>
-          </b-card>
-      </div>
-  
-
-	</VueSlickCarousel>
-  </div> 
- <div v-if ="this.errored==true" >    
-       <VueSlickCarousel v-bind="settings" class="carousel">
- 
-		    <div  v-for="libros in libros" :key="todos.id" >
-          <b-card 
+    <div  class="p-3 bg" style="margin-top: 2%; border:1px solid #d9d9d9">   
+       <b-container class="bv-example-row">
+          <b-row >
+          <b-col>
+            <b-icon icon="pencil-fill" font-scale="3.5" ></b-icon>
+             <div class="d-block text-center">
+             <h6>Editorial</h6>
+            </div>
+          </b-col>
+          <b-col>
+           <b-icon icon="person-bounding-box" font-scale="3.5" ></b-icon>
+            <div class="d-block text-center">
+             <h6>Autor</h6>
+            </div>
+          </b-col>
+          <b-col>
+           <b-icon icon="reception4" font-scale="3.5" ></b-icon>
+           <div class="d-block text-center">
+             <h6>Nivel Educativo</h6>
+            </div>
+          </b-col>
+          <b-col>
+            <b-icon icon="book-fill" font-scale="3.5" ></b-icon>
+            <div class="d-block text-center">
+             <h6>Material</h6>
+            </div>
+          </b-col>
+           <b-col>
+            <b-icon icon="stack" font-scale="3.5" ></b-icon>
+             <div class="d-block text-center">
+             <h6>Area</h6>
+            </div>
+          </b-col>
+          <b-col>
+            <b-icon icon="inboxes-fill" font-scale="3.5" ></b-icon>
+            <div class="d-block text-center">
+             <h6>Tipo Material</h6>
+            </div>
+          </b-col>
+        </b-row>
+      </b-container>
+    </div>  
+    
+    <b-input-group-text style="margin-top: 3%; width: 100%;">  
+       <p>Elementos con mayor numero de visualizaciones</p>
+    </b-input-group-text>
+    <div id="contenido2" >
+      <VueSlickCarousel v-bind="settings" class="carousel">
+        <div  v-for="todos in todos" :key="todos.id" >
+        <b-card  id="material" class="shadow p-3 mb-5 bg-white rounded" border-variant="dark" footer-bg-variant="warning" header-bg-variant="secondary" header-text-variant="white" >
+          <template v-slot:header>
+            {{ todos.name }}
+          </template>
           
-            img
-            alt=""
-            img-top
-          
-            header-bg-variant="dark"
-            header-text-variant="white"
-            border-variant="dark"
-            :footer="`${libros.name}`"
-            footer-tag="footer"
-            footer-bg-variant="warning"
-          >
-                
-          <b-card-body>
-                   <b-img thumbnail center  :src="`http://127.0.0.1:8000/storage/${libros.img}`" class="imagen" fluid alt="Fluid image"></b-img>
-                    ISBN: {{ libros.isbn }}
-                    <b-card-text>Prioridad: {{ libros.priority }}</b-card-text>
-                    <button type="button" class="btn btn-secondary margen" v-on:click="Ver(libros.id,libros.priority)">Ver</button>
-                </b-card-body>
-          </b-card>
+          <b-row no-gutters>
+            <b-col md="6">
+              <b-img id="imag" thumbnail :src="`http://127.0.0.1:8000/storage/${todos.img}`" alt="Image" ></b-img>
+            </b-col>
+            <b-col md="6">
+            <p class="mb-0">
+               ISBN: {{ todos.isbn }}
+              Prioridad: {{ todos.priority }}
+            </p>
+          </b-col>
+          </b-row>
+          <button type="button" class="btn btn-secondary margen" v-on:click="Ver(todos.id,todos.priority)">Ver</button>
+          <template v-slot:footer>
+            {{ todos.name }}
+          </template>
+        </b-card>
       </div>
-  
-
-	</VueSlickCarousel>
-  </div> 
+     </VueSlickCarousel>
+    </div>
+    <div>
+       <b-input-group-text style="margin-top: 7%; width: 100%;">  
+       <p>Elementos con mayor numero de descargadas</p>
+    </b-input-group-text>
+    </div>
+    <div id="contenido2">
+      <VueSlickCarousel v-bind="settings" class="carousel">
+        <div  v-for="todos in todos" :key="todos.id" >
+        <b-card  id="material" class="shadow p-3 mb-5 bg-white rounded" border-variant="dark"  header-bg-variant="secondary" header-text-variant="white" >
+          <template v-slot:header>
+            {{ todos.name }}
+          </template>
+          <b-row no-gutters>
+            <b-col md="6">
+              <b-img id="imag" thumbnail :src="`http://127.0.0.1:8000/storage/${todos.img}`" alt="Image" ></b-img>
+            </b-col>
+            <b-col md="6">
+            <p class="mb-0">
+               ISBN: {{ todos.isbn }}
+              Prioridad: {{ todos.priority }}
+            </p>
+          </b-col>
+          </b-row>
+          <button type="button" class="btn btn-secondary margen" v-on:click="Ver(todos.id,todos.priority)">Ver</button>
+          <template v-slot:footer >
+            {{ todos.name }}
+          </template>
+        </b-card>
+      </div>
+     </VueSlickCarousel>
+    </div>
+     <div id="footer">
+            <Footer/>
      </div>
      </div>
   </div>
+ 
 </template>
 
 <script>
@@ -93,23 +131,35 @@ import axios from "axios";
 import VueSlickCarousel from 'vue-slick-carousel'
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
-import Menu1 from "@/components/Menu1.vue";
-import NavdestacadosVue from "@/components/NavDestacados.vue";
+import Menu1 from '@/components/Menu1.vue'
+import imagep from '@/assets/fondoprincipal.png'
+import Footer from '@/components/Footer.vue'
 export default {
   data() {
     return {
+      opt: [
+          { value: null, text: 'Todos' },
+          { value: '1', text: 'Editorial' },
+          { value: '2', text: 'Material' },
+          { value: '3', text: 'Autor' },
+          { value: '4', text: 'Nivel Educativo' },
+          { value: '5', text: 'Areas' },
+          { value: '6', text: 'Tipo Material' },
+        ],
+     imagep:imagep,
      pr:null,
      id:null,
      buscador:null,
     searchText :null,
     setTimeoutBuscador: '',
+   
       settings: {
-					"dots": true,
-					"slidesToShow": 3,
-					"slidesToScroll": 2,
-          "infinite": true,
+					"dots": false,
+					"slidesToShow": 4,
+					"slidesToScroll": 1,
+          "infinite": false,
           "speed": 500,
-          "rows": 2,
+          "rows": 1,
           "slidesPerRow": 1,
           "breakpoint": 1024,
 				},
@@ -148,7 +198,7 @@ export default {
   components: {
     VueSlickCarousel,
     Menu1,
-    NavdestacadosVue,
+    Footer,
   },			
   mounted() {
     this.getTodos();
@@ -198,28 +248,18 @@ export default {
 </script>
 
 <style scoped>
-   .imagen{
-     object-fit: cover;
-      object-position: center center;
-      display:contents;
-     height: 180px; 
-     width: 150px;
-     float:inline-start;
-   }
-  
       .slick-slider {
        width: 100%;
         }
         ::v-deep .slick-arrow:before {
          color:rgb(8, 5, 45);
-       
         }
-      .card {
-      border: 1px solid black;
-      margin: 15px;
-      overflow:hidden;
-      max-width: 13rem ;
-      
+        #buscar{
+          background-color:#16223f
+        }
+      #material {
+      margin: 5%;
+      max-width: 640px;
         }
 
       #cabecera {
@@ -234,30 +274,47 @@ export default {
         height: 100vh;
         display:block;
       }
-      #contenido {
-        margin-top:2%;
+      #contenido { 
         float:left;
         height: 100vh;
         padding:10px;
-        width:80%;
+        width:100%;
         overflow: auto;
         justify-content: space-between;
       }
         #contenido2 {
         float:left;
-        height: 200vh;
-        padding:10px;
+        height: 27rem;
         width:95%;
-        padding: 1%;
         margin-left: 2%;
+        justify-content: space-between;
       }
       #menu {
         background: linear-gradient(to top, #aab0c0, 5%, #d3d3d4);
         float:left;
-         height: 100vh;
+        height: 100vh;
         padding:20px;
         width:20%;
         overflow:auto;
       }
-      
+      .b-icon{
+        color:#16223f
+      }
+      #imag{
+        width: 10rem;
+        height: 10rem;
+      }
+      #footer{
+        float:left;
+        height: 25rem;
+        width:100%;
+      }
+      .card-footer {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: #16223f;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    color:white
+  }
+    
 </style>
