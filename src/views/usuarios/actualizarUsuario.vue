@@ -33,7 +33,7 @@
 		      </div>
 		 </div>
     
-		 <div class="col-sm-12">
+		<!--  <div class="col-sm-12">
 		     <div class="row">
 			     <div class="col-xs-4">
 		             <label class="mail" >Email :</label></div>
@@ -41,8 +41,8 @@
 			          <input type="email" name="email"  id="email" v-model="Usuario.email" placeholder="Enter your email" class="form-control" >
 		         </div>
 		     </div>
-		 </div>
-
+		 </div> -->
+<!-- 
 
                                <div class="col-sm-12">
              <div class="row">
@@ -60,8 +60,8 @@
              </div>
 		      </div>
 		 </div>
-
-               <div class="col-sm-12">
+ -->
+              <!--  <div class="col-sm-12">
              <div class="row">
 			     <div class="col-xs-4">
           	         <label class="firstname">Numero de Documento :</label> </div>
@@ -70,8 +70,8 @@
              </div>
 		      </div>
 		 </div>
-	 
-          <div class="col-sm-12">
+	  -->
+          <!-- <div class="col-sm-12">
 		         <div class="row">
 				     <div class="col-xs-4">
 		 	              <label class="pass">Password :</label></div>
@@ -79,8 +79,8 @@
 			             <input type="password" name="password" id="password" v-model="Usuario.password" placeholder="Enter your Password" class="form-control">
 				 </div>
           </div>
-		  </div>
-                      <div class="col-sm-12">
+		  </div> -->
+                      <!-- <div class="col-sm-12">
 		         <div class="row">
 				     <div class="col-xs-4">
 		 	              <label class="pass">confirmar Password :</label></div>
@@ -102,7 +102,7 @@
                      </div>
           </div>
           
-		  </div>
+		  </div> -->
              <div class="col-sm-12">
 		         <div class="row">
 				     <div class="col-xs-4">
@@ -118,6 +118,7 @@
          
             </section>
             </div>
+            <br>
             <div class="botonusuario">
                     <button type="submit" class="btn btn-warning">Guardar</button>
                     <button type="button" class="btn btn-secondary" v-on:click="salir()"  >  Salir  </button>
@@ -126,9 +127,7 @@
                 </div>
                 
             </div>
-        
-    </div>
-    </div>
+
 </template>
 
 <script>
@@ -225,8 +224,11 @@ export default {
         
     }
     .cara2{
-        width: 80%;
         height: 100vh;
+        width: 60%;
+        padding: 3%;
+        margin-left:auto;
+        margin-right:auto
     }
     .izquierda{
         text-align: left;
@@ -241,5 +243,10 @@ export default {
     .botonautor{
         margin:5%;
     }
-   
+   .btn-warning{
+       margin: 3px;
+   }
+   .btn-secondary{
+       margin: 3px;
+   }
 </style>

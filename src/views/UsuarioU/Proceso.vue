@@ -136,4 +136,9 @@ export default {
         width:20%;
         overflow:auto;
       }
+      .table{
+        width: 130px;
+        overflow: auto;
+        border: 1px solid;
+      }
 </style>

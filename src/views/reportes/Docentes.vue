@@ -10,13 +10,15 @@
         <h1>Reporte de Docentes</h1>
         <br />
         <div>
+          <div class="buscar">
           <input
             type="search"
             aria-label="Search"
             v-model="filterbusqueda"
+             placeholder="Buscar"
             @keyup.prevent="Filtrardocente()"
           />
-          <button>Buscar</button>
+              </div>
         </div>
         <br />
         <div class="justify-contentlg-end col-md-5 col-lg-8 mt-2">
@@ -104,6 +106,7 @@ export default {
   name: "Rdocente",
   data() {
     return {
+      filter:null,
       locales: [
         { text: "ingles" },
         { text: "Español" },
@@ -198,9 +201,11 @@ body {
   width: 20%;
 }
 .cara2 {
-  margin-top: 20px;
-  width: 80%;
+ width: 80%;
   height: 100vh;
+  margin-left: 6%;
+  margin-right: 6%;
+  scroll-margin-right: 20dp;
 }
 .buttom{
   background-color: #ffca2c;
@@ -209,5 +214,12 @@ body {
   font-size: 1rem;
   text-align: center;
   border-radius: 40px;
+}
+.buscar{
+  width: 50%;
+  padding: 2%;
+  margin-left:auto;
+  margin-right: auto;
+
 }
 </style>

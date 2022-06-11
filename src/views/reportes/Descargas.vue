@@ -9,14 +9,21 @@
       <section>
         <h1>Reporte de Descargas</h1>
         <br />
-        <label for="datepicker-sm">Arias:</label>
+        <label for="datepicker-sm">Areas:</label>
         <b-form-select
-          id="example-locales"
-          v-model="locale"
-          :options="locales"
-          class="mb-2"
+            id="example-locales"
+            v-model="locale"
+            :options="locales"
+            class="mb-4"
         ></b-form-select>
-        <b-button variant="outline-primary">Busar</b-button>
+        <div class="buscar">
+            <b-form-input 
+              v-model="filter"
+              type="search"
+              placeholder="Buscar"
+              class="mb-4"
+              > </b-form-input>
+              </div>
         <br />
         <Bar />
         <b-table
@@ -55,6 +62,7 @@ export default {
   name: "Descargas",
   data() {
     return {
+      filter:null,
       datos: [],
       locales: [
         { text: "ingles" },
@@ -136,6 +144,9 @@ body {
 .cara2 {
   width: 80%;
   height: 100vh;
+  margin-left: 3%;
+  margin-right: 3%;
+  scroll-margin-right: 20dp;
 }
 .btn-success {
   background-color: #ffca2c;
@@ -146,4 +157,17 @@ thead {
   background: #16223f;
   color: white;
 }
+.table{
+ padding: 10%;
+  margin-left: 50;
+  margin-right: 50;
+}
+.buscar{
+  width: 50%;
+  padding: 2%;
+  margin-left:auto;
+  margin-right: auto;
+
+}
+
 </style>

@@ -9,14 +9,22 @@
       <section>
         <h1>Reporte de Visualizacion del material</h1>
         <br />
-        <label for="datepicker-sm">Arias:</label>
+        <label for="datepicker-sm">Areas:</label>
         <b-form-select
           id="example-locales"
-          v-model="locale"
+          v-model="locales"
           :options="locales"
           class="mb-2"
         ></b-form-select>
-        <b-button variant="outline-primary">Busar</b-button>
+        <div class="buscar">
+            <b-form-input 
+              v-model="filter"
+              type="search"
+              placeholder="Buscar"
+              class="mb-4"
+              > </b-form-input>
+              </div>
+       <!--  <b-button variant="outline-primary">Busar</b-button> -->
         <br />
         <LineChartGenerator />
         <div class="table-responsive">
@@ -58,6 +66,7 @@ export default {
   name: "Visualizacion",
   data() {
     return {
+    filter:null,
       locales: [
         { text: "ingles" },
         { text: "Español" },
@@ -134,9 +143,11 @@ body {
   width: 20%;
 }
 .cara2 {
-  width: 95%;
+  width: 80%;
   height: 100vh;
-  overflow: auto;
+  margin-left: 6%;
+  margin-right: 6%;
+  scroll-margin-right: 20dp;
 }
 .btn-success {
   color: black;
@@ -146,5 +157,12 @@ body {
 thead {
   background: #16223f;
   color: white;
+}
+.buscar{
+  width: 50%;
+  padding: 2%;
+  margin-left:auto;
+  margin-right: auto;
+
 }
 </style>
