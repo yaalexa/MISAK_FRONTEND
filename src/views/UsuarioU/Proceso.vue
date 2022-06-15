@@ -27,7 +27,7 @@
                     <br>
                 </div>
             </div>
-                     <b-table :filter="filter" id="my-table" :items="proceso" :fields="fieldsMy" :per-page="perPage" :current-page="currentPage" class="table">
+                     <b-table responsive :filter="filter" id="my-table" :items="proceso" :fields="fieldsMy" :per-page="perPage" :current-page="currentPage" class="table">
                                 <template #cell(acciones)="row">
 
                                     <router-link :to='{name:"Editar", params:{id:row.item.id}}' class="btn btn-warning"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> <b-icon icon="pencil" aria-hidden="true"></b-icon></router-link>

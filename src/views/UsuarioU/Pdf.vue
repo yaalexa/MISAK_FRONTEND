@@ -68,8 +68,6 @@ export default {
      document.body.appendChild(fileLink);
      fileLink.click();
         });
-
-
         // codigo Eduard guarda el proceso del boton de descarga
      var usrid = JSON.parse(sessionStorage.getItem("userid"));
      this.mtr_usr.users_id = usrid;
