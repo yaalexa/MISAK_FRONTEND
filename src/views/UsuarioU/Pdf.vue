@@ -4,8 +4,8 @@
    </div>
       
    <div id="contenido">
-      <div id="contenido2">
-           <b-embed class="archivo" frameborder="0" v-bind:src="this.pdfsrc+'#toolbar=0'"  />
+      <div id="contenido2" >
+           <b-embed class="archivo" allowfullscreen frameborder="0" v-bind:src="this.pdfsrc+'#toolbar=0'"  />
       <br>
       <div v-if="this.prioridad != 1">
       <button type="button" class="btn btn-dark margen" v-on:click="downloadWithAxios( )">Descargar</button>

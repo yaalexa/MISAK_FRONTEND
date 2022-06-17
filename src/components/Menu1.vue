@@ -59,7 +59,6 @@ methods: {
 
 <style scoped>
 .log{
-
         width: 70%;
         min-width: 1%;
        
@@ -71,11 +70,9 @@ methods: {
   align-content: center;
   align-items: center;
   width: 100%;
+  overflow: hidden;
 }
-.contenedor1 {
-  display: flex;
-  align-items: center;
-}
+
 .logo {
   border: 1px blueviolet;
   padding: 4px;

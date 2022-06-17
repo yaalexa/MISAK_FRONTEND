@@ -1,13 +1,13 @@
 <template>
   <div id="contenedor">
-    <div  class="shadow-lg bg-white rounded">
+    <div  id="menu" class="shadow-lg bg-white rounded">
       <Menu1 />
     </div>
     <div id="contenido">
       <div class="mt-4">
          <b-img fluid  :src="require('../../assets/fondoprincipal.png')" alt="Image 8"></b-img>
       </div>
-      <div class="p-3 bg" style="margin-top: 2%; border: 1px solid #d9d9d9">
+      <div id="menu" class="p-3 bg" style="margin-top: 2%; border: 1px solid #d9d9d9">
         <b-container class="bv-example-row">
           <b-row>
             <b-col>
@@ -49,24 +49,81 @@
           </b-row>
         </b-container>
       </div>
+       <!-----------------------AQUI COMIENZA EL BUSCADOR---------------------------------->
       <div class="buscador">
-        <b-input class="form-control" id="barra" type="search" size="sm" placeholder="Buscar por material...." aria-label="Search" v-model="buscador"/>
-        <b-form-select
+        <b-input
+          response
           class="form-control"
-          size="sm"
           id="barra"
-          v-model="opcionbuscar"
-          :options="opt"
+          type="search"
+          size="sm"
+          placeholder="Buscar por material, editorial, autor ...."
+          aria-label="Search"
+          v-model="buscar"
         />
         <b-button
           type="button"
           class="btn btn-secondary margen"
           id="boton"
-          v-on:click="getTodos(buscador)"
+          v-on:click="buscadorfinal(buscar)"
+          v-b-modal.busqueda
         >
           Buscar
         </b-button>
-        <b-button v-b-modal.busqueda>Show Modal</b-button>
+      </div>
+      <!-- -----------------AQUI COMIENZA EL V-MODEL DEL BUSCADOR ------------------------ -->
+      <div>
+        <b-modal id="busqueda" v-model="MaterialB" size="xl" title="MaterialB">
+          <template #modal-header>
+            <h5>Material</h5>
+          </template>
+          <div>
+            <VueSlickCarousel v-bind="settings" class="carousel">
+              
+              <b-card-group v-for="getmaterial in getmaterial" :key="getmaterial.id">
+                <b-card
+                 
+                  id="material"
+                  class="shadow p-3 mb-5 bg-white rounded"
+                  border-variant="dark"
+                  footer-bg-variant="warning"
+                  header-bg-variant="secondary"
+                  header-text-variant="white"
+                  
+                >
+                  <template v-slot:header>
+                    {{ getmaterial.nombre }}
+                  </template>
+                      <b-img
+                        id="imag"
+                        thumbnail
+                        :src="`http://127.0.0.1:8000/storage/${getmaterial.imagen}`"
+                        alt="Image"
+                      ></b-img>
+                  <button
+                    type="button"
+                    class="btn btn-secondary margen"
+                    v-on:click="Ver(getmaterial.id, getmaterial.prioridad)"
+                  >
+                    Ver
+                  </button>
+                  <template v-slot:footer>
+                    
+                    <small class="text-muted">{{ getmaterial.autor }}</small>
+                    
+                  </template>
+                </b-card>
+                </b-card-group>
+             
+              
+            </VueSlickCarousel>
+          </div>
+          <template #modal-footer="{ close }">
+            <b-button class="btn btn-secondary" @click="close()">
+              Cerrar
+            </b-button>
+          </template>
+        </b-modal>
       </div>
 
       <b-input-group-text style="margin-top: 3%; width: 100%" class="title">
@@ -74,7 +131,7 @@
       </b-input-group-text>
       <div id="contenido2">
         <VueSlickCarousel v-bind="settings" class="carousel">
-          <div v-for="todos in todos" :key="todos.id">
+          <div v-for="visual in visual" :key="visual.id">
             <b-card
               id="material"
               class="shadow p-3 mb-5 bg-white rounded"
@@ -82,34 +139,30 @@
               footer-bg-variant="warning"
               header-bg-variant="secondary"
               header-text-variant="white"
+              
             >
               <template v-slot:header>
-                {{ todos.name }}
+                {{ visual.name }}
               </template>
-              <b-row no-gutters>
-                <b-col md="6">
+               <b-card-body >
                   <b-img
                     id="imag"
                     thumbnail
-                    :src="`http://127.0.0.1:8000/storage/${todos.img}`"
+                    :src="`http://127.0.0.1:8000/storage/${visual.img}`"
                     alt="Image"
                   ></b-img>
-                </b-col>
-                <b-col md="6">
-                  <p class="mb-0">
-                    ISBN: {{ todos.isbn }} Prioridad: {{ todos.priority }}
-                  </p>
-                </b-col>
-              </b-row>
-              <button
+              </b-card-body>
+               <button
                 type="button"
                 class="btn btn-secondary margen"
-                v-on:click="Ver(todos.id, todos.priority)"
+                v-on:click="Ver(visual.id, visual.priority)"
               >
                 Ver
               </button>
-              <template v-slot:footer>
-                {{ todos.name }}
+              <template v-slot:footer >
+
+                {{ visual.name }}
+               
               </template>
             </b-card>
           </div>
@@ -122,7 +175,7 @@
       </div>
       <div id="contenido2">
         <VueSlickCarousel v-bind="settings" class="carousel">
-          <div v-for="todos in todos" :key="todos.id">
+          <div v-for="descarga in descarga" :key="descarga.id">
             <b-card
               id="material"
               class="shadow p-3 mb-5 bg-white rounded"
@@ -131,33 +184,26 @@
               header-text-variant="white"
             >
               <template v-slot:header>
-                {{ todos.name }}
+                {{ descarga.name }}
               </template>
-              <b-row no-gutters>
-                <b-col md="6">
+              <b-card-body >
                   <b-img
                     fluid 
                     id="imag"
                     thumbnail
-                    :src="`http://127.0.0.1:8000/storage/${todos.img}`"
+                    :src="`http://127.0.0.1:8000/storage/${descarga.img}`"
                     alt="Image"
                   ></b-img>
-                </b-col>
-                <b-col md="6">
-                  <p class="mb-0">
-                    ISBN: {{ todos.isbn }} Prioridad: {{ todos.priority }}
-                  </p>
-                </b-col>
-              </b-row>
+              </b-card-body>
               <button
                 type="button"
                 class="btn btn-secondary margen"
-                v-on:click="Ver(todos.id, todos.priority)"
+                v-on:click="Ver(descarga.id, descarga.priority)"
               >
                 Ver
               </button>
               <template v-slot:footer>
-                {{ todos.name }}
+                {{ descarga.name }}
               </template>
             </b-card>
           </div>
@@ -166,62 +212,7 @@
       <div id="footer">
         <Footer />
       </div>
-      <div>
-        <!--------------------------------modal busqueda------------------------------------------>
-        <b-modal id="busqueda" v-model="MaterialB" size="xl" title="MaterialB">
-          <template #modal-header>
-            <h5>Material</h5>
-          </template>
-          <div>
-          <VueSlickCarousel v-bind="settings" class="carousel">
-          <div v-for="todos in todos" :key="todos.id">
-            <b-card
-              id="material"
-              class="shadow p-3 mb-5 bg-white rounded"
-              border-variant="dark"
-              footer-bg-variant="warning"
-              header-bg-variant="secondary"
-              header-text-variant="white"
-            >
-              <template v-slot:header>
-                {{ todos.name }}
-              </template>
-              <b-row no-gutters>
-                <b-col md="6">
-                  <b-img
-                    id="imag"
-                    thumbnail
-                    :src="`http://127.0.0.1:8000/storage/${todos.img}`"
-                    alt="Image"
-                  ></b-img>
-                </b-col>
-                <b-col md="6">
-                  <p class="mb-0">
-                    ISBN: {{ todos.isbn }} Prioridad: {{ todos.priority }}
-                  </p>
-                </b-col>
-              </b-row>
-              <button
-                type="button"
-                class="btn btn-secondary margen"
-                v-on:click="Ver(todos.id, todos.priority)"
-              >
-                Ver
-              </button>
-              <template v-slot:footer>
-                {{ todos.name }}
-              </template>
-            </b-card>
-          </div>
-        </VueSlickCarousel>
-          </div>
-          <template #modal-footer="{ close }">
-            <b-button class="btn btn-secondary" @click="close()">
-              Cerrar
-            </b-button>
-          </template>
-        </b-modal>
-      </div>
+     
     </div>
   </div>
 </template>
@@ -237,28 +228,18 @@ export default {
   data() {
     return {
       opcionbuscar:null,
-      opt: [
-        { value: "0", text: "Todos" },
-        { value: "1", text: "Editorial" },
-        { value: "2", text: "Material" },
-        { value: "3", text: "Autor" },
-        { value: "4", text: "Nivel Educativo" },
-        { value: "5", text: "Areas" },
-        { value: "6", text: "Tipo Material" },
-      ],
+      
       pr: null,
       id: null,
       buscador: null,
       searchText: null,
       setTimeoutBuscador: "",
-    
       settings:{
         "dots": true,
         "infinite": false,
         "speed": 500,
-        "slidesToShow": 4,
-        "slidesToScroll": 4,
-        "initialSlide": 0,
+        "slidesToShow": 5,
+        "slidesToScroll": 5,
         "responsive": [
           {
             "breakpoint": 1024,
@@ -274,7 +255,7 @@ export default {
             "settings": {
               "slidesToShow": 2,
               "slidesToScroll": 2,
-              "initialSlide": 2
+              "initialSlide": 1
             }
           },
           {
@@ -288,26 +269,19 @@ export default {
       },
       perPage: 8,
       currentPage: 1,
-      visual: null,
-      todos: {
-        img: "",
-        name: "",
-        isbn: "",
-        num_pages: "",
-        priority: "",
-        pdf: "",
-        year: "",
+      getmaterial: {
+        id:"",
+        nombre: "",
+        prioridad: "",
+        editorial: "",
+        area: "",
+        imagen: "",
+        tipo_material:"",
+        autor: "",
+        nivel_educativo: ""
       },
-      libros: {
-        img: "",
-        name: "",
-        isbn: "",
-        num_pages: "",
-        priority: "",
-        pdf: "",
-        year: "",
-      },
-      errored: false,
+      visual:[],
+      descarga:[],
       mtr_usr: {
         manejo_users: "no se que va aqui",
         detalle_material: "visualizado",
@@ -323,14 +297,21 @@ export default {
     Footer,
   },
   mounted() {
-    this.getTodos();
+    this.destvisual();
+    this.destdescarga();
   },
 
   methods: {
-    buscarmaterial() {
-      clearTimeout(this.setTimeoutBuscador);
-      this.setTimeoutBuscador = setTimeout(this.getTodos, 360);
+    buscadorfinal() {
+      axios
+        .get(`http://127.0.0.1:8000/api/buscadorfinal/${this.buscar}`)
+        .then((response) => {
+          this.getmaterial = response.data;
+          console.log("Hola",this.getmaterial);
+        })
+        .catch((errorgrave) => console.log(errorgrave));
     },
+   
     Ver(id, priority) {
       var usrid = JSON.parse(sessionStorage.getItem("userid"));
       this.mtr_usr.users_id = usrid;
@@ -342,34 +323,27 @@ export default {
         });
       this.$router.push({ name: "Pdf", params: { id: id, pr: priority } });
     },
-    getTodos() {
-      if (this.buscador) {
-        axios
-          .get(`http://127.0.0.1:8000/api/search/${this.buscador}`)
-          .then((response) => {
-            this.libros = response.data;
-            console.log("hola", this.libros);
-          })
-          .catch((errorgrave) => console.log(errorgrave));
-      }
-      if (!this.buscador) {
-        axios
-          .get(`http://127.0.0.1:8000/api/materials`)
-          .then((response) => {
-            this.todos = response.data;
-            console.log("hola", this.todos);
-          })
-          .catch((errorgrave) => console.log(errorgrave));
-      }
-    },
+     destvisual(){
+         axios.get('http://127.0.0.1:8000/api/visualmuser')
+         .then(response => {
+             this.visual = response.data;
+         }) 
+        },
+    destdescarga(){
+        axios.get('http://127.0.0.1:8000/api/descargasuser')
+        .then(response=>{
+            this.descarga = response.data;
+        })      
+    }
   },
 };
 </script>
 
 <style scoped>
-* {
-  font-family: cursive;
-}
+ body{
+        margin: 0%;
+        overflow:hidden;
+    }
 .imagen1 {
   width: 100%;
 }
@@ -415,6 +389,7 @@ export default {
 #material {
   margin: 5%;
   max-width: 640px;
+  height:350px
 }
 #cabecera {
   color: #ff9;
@@ -423,18 +398,17 @@ export default {
 }
 #contenedor {
   width: 100%;
-  overflow: hidden;
-  height: 300vh;
+  height: 100vh;
   display: block;
   overflow:hidden;
 }
 #contenido {
   float: left;
-  height: 300vh;
+  height: 100vh;
   padding: 10px;
   width: 100%;
   justify-content: space-between;
-  overflow: scroll;
+  overflow: auto;
 }
 #contenido2 {
   float: left;
@@ -445,12 +419,8 @@ export default {
   overflow:hidden;
 }
 #menu {
-  background: linear-gradient(to top, #aab0c0, 5%, #d3d3d4);
-  float: left;
-  height: 100vh;
-  padding: 20px;
-  width: 20%;
-  overflow: auto;
+ width: 100%;
+  overflow: hidden;
 }
 .b-icon {
   color: #16223f;

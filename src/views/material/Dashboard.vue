@@ -37,7 +37,7 @@
               <br>
             </div>
 
-            <b-table :filter="filter" id:="my-table" :items="material" :per-page="perPage"
+            <b-table responsive :filter="filter" id="my-table" :items="material" :per-page="perPage"
                       :current-page="currentPage" class="table" :fields="fields">
                       <template #cell(acciones)="row">
                            <router-link :to='{name:"Editar", params:{id:row.item.id}}' class="btn btn-warning"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> <b-icon icon="pencil" aria-hidden="true"></b-icon></router-link>
@@ -162,10 +162,12 @@ export default {
   
    body{
         margin: 0%;
+        overflow:hidden;
     }
     .pantalla{
         display: flex;
          overflow:hidden;
+         height: 100vh;
     }
     .cara1{
         height: 100vh;
@@ -173,15 +175,13 @@ export default {
         overflow:hidden;
     }
     .cara2{
-        
         width: 80%;
-        height: 100vh;
         overflow:auto;
     }
     .izquierda{
         margin-top: 1%;
          text-align: center;
-        width:70%;
+        width:85%;
         margin-left: 10%;
         align-content: center;
         overflow:hidden;

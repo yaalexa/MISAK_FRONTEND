@@ -2,10 +2,6 @@
    <div id="contenedor">
    <div id="cabecera"><Menu1/>
    </div>
-       <div id="menu"> 
-             <NavdestacadosVue/>
-         </div>
-         
       <div id="contenido">
           <div id="contenido2">
           <div class="contenedor4">
@@ -27,7 +23,7 @@
                     <br>
                 </div>
             </div>
-                     <b-table responsive :filter="filter" id="my-table" :items="proceso" :fields="fieldsMy" :per-page="perPage" :current-page="currentPage" class="table">
+                     <b-table fixed responsive :filter="filter" id="my-table" :items="proceso" :fields="fieldsMy" :per-page="perPage" :current-page="currentPage" class="table">
                                 <template #cell(acciones)="row">
 
                                     <router-link :to='{name:"Editar", params:{id:row.item.id}}' class="btn btn-warning"><font-awesome-icon icon="fa-solid fa-pen-to-square" /> <b-icon icon="pencil" aria-hidden="true"></b-icon></router-link>
@@ -49,9 +45,8 @@
 
 import Menu1 from "@/components/Menu1.vue";
 import axios from 'axios';
-import NavdestacadosVue from "@/components/NavDestacados.vue";
 export default {
-    name:"Dashboard",
+   
     data(){
         return {
              perPage: 7,
@@ -73,7 +68,6 @@ export default {
     },
     components:{
         Menu1,
-        NavdestacadosVue,
     },
     computed: {
             rows(){
@@ -116,7 +110,7 @@ export default {
         float:left;
         height: 100vh;
         padding:10px;
-        width:80%;
+        width:100%;
         overflow: auto;
       }
         #contenido2 {
