@@ -4,7 +4,7 @@
       <Menu1 />
     </div>
     <div id="contenido">
-      <div class="mt-4">
+      <div id="imagenp" class="mt-4">
          <b-img fluid  :src="require('../../assets/fondoprincipal.png')" alt="Image 8"></b-img>
       </div>
       <div id="menu" class="p-3 bg" style="margin-top: 2%; border: 1px solid #d9d9d9">
@@ -79,8 +79,24 @@
           </template>
           <div>
             <VueSlickCarousel v-bind="settings" class="carousel">
-              
               <b-card-group v-for="getmaterial in getmaterial" :key="getmaterial.id">
+              <b-card
+              id="material"
+              :header="`${getmaterial.nombre}`"
+              :img-src="`http://127.0.0.1:8000/storage/${getmaterial.imagen}`"
+              img-alt="Image"
+              img-top
+              img-height="200"
+              img-width="200"
+              class="text-center position-relative"
+            >
+              <button
+                    type="button"
+                    class="btn btn-secondary margen"
+                    v-on:click="Ver(getmaterial.id, getmaterial.prioridad)"
+                  >Ver
+              </button>
+            </b-card>
                 <b-card
                  
                   id="material"
@@ -95,11 +111,21 @@
                     {{ getmaterial.nombre }}
                   </template>
                       <b-img
+                        v-b-popover.html="'<p> Editorial: '+`${getmaterial.editorial}`+'</p>'+
+                                          '<p> Tipo: '+`${getmaterial.tipo_material}`+'</p>'+
+                                          '<p> Nivel: '+`${getmaterial.nivel_educativo}`+'</p>'+
+                                          '<p> Area: '+`${getmaterial.area}`+'</p>'+
+                                          '<p> Autor: '+`${getmaterial.autor}`+'</p>'"                                                    
                         id="imag"
                         thumbnail
                         :src="`http://127.0.0.1:8000/storage/${getmaterial.imagen}`"
                         alt="Image"
                       ></b-img>
+                      
+                      <b-popover target="popover-target-1" triggers="hover" placement="top">
+                      <template #title>{{ getmaterial.nombre }}</template>
+                      A <b>component</b> content!
+                    </b-popover>
                   <button
                     type="button"
                     class="btn btn-secondary margen"
@@ -108,7 +134,7 @@
                     Ver
                   </button>
                   <template v-slot:footer>
-                    
+
                     <small class="text-muted">{{ getmaterial.autor }}</small>
                     
                   </template>
@@ -138,8 +164,7 @@
               border-variant="dark"
               footer-bg-variant="warning"
               header-bg-variant="secondary"
-              header-text-variant="white"
-              
+              header-text-variant="white" 
             >
               <template v-slot:header>
                 {{ visual.name }}
@@ -291,6 +316,7 @@ export default {
       },
     };
   },
+
   components: {
     VueSlickCarousel,
     Menu1,

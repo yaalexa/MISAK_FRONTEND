@@ -2,13 +2,11 @@
  <div class="pantalla">
  
         <div class="cara1">
-           
             <header>
                 <Header/>
             </header>
         </div>
         <div class="cara2">
-           
           <section>
       <b-container fluid class="">
        
@@ -86,9 +84,8 @@ export default {
         margin: 0%;
     }
     .pantalla{
-    background-image:url("@/assets/Screenshot_2.png");
        background-repeat:no-repeat;
-	    background-size:cover;
+	     background-size:cover;
         display: flex;
         filter: alpha(opacity=50);
         width:100%;
