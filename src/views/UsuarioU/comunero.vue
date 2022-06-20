@@ -127,8 +127,8 @@
           <b-card-group v-for="visual in visual" :key="visual.id">
             <b-card
               id="material"
-              :footer="`${visual.name}`"
-              :img-src="`http://127.0.0.1:8000/storage/${visual.img}`"
+              :footer="`${visual.nombre}`"
+              :img-src="`http://127.0.0.1:8000/storage/${visual.imagen}`"
               responsive
               fixed
               thumbnail
@@ -138,6 +138,11 @@
               img-width="200"
               style="max-width: 10rem; max-height: 10rem; "
               class="text-center position-relative shadow img-thumbnail"
+              v-b-popover.html="'<p> Editorial: '+`${visual.editorial}`+'</p>'+
+                                          '<p> Tipo: '+`${visual.tipo_material}`+'</p>'+
+                                          '<p> Nivel: '+`${visual.nivel_educativo}`+'</p>'+
+                                          '<p> Area: '+`${visual.area}`+'</p>'+
+                                          '<p> Autor: '+`${visual.autor}`+'</p>'"
             >
              
                <button
@@ -162,8 +167,8 @@
           <b-card-group v-for="descarga in descarga" :key="descarga.id">
           <b-card
               id="material"
-              :footer="`${descarga.name}`"
-              :img-src="`http://127.0.0.1:8000/storage/${descarga.img}`"
+              :footer="`${descarga.nombre}`"
+              :img-src="`http://127.0.0.1:8000/storage/${descarga.imagen}`"
               responsive
               fixed
               thumbnail
@@ -174,6 +179,11 @@
               style="max-width: 10rem; max-height: 10rem; "
               footer-bg-variant="warning"
               class="text-center position-relative shadow img-thumbnail"
+              v-b-popover.html="'<p> Editorial: '+`${descarga.editorial}`+'</p>'+
+                                          '<p> Tipo: '+`${descarga.tipo_material}`+'</p>'+
+                                          '<p> Nivel: '+`${descarga.nivel_educativo}`+'</p>'+
+                                          '<p> Area: '+`${descarga.area}`+'</p>'+
+                                          '<p> Autor: '+`${descarga.autor}`+'</p>'"    
             >
                <button
                 type="button"

@@ -6,6 +6,7 @@ import Home from '../views/home/Casa.vue'
 import Register from '../views/Register.vue'
 import Dashboard from '../views/material/Dashboard.vue';
 import welcome from '../views/Library.vue';
+import Restablecer from '../views/Restablecer.vue';
 
 import Editar from '../views/material/Editar.vue';
 import Nuevo from '../views/material/Nuevo.vue';
@@ -106,6 +107,11 @@ const routes = [{
         name: 'welcome',
         component: welcome,
         meta: { requiresAuth: true }
+    },
+    {
+        path: '/Restablecer',
+        name: 'Restablecer',
+        component: Restablecer
     },
     {
         path: '/Library',
