@@ -1,14 +1,14 @@
 <template>
-  <div class="new_conten">
-    <div class="container">
+  <div class="restablecer">
+    <div class="rcontainer">
       <header class="heading">RESTABLECIMIENTO DE CONTRASEÑA</header>
       <div class="form">
-      <div class="col-sm-8">
+      <div class="col-sm-6">
 
           <div class="col-sm-12">
-            <div class="row">
+            <div class="row1">
               <div class="col-xs-4">
-                <label class="mail">Email:</label>
+                <label class="email">Email:</label>
               </div>
               <div class="col-xs-8">
                 <input 
@@ -24,9 +24,9 @@
           </div>
 
           <div class="col-sm-12">
-            <div class="row">
+            <div class="row1">
               <div class="col-xs-4">
-                <label class="pass">Contraseña Antigua:</label>
+                <label class="rpass">Contraseña Antigua:</label>
               </div>
               <div class="col-xs-8">
                 <input
@@ -42,9 +42,9 @@
           </div>
 
           <div class="col-sm-12">
-            <div class="row">
+            <div class="row1">
               <div class="col-xs-4">
-                <label class="pass">Nueva Contraseña:</label>
+                <label class="rpass">Nueva Contraseña:</label>
               </div>
               <div class="col-xs-8">
                 <input
@@ -59,9 +59,9 @@
           </div>
 
           <div class="col-sm-12">
-            <div class="row">
+            <div class="row1">
               <div class="col-xs-4">
-                <label class="pass">Confirmacion de Contraseña Nueva:</label>
+                <label class="rpass">Confirmacion de Contraseña Nueva:</label>
               </div>
               <div class="col-xs-8">
                 <input
@@ -95,7 +95,7 @@ export default {
 };
 </script>
 <style>
-.new_conten{
+.restablecer{
 	 background-image:url("@/assets/Screenshot_2.png");
       height: 100vh;
 	 background-repeat:no-repeat;
@@ -106,7 +106,7 @@ export default {
     filter: alpha(opacity=50);
      
 }
-.container {
+.rcontainer {
    background-image:url("@/assets/fondo.png");
     opacity: 0.8;
     box-shadow: 2px 5px 5px 0px #eee;
@@ -123,7 +123,7 @@ export default {
     justify-content: center;
     
 }
-.row{
+.row1{
     
     width: 100%;
     align-items: center;
@@ -138,14 +138,14 @@ export default {
 #email{
 	  margin-top: 5px;
 }
-.mail{
+.email{
 	 margin-left: 44px;
      font-family: sans-serif;
      color: white;
      font-size: 14px;
      margin-top: 13px;
 }
-.pass{
+.rpass{
 	 color: white;
      margin-top: 9px;
      font-size: 14px;
@@ -156,18 +156,6 @@ export default {
 #password{
  margin-top: 6px;
 }
-button{
-	 color: white;
-     font-size: 20px;
-     width: 15%;
-     margin-top: 16px;
-   }
-.button.btn-warning:hover {
-    box-shadow: 2px 1px 2px 3px #99ccff;
-	background:#5900a6;
-	color:#fff;
-	transition: background-color 1.15s ease-in-out,border-color 1.15s ease-in-out,box-shadow 1.15s ease-in-out;
-	
-}
+
 
 </style>
