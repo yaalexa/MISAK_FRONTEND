@@ -50,16 +50,18 @@
         </b-container>
       </div>
        <!-----------------------AQUI COMIENZA EL BUSCADOR---------------------------------->
+       
       <div class="buscador">
         <b-input
-          response
-          class="form-control"
+          responsive
+          class="form-control position-relative"
           id="barra"
           type="search"
-          size="sm"
+          size="lg"
           placeholder="Buscar por material, editorial, autor ...."
           aria-label="Search"
           v-model="buscar"
+
         />
         <b-button
           type="button"
@@ -77,75 +79,40 @@
           <template #modal-header>
             <h5>Material</h5>
           </template>
-          <div>
+          <div class="modalbusqueda ">
             <VueSlickCarousel v-bind="settings" class="carousel">
               <b-card-group v-for="getmaterial in getmaterial" :key="getmaterial.id">
               <b-card
+            
               id="material"
               :header="`${getmaterial.nombre}`"
               :img-src="`http://127.0.0.1:8000/storage/${getmaterial.imagen}`"
+              responsive
+              fixed
               img-alt="Image"
               img-top
               img-height="200"
               img-width="200"
-              class="text-center position-relative"
-            >
-              <button
-                    type="button"
-                    class="btn btn-secondary margen"
-                    v-on:click="Ver(getmaterial.id, getmaterial.prioridad)"
-                  >Ver
-              </button>
-            </b-card>
-                <b-card
-                 
-                  id="material"
-                  class="shadow p-3 mb-5 bg-white rounded"
-                  border-variant="dark"
-                  footer-bg-variant="warning"
-                  header-bg-variant="secondary"
-                  header-text-variant="white"
-                  
-                >
-                  <template v-slot:header>
-                    {{ getmaterial.nombre }}
-                  </template>
-                      <b-img
-                        v-b-popover.html="'<p> Editorial: '+`${getmaterial.editorial}`+'</p>'+
+              style="max-width: 10rem; max-height: 10rem; "
+              class="text-center position-relative shadow"
+              v-b-popover.html="'<p> Editorial: '+`${getmaterial.editorial}`+'</p>'+
                                           '<p> Tipo: '+`${getmaterial.tipo_material}`+'</p>'+
                                           '<p> Nivel: '+`${getmaterial.nivel_educativo}`+'</p>'+
                                           '<p> Area: '+`${getmaterial.area}`+'</p>'+
-                                          '<p> Autor: '+`${getmaterial.autor}`+'</p>'"                                                    
-                        id="imag"
-                        thumbnail
-                        :src="`http://127.0.0.1:8000/storage/${getmaterial.imagen}`"
-                        alt="Image"
-                      ></b-img>
-                      
-                      <b-popover target="popover-target-1" triggers="hover" placement="top">
-                      <template #title>{{ getmaterial.nombre }}</template>
-                      A <b>component</b> content!
-                    </b-popover>
-                  <button
-                    type="button"
-                    class="btn btn-secondary margen"
-                    v-on:click="Ver(getmaterial.id, getmaterial.prioridad)"
-                  >
-                    Ver
-                  </button>
-                  <template v-slot:footer>
-
-                    <small class="text-muted">{{ getmaterial.autor }}</small>
-                    
-                  </template>
-                </b-card>
-                </b-card-group>
-             
-              
+                                          '<p> Autor: '+`${getmaterial.autor}`+'</p>'"    
+            >
+              <button
+               type="button"
+               class="btn btn-secondary margen"
+               v-on:click="Ver(getmaterial.id, getmaterial.prioridad)"
+               >Ver
+              </button> 
+            </b-card>   
+             </b-card-group>
             </VueSlickCarousel>
           </div>
           <template #modal-footer="{ close }">
-            <b-button class="btn btn-secondary" @click="close()">
+            <b-button class="btn btn-warning" @click="close()">
               Cerrar
             </b-button>
           </template>
@@ -157,40 +124,32 @@
       </b-input-group-text>
       <div id="contenido2">
         <VueSlickCarousel v-bind="settings" class="carousel">
-          <div v-for="visual in visual" :key="visual.id">
+          <b-card-group v-for="visual in visual" :key="visual.id">
             <b-card
               id="material"
-              class="shadow p-3 mb-5 bg-white rounded"
-              border-variant="dark"
-              footer-bg-variant="warning"
-              header-bg-variant="secondary"
-              header-text-variant="white" 
+              :footer="`${visual.name}`"
+              :img-src="`http://127.0.0.1:8000/storage/${visual.img}`"
+              responsive
+              fixed
+              thumbnail
+              img-alt="Image"
+              img-top
+              img-height="200"
+              img-width="200"
+              style="max-width: 10rem; max-height: 10rem; "
+              class="text-center position-relative shadow img-thumbnail"
             >
-              <template v-slot:header>
-                {{ visual.name }}
-              </template>
-               <b-card-body >
-                  <b-img
-                    id="imag"
-                    thumbnail
-                    :src="`http://127.0.0.1:8000/storage/${visual.img}`"
-                    alt="Image"
-                  ></b-img>
-              </b-card-body>
+             
                <button
                 type="button"
-                class="btn btn-secondary margen"
+                class="btn btn-warning margen"
                 v-on:click="Ver(visual.id, visual.priority)"
               >
                 Ver
               </button>
-              <template v-slot:footer >
-
-                {{ visual.name }}
-               
-              </template>
+           
             </b-card>
-          </div>
+          </b-card-group>
         </VueSlickCarousel>
       </div>
       <div>
@@ -200,38 +159,31 @@
       </div>
       <div id="contenido2">
         <VueSlickCarousel v-bind="settings" class="carousel">
-          <div v-for="descarga in descarga" :key="descarga.id">
-            <b-card
+          <b-card-group v-for="descarga in descarga" :key="descarga.id">
+          <b-card
               id="material"
-              class="shadow p-3 mb-5 bg-white rounded"
-              border-variant="dark"
-              header-bg-variant="secondary"
-              header-text-variant="white"
+              :footer="`${descarga.name}`"
+              :img-src="`http://127.0.0.1:8000/storage/${descarga.img}`"
+              responsive
+              fixed
+              thumbnail
+              img-alt="Image"
+              img-top
+              img-height="200"
+              img-width="200"
+              style="max-width: 10rem; max-height: 10rem; "
+              footer-bg-variant="warning"
+              class="text-center position-relative shadow img-thumbnail"
             >
-              <template v-slot:header>
-                {{ descarga.name }}
-              </template>
-              <b-card-body >
-                  <b-img
-                    fluid 
-                    id="imag"
-                    thumbnail
-                    :src="`http://127.0.0.1:8000/storage/${descarga.img}`"
-                    alt="Image"
-                  ></b-img>
-              </b-card-body>
-              <button
+               <button
                 type="button"
                 class="btn btn-secondary margen"
                 v-on:click="Ver(descarga.id, descarga.priority)"
               >
                 Ver
               </button>
-              <template v-slot:footer>
-                {{ descarga.name }}
-              </template>
             </b-card>
-          </div>
+          </b-card-group>
         </VueSlickCarousel>
       </div>
       <div id="footer">
@@ -374,12 +326,12 @@ export default {
   width: 100%;
 }
 .buscador {
-  border: 1px black;
-  margin-left: 200px;
-  margin-right: 200px;
+  margin-left: 5%;
+  margin-right: 5%;
   padding: 10px;
   display: flex;
   justify-content: center;
+  width: 90%;
 }
 #barra {
   font-size: 15px;
@@ -414,8 +366,6 @@ export default {
 }
 #material {
   margin: 5%;
-  max-width: 640px;
-  height:350px
 }
 #cabecera {
   color: #ff9;
@@ -452,6 +402,8 @@ export default {
   color: #16223f;
 }
 #imag {
+  max-width: 10rem;
+  max-height: 10rem;
   width: 10rem;
   height: 10rem;
 }
@@ -460,11 +412,32 @@ export default {
   height: 25rem;
   width: 100%;
 }
-.card-footer {
-  padding: 0.75rem 1.25rem;
-  margin-bottom: 0;
-  background-color: #16223f;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-  color: white;
+.modalbusqueda {
+  float: left;
+  width: 95%;
+  margin-left: 2%;
+  text-align: center;
+  position:relative;
 }
+.card-footer {
+  margin-bottom: 0;
+  background-color:#16223f;
+  border-bottom: 1px solid white;
+  color: white;
+  max-height: 2.5rem;
+  overflow: auto;
+}
+.card-header {
+  background-color:#16223f;
+  color: white;
+  max-height: 2.5rem;
+  float: left;
+  overflow: auto;
+  overflow-anchor:initial;
+}
+.card-body {
+  text-align: center;
+  float: left;
+}
+
 </style>

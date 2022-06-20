@@ -1,6 +1,6 @@
 <template>  
 <div id="contenedor">
-   <div id="cabecera"><Menu1/>
+   <div  id="menu" class="shadow-lg bg-white rounded"><Menu1/>
    </div>
       
    <div id="contenido">
@@ -107,15 +107,8 @@ export default {
  #cabecera {
         color:#ff9;
         height:80px;
-        overflow:hidden;
-        display: flex;
-        
       }
-      #contenedor {
-        width:100%;
-        overflow:hidden;
-        height: 100vh;
-      }
+      
      #contenido {
         float:left;
         height: 100vh;
