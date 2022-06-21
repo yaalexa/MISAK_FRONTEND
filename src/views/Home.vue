@@ -18,6 +18,7 @@
                   <input type="submit" class="fadeIn fourth" value="ENTRAR">
                   
                 </form>
+                <router-link class="fadeIn fourth" to="/Restablecer"> Restablecer Contraseña</router-link>
                 <router-link class="fadeIn fourth" to="/Register">Registrate</router-link> 
                 <router-link class="fadeIn fourth volverv" to="/">Volver</router-link><br><br>
                  
@@ -145,7 +146,7 @@ h2 {
 /* STRUCTURE */
 .wrapper {
   display: flex;
-  align-items: center;
+  align-items:flex-end;
   flex-direction: column; 
   justify-content: center;
   width: 100%;

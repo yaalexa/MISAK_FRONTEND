@@ -12,7 +12,7 @@
        
   <b-row>
     <b-col>
-      <b-img  fluid :src="imagem" alt="Image 1" class="text-center"></b-img>
+      <b-img  fluid :src="imagem" alt="Image 1" class="text-center "></b-img>
       <router-link exact-active-class="active" to="/dashboard" class="nav-link" aria-current="page">MATERIAL</router-link>
     </b-col>
     <b-col>

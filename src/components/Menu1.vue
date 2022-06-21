@@ -1,10 +1,10 @@
 <template>
           <div class="contenedor_todo" >
             <b-navbar toggleable="lg" type="dark" fixed  fill > 
-             <b-navbar-brand >
+             <b-navbar-brand class="log">
                <b-img fluid v-bind="pops" :src="require('../assets/logo2.png')" alt="Image 8"></b-img>
              </b-navbar-brand> 
-              <b-navbar-brand class="log" fixed ></b-navbar-brand>
+              
               <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
               <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav  class="ml-auto" >
@@ -59,9 +59,9 @@ methods: {
 
 <style scoped>
 .log{
-        width: 70%;
+        width: 80%;
         min-width: 1%;
-       
+        text-align: left;
     }
 .contenedor_todo {
   border: 1px solid black;
@@ -76,6 +76,7 @@ methods: {
 .logo {
   border: 1px blueviolet;
   padding: 4px;
+  
 }
 .titulo {
   color: white;

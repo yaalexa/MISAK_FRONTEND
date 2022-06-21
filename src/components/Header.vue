@@ -1,119 +1,177 @@
 <template>
- <section>
-<div class="nav-side-menu">
- 
-    <div class="brand"> 
-       <img src="@/assets/logo.png" id="icon" alt="User Icon" />
-    </div>
-    <br>
-    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
-    <div >
-        <div class="menu-list">
-            <ul id="menu-content" class="menu-content collapse out">
-                
-                <li data-toggle="collapse" data-target="#new" class="collapsed">
-                <router-link exact-active-class="active" to="/Library" class="nav-link" aria-current="page">BIBLIOTECA</router-link>
-                </li>
-               
-                <!--usuario-->
-                  <li data-toggle="collapse" data-target="#new" class="collapsed">
-                  <router-link exact-active-class="active" to="/usuarios" class="nav-link" aria-current="page">USUARIOS</router-link>
-                </li>
-                  <li data-toggle="collapse" data-target="#new" class="collapsed">
-                  <router-link
-                    exact-active-class="active"
-                    to="/mostrar"
-                    class="nav-link"
-                    aria-current="page"
-                    >ROLES
-                  </router-link>
-              </li>
-              
-                 <!--reportes-->
-                  <li data-toggle="collapse" data-target="#new" class="collapsed">
-                  <router-link exact-active-class="active" to="/vistaReporte" class="nav-link" aria-current="page">REPORTES</router-link>
-                </li>
-               
-                 </ul> 
-               
-                  </div>
-      </div>   
-    <div>
-       
-     </div>  
-     <fieldset >
-      <div class="contenedor"> 
-        <table>
-                   <tr>
-                  <td >Usuario: {{rolName}}</td>
-                </tr>
+  <section>
+    <div class="nav-side-menu" id="nav-side-menu">
+      <br />
+      <i
+        class="fa fa-bars fa-2x toggle-btn"
+        data-toggle="collapse"
+        data-target="#menu-content"
+      ></i>
+      <div>
+        <div class="menu-list" id="navbarSupportedContent">
+          <div class="brand">
+        <img src="@/assets/logo.png" id="icon" alt="User Icon" />
+      </div>
+          <ul id="menu-content" class="menu-content collapse out">
+            <li data-toggle="collapse" data-target="#new" class="collapsed">
+              <router-link
+                exact-active-class="active"
+                to="/Library"
+                class="nav-link"
+                aria-current="page"
+                >BIBLIOTECA</router-link
+              >
+            </li>
 
-                <tr>
-                  <td class="td">Servicio Nacional de Aprendizaje SENA</td>
-                </tr>
-                <tr>
-                  <td><img src="@/assets/sena.png" id="sena"></td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan="7" class="centro">
-                    Centro de Teleinformática y Producción Industrial
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="7" class="centro">CTPI-Popayán Alto Cauca</td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <!-- <td class="td"> Servicio Nacional de Aprendizaje SENA </td>  -->
-                </tr>
-              </tfoot>
-            </table>
+            <!--usuario-->
+            <li data-toggle="collapse" data-target="#new" class="collapsed">
+              <router-link
+                exact-active-class="active"
+                to="/usuarios"
+                class="nav-link"
+                aria-current="page"
+                >USUARIOS</router-link
+              >
+            </li>
+            <li data-toggle="collapse" data-target="#new" class="collapsed">
+              <router-link
+                exact-active-class="active"
+                to="/mostrar"
+                class="nav-link"
+                aria-current="page"
+                >ROLES
+              </router-link>
+            </li>
+
+            <!--reportes-->
+            <li data-toggle="collapse" data-target="#new" class="collapsed">
+              <router-link
+                exact-active-class="active"
+                to="/vistaReporte"
+                class="nav-link"
+                aria-current="page"
+                >REPORTES</router-link
+              >
+            </li>
+            <li>
+              <b-button
+                variant="outline-warning"
+                @click="cerrarTodo()"
+                class="mb-2"
+              >
+                <b-icon icon="power" aria-hidden="true"></b-icon> Logout
+              </b-button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="menu1">
+      <b-button v-b-toggle.sidebar-no-header> <img src="@/assets/menu1.jpg" id="icon" alt="User Icon" /> </b-button>
+      <b-sidebar id="sidebar-no-header" aria-labelledby="sidebar-no-header-title" no-header shadow>
+        <template #default="{ hide }">
+          <div class="p-3">
+            <img src="@/assets/logo.png" id="icon" alt="User Icon" />
+            <nav class="mb-3">
+              <b-nav vertical>
+                 <li data-toggle="collapse" data-target="#new" class="collapsed">
+              <router-link
+                exact-active-class="active"
+                to="/Library"
+                class="nav-link"
+                aria-current="page"
+                >BIBLIOTECA</router-link
+              >
+            </li>
+
+            <!--usuario-->
+            <li data-toggle="collapse" data-target="#new" class="collapsed">
+              <router-link
+                exact-active-class="active"
+                to="/usuarios"
+                class="nav-link"
+                aria-current="page"
+                >USUARIOS</router-link
+              >
+            </li>
+            <li data-toggle="collapse" data-target="#new" class="collapsed">
+              <router-link
+                exact-active-class="active"
+                to="/mostrar"
+                class="nav-link"
+                aria-current="page"
+                >ROLES
+              </router-link>
+            </li>
+
+            <!--reportes-->
+            <li data-toggle="collapse" data-target="#new" class="collapsed">
+              <router-link
+                exact-active-class="active"
+                to="/vistaReporte"
+                class="nav-link"
+                aria-current="page"
+                >REPORTES</router-link
+              >
+            </li>
+            <li>
+              <b-button
+                variant="outline-warning"
+                @click="cerrarTodo()"
+                class="mb-2"
+              >
+                <b-icon icon="power" aria-hidden="true"></b-icon> Logout
+              </b-button>
+            </li>
+              </b-nav>
+            </nav>
+            <b-button variant="primary" block @click="hide">CERRAR MENU</b-button>
           </div>
-        </fieldset> 
-        
-        <b-button variant="outline-warning"  @click="cerrarTodo()"  class="mb-2">
-      <b-icon icon="power" aria-hidden="true"></b-icon> Logout
-    </b-button>
-        
-   </div>
- </section>
+        </template>
+      </b-sidebar>
+  </div>
+  </section>
 </template>
 <script>
 import axios from "axios";
 export default {
   name: "dashboard",
   mounted() {
+    this.motrarBarr();
+
     var obj = JSON.parse(sessionStorage.getItem("user"));
     var usrid = JSON.parse(sessionStorage.getItem("userid"));
     var rolusr2 = JSON.parse(sessionStorage.getItem("rolusr"));
     this.obtenerUsuario(usrid);
-    
   },
   created() {},
   data: function () {
     return {
-     
       administrador: false,
       rolName: null,
-
     };
   },
   methods: {
-     obtenerUsuario(usrid) { 
-          this.rolName = JSON.parse(sessionStorage.getItem('usuario'));
-          this.rolName=this.rolName.usr_name;
-          this.administrador=this.rolName.usr_name;
-          
+    // motrarBarr() {
+    //   var button = document
+    //     .getElementById("idBton")
+    //     .addEventListener("click", function () {
+    //       let clase = document.getElementById("nav-side-menu");
+    //       // clase.remove("nav-side-menu")
+    //       clase.classList.toggle("nav-side-menu");
+    //     });
+    // },
+    obtenerUsuario(usrid) {
+      this.rolName = JSON.parse(sessionStorage.getItem("usuario"));
+      this.rolName = this.rolName.usr_name;
+      this.administrador = this.rolName.usr_name;
     },
     async cerrarTodo(obj) {
-      if (confirm("¿Confirma cerrar sesión?")){
+      if (confirm("¿Confirma cerrar sesión?")) {
         sessionStorage.clear();
         this.$router.push("/casa");
-        }  
-      },     
+      }
+    },
   },
 };
 </script>
@@ -124,18 +182,19 @@ export default {
   font-size: 12px;
   font-weight: 200;
   background: linear-gradient(to top, #16223f, 5%, #16223f);
+
   color: #e1ffff;
-  background-image:url("@/assets/fondo.png") ;
+  background-image: url("@/assets/fondo.png");
   height: 100vh;
   width: 100%;
 }
 .nav-side-menu .brand {
-  background-color: #335d91;
+  background-color: #000000;
   line-height: 50px;
   width: 100%;
   text-align: center;
   font-size: 14px;
-  background-image:url("@/assets/fondo.png") ;
+  background-image: url("@/assets/fondo.png");
   opacity: 0.9;
 }
 .nav-side-menu .toggle-btn {
@@ -148,7 +207,6 @@ export default {
   margin: 0px;
   line-height: 35px;
   cursor: pointer;
-
 }
 .nav-side-menu ul :not(collapsed) .arrow:before,
 .nav-side-menu li :not(collapsed) .arrow:before {
@@ -218,47 +276,78 @@ export default {
   transition: all 1s ease;
 }
 
-  .nav-side-menu {
-    position: relative;
-    width: 100%;
-    margin-bottom: 10px;
-  }
-  .nav-side-menu .toggle-btn {
-    display: block;
-    cursor: pointer;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    z-index: 10 !important;
-    padding: 3px;
-    color: #000;
-    width: 40px;
-    text-align: center;
-  }
-  .brand {
-    text-align: center !important;
-    font-size: 22px;
-    padding-left: 10px;
-    line-height: 50px !important;
-  }
+.nav-side-menu {
+  position: relative;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.nav-side-menu .toggle-btn {
+  display: block;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 10 !important;
+  padding: 3px;
+  color: #000;
+  width: 40px;
+  text-align: center;
+}
+.brand {
+  text-align: center !important;
+  font-size: 22px;
+  padding-left: 10px;
+  line-height: 50px !important;
+}
 
-
-  .nav-side-menu .menu-list .menu-content {
-    display: block;
-  }
+.nav-side-menu .menu-list .menu-content {
+  display: block;
+}
 
 body {
   margin: 0px;
   padding: 0px;
 }
-#icon{
-width:80%;
+#icon {
+  width: 80%;
   background-position: center center;
-  
 }
 #sena {
-  width:40%;
+  width: 40%;
   background-position: center center;
   opacity: 0.9;
 }
+.menu1{
+  display: none;
+}
+
+
+@media (max-width: 600px){
+.nav-side-menu{
+  display: none;
+}
+
+.btn-secondary{
+  background-color: white !important;
+  border-color: #000 !important;
+}
+.b-sidebar-body {
+    background: #16223f !important;
+    color: white !important;
+}
+.btn-primary {
+    color: #fff !important;
+    background-color: #16223f !important;
+    border-color: #f6f6f6 !important;
+}
+.nav-link {
+    color: #e9ecef !important;
+}
+.menu1{
+  position: sticky;
+  top: 20px;
+  display: list-item;
+}
+}
+
 </style>

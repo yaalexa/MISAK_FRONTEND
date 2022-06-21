@@ -1,6 +1,7 @@
 <template>
   <div class="new_conten">
- <div class="container">
+      <div class="home">
+          <div class="container">
   
      <header class="heading"> REGISTRO</header>
 	
@@ -117,23 +118,34 @@
       </div>
         
 	 </div>	 
-		 		 
+	</div>	 		 
 		 
 </div>
 </template>
 <style scoped>
+.home{
+     text-align: left;
+     margin-left: 30%;
+     display: flex;
+     align-items:flex-end;
+     flex-direction: column; 
+     justify-content: center;
+     width: 100%;
+     min-height: 100%;
+     padding: 20px;
+}
 .container {
    background-image:url("@/assets/fondo.png") ;
     border-style: 1px solid grey;
     opacity: 0.8;
     text-align: center;
     box-shadow: 2px 5px 5px 0px #eee;
-     max-width: 700px;
-     padding-top: 10px;
-     height: 750px;
-     margin-top: 50px;
-     background-repeat:no-repeat;
-	 background-size:cover;
+    max-width: 500px;
+    padding-top: 10px;
+    height: 750px;
+    margin-top: 10px;
+    background-repeat:no-repeat;
+    background-size:cover;
 }
 body{
 font-family: "Poppins", sans-serif;
@@ -147,14 +159,13 @@ font-family: "Poppins", sans-serif;
 
 .new_conten{
 	 background-image:url("@/assets/Screenshot_2.png");
-      height: 100vh;
 	 background-repeat:no-repeat;
 	 background-size:cover;
 	 width:100%;
 	 height:100vh;
 	 overflow:auto;
-    filter: alpha(opacity=50);
-     
+     filter: alpha(opacity=50);
+    
 }
   
 

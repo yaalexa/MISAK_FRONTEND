@@ -21,8 +21,6 @@
                      <b-table striped   head-variant="light" fixed :sticky-header="stickyHeader" :no-border-collapse="noCollapse"  responsive="sm" :filter="filter" id="my-table" :items="proceso" :fields="fieldsMy" :per-page="perPage" :current-page="currentPage" >
                                 
                       </b-table>
-                   
-  
                     <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"  ></b-pagination>
           
   
@@ -44,11 +42,11 @@ export default {
              stickyHeader: false,
              noCollapse: false,
              fieldsMy: [
-                {key: 'MATERIAL', label: 'Material',stickyColumn: true, isRowHeader: true},
-                {key: 'EDITORIAL', label: 'Editorial',stickyColumn: true, isRowHeader: true},
-                {key: 'AUTOR', label: 'Autor',stickyColumn: true, isRowHeader: true},
-                {key: 'PROCESO', label: 'Proceso',stickyColumn: true, isRowHeader: true},
-                {key: 'FECHA', label: 'Fecha',stickyColumn: true, isRowHeader: true},
+                {key: 'MATERIAL', label: 'Material',stickyColumn: true},
+                {key: 'EDITORIAL', label: 'Editorial',stickyColumn: true},
+                {key: 'AUTOR', label: 'Autor',stickyColumn: true},
+                {key: 'PROCESO', label: 'Proceso',stickyColumn: true},
+                {key: 'FECHA', label: 'Fecha',stickyColumn: true},
                 ],
             pagina:1,
             list : null,
