@@ -100,50 +100,62 @@ export default {
    return this.material.length
       
     }},
-            mounted(){
-            this.mostarMateriales();
+    mounted(){
+      var token = JSON.parse(sessionStorage.getItem("user"));
+      this.mostarMateriales(token);
             
-   },
+    },
     methods:{
-        educationallevel(id, name){
+
+      educationallevel(id, name){
        this.$router.push({name: "nivelmaterial",params:{id: id, name: name}
        });
                   },
-     buscarmaterial(name) {
-      console.log(name);
-      this.axios
-        .get("http://127.0.0.1:8000/api/buscar/" + name)
-        .then((response) => {
-        this.buscar=response.data.material;
-        console.log(this.buscar);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-            editar(id){
+      buscarmaterial(name) {
+        console.log(name);
+        this.axios
+          .get("http://127.0.0.1:8000/api/buscar/" + name)
+          .then((response) => {
+          this.buscar=response.data.material;
+          console.log(this.buscar);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      },
+      editar(id){
                 this.$router.push('/editar:' + id);
             },
-            nuevo(){
+      nuevo(){
                 this.$router.push('/nuevo');
             },
-             borrar(id){
-            if(confirm("¿Confirma eliminar el registro?")){
-                this.axios.delete(`http://127.0.0.1:8000/api/materials/${id}`).then(response=>{
-                     this.mostarMateriales()
-                }).catch(error=>{
-                    console.log(error)
-                })
+      borrar(id){
+         var token = JSON.parse(sessionStorage.getItem("user"));
+         if(confirm("¿Confirma eliminar el registro?")){
+            this.axios.delete(`http://127.0.0.1:8000/api/materials/${id}`, {
+                  headers: {
+                      "Content-Type": "application/json",
+                      Authorization: "Bearer " + token
+                  }}).then(response=>{
+                      this.mostarMateriales(token)
+                  }).catch(error=>{
+                      console.log(error)
+                  })
             }
-        },
-          autormaterial(id, name){
-                //this.$router.push('/autormaterial/' +id);
-                this.$router.push({name: "autormaterial",params:{id: id, name: name}
+      },
+      autormaterial(id, name){
+          //this.$router.push('/autormaterial/' +id);
+          this.$router.push({name: "autormaterial",params:{id: id, name: name}
 });
-            },
-            async mostarMateriales() {
-                await this.axios
-                .get("http://127.0.0.1:8000/api/visualizacion/")
+      },
+      async mostarMateriales(token) {
+          await this.axios
+                .get("http://127.0.0.1:8000/api/visualizacion/", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                })
                 .then((response) => {
                 this.material = response.data;
                 console.log(this.material);

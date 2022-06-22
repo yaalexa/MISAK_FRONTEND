@@ -17,7 +17,6 @@
                  </div>
                  <div class="col-sm-4">
                       <button type="submit" class="btn btn-primary">Guardar</button>
-                      
                  </div>
             </div>                          
         </form>
@@ -52,12 +51,17 @@ export default {
         //Footer
     },
     mounted(){
-        guardar()
+        var token = JSON.parse(sessionStorage.getItem("user"));
+        this.guardar(token);
         this.$router.push("/Mostrar");
     },
     methods:{
-        guardar(){
-            this.axios.post("http://127.0.0.1:8000/api/rols",this.form)
+        async guardar(tkn){
+            await this.axios.post("http://127.0.0.1:8000/api/rols",this.form, {
+                  headers: {
+                      "Content-Type": "application/json",
+                      Authorization: "Bearer " + tkn
+                  }})
             .then(data =>{
                 console.log(data);
                 this.makeToast("Hecho","rol creado","success");

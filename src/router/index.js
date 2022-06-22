@@ -31,10 +31,10 @@ import MostrarNivelEdicativo from '../views/NivelEducation/Mostrar.vue';
 import Library from '../views/Library.vue';
 //eduard rol
 import Rol from '../views/Rol.vue';
-import Rol2 from '../views/Rol2.vue';
+/* import Rol2 from '../views/Rol2.vue'; */
 import Mostrar from '../views/Rol/Mostrar.vue';
-import EditarRol from '../views/Rol/EditarRol.vue';
-import CrearRol from '../views/Rol/CrearRol.vue';
+/* import EditarRol from '../views/Rol/EditarRol.vue'; */
+/* import CrearRol from '../views/Rol/CrearRol.vue'; */
 
 //para autores
 import CrearAutores from '../views/Autores/Crear.vue';
@@ -184,12 +184,12 @@ const routes = [{
   component: Mostrar,
   meta: { requiresAuth: true }
 },
-{
+/* {
   path: '/editarrol/:id',
   name: 'EditarRol',
   component: EditarRol,
   meta: { requiresAuth: true }
-},
+}, 
 {
   path: '/crearrol',
   name: 'CrearRol',
@@ -200,7 +200,7 @@ const routes = [{
   path: '/rol2',
   name: 'rol2',
   component: Rol2
-},
+},*/
 {
   name: 'CrearAutor',
   path: '/CrearAutor',

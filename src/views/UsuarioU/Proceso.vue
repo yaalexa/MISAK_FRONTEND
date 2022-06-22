@@ -6,14 +6,15 @@
       <div id="contenido">
                         <h1>HISTORIAL DE CONSULTAS </h1>      
                         <br>
-                  <div class="form-group left row" >
+            <div class="form-group left row" >
                 <div class="control-label col-sm-7" style="text-align: left">  
                     <div class="input-group" style="text-align: right">
                         <b-form-input
-                        v-model="filter"
-                        type="search"
-                        placeholder="Buscar"
-                        > </b-form-input>
+                            v-model="filter"
+                            type="search"
+                            placeholder="Buscar"
+                        > 
+                        </b-form-input>
                     </div>
                     <br>
                 </div>

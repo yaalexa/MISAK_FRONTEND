@@ -123,75 +123,86 @@ export default{
   },
   data:function(){
       return{
-                          area_id:null,
-                                  type_material_id:null,
-editorial_id:null,
+          area_id:null,
+          type_material_id:null,
+          editorial_id:null,
           mate:{
-        "id":"",
-         "name":"",
-          "isbn" : "",
-          "year": "", 
-          "num_pages" : "",
-          "priority":"",
-          "pdf" :"",
-          "img" : "" ,
-        "editorial_id":"",
-        "area_id":"",
-        "type_material_id":""
-       
+              "id":"",
+              "name":"",
+                "isbn" : "",
+                "year": "", 
+                "num_pages" : "",
+                "priority":"",
+                "pdf" :"",
+                "img" : "" ,
+              "editorial_id":"",
+              "area_id":"",
+              "type_material_id":""
              }
       }
   },
   mounted(){
-this.mostrarForm();
-this.tipoMaterial();
-this.area();
-this.edito();
+    var token = JSON.parse(sessionStorage.getItem("user"));
+    this.mostrarForm(token);
+    this.tipoMaterial(token);
+    this.area();
+    this.edito();
   },
   methods: {
-      tipoMaterial(){
-      let direccion = "http://localhost:8000/api/type_materials";
-        axios.get(direccion).then((result) => {
-        this.type_material_id = result.data;
-        });
+      async tipoMaterial(tkn){
+          let direccion = "http://localhost:8000/api/type_materials";
+          await axios.get(direccion).then((result) => {
+                    this.type_material_id = result.data;
+                });
       },
-      area(){
-                  let direccion3 = "http://127.0.0.1:8000/api/areas";
-        axios.get(direccion3).then((result) => {
-        this.area_id = result.data;
-        });
+      async area(){
+            let direccion3 = "http://127.0.0.1:8000/api/areas";
+            await axios.get(direccion3).then((result) => {
+                this.area_id = result.data;
+            });
       },
-      edito(){
-                  let direccion2 = "http://127.0.0.1:8000/api/editorials";
-        axios.get(direccion2).then((result) => {
-        this.editorial_id = result.data;
-        
-        });
+      async edito(){
+            let direccion2 = "http://127.0.0.1:8000/api/editorials";
+            await axios.get(direccion2).then((result) => {
+                this.editorial_id = result.data;
+            });
       },
       salir(){
-                    this.$router.push("/dashboard");
+           this.$router.push("/dashboard");
       },
       //cosas
+
       actualizar(){
-          axios.put("http://127.0.0.1:8000/api/materials/"+ this.mate.id,this.mate).then(response=>{
-              console.log(response);
+          var token = JSON.parse(sessionStorage.getItem("user"));
+          axios.put("http://127.0.0.1:8000/api/materials/"+this.mate.id,this.mate, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                }).then(response=>{
+                        console.log(response);
                         this.$router.push("/dashboard");
-          })
+                   })
       },
-     async mostrarForm(){
-                this.mate.id=this.$route.params.id;
-      await axios.get("http://127.0.0.1:8000/api/materials/"+ this.mate.id).then(response=>{
-          this.mate.id=response.data[0].id;
-          this.mate.name=response.data[0].name;
-          this.mate.isbn=response.data[0].isbn;
-          this.mate.year=response.data[0].year;
-          this.mate.num_pages=response.data[0].num_pages;
-          this.mate.priority=response.data[0].priority;
-          this.mate.editorial_id=response.data[0].editorial_id;
-          this.mate.area_id=response.data[0].area_id;
-          this.mate.type_material_id=response.data[0].type_material_id;
-console.log(this.form);
-      })
+      async mostrarForm(tkn){
+         this.mate.id=this.$route.params.id;
+         await axios.get("http://127.0.0.1:8000/api/materials/"+this.mate.id, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + tkn
+                }
+                }).then(response=>{
+                    this.mate.id=response.data[0].id;
+                    this.mate.name=response.data[0].name;
+                    this.mate.isbn=response.data[0].isbn;
+                    this.mate.year=response.data[0].year;
+                    this.mate.num_pages=response.data[0].num_pages;
+                    this.mate.priority=response.data[0].priority;
+                    this.mate.editorial_id=response.data[0].editorial_id;
+                    this.mate.area_id=response.data[0].area_id;
+                    this.mate.type_material_id=response.data[0].type_material_id;
+                    console.log(this.form);
+                })
       }  
   },
 }
