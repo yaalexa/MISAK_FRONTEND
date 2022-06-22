@@ -10,7 +10,7 @@
                 <b-navbar-nav  class="ml-auto" >
                   <b-nav-item  href="/UsuarioU" ><b-icon   icon="house-fill" aria-hidden="true" font-scale="1.5"></b-icon></b-nav-item>
                   <b-nav-item href="/proceso"><b-icon icon="cloud-download-fill" aria-hidden="true" font-scale="1.5"></b-icon></b-nav-item>
-                  <b-nav-item href="/proceso"><b-icon icon="person" aria-hidden="true" font-scale="1.5"></b-icon></b-nav-item>
+                  <b-nav-item href="/perfilu"><b-icon icon="person" aria-hidden="true" font-scale="1.5"></b-icon></b-nav-item>
                 </b-navbar-nav>
                 <b-navbar-nav >
                   <b-dropdown-item >

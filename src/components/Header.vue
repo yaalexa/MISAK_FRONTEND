@@ -11,7 +11,7 @@
         <div class="menu-list" id="navbarSupportedContent">
           <div class="brand">
         <img src="@/assets/logo.png" id="icon" alt="User Icon" />
-      </div>
+      </div>  
           <ul id="menu-content" class="menu-content collapse out">
             <li data-toggle="collapse" data-target="#new" class="collapsed">
               <router-link

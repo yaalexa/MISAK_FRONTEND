@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+//perfil usuario
+import Perfil from '../views/UsuarioU/Perfil.vue'
+
+
 import Home from '../views/home/Casa.vue'
 //import Home from '../views/Home.vue'
 import Register from '../views/Register.vue'
@@ -80,7 +84,13 @@ import Nosotros from '../views/home/Nosotros.vue'
 
 Vue.use(VueRouter)
 
-const routes = [{
+const routes = [
+  {
+    path:"/perfilu",
+    name:"perfilu",
+    component: Perfil
+  },
+  {
         path: '/usuarios',
         name: '/usuarios',
         component: Usuarios
