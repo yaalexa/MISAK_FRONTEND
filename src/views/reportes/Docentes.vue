@@ -65,7 +65,12 @@
                   <td>{{ Reporte_Docente.visualizado }}</td>
                   <td>{{ Reporte_Docente.descargado }}</td>
                   <td>
-                    <button @click="DownloadreportDODETALLE(Reporte_Docente.id)" class="buttom">DETALLE</button>
+                    <button
+                      @click="DownloadreportDODETALLE(Reporte_Docente.id)"
+                      class="buttom"
+                    >
+                      DETALLE
+                    </button>
                   </td>
                 </tr>
               </tbody>
@@ -98,7 +103,6 @@
 
 <script>
 import Header from "@/components/Header.vue";
-import Footer from "@/components/Footer.vue";
 import axios from "axios";
 export default {
   name: "Rdocente",
@@ -202,7 +206,7 @@ body {
   width: 80%;
   height: 100vh;
 }
-.buttom{
+.buttom {
   background-color: #ffca2c;
   border-color: #ffc720;
   color: black;

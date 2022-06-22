@@ -10,8 +10,8 @@
       <div>
         <div class="menu-list" id="navbarSupportedContent">
           <div class="brand">
-        <img src="@/assets/logo.png" id="icon" alt="User Icon" />
-      </div>
+            <img src="@/assets/logo.png" id="icon" alt="User Icon" />
+          </div>
           <ul id="menu-content" class="menu-content collapse out">
             <li data-toggle="collapse" data-target="#new" class="collapsed">
               <router-link
@@ -67,69 +67,78 @@
       </div>
     </div>
     <div class="menu1">
-      <b-button v-b-toggle.sidebar-no-header> <img src="@/assets/menu1.jpg" id="icon" alt="User Icon" /> </b-button>
-      <b-sidebar id="sidebar-no-header" aria-labelledby="sidebar-no-header-title" no-header shadow>
+      <b-button v-b-toggle.sidebar-no-header>
+        <img src="@/assets/menu1.jpg" id="icon" alt="User Icon" />
+      </b-button>
+      <b-sidebar
+        id="sidebar-no-header"
+        aria-labelledby="sidebar-no-header-title"
+        no-header
+        shadow
+      >
         <template #default="{ hide }">
           <div class="p-3">
             <img src="@/assets/logo.png" id="icon" alt="User Icon" />
             <nav class="mb-3">
               <b-nav vertical>
-                 <li data-toggle="collapse" data-target="#new" class="collapsed">
-              <router-link
-                exact-active-class="active"
-                to="/Library"
-                class="nav-link"
-                aria-current="page"
-                >BIBLIOTECA</router-link
-              >
-            </li>
+                <li data-toggle="collapse" data-target="#new" class="collapsed">
+                  <router-link
+                    exact-active-class="active"
+                    to="/Library"
+                    class="nav-link"
+                    aria-current="page"
+                    >BIBLIOTECA</router-link
+                  >
+                </li>
 
-            <!--usuario-->
-            <li data-toggle="collapse" data-target="#new" class="collapsed">
-              <router-link
-                exact-active-class="active"
-                to="/usuarios"
-                class="nav-link"
-                aria-current="page"
-                >USUARIOS</router-link
-              >
-            </li>
-            <li data-toggle="collapse" data-target="#new" class="collapsed">
-              <router-link
-                exact-active-class="active"
-                to="/mostrar"
-                class="nav-link"
-                aria-current="page"
-                >ROLES
-              </router-link>
-            </li>
+                <!--usuario-->
+                <li data-toggle="collapse" data-target="#new" class="collapsed">
+                  <router-link
+                    exact-active-class="active"
+                    to="/usuarios"
+                    class="nav-link"
+                    aria-current="page"
+                    >USUARIOS</router-link
+                  >
+                </li>
+                <li data-toggle="collapse" data-target="#new" class="collapsed">
+                  <router-link
+                    exact-active-class="active"
+                    to="/mostrar"
+                    class="nav-link"
+                    aria-current="page"
+                    >ROLES
+                  </router-link>
+                </li>
 
-            <!--reportes-->
-            <li data-toggle="collapse" data-target="#new" class="collapsed">
-              <router-link
-                exact-active-class="active"
-                to="/vistaReporte"
-                class="nav-link"
-                aria-current="page"
-                >REPORTES</router-link
-              >
-            </li>
-            <li>
-              <b-button
-                variant="outline-warning"
-                @click="cerrarTodo()"
-                class="mb-2"
-              >
-                <b-icon icon="power" aria-hidden="true"></b-icon> Logout
-              </b-button>
-            </li>
+                <!--reportes-->
+                <li data-toggle="collapse" data-target="#new" class="collapsed">
+                  <router-link
+                    exact-active-class="active"
+                    to="/vistaReporte"
+                    class="nav-link"
+                    aria-current="page"
+                    >REPORTES</router-link
+                  >
+                </li>
+                <li>
+                  <b-button
+                    variant="outline-warning"
+                    @click="cerrarTodo()"
+                    class="mb-2"
+                  >
+                    <b-icon icon="power" aria-hidden="true"></b-icon> Logout
+                  </b-button>
+                </li>
               </b-nav>
             </nav>
-            <b-button variant="primary" block @click="hide">CERRAR MENU</b-button>
+            <b-button variant="primary" block @click="hide"
+              >CERRAR MENU</b-button
+            >
           </div>
         </template>
       </b-sidebar>
-  </div>
+    </div>
   </section>
 </template>
 <script>
@@ -317,37 +326,35 @@ body {
   background-position: center center;
   opacity: 0.9;
 }
-.menu1{
+.menu1 {
   display: none;
 }
 
+@media (max-width: 600px) {
+  .nav-side-menu {
+    display: none;
+  }
 
-@media (max-width: 600px){
-.nav-side-menu{
-  display: none;
-}
-
-.btn-secondary{
-  background-color: white !important;
-  border-color: #000 !important;
-}
-.b-sidebar-body {
+  .btn-secondary {
+    background-color: white !important;
+    border-color: #000 !important;
+  }
+  .b-sidebar-body {
     background: #16223f !important;
     color: white !important;
-}
-.btn-primary {
+  }
+  .btn-primary {
     color: #fff !important;
     background-color: #16223f !important;
     border-color: #f6f6f6 !important;
-}
-.nav-link {
+  }
+  .nav-link {
     color: #e9ecef !important;
+  }
+  .menu1 {
+    position: sticky;
+    top: 20px;
+    display: list-item;
+  }
 }
-.menu1{
-  position: sticky;
-  top: 20px;
-  display: list-item;
-}
-}
-
 </style>

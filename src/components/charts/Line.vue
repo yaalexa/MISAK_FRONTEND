@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { Line as LineChartGenerator } from 'vue-chartjs/legacy'
+import { Line as LineChartGenerator } from "vue-chartjs/legacy";
 import {
   Chart as ChartJS,
   Title,
@@ -22,8 +22,8 @@ import {
   LineElement,
   LinearScale,
   CategoryScale,
-  PointElement
-} from 'chart.js'
+  PointElement,
+} from "chart.js";
 ChartJS.register(
   Title,
   Tooltip,
@@ -32,44 +32,44 @@ ChartJS.register(
   LinearScale,
   CategoryScale,
   PointElement
-)
+);
 export default {
-  name: 'LineChart',
+  name: "LineChart",
   components: {
-    LineChartGenerator
+    LineChartGenerator,
   },
   props: {
     chartId: {
       type: String,
-      default: 'line-chart'
+      default: "line-chart",
     },
     datasetIdKey: {
       type: String,
-      default: 'label'
+      default: "label",
     },
     width: {
       type: Number,
-      default: 400
+      default: 400,
     },
     height: {
       type: Number,
-      default: 400
+      default: 400,
     },
     cssClasses: {
-      default: '',
-      type: String
+      default: "",
+      type: String,
     },
     styles: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
     plugins: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
-  methods:{
-      MostrarReportes_visualizado() {
+  methods: {
+    MostrarReportes_visualizado() {
       this.axios
         .get("http://127.0.0.1:8000/api/Reportsvisua")
         .then((response) => {
@@ -83,47 +83,46 @@ export default {
           this.consumo = [];
         });
     },
-    graficar(){
-      for(let i of this.name){
+    graficar() {
+      for (let i of this.name) {
         console.log(i.name);
         this.nombres.push(i.name);
       }
-      console.log("nombres: "+this.nombres);
-      for(let i of this.conteo){
+      console.log("nombres: " + this.nombres);
+      for (let i of this.conteo) {
         console.log(i.conteo);
-        this.conteos.push(i.conteo)
+        this.conteos.push(i.conteo);
       }
-      console.log("conteo "+ this.conteos);
+      console.log("conteo " + this.conteos);
 
-      this.chartData= {
+      this.chartData = {
         labels: this.nombres,
         datasets: [
           {
-            label: 'Materiales',
-            backgroundColor: '#000080',
-            data: this.conteos
-          }
-        ]
-      }
+            label: "Materiales",
+            backgroundColor: "#000080",
+            data: this.conteos,
+          },
+        ],
+      };
     },
   },
-  mounted (){
+  mounted() {
     this.MostrarReportes_visualizado();
-
   },
   data() {
     return {
-      consumo : [],
+      consumo: [],
       name: [],
       nombres: [],
       conteo: [],
-      conteos:[],
-      chartData:{},
+      conteos: [],
+      chartData: {},
       chartOptions: {
         responsive: true,
-        maintainAspectRatio: false
-      }
-    }
-  }
-}
+        maintainAspectRatio: false,
+      },
+    };
+  },
+};
 </script>

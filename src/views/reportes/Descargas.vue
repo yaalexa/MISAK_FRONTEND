@@ -37,7 +37,6 @@
             aria-controls="my-table"
           ></b-pagination>
         </table>
-
         <button @click="DownloadreportDE()" class="btn btn-success">
           Descargar reporte
         </button>
@@ -49,7 +48,6 @@
 <script>
 import Header from "@/components/Header.vue";
 import Bar from "@/components/charts/Bar.vue";
-import Footer from "@/components/Footer.vue";
 import axios from "axios";
 export default {
   name: "Descargas",
@@ -69,8 +67,6 @@ export default {
         {key:"num_pages", label:"numero paginas"},
         {key:"area", label:"areas"},
         {key:"conteo", label:"conteo"},
-
-
         ],
       perPage: 10, //numero de filas que va a tener por pagina
       currentPage: 1, //donde va a iniciar la paginacion
@@ -79,7 +75,6 @@ export default {
   },
   components: {
     Header,
-    //  Footer
     Bar,
   },
   computed: {

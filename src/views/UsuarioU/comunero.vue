@@ -1,13 +1,21 @@
 <template>
   <div id="contenedor">
-    <div  id="menu" class="shadow-lg bg-white rounded">
+    <div id="menu" class="shadow-lg bg-white rounded">
       <Menu1 />
     </div>
     <div id="contenido">
       <div id="imagenp" class="mt-4">
-         <b-img fluid  :src="require('../../assets/fondoprincipal.png')" alt="Image 8"></b-img>
+        <b-img
+          fluid
+          :src="require('../../assets/fondoprincipal.png')"
+          alt="Image 8"
+        ></b-img>
       </div>
-      <div id="menu" class="p-3 bg" style="margin-top: 2%; border: 1px solid #d9d9d9">
+      <div
+        id="menu"
+        class="p-3 bg"
+        style="margin-top: 2%; border: 1px solid #d9d9d9"
+      >
         <b-container class="bv-example-row">
           <b-row>
             <b-col>
@@ -49,8 +57,8 @@
           </b-row>
         </b-container>
       </div>
-       <!-----------------------AQUI COMIENZA EL BUSCADOR---------------------------------->
-       
+      <!-----------------------AQUI COMIENZA EL BUSCADOR---------------------------------->
+
       <div class="buscador">
         <b-input
           responsive
@@ -61,7 +69,6 @@
           placeholder="Buscar por material, editorial, autor ...."
           aria-label="Search"
           v-model="buscar"
-
         />
         <b-button
           type="button"
@@ -79,36 +86,51 @@
           <template #modal-header>
             <h5>Material</h5>
           </template>
-          <div class="modalbusqueda ">
+          <div class="modalbusqueda">
             <VueSlickCarousel v-bind="settings" class="carousel">
-              <b-card-group v-for="getmaterial in getmaterial" :key="getmaterial.id">
-              <b-card
-            
-              id="material"
-              :header="`${getmaterial.nombre}`"
-              :img-src="`http://127.0.0.1:8000/storage/${getmaterial.imagen}`"
-              responsive
-              fixed
-              img-alt="Image"
-              img-top
-              img-height="200"
-              img-width="200"
-              style="max-width: 10rem; max-height: 10rem; "
-              class="text-center position-relative shadow"
-              v-b-popover.html="'<p> Editorial: '+`${getmaterial.editorial}`+'</p>'+
-                                          '<p> Tipo: '+`${getmaterial.tipo_material}`+'</p>'+
-                                          '<p> Nivel: '+`${getmaterial.nivel_educativo}`+'</p>'+
-                                          '<p> Area: '+`${getmaterial.area}`+'</p>'+
-                                          '<p> Autor: '+`${getmaterial.autor}`+'</p>'"    
-            >
-              <button
-               type="button"
-               class="btn btn-secondary margen"
-               v-on:click="Ver(getmaterial.id, getmaterial.prioridad)"
-               >Ver
-              </button> 
-            </b-card>   
-             </b-card-group>
+              <b-card-group
+                v-for="getmaterial in getmaterial"
+                :key="getmaterial.id"
+              >
+                <b-card
+                  id="material"
+                  :header="`${getmaterial.nombre}`"
+                  :img-src="`http://127.0.0.1:8000/storage/${getmaterial.imagen}`"
+                  responsive
+                  fixed
+                  img-alt="Image"
+                  img-top
+                  img-height="200"
+                  img-width="200"
+                  style="max-width: 10rem; max-height: 10rem"
+                  class="text-center position-relative shadow"
+                  v-b-popover.html="
+                    '<p> Editorial: ' +
+                    `${getmaterial.editorial}` +
+                    '</p>' +
+                    '<p> Tipo: ' +
+                    `${getmaterial.tipo_material}` +
+                    '</p>' +
+                    '<p> Nivel: ' +
+                    `${getmaterial.nivel_educativo}` +
+                    '</p>' +
+                    '<p> Area: ' +
+                    `${getmaterial.area}` +
+                    '</p>' +
+                    '<p> Autor: ' +
+                    `${getmaterial.autor}` +
+                    '</p>'
+                  "
+                >
+                  <button
+                    type="button"
+                    class="btn btn-secondary margen"
+                    v-on:click="Ver(getmaterial.id, getmaterial.prioridad)"
+                  >
+                    Ver
+                  </button>
+                </b-card>
+              </b-card-group>
             </VueSlickCarousel>
           </div>
           <template #modal-footer="{ close }">
@@ -136,18 +158,16 @@
               img-top
               img-height="200"
               img-width="200"
-              style="max-width: 10rem; max-height: 10rem; "
+              style="max-width: 10rem; max-height: 10rem"
               class="text-center position-relative shadow img-thumbnail"
             >
-             
-               <button
+              <button
                 type="button"
                 class="btn btn-warning margen"
                 v-on:click="Ver(visual.id, visual.priority)"
               >
                 Ver
               </button>
-           
             </b-card>
           </b-card-group>
         </VueSlickCarousel>
@@ -160,7 +180,7 @@
       <div id="contenido2">
         <VueSlickCarousel v-bind="settings" class="carousel">
           <b-card-group v-for="descarga in descarga" :key="descarga.id">
-          <b-card
+            <b-card
               id="material"
               :footer="`${descarga.name}`"
               :img-src="`http://127.0.0.1:8000/storage/${descarga.img}`"
@@ -171,11 +191,11 @@
               img-top
               img-height="200"
               img-width="200"
-              style="max-width: 10rem; max-height: 10rem; "
+              style="max-width: 10rem; max-height: 10rem"
               footer-bg-variant="warning"
               class="text-center position-relative shadow img-thumbnail"
             >
-               <button
+              <button
                 type="button"
                 class="btn btn-secondary margen"
                 v-on:click="Ver(descarga.id, descarga.priority)"
@@ -189,7 +209,6 @@
       <div id="footer">
         <Footer />
       </div>
-     
     </div>
   </div>
 </template>
@@ -204,61 +223,60 @@ import Footer from "@/components/Footer.vue";
 export default {
   data() {
     return {
-      opcionbuscar:null,
-      
+      opcionbuscar: null,
       pr: null,
       id: null,
       buscador: null,
       searchText: null,
       setTimeoutBuscador: "",
-      settings:{
-        "dots": true,
-        "infinite": false,
-        "speed": 500,
-        "slidesToShow": 5,
-        "slidesToScroll": 5,
-        "responsive": [
+      settings: {
+        dots: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 5,
+        slidesToScroll: 5,
+        responsive: [
           {
-            "breakpoint": 1024,
-            "settings": {
-              "slidesToShow": 3,
-              "slidesToScroll": 3,
-              "infinite": true,
-              "dots": true
-            }
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+              infinite: true,
+              dots: true,
+            },
           },
           {
-            "breakpoint": 600,
-            "settings": {
-              "slidesToShow": 2,
-              "slidesToScroll": 2,
-              "initialSlide": 1
-            }
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+              initialSlide: 1,
+            },
           },
           {
-            "breakpoint": 480,
-            "settings": {
-              "slidesToShow": 1,
-              "slidesToScroll": 1
-            }
-          }
-        ]
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+            },
+          },
+        ],
       },
       perPage: 8,
       currentPage: 1,
       getmaterial: {
-        id:"",
+        id: "",
         nombre: "",
         prioridad: "",
         editorial: "",
         area: "",
         imagen: "",
-        tipo_material:"",
+        tipo_material: "",
         autor: "",
-        nivel_educativo: ""
+        nivel_educativo: "",
       },
-      visual:[],
-      descarga:[],
+      visual: [],
+      descarga: [],
       mtr_usr: {
         manejo_users: "no se que va aqui",
         detalle_material: "visualizado",
@@ -285,11 +303,11 @@ export default {
         .get(`http://127.0.0.1:8000/api/buscadorfinal/${this.buscar}`)
         .then((response) => {
           this.getmaterial = response.data;
-          console.log("Hola",this.getmaterial);
+          console.log("Hola", this.getmaterial);
         })
         .catch((errorgrave) => console.log(errorgrave));
     },
-   
+
     Ver(id, priority) {
       var usrid = JSON.parse(sessionStorage.getItem("userid"));
       this.mtr_usr.users_id = usrid;
@@ -301,27 +319,25 @@ export default {
         });
       this.$router.push({ name: "Pdf", params: { id: id, pr: priority } });
     },
-     destvisual(){
-         axios.get('http://127.0.0.1:8000/api/visualmuser')
-         .then(response => {
-             this.visual = response.data;
-         }) 
-        },
-    destdescarga(){
-        axios.get('http://127.0.0.1:8000/api/descargasuser')
-        .then(response=>{
-            this.descarga = response.data;
-        })      
-    }
+    destvisual() {
+      axios.get("http://127.0.0.1:8000/api/visualmuser").then((response) => {
+        this.visual = response.data;
+      });
+    },
+    destdescarga() {
+      axios.get("http://127.0.0.1:8000/api/descargasuser").then((response) => {
+        this.descarga = response.data;
+      });
+    },
   },
 };
 </script>
 
 <style scoped>
- body{
-        margin: 0%;
-        overflow:hidden;
-    }
+body {
+  margin: 0%;
+  overflow: hidden;
+}
 .imagen1 {
   width: 100%;
 }
@@ -370,13 +386,13 @@ export default {
 #cabecera {
   color: #ff9;
   height: 80px;
-  overflow:hidden;
+  overflow: hidden;
 }
 #contenedor {
   width: 100%;
   height: 100vh;
   display: block;
-  overflow:hidden;
+  overflow: hidden;
 }
 #contenido {
   float: left;
@@ -392,10 +408,10 @@ export default {
   width: 95%;
   margin-left: 2%;
   justify-content: space-between;
-  overflow:hidden;
+  overflow: hidden;
 }
 #menu {
- width: 100%;
+  width: 100%;
   overflow: hidden;
 }
 .b-icon {
@@ -417,27 +433,26 @@ export default {
   width: 95%;
   margin-left: 2%;
   text-align: center;
-  position:relative;
+  position: relative;
 }
 .card-footer {
   margin-bottom: 0;
-  background-color:#16223f;
+  background-color: #16223f;
   border-bottom: 1px solid white;
   color: white;
   max-height: 2.5rem;
   overflow: auto;
 }
 .card-header {
-  background-color:#16223f;
+  background-color: #16223f;
   color: white;
   max-height: 2.5rem;
   float: left;
   overflow: auto;
-  overflow-anchor:initial;
+  overflow-anchor: initial;
 }
 .card-body {
   text-align: center;
   float: left;
 }
-
 </style>

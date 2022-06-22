@@ -72,30 +72,29 @@ export default {
           this.consumo = [];
         });
     },
-     graficar() {
-        for (let i of this.consumo) {
-          if (i.detalle_material == "descargado") {
-            this.descargas = this.descargas + 1;
-          }
-          if (i.detalle_material == "visualizado") {
-            this.vistas = this.vistas + 1;
-          }
+    graficar() {
+      for (let i of this.consumo) {
+        if (i.detalle_material == "descargado") {
+          this.descargas = this.descargas + 1;
+        }
+        if (i.detalle_material == "visualizado") {
+          this.vistas = this.vistas + 1;
+        }
       }
       // eslint-disable
-      this. chartData= {
+      (this.chartData = {
         labels: ["Descargas", "Visualizacion"],
         datasets: [
           {
             label: "grafica",
-            backgroundColor: ['#41B883', '#E46651'],
+            backgroundColor: ["#41B883", "#E46651"],
             data: [this.descargas, this.vistas],
           },
         ],
-      },
-      console.log(this.descargas);
+      }),
+        console.log(this.descargas);
       console.log(this.vistas);
     },
-    
   },
   data() {
     return {
@@ -103,8 +102,8 @@ export default {
       consumo: "",
       descargas: 0,
       vistas: 0,
-      chartData:{},
-     
+      chartData: {},
+
       chartOptions: {
         responsive: true,
         maintainAspectRatio: false,

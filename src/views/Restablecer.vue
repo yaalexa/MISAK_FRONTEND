@@ -2,7 +2,7 @@
   <div class="restablecer">
     <div class="rcontainer">
       <header class="heading">RESTABLECIMIENTO DE CONTRASEÑA</header>
-      <form action="" >
+      <form action="">
         <div class="form">
           <div class="col-sm-4">
             <div class="col-sm-12">
@@ -79,9 +79,14 @@
 
             <div>
               <br />
-               <button type="button" class="btn btn-primary" v-on:click="restablecer()" >Guardar</button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                v-on:click="restablecer()"
+              >
                 Guardar
-             
+              </button>
+              Guardar
             </div>
             <router-link class="fadeIn fourth volverv" to="/Casa"
               >Volver</router-link
@@ -97,20 +102,20 @@ import axios from "axios";
 export default {
   name: "Restablecer",
   components: {},
-  data: function() {
+  data: function () {
     return {
       json: {
-        "email": "",
-        "password": "",
-        "newpassword": "",
-        "newpassword_confirmation": "",
+        email: "",
+        password: "",
+        newpassword: "",
+        newpassword_confirmation: "",
       },
     };
   },
   methods: {
     restablecer() {
       axios
-        .put("http://127.0.0.1:8000/api/restablecer",this.json)
+        .put("http://127.0.0.1:8000/api/restablecer", this.json)
         .then((response) => {
           this.form = response.data;
           console.log("Hola", this.form);

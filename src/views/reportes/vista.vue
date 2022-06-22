@@ -36,7 +36,7 @@
                 <div>
                   <router-link
                     :to="{ name: 'Visualizacion' }"
-                    class="btn btn-success" 
+                    class="btn btn-success"
                     >Generar reporte</router-link
                   >
                 </div>
@@ -105,20 +105,19 @@ export default {
   height: 100vh;
   overflow: auto;
 }
-.card-body{
+.card-body {
   background: #16223f;
   margin: 4px;
 }
-.row0{
+.row0 {
   background: #16223f;
 }
-.tito{
+.tito {
   color: aliceblue;
 }
-.btn-success{
-    background-color: #ffca2c;
-    border-color: #ffc720;
-    color: black;
+.btn-success {
+  background-color: #ffca2c;
+  border-color: #ffc720;
+  color: black;
 }
-
 </style>

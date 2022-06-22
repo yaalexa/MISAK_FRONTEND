@@ -52,7 +52,6 @@
 <script>
 import Header from "@/components/Header.vue";
 import LineChartGenerator from "@/components/charts/Line.vue";
-import Footer from "@/components/Footer.vue";
 import axios from "axios";
 export default {
   name: "Visualizacion",
@@ -79,7 +78,6 @@ export default {
   },
   components: {
     Header,
-    //  Footer
     LineChartGenerator,
   },
   computed: {
