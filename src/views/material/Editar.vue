@@ -254,6 +254,7 @@ body {
 }
 .pantalla {
   display: flex;
+   height: 100vh;
 }
 .cara1 {
   height: 100vh;
@@ -265,6 +266,6 @@ body {
 }
 .izquierda {
   text-align: left;
-  width: 50%;
+  width: 70%;
 }
 </style>

@@ -149,20 +149,20 @@
             </div>
           </div>
         </div>
-        <br />
-        <br />
+ 
+
         <!-- :src="material.img" -->
         <div class="form-group">
           <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-warning"
             @click="guardarGuardar()"
           >
             Guardar
           </button>
           <button
             type="button"
-            class="btn btn-dark margen"
+            class="btn btn-secondary margen"
             v-on:click="salir()"
           >
             Salir
@@ -261,10 +261,8 @@ export default {
       formDataDataCambiar.append("pdf", this.formData.pdf);
       formDataDataCambiar.append("img", this.formData.img);
       formDataDataCambiar.append("editorial_id", this.formData.editorial),
-        formDataDataCambiar.append("area_id", this.formData.areas);
-      formDataDataCambiar.append(
-        "type_material_id",
-        this.formData.TipoMaterial
+      formDataDataCambiar.append("area_id", this.formData.areas);
+      formDataDataCambiar.append("type_material_id",this.formData.TipoMaterial
       );
       axios
         .post("http://127.0.0.1:8000/api/materials", formDataDataCambiar)
@@ -308,19 +306,22 @@ body {
 }
 .pantalla {
   display: flex;
+  height: 100vh;
   overflow: hidden;
 }
 .cara1 {
   height: 100vh;
   width: 20%;
+
 }
 .cara2 {
-  width: 90%;
-  height: 100vh;
+  width: 80%;
+  height: 90vh;
   overflow: auto;
 }
 .izquierda {
   text-align: left;
-  width: 50%;
+  width: 60%;
+  overflow: auto;
 }
 </style>

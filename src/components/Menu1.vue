@@ -13,21 +13,21 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
-          <b-nav-item href="/UsuarioU"
+          <b-nav-item v-b-tooltip.hover title="Inicio" href="/UsuarioU"
             ><b-icon
               icon="house-fill"
               aria-hidden="true"
               font-scale="1.5"
             ></b-icon
           ></b-nav-item>
-          <b-nav-item href="/proceso"
+          <b-nav-item href="/proceso" v-b-tooltip.hover title="Proceso" 
             ><b-icon
               icon="cloud-download-fill"
               aria-hidden="true"
               font-scale="1.5"
             ></b-icon
           ></b-nav-item>
-          <b-nav-item href="/perfilu"
+          <b-nav-item href="/perfilu" v-b-tooltip.hover title="Usuario" 
             ><b-icon icon="person" aria-hidden="true" font-scale="1.5"></b-icon
           ></b-nav-item>
         </b-navbar-nav>
@@ -39,6 +39,7 @@
               name="cerar"
               value="CerrarSesion"
               v-on:click="cerrarTodo()"
+              v-b-tooltip.hover title="Cerrar Sesion" 
             >
               <b-icon icon="box-arrow-right" aria-hidden="true"></b-icon>
             </button>

@@ -267,24 +267,3 @@ body {
 }
 </style>
   
-</script>
-<style scoped>
-body {
-  margin: 0%;
-}
-.pantalla {
-  display: flex;
-}
-.cara1 {
-  height: 100vh;
-  width: 20%;
-}
-.cara2 {
-  width: 80%;
-  height: 100vh;
-}
-.izquierda {
-  text-align: left;
-  width: 70%;
-}
-</style>
