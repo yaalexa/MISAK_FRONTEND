@@ -197,17 +197,33 @@ export default {
       editorial:null,
     };
   },
-    mounted:function(){
-           
-        axios.get("http://localhost:8000/api/type_materials").then((result) => {
+    mounted:function(token){
+        var token = JSON.parse(sessionStorage.getItem("user"));
+        axios.get("http://localhost:8000/api/type_materials", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                }).then((result) => {
         this.TipoMaterial = result.data;
         });
-       
-        axios.get("http://127.0.0.1:8000/api/editorials").then((result) => {
+        var token = JSON.parse(sessionStorage.getItem("user"));
+        axios.get("http://127.0.0.1:8000/api/editorials", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                }).then((result) => {
         this.editorial = result.data;
         });
-      
-        axios.get("http://127.0.0.1:8000/api/areas").then((result) => {
+        var token = JSON.parse(sessionStorage.getItem("user"));
+        axios.get("http://127.0.0.1:8000/api/areas", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                }
+).then((result) => {
         this.areas = result.data;
         });
           

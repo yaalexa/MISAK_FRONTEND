@@ -144,37 +144,61 @@ export default {
       }
     },
     mounted(){
-        this.mostrarEditorial()
+        var token = JSON.parse(sessionStorage.getItem("user"));
+        this.mostrarEditorial(token)
     },
     methods:{
-       async editarEdit(){
-             axios.put(`http://localhost:8000/api/editorials/${this.selectedEdid}`,{name:this.selectedEdnom}) 
+       async editarEdit(token){
+             var token = JSON.parse(sessionStorage.getItem("user"));
+             axios.put(`http://localhost:8000/api/editorials/${this.selectedEdid}`,{name:this.selectedEdnom}, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                }) 
           .then(response=>{
               console.log(response);
-              this.mostrarEditorial();
+              this.mostrarEditorial(token);
           })
         },
        sendInfoEditorial(id,nom){
            return this.selectedEdnom = nom,this.selectedEdid = id;
        },
-       crearEd(){
-        this.axios.post('http://127.0.0.1:8000/api/editorials',{name:this.form.nom_editorial}).then(response=>{
-                this.mostrarEditorial();
+       crearEd(token){
+        var token = JSON.parse(sessionStorage.getItem("user"));
+        this.axios.post('http://127.0.0.1:8000/api/editorials',{name:this.form.nom_editorial}, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                }).then(response=>{
+                this.mostrarEditorial(token);
             })
      
     },
-        async mostrarEditorial(){
-            await this.axios.get('http://127.0.0.1:8000/api/editorials').then(response=>{
+        async mostrarEditorial(token){
+            await this.axios.get('http://127.0.0.1:8000/api/editorials', {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                }).then(response=>{
                 this.editorial = response.data
             }).catch(error=>{
                 console.log(error)
                 this.editorial = []
             })
         },
-        borrarEditorial(id){
+        borrarEditorial(id,token){
+            var token = JSON.parse(sessionStorage.getItem("user"));
             if(confirm("¿Confirma eliminar el registro?")){
-                this.axios.delete(`http://127.0.0.1:8000/api/editorials/${id}`).then(response=>{
-                    this.mostrarEditorial()
+                this.axios.delete(`http://127.0.0.1:8000/api/editorials/${id}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                }).then(response=>{
+                    this.mostrarEditorial(token)
                 }).catch(error=>{
                     console.log(error)
                 })

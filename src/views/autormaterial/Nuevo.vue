@@ -81,11 +81,17 @@ export default {
       }
     },
     mounted(){
-        this.mostrarAutores()
+        var token = JSON.parse(sessionStorage.getItem("user"));
+        this.mostrarAutores(token)
     },
     methods:{
-        async mostrarAutores(){
-            await this.axios.get('http://127.0.0.1:8000/api/authors').then(response=>{
+        async mostrarAutores(token){
+            await this.axios.get('http://127.0.0.1:8000/api/authors', {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                }).then(response=>{
                 this.Autores = response.data
             }).catch(error=>{
                 console.log(error)

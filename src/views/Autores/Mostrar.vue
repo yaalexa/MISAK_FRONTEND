@@ -77,11 +77,17 @@ export default {
       }
     },
     mounted(){
-        this.mostrarAutores()
+        var token = JSON.parse(sessionStorage.getItem("user"));
+        this.mostrarAutores(token)
     },
     methods:{
-        async mostrarAutores(){
-            await this.axios.get('http://127.0.0.1:8000/api/authors').then(response=>{
+        async mostrarAutores(token){
+            await this.axios.get('http://127.0.0.1:8000/api/authors', {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                }).then(response=>{
                 this.Autores = response.data
             }).catch(error=>{
                 console.log(error)
@@ -91,10 +97,16 @@ export default {
         crear(){
                 this.$router.push('/CrearAutor');
             },
-        borrarAutores(id){
+        borrarAutores(id,token){
+            var token = JSON.parse(sessionStorage.getItem("user"));
             if(confirm("¿Confirma eliminar el registro?")){
-                this.axios.delete(`http://127.0.0.1:8000/api/authors/${id}`).then(response=>{
-                    this.mostrarAutores()
+                this.axios.delete(`http://127.0.0.1:8000/api/authors/${id}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                }).then(response=>{
+                    this.mostrarAutores(token)
                 }).catch(error=>{
                     console.log(error)
                 })

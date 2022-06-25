@@ -147,37 +147,61 @@ export default {
       }
     },
     mounted(){
-        this.mostarTipoMaterial()
+        var token = JSON.parse(sessionStorage.getItem("user"));
+        this.mostarTipoMaterial(token)
     },
     methods:{
-         async editarEdit(){
-             axios.put(`http://localhost:8000/api/type_materials/${this.selectedEdid}`,{name:this.selectedEdnom}) 
+         async editarEdit(token){
+             var token = JSON.parse(sessionStorage.getItem("user"));
+             axios.put(`http://localhost:8000/api/type_materials/${this.selectedEdid}`,{name:this.selectedEdnom}, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                }) 
           .then(response=>{
               console.log(response);
-              this.mostarTipoMaterial();
+              this.mostarTipoMaterial(token);
           })
         },
        sendInfoEditorial(id,nom){
            return this.selectedEdnom = nom,this.selectedEdid = id;
        },
-       crearEd(){
-        this.axios.post('http://127.0.0.1:8000/api/type_materials',{name:this.form.nom_editorial}).then(response=>{
-                this.mostarTipoMaterial();
+       crearEd(token){
+        var token = JSON.parse(sessionStorage.getItem("user"));
+        this.axios.post('http://127.0.0.1:8000/api/type_materials',{name:this.form.nom_editorial}, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                }).then(response=>{
+                this.mostarTipoMaterial(token);
             })
      
          },
             
-             borrar(id){
+             borrar(id, token){
+                var token = JSON.parse(sessionStorage.getItem("user"));
             if(confirm("¿Confirma eliminar el registro?")){
-                this.axios.delete(`http://127.0.0.1:8000/api/type_materials/${id}`).then(response=>{
-                     this.$router.push("/TipoMaterial");
+                this.axios.delete(`http://127.0.0.1:8000/api/type_materials/${id}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                }).then(response=>{
+                     this.mostarTipoMaterial(token);
                 }).catch(error=>{
                     console.log(error)
                 })
             }
         },
-          async mostarTipoMaterial(){
-            await this.axios.get('http://127.0.0.1:8000/api/type_materials').then(response=>{
+          async mostarTipoMaterial(token){
+            await this.axios.get('http://127.0.0.1:8000/api/type_materials', {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                }).then(response=>{
                 this.TipoMaterial = response.data
             }).catch(error=>{
                 console.log(error)

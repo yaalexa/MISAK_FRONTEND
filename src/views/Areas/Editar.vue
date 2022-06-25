@@ -54,8 +54,14 @@ export default {
     }
   },
   methods:{
-      editar(){
-          axios.put(`http://localhost:8000/api/areas/${this.form.areasid}`,this.form)
+      editar(token){
+          var token = JSON.parse(sessionStorage.getItem("user"));
+          axios.put(`http://localhost:8000/api/areas/${this.form.areasid}`,this.form, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                })
           .then(response=>{
               console.log(response);
               this.$router.push("/Areas");
@@ -77,9 +83,16 @@ export default {
 
       }
   },
-  mounted:function(){
+  mounted:function(tkn){
+      var token = JSON.parse(sessionStorage.getItem("user"));
       this.form.areasid= this.$route.params.id;
-      axios.get(`http://localhost:8000/api/areas/${this.form.areasid}`)
+      axios.get(`http://localhost:8000/api/areas/${this.form.areasid}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + tkn
+                }
+                }
+)
       .then( datos => {
         
         this.form.name = datos.data[0].name;

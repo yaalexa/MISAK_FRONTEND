@@ -78,15 +78,20 @@ export default {
       //  Footer
     },
     mounted(){
-        this.mostrarAutor()
+        var token = JSON.parse(sessionStorage.getItem("user"));
+        this.mostrarAutor(token)
     },
     methods:{
         salir(){
            this.$router.push({name:"MostrarAutor"})
         },
-        async mostrarAutor(){
-        
-        axios.get("http://localhost:8000/api/authors/"+ this.$route.params.id)
+        async mostrarAutor(token){
+        axios.get("http://localhost:8000/api/authors/"+ this.$route.params.id, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                })
        .then( datos => {
         
         this.Autor.name = datos.data[0].name;
@@ -95,9 +100,14 @@ export default {
         
         })
         },
-        async actualizar(){
-            
-            await this.axios.put(`http://127.0.0.1:8000/api/authors/${this.$route.params.id}`,this.Autor).then(response=>{
+        async actualizar(token){
+            var token = JSON.parse(sessionStorage.getItem("user"));
+            await this.axios.put(`http://127.0.0.1:8000/api/authors/${this.$route.params.id}`,this.Autor, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                }).then(response=>{
                 this.$router.push({name:"MostrarAutor"})
             }).catch(error=>{
                 console.log(error)

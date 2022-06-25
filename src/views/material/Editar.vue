@@ -143,27 +143,43 @@ editorial_id:null,
       }
   },
   mounted(){
+    var token = JSON.parse(sessionStorage.getItem("user"));
 this.mostrarForm();
-this.tipoMaterial();
-this.area();
-this.edito();
+this.tipoMaterial(token);
+this.area(token);
+this.edito(token);
   },
   methods: {
-      tipoMaterial(){
+      tipoMaterial(token){
       let direccion = "http://localhost:8000/api/type_materials";
-        axios.get(direccion).then((result) => {
+        axios.get(direccion, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                }).then((result) => {
         this.type_material_id = result.data;
         });
       },
-      area(){
+      area(token){
                   let direccion3 = "http://127.0.0.1:8000/api/areas";
-        axios.get(direccion3).then((result) => {
+        axios.get(direccion3, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                }).then((result) => {
         this.area_id = result.data;
         });
       },
-      edito(){
-                  let direccion2 = "http://127.0.0.1:8000/api/editorials";
-        axios.get(direccion2).then((result) => {
+      edito(token){
+        let direccion2 = "http://127.0.0.1:8000/api/editorials";
+        axios.get(direccion2, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                }).then((result) => {
         this.editorial_id = result.data;
         
         });

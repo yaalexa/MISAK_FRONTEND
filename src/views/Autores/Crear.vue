@@ -78,8 +78,14 @@ export default {
       //  Footer
     },
     methods:{
-        async crear(){
-            await this.axios.post('http://127.0.0.1:8000/api/authors',this.Autor).then(response=>{
+        async crear(token){
+            var token = JSON.parse(sessionStorage.getItem("user"));
+            await this.axios.post('http://127.0.0.1:8000/api/authors',this.Autor, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                }).then(response=>{
                 this.$router.push({name:"MostrarAutor"})
             }).catch(error=>{
                 console.log(error)
