@@ -247,8 +247,9 @@ export default {
         this.pdfMiniatura = e.target.result;
       }
     },
-    guardarGuardar() {
+    async guardarGuardar() {
       let formDataDataCambiar = new FormData();
+      var token = JSON.parse(sessionStorage.getItem("user"));
       formDataDataCambiar.append("name", this.formData.name);
       formDataDataCambiar.append("isbn", this.formData.isbn);
       formDataDataCambiar.append("year", this.formData.year);
@@ -259,13 +260,18 @@ export default {
       formDataDataCambiar.append("editorial_id", this.formData.editorial),
       formDataDataCambiar.append("area_id", this.formData.areas);
       formDataDataCambiar.append("type_material_id", this.formData.TipoMaterial);
-      axios
-        .post("http://127.0.0.1:8000/api/materials", formDataDataCambiar)
+      await axios
+        .post("http://127.0.0.1:8000/api/materials", formDataDataCambiar, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                })
         .then((data) => {
-          console.log(data);
-          this.makeToast("Hecho", "material creado", "success");
-          this.$router.push("/dashboard");
-        })
+                  console.log(data);
+                  this.makeToast("Hecho", "material creado", "success");
+                  this.$router.push("/dashboard");
+                })
         .catch((e) => {
           console.log(e);
           this.makeToast("Error", "Error al guardar", "error");

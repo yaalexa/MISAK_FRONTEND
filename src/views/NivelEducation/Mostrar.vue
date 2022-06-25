@@ -136,7 +136,8 @@ export default {
       //  Footer
     },
     mounted(){
-        this.mostrarNivelEducativo()
+        var token = JSON.parse(sessionStorage.getItem("user"));
+        this.mostrarNivelEducativo(token)
     },
      computed: {
       rows() {
@@ -160,8 +161,12 @@ export default {
             })
      
        },
-        async mostrarNivelEducativo(){
-            await this.axios.get('http://127.0.0.1:8000/api/educational_levels').then(response=>{
+        async mostrarNivelEducativo(tkn){
+            await this.axios.get('http://127.0.0.1:8000/api/educational_levels', {
+                  headers: {
+                      "Content-Type": "application/json",
+                      Authorization: "Bearer " + tkn
+                  }}).then(response=>{
                 this.NivelEducativo = response.data
             }).catch(error=>{
                 console.log(error)

@@ -53,30 +53,30 @@ export default {
       method: 'GET',
       responseType: 'blob',
       }).then((response) => {
-     var fileURL = window.URL.createObjectURL(new Blob([response.data]));
-     this.descargara=response.data;
-     var fileLink = document.createElement('a');
-     fileLink.href = fileURL;
-      //codigo eduard extraemos el tipo de archivo
-     var typer = this.descargara.type;
-     // eduard sacamos la extension y la concatenamos a file
-     var ext = (typer.slice(typer.search('/')+1,typer.length));
-     var file = 'file.'+ext;
-     console.log("type = ",typer);
-     console.log("file =",file);
-     fileLink.setAttribute('download', file);
-     document.body.appendChild(fileLink);
-     fileLink.click();
+            var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+            this.descargara=response.data;
+            var fileLink = document.createElement('a');
+            fileLink.href = fileURL;
+              //codigo eduard extraemos el tipo de archivo
+            var typer = this.descargara.type;
+            // eduard sacamos la extension y la concatenamos a file
+            var ext = (typer.slice(typer.search('/')+1,typer.length));
+            var file = 'file.'+ext;
+            console.log("type = ",typer);
+            console.log("file =",file);
+            fileLink.setAttribute('download', file);
+            document.body.appendChild(fileLink);
+            fileLink.click();
         });
         // codigo Eduard guarda el proceso del boton de descarga
-     var usrid = JSON.parse(sessionStorage.getItem("userid"));
-     this.mtr_usr.users_id = usrid;
-     this.mtr_usr.material_id = this.$route.params.id;
-     axios
-    .post("http://127.0.0.1:8000/api/material__users",this.mtr_usr)
-      .then(response => {
-       console.log(response)
-      });   
+        var usrid = JSON.parse(sessionStorage.getItem("userid"));
+        this.mtr_usr.users_id = usrid;
+        this.mtr_usr.material_id = this.$route.params.id;
+        axios
+        .post("http://127.0.0.1:8000/api/material__users",this.mtr_usr)
+            .then(response => {
+            console.log(response)
+          });   
    },
   
    async getTodos() {

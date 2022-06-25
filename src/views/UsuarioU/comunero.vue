@@ -281,13 +281,18 @@ export default {
 
   methods: {
     buscadorfinal() {
+       var token = JSON.parse(sessionStorage.getItem("user"));
       axios
-        .get(`http://127.0.0.1:8000/api/buscadorfinal/${this.buscar}`)
-        .then((response) => {
-          this.getmaterial = response.data;
-          console.log("Hola",this.getmaterial);
-        })
-        .catch((errorgrave) => console.log(errorgrave));
+        .get(`http://127.0.0.1:8000/api/buscadorfinal/${this.buscar}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                }).then((response) => {
+                this.getmaterial = response.data;
+                console.log("Hola",this.getmaterial);
+                })
+                .catch((errorgrave) => console.log(errorgrave));
     },
    
     Ver(id, priority) {

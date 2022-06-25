@@ -290,11 +290,11 @@ export default {
     }
   },
     mounted:function(){
-      
-            this.axios.get('http://localhost:8000/api/rols').then(response=>{
-                this.rol = response.data.slice(1,response.data.length);
-         
-            });
+           //codigo eduard:se cambia la URL ya que solo era para usuarios autenticados
+            this.axios.get('http://localhost:8000/api/obtenerrols')
+               .then(response=>{
+                this.rol = response.data.slice(1,response.data.length)
+              });
          
         
     },

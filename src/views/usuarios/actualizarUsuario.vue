@@ -158,8 +158,13 @@ export default {
     },
       
     mounted(){
+        var token = JSON.parse(sessionStorage.getItem("user"));
         this.mostrarusuario()
-        this.axios.get('http://localhost:8000/api/rols').then(response=>{
+        this.axios.get('http://localhost:8000/api/rols', {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }}).then(response=>{
                 this.rol = response.data
             });
     },
