@@ -93,6 +93,7 @@ const routes = [
     path: "/Restablecer",
     name: "Restablecer",
     component: Restablecer,
+    meta: { requiresAuth1: true },
   },
   {
     path: "/actualizarusuarios/:id",

@@ -132,6 +132,9 @@
                       >
                         Guardar
                       </button>
+                      <button                         class="btn btn-primary profile-button"
+ v-on:click="restable()">Cambio Contraseña</button>
+                              
                     </div>
                   </div>
                 </div>
@@ -195,6 +198,9 @@ export default {
           this.$router.push("/UsuarioU");
         });
     },
+    restable(){
+                this.$router.push("/Restablecer");
+    }
   },
 };
 </script>
@@ -216,6 +222,7 @@ body {
   background: #23282e;
   box-shadow: none;
   border: none;
+  
 }
 .profile-button:hover {
   background: #682773;
@@ -255,5 +262,8 @@ body {
 }
 .conte1 {
   width: 40%;
+}
+.conte2 {
+  width: 60%;
 }
 </style>

@@ -29,15 +29,12 @@
               <vue-recaptcha
                 class="recap"
                 ref="recaptcha"
-                sitekey="6LdCUjcgAAAAAM-G2M8Y4utP2L87TkkGUiHU12YP"
+                sitekey="6Ld24KQgAAAAAFvskbex7YFtvCZhZR6VJmKTAIaT"
               />
             </div>
-            <input type="submit" class="fadeIn fourth" value="ENTRAR" />
+            <input type="submit" class="fadeIn fourth" value="hola" />
           </form>
-          <router-link class="fadeIn fourth" to="/Restablecer">
-            Restablecer Contraseña</router-link
-          >
-          <br />
+
           <router-link class="fadeIn fourth" to="/Register"
             >Registrate</router-link
           >
@@ -64,25 +61,28 @@ export default {
   },
   data: function () {
     return {
-      siteKey: "6LdCUjcgAAAAAM-G2M8Y4utP2L87TkkGUiHU12YP",
+      siteKey: "6Ld24KQgAAAAAFvskbex7YFtvCZhZR6VJmKTAIaT",
       error: null,
       error_msg: null,
       email: "",
       password: "",
     };
   },
+  mounted(){
+  },
   methods: {
     recapt() {
-      var response = grecaptcha.getResponse();
-      if (response.length == 0) {
+      let response = grecaptcha.getResponse();
+      console.log("este es" +response)
+      if (response == 0) {
         alert("Captcha no verificado");
-        return false;
       } else {
         this.login();
       }
     },
 
     login() {
+      
       let json = {
         email: this.email,
         password: this.password,
@@ -100,12 +100,16 @@ export default {
           );
           sessionStorage.setItem("userid", JSON.stringify(data.data.usr_id));
           // localStorage.token = data.data.result.token;
+          console.log("estoy en el primer if")
           if (data.data.rol_id == 1) {
+            console.log("estoy en elsegundo if")
             this.$router.push("/welcome");
             sessionStorage.setItem("usuario", JSON.stringify(data.data));
           } else {
             this.$router.push("/usuarioU");
             sessionStorage.setItem("usuario2", JSON.stringify(data.data));
+                        console.log("estoy en elsegundo if")
+
           }
         } else {
           this.error = true;
