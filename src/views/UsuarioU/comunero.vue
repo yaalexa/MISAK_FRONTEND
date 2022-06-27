@@ -296,14 +296,19 @@ export default {
     },
    
     Ver(id, priority) {
+       var token = JSON.parse(sessionStorage.getItem("user"));
       var usrid = JSON.parse(sessionStorage.getItem("userid"));
       this.mtr_usr.users_id = usrid;
       this.mtr_usr.material_id = id;
       axios
-        .post("http://127.0.0.1:8000/api/material__users", this.mtr_usr)
-        .then((response) => {
-          console.log(response);
-        });
+        .post("http://127.0.0.1:8000/api/material__users", this.mtr_usr, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                }).then((response) => {
+                    console.log(response);
+              });
       this.$router.push({ name: "Pdf", params: { id: id, pr: priority } });
     },
      destvisual(){

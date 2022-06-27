@@ -48,10 +48,15 @@ export default {
   methods: {
     
     downloadWithAxios() {
-      axios({
+     var token = JSON.parse(sessionStorage.getItem("user"));
+     axios({
       url: `http://127.0.0.1:8000/api/download/${this.$route.params.id}`,
       method: 'GET',
       responseType: 'blob',
+      headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
       }).then((response) => {
             var fileURL = window.URL.createObjectURL(new Blob([response.data]));
             this.descargara=response.data;
@@ -73,18 +78,27 @@ export default {
         this.mtr_usr.users_id = usrid;
         this.mtr_usr.material_id = this.$route.params.id;
         axios
-        .post("http://127.0.0.1:8000/api/material__users",this.mtr_usr)
-            .then(response => {
-            console.log(response)
-          });   
+        .post("http://127.0.0.1:8000/api/material__users",this.mtr_usr, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                }).then(response => {
+                    console.log(response)
+                });   
    },
   
    async getTodos() {
           this.codigo=this.$route.params.id;
           this.prioridad=this.$route.params.pr;
+          var token = JSON.parse(sessionStorage.getItem("user"));
      await axios
-        .get(`http://127.0.0.1:8000/api/download/${this.codigo}`,{responseType: 'blob'  })
-        .then((response) => {
+        .get(`http://127.0.0.1:8000/api/download/${this.codigo}`,{responseType: 'blob'  }, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+                }).then((response) => {
                //codigo eduard para optener el type
           this.descargara=response.data;
           var typer = this.descargara.type;

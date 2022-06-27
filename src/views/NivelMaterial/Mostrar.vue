@@ -96,7 +96,7 @@ export default {
         },
         borrarnivelasignado(id){
             if(confirm("¿Confirma eliminar el registro?")){
-                this.axios.delete(`http://127.0.0.1:8000/api/material__educational_levels/${id}`).then(response=>{
+                this.axios.delete(`/${id}`).then(response=>{
                    this.nivelasignado();
                 }).catch(error=>{
                     console.log(error)
