@@ -5,18 +5,20 @@
         <Header />
       </header>
     </div>
-    <div class="cara2">
+    <div class="cara2reporte">
       <section>
         <h1>Reporte de Visualizacion del material</h1>
         <br />
-        <label for="datepicker-sm">Arias:</label>
-        <b-form-select
+         <div class="busqueda">
+        <b-input-group size="sm"  >
+         <label for="datepicker-sm">Buscar:</label>
+        <b-form-input 
           id="example-locales"
-          v-model="locale"
-          :options="locales"
-          class="mb-2"
-        ></b-form-select>
-        <b-button variant="outline-primary">Busar</b-button>
+          v-model="filter"
+          type="search"
+          class="mb-2"></b-form-input>
+        </b-input-group>
+      </div>
         <br />
         <LineChartGenerator />
         <div class="table-responsive">
@@ -61,6 +63,7 @@ export default {
   name: "Visualizacion",
   data() {
     return {
+      filter:null,
       fechai:"",
       fechaf:"",
       locales: [
