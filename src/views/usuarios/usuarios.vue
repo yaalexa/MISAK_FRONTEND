@@ -10,9 +10,12 @@
         <h1>USUARIOS</h1>
         <div class="form-group left row">
           <div class="control-label col-sm-5" style="text-align: left">
-            <b-button v-on:click="unuevo()" class="btn btn-warning"
+            <b-button id="nuevo" v-on:click="unuevo()" class="btn btn-warning"
               >Nuevo <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon
             ></b-button>
+            <b-tooltip target="nuevo" triggers="hover">
+                    <b>NUEVA USUARIO</b> 
+              </b-tooltip>
           </div>
           <div class="control-label col-sm-7" style="text-align: left">
             <div class="input-group" style="text-align: right">
@@ -38,6 +41,7 @@
           >
             <template #cell(Acciones)="row">
               <router-link
+              id="edit"
                 :to="{
                   name: '/actualizarusuarios',
                   params: { id: row.item.id },
@@ -46,15 +50,23 @@
                 ><font-awesome-icon icon="fa-solid fa-pen-to-square" />
                 <b-icon icon="pencil" aria-hidden="true"></b-icon
               ></router-link>
+              <b-tooltip target="edit" triggers="hover">
+                    <b>EDITAR USUARIO</b> 
+              </b-tooltip>
               <a
                 type="button"
+                id="eliminar"
                 @click="borrarAutores(row.item.id)"
                 class="btn btn-secondary"
                 ><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon
                   icon="trash-fill"
                   aria-hidden="true"
                 ></b-icon
-              ></a>
+              >
+              <b-tooltip target="eliminar" triggers="hover">
+                    <b>ELIMINAR USUARIO</b> 
+              </b-tooltip>
+              </a>
             </template>
           </b-table>
           <b-pagination

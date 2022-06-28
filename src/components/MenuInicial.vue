@@ -6,7 +6,7 @@
         <li><router-link to="/">INICIO</router-link></li>
         <li><router-link to="/Cultura">CULTURA</router-link></li>
         <li><router-link to="/Nosotros">NOSOTROS</router-link></li>
-        <li><router-link to="/Casa">INGRESAR</router-link></li>
+        <li><router-link to="/Login">INGRESAR</router-link></li>
         <li class="lib"></li>
       </ul>
     </div>

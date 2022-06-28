@@ -11,10 +11,13 @@
           <h1>Areas</h1>
           <div class="form-group left row">
             <div class="control-label col-sm-5" style="text-align: left">
-              <b-button v-b-modal="'modal-1'" class="btn btn-warning"
+              <b-button id="nuevo" v-b-modal="'modal-1'" class="btn btn-warning"
                 >Nuevo
                 <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon
               ></b-button>
+              <b-tooltip target="nuevo" triggers="hover">
+                    <b>NUEVA ÁREA</b> 
+              </b-tooltip>
             </div>
             <div class="control-label col-sm-7" style="text-align: left">
               <div class="input-group" style="text-align: right">
@@ -41,20 +44,28 @@
             <template #cell(Acciones)="row">
               <b-button
                 v-b-modal="'editarareas'"
+                id="edit"
                 class="btn btn-warning"
                 @click="sendInfo(row.item.id, row.item.name)"
                 ><font-awesome-icon icon="fa-solid fa-pen-to-square" />
                 <b-icon icon="pencil" aria-hidden="true"></b-icon
               ></b-button>
+              <b-tooltip target="edit" triggers="hover">
+                    <b>EDITAR ÁREA</b> 
+              </b-tooltip>
               <a
                 type="button"
+                id="elimi"
                 @click="borrarAreas(row.item.id)"
                 class="btn btn-secondary"
                 ><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon
                   icon="trash-fill"
                   aria-hidden="true"
                 ></b-icon
-              ></a>
+              ><b-tooltip target="elimi" triggers="hover">
+                    <b>ELIMINAR ÁREA</b> 
+              </b-tooltip>
+              </a>
             </template>
           </b-table>
           <b-pagination

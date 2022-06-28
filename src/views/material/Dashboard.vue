@@ -14,10 +14,13 @@
             <!-- Boton nuevo -->
             <div class="form-group left row">
               <div class="control-label col-sm-5" style="text-align: left">
-                <button class="btn btn-warning" v-on:click="nuevo()">
+                <button class="btn btn-warning" id="nuevo" v-on:click="nuevo()">
                   Nuevo
                   <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon>
                 </button>
+                <b-tooltip target="nuevo" triggers="hover">
+                    <b>CREAR NUEVO MATERIAL</b> 
+                  </b-tooltip>
               </div>
               <!-- -------- -->
               <!-- Buscador -->
@@ -45,21 +48,31 @@
               >
                 <template #cell(acciones)="row">
                   <router-link
+                  id="editar"
                     :to="{ name: 'Editar', params: { id: row.item.id } }"
                     class="btn btn-warning"
                     ><font-awesome-icon icon="fa-solid fa-pen-to-square" />
                     <b-icon icon="pencil" aria-hidden="true"></b-icon>
+                    
                   </router-link>
+                  <b-tooltip target="editar" triggers="hover">
+                    <b>EDITAR MATERIAL</b> 
+                  </b-tooltip>
                   <a
                     type="button"
+                    id="eliminar"
                     @click="borrar(row.item.id)"
                     class="btn btn-secondary"
                   >
                     <font-awesome-icon icon="fa-solid fa-trash-can" />
                     <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
+                    <b-tooltip target="eliminar" triggers="hover">
+                    <b>ELIMINAR MATERIAL</b> 
+                    </b-tooltip>
                   </a>
                   <a
                     type="button"
+                    id="autor"
                     @click="autormaterial(row.item.id, row.item.name)"
                     class="btn btn-sucess"
                   >
@@ -69,13 +82,20 @@
                       variant="secondary"
                     >
                     </b-icon>
+                    <b-tooltip target="autor" triggers="hover">
+                    <b>ASIGNAR AUTOR</b> 
+                    </b-tooltip>
                   </a>
                   <a
                     type="button"
+                    id="niveled"
                     @click="educationallevel(row.item.id, row.item.name)"
                     class="btn btn-sucess"
                   >
                     <b-icon icon="bar-chart-fill" flip-h flip-v></b-icon>
+                    <b-tooltip target="niveled" triggers="hover">
+                    <b>ASIGNAR NIVEL EDUCATIVO</b> 
+                    </b-tooltip>
                   </a>
                 </template>
               </b-table>
