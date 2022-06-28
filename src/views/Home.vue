@@ -34,18 +34,16 @@
             </div>
             <input type="submit" class="fadeIn fourth" value="ENTRAR" />
           </form>
-          <router-link class="fadeIn fourth" to="/Restablecer">
-            Restablecer Contraseña</router-link
-          >
-          <br />
           <router-link class="fadeIn fourth" to="/Register"
             >Registrate</router-link
           >
-          <router-link class="fadeIn fourth volverv" to="/">Volver</router-link
-          ><br /><br />
+          <br /><br />
+          <router-link class="fadeIn fourth " to="/">Volver</router-link
+          ><br />
           <div class="alert alert-danger" role="alert" v-if="error">
             {{ error_msg }}
           </div>
+          <br />
         </div>
       </div>
     </div>

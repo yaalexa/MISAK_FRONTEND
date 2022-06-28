@@ -204,15 +204,27 @@ export default {
     };
   },
   mounted: function () {
-    axios.get("/type_materials").then((result) => {
+    axios.get("/type_materials",{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                }).then((result) => {
       this.TipoMaterial = result.data;
     });
 
-    axios.get("/editorials").then((result) => {
+    axios.get("/editorials",{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                }).then((result) => {
       this.editorial = result.data;
     });
 
-    axios.get("/areas").then((result) => {
+    axios.get("/areas",{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                }).then((result) => {
       this.areas = result.data;
     });
   },
