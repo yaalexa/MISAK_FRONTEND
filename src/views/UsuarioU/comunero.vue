@@ -11,40 +11,52 @@
         <b-container class="bv-example-row">
           <b-row>
             <b-col>
+              <button id="icon" class="form-control position-relative" v-on:click="focusInput()">
               <b-icon icon="pencil-fill" font-scale="2.5"></b-icon>
               <div class="d-block text-center">
                 <h6>Editorial</h6>
               </div>
+              </button>
             </b-col>
             <b-col>
+              <button id="icon" class="form-control position-relative" v-on:click="focusInput()">
               <b-icon icon="person-bounding-box" font-scale="2.5"></b-icon>
               <div class="d-block text-center">
                 <h6>Autor</h6>
               </div>
+              </button>
             </b-col>
             <b-col>
+              <button id="icon" class="form-control position-relative" v-on:click="focusInput()">
               <b-icon icon="reception4" font-scale="2.5"></b-icon>
               <div class="d-block text-center">
                 <h6>Nivel Educativo</h6>
               </div>
+              </button>
             </b-col>
             <b-col>
+              <button id="icon" class="form-control position-relative" v-on:click="focusInput()">
               <b-icon icon="book-fill" font-scale="2.5"></b-icon>
               <div class="d-block text-center">
                 <h6>Material</h6>
               </div>
+              </button>
             </b-col>
             <b-col>
+              <button id="icon" class="form-control position-relative" v-on:click="focusInput()">
               <b-icon icon="stack" font-scale="2.5"></b-icon>
               <div class="d-block text-center">
                 <h6>Area</h6>
               </div>
+              </button>
             </b-col>
             <b-col>
+              <button id="icon" class="form-control position-relative" v-on:click="focusInput()">
               <b-icon icon="inboxes-fill" font-scale="2.5"></b-icon>
               <div class="d-block text-center">
                 <h6>Tipo Material</h6>
               </div>
+              </button>
             </b-col>
           </b-row>
         </b-container>
@@ -58,7 +70,7 @@
           id="barra"
           type="search"
           size="lg"
-          placeholder="Buscar por material, editorial, autor ...."
+          placeholder="Buscar..."
           aria-label="Search"
           v-model="buscar"
 
@@ -290,6 +302,10 @@ export default {
   },
 
   methods: {
+    focusInput(){
+      document.getElementById("barra").focus();
+      },
+    
     buscadorfinal() {
       axios
         .get(`http://127.0.0.1:8000/api/buscadorfinal/${this.buscar}`)
@@ -407,6 +423,12 @@ export default {
 #menu {
  width: 100%;
   overflow: hidden;
+}
+#icon{
+  border: #16223f 1px solid;
+  height: 100%;
+  width: 100%;
+  margin: 2px;
 }
 .b-icon {
   color: #16223f;

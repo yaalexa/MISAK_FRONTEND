@@ -166,9 +166,6 @@
     </div>
 </template>
 
-
-
-
 <script>
 import Header from "@/components/Header.vue";
 //import Footer from '@/components/Footer.vue'
@@ -178,7 +175,6 @@ export default {
   props: ["imageUrl"],
   data: function () {
     return {
-    
       selected:"",
       formData: {
         name: "",
