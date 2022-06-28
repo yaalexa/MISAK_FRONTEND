@@ -100,7 +100,7 @@ export default {
   methods: {
     async MostrarReporteV() {
       await this.axios
-        .get(" /Reportsvisua")
+        .get("/Reportsvisua")
         .then((response) => {
           this.Reporte = response.data;
         })
@@ -111,7 +111,7 @@ export default {
     },
     DownloadreportVI(fechai,fechaf) {
       axios({
-        url: ` /Report_ViPDF/${fechai}/${fechaf}`,
+        url: `/Report_ViPDF/${fechai}/${fechaf}`,
         method: "GET",
         responseType: "blob",
       }).then((response) => {

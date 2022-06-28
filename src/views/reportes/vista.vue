@@ -101,7 +101,7 @@ export default {
   width: 20%;
 }
 .cara2 {
-  width: 95%;
+  width: 80%;
   height: 100vh;
   overflow: auto;
 }
