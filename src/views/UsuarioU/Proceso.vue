@@ -43,6 +43,7 @@
 import Menu1 from "@/components/Menu1.vue";
 import axios from "axios";
 export default {
+  name: "Proceso",
   data() {
     return {
       perPage: 7,

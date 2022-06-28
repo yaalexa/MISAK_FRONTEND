@@ -20,7 +20,7 @@ import MenuInicial from "@/components/MenuInicial.vue";
 import Contenidocasa from "@/components/Contenidocasa.vue";
 import Footer from "@/components/Footer.vue";
 export default {
-  name: "Casa",
+  name: "Home",
   components: {
     MenuInicial,
     Contenidocasa,

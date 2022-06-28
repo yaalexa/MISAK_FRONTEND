@@ -12,6 +12,11 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  name: "MenuInicio"
+}
+</script>
 <style scoped>
 .todo {
   display: flex;

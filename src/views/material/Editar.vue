@@ -166,7 +166,7 @@
 import Header from "@/components/Header.vue";
 import axios from "axios";
 export default {
-  name: "Edit",
+  name: "Editar",
   components: {
     Header,
     //Footer

@@ -73,7 +73,7 @@ import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 import axios from "axios";
 export default {
-  name: "MostrarNivelMaterial",
+  name: "nivelmaterial",
   data() {
     return {
       Material_educational: null,

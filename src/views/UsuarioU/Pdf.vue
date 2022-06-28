@@ -30,6 +30,7 @@
 import axios from "axios";
 import Menu1 from "@/components/Menu1.vue";
 export default {
+  name: "Pdf",
   data() {
     return {
       prioridad: null,

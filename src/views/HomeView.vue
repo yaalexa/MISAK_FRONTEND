@@ -42,7 +42,7 @@
 import axios from "axios";
 
 export default {
-  name: "Home",
+  name: "HomeView",
   components: {},
   data: function () {
     return {

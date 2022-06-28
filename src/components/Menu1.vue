@@ -54,6 +54,7 @@
 import axios from "axios";
 
 export default {
+  name: "Menu1",
   data() {
     return {
       pops: {

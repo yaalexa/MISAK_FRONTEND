@@ -98,7 +98,7 @@
 import Header from "@/components/Header.vue";
 import axios from "axios";
 export default {
-  name: "header",
+  name: "Dashboard",
   data() {
     return {
       perPage: 7,

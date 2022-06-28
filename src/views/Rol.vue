@@ -108,7 +108,7 @@ import Header from "@/components/Header.vue";
 //import Footer from '@/components/Footer.vue'
 import axios from "axios";
 export default {
-  name: "usr",
+  name: "Roles",
 
   data() {
     return {

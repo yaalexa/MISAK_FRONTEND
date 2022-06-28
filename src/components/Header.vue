@@ -104,7 +104,7 @@
                 <li data-toggle="collapse" data-target="#new" class="collapsed">
                   <router-link
                     exact-active-class="active"
-                    to="/mostrar"
+                    to="/MostrarRol"
                     class="nav-link"
                     aria-current="page"
                     >ROLES
@@ -144,7 +144,7 @@
 <script>
 import axios from "axios";
 export default {
-  name: "dashboard",
+  name: "MenuAdmin",
   mounted() {
     this.motrarBarr();
 

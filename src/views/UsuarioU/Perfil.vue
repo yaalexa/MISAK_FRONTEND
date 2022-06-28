@@ -149,6 +149,7 @@
 import Menu1 from "@/components/Menu1.vue";
 import axios from "axios";
 export default {
+  name: "perfilu",
   data() {
     return {
       per: {

@@ -48,6 +48,11 @@
         </div>
     </div>
 </template>
+<script>
+export default {
+    name:"Contenidocasa"
+}
+</script>
 <style scoped>
 .biblio{
     justify-content: center;

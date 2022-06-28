@@ -314,7 +314,7 @@ body {
 <script>
 import axios from "axios";
 export default {
-  name: "register",
+  name: "Register",
   components: {},
   data: function () {
     return {
