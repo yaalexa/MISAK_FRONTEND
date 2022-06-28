@@ -58,7 +58,7 @@ export default {
     editar() {
       axios
         .put(
-          `http://localhost:8000/api/editorials/${this.form.editorialid}`,
+          `/editorials/${this.form.editorialid}`,
           this.form
         )
         .then((response) => {
@@ -74,7 +74,7 @@ export default {
         editorialid: this.form.editorialid,
       };
       axios
-        .delete("http://localhost:8000/api/editorials", { headers: enviar })
+        .delete("/editorials", { headers: enviar })
         .then((datos) => {
           console.log(datos);
           this.$router.push("/Editorial");
@@ -84,7 +84,7 @@ export default {
   mounted: function () {
     this.form.editorialid = this.$route.params.id;
     axios
-      .get("http://localhost:8000/api/editorials/?id=" + this.form.editorialid)
+      .get("/editorials/?id=" + this.form.editorialid)
       .then((datos) => {
         this.form.name = datos.data[0].name;
         console.log(this.form);

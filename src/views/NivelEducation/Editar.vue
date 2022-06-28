@@ -52,7 +52,7 @@ export default {
     async mostrarNivelEducativo() {
       await this.axios
         .get(
-          `http://127.0.0.1:8000/api/educational_levels/${this.$route.params.id}`
+          `/educational_levels/${this.$route.params.id}`
         )
         .then((response) => {
           const { name } = response.data;
@@ -65,7 +65,7 @@ export default {
     async actualizar() {
       await this.axios
         .put(
-          `http://127.0.0.1:8000/api/educational_levels/${this.$route.params.id}`,
+          `/educational_levels/${this.$route.params.id}`,
           this.NivelEducativo
         )
         .then((response) => {

@@ -6,6 +6,9 @@
     <div class="fondo">
       <img src="@/assets/logo.png" alt="" />
     </div>
+    <div>
+      <Contenidocasa/>
+    </div>
     <div class="footer">
       <Footer />
     </div>
@@ -14,11 +17,13 @@
 
 <script>
 import MenuInicial from "@/components/MenuInicial.vue";
+import Contenidocasa from "@/components/Contenidocasa.vue";
 import Footer from "@/components/Footer.vue";
 export default {
   name: "Casa",
   components: {
     MenuInicial,
+    Contenidocasa,
     Footer,
   },
 };
@@ -28,11 +33,11 @@ export default {
   background-image: url("@/assets/fondo33.jpg");
   background-size: cover;
   width: 100%;
-  height: 100vh;
+  height: 80vh;
 }
 img {
-  position: relative;
-  width: 40vw;
-  margin-top: 20vw;
+  position: initial;
+  width: 30vw;
+  margin-top: 10vw;
 }
 </style>

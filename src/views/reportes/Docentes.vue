@@ -93,6 +93,10 @@
             }"
           />
         </div>
+        <h2>Seleciona la fecha que se quiere descargar el reporte</h2>
+          <br>
+          <input type="date" name="fecha_inicial" v-model="fechai" >
+          <input type="date" name="fecha_final" v-model="fechaf">
         <button @click="DownloadreportDO()" class="btn btn-success">
           Descargar reporte
         </button>
@@ -108,6 +112,8 @@ export default {
   name: "Rdocente",
   data() {
     return {
+      fechai:"",
+      fechaf:"",
       locales: [
         { text: "ingles" },
         { text: "Español" },
@@ -128,7 +134,7 @@ export default {
   methods: {
     async MostrarReporte_Docente() {
       await this.axios
-        .get("http://127.0.0.1:8000/api/ReportsDoc")
+        .get("/ReportsDoc")
         .then((response) => {
           this.Reporte_Docente = response.data;
           this.reporte_docentefiltrado = response.data;
@@ -156,9 +162,9 @@ export default {
         this.reporte_docentefiltrado = this.Reporte_Docente;
       }
     },
-    DownloadreportDO() {
+    DownloadreportDO(fechai,fechaf) {
       axios({
-        url: `http://127.0.0.1:8000/api/Reports_DocPdf`,
+        url: `/Reports_DocPdf/${fechai}/${fechaf}`,
         method: "GET",
         responseType: "blob",
       }).then((response) => {
@@ -173,7 +179,7 @@ export default {
     },
     DownloadreportDODETALLE(id_docente) {
       axios({
-        url: `http://127.0.0.1:8000/api/Reports_DocDePdf/${id_docente}`,
+        url: `/Reports_DocDePdf/${id_docente}`,
         method: "GET",
         responseType: "blob",
       }).then((response) => {

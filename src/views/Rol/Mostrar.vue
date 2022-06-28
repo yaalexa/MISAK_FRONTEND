@@ -124,13 +124,6 @@
           </b-button>
         </template>
       </b-modal>
-      <a
-        href=""
-        @click.prevent="printme"
-        target="_blank"
-        class="btn btn-default"
-        ><i class="fa fa-print"></i> Print</a
-      >
     </div>
   </div>
 </template>
@@ -142,6 +135,7 @@ export default {
   name: "MostrarRoles",
   data() {
     return {
+      token:null,
       form: {
         client: null,
       },
@@ -168,17 +162,19 @@ export default {
     },
   },
   mounted() {
+    this.token = JSON.parse(sessionStorage.getItem("user"));
     this.mostrarRoles();
   },
   methods: {
-    printInvoice() {
-      window.print();
-    },
     editarrol() {
       axios
-        .put(`http://localhost:8000/api/rols/${this.selectedUserid}`, {
+        .put(`/rols/${this.selectedUserid}`, {
           name: this.selectedUsernom,
-        })
+        },{
+         headers: {
+           "Content-Type": "application/json",
+            Authorization: "Bearer " + this.token
+             }})
         .then((response) => {
           console.log(response);
           this.mostrarRoles();
@@ -189,7 +185,11 @@ export default {
     },
     handleOk() {
       this.axios
-        .post("http://127.0.0.1:8000/api/rols", { name: this.form.client })
+        .post("/rols", { name: this.form.client },{
+         headers: {
+           "Content-Type": "application/json",
+            Authorization: "Bearer " + this.token
+             }})
         .then((response) => {
           console.log(response);
           this.mostrarRoles();
@@ -197,7 +197,11 @@ export default {
     },
     async mostrarRoles() {
       await this.axios
-        .get("http://127.0.0.1:8000/api/rols")
+        .get("/rols",{
+         headers: {
+           "Content-Type": "application/json",
+            Authorization: "Bearer " + this.token
+             }})
         .then((response) => {
           this.Roles = response.data;
         })

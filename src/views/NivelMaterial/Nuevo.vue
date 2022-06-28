@@ -97,7 +97,11 @@ export default {
   methods: {
     async mostrarNiveles() {
       await this.axios
-        .get("http://127.0.0.1:8000/api/educational_levels")
+        .get("/educational_levels",{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
         .then((response) => {
           this.Niveles = response.data;
         })
@@ -109,7 +113,7 @@ export default {
     asignarNiveles(id) {
       this.axios
         .post(
-          `http://127.0.0.1:8000/api/material__educational_levels/${this.$route.params.id},${id}`
+          `/material__educational_levels/${this.$route.params.id},${id}`
         )
         .then((data) => {
           console.log(data);
@@ -126,7 +130,7 @@ export default {
       );
       axios
         .post(
-          "http://127.0.0.1:8000/api/material__educational_levels",
+          "/material__educational_levels",
           formDataNivel
         )
         .then((data) => {

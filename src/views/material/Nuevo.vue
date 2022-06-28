@@ -204,15 +204,15 @@ export default {
     };
   },
   mounted: function () {
-    axios.get("http://localhost:8000/api/type_materials").then((result) => {
+    axios.get("/type_materials").then((result) => {
       this.TipoMaterial = result.data;
     });
 
-    axios.get("http://127.0.0.1:8000/api/editorials").then((result) => {
+    axios.get("/editorials").then((result) => {
       this.editorial = result.data;
     });
 
-    axios.get("http://127.0.0.1:8000/api/areas").then((result) => {
+    axios.get("/areas").then((result) => {
       this.areas = result.data;
     });
   },
@@ -265,7 +265,11 @@ export default {
       formDataDataCambiar.append("type_material_id",this.formData.TipoMaterial
       );
       axios
-        .post("http://127.0.0.1:8000/api/materials", formDataDataCambiar)
+        .post("/materials", formDataDataCambiar,{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
         .then((data) => {
           console.log(data);
           this.makeToast("Hecho", "material creado", "success");

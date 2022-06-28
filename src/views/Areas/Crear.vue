@@ -51,8 +51,9 @@ export default {
     },
     async crear() {
       await this.axios
-        .post("http://127.0.0.1:8000/api/areas", this.areas)
+        .post("/areas", this.areas)
         .then((response) => {
+          console.log(response);
           this.$router.push({ name: "MostrarAreas" });
         })
         .catch((error) => {

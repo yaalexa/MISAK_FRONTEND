@@ -109,8 +109,7 @@ export default {
         { key: "id", label: "#" },
         { key: "NOMBRE", label: "Nombre" },
         { key: "ISBN", label: "ISBN" },
-        { key: "#PAG", label: "# Pag" },
-        { key: "PRIORIDAD", label: "Prioridad" },
+        { key: "#PAG", label: "#Pag" },
         { key: "AÑO", label: "Año" },
         { key: "TIPO MATERIAL", label: "Tipo Material" },
         { key: "EDITORIAL", label: "Editorial" },
@@ -144,7 +143,11 @@ export default {
     buscarmaterial(name) {
       console.log(name);
       this.axios
-        .get("http://127.0.0.1:8000/api/buscar/" + name)
+        .get("/buscar/" + name,{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
         .then((response) => {
           this.buscar = response.data.material;
           console.log(this.buscar);
@@ -154,7 +157,11 @@ export default {
         });
     },
     editar(id) {
-      this.$router.push("/editar:" + id);
+      this.$router.push("/editar:" + id,{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                });
     },
     nuevo() {
       this.$router.push("/nuevo");
@@ -162,7 +169,11 @@ export default {
     borrar(id) {
       if (confirm("¿Confirma eliminar el registro?")) {
         this.axios
-          .delete(`http://127.0.0.1:8000/api/materials/${id}`)
+          .delete(`/materials/${id}`,{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
           .then((response) => {
             console.log(response);
             this.mostarMateriales();
@@ -181,7 +192,11 @@ export default {
     },
     async mostarMateriales() {
       await this.axios
-        .get("http://127.0.0.1:8000/api/visualizacion/")
+        .get("/visualizacion/",{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
         .then((response) => {
           this.material = response.data;
           console.log(this.material);

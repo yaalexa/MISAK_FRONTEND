@@ -47,10 +47,10 @@
                   ><font-awesome-icon icon="fa-solid fa-pen-to-square" />
                   <b-icon icon="pencil" aria-hidden="true"></b-icon>
                 </b-button>
-                <a type="button" @click="borrarEditorial(row.item.id)">
+                <b-button class="btn btn-secondary" @click="borrarEditorial(row.item.id)">
                   <font-awesome-icon icon="fa-solid fa-trash-can" />
                   <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
-                </a>
+                </b-button>
               </template>
             </b-table>
             <b-pagination
@@ -167,9 +167,13 @@ export default {
   methods: {
     async editarEdit() {
       axios
-        .put(`http://localhost:8000/api/editorials/${this.selectedEdid}`, {
+        .put(`/editorials/${this.selectedEdid}`, {
           name: this.selectedEdnom,
-        })
+        },{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
         .then((response) => {
           console.log(response);
           this.mostrarEditorial();
@@ -180,9 +184,13 @@ export default {
     },
     crearEd() {
       this.axios
-        .post("http://127.0.0.1:8000/api/editorials", {
+        .post("/editorials", {
           name: this.form.nom_editorial,
-        })
+        },{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
         .then((response) => {
           console.log(response);
           this.mostrarEditorial();
@@ -190,7 +198,11 @@ export default {
     },
     async mostrarEditorial() {
       await this.axios
-        .get("http://127.0.0.1:8000/api/editorials")
+        .get("/editorials",{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
         .then((response) => {
           this.editorial = response.data;
         })
@@ -202,7 +214,11 @@ export default {
     borrarEditorial(id) {
       if (confirm("¿Confirma eliminar el registro?")) {
         this.axios
-          .delete(`http://127.0.0.1:8000/api/editorials/${id}`)
+          .delete(`/editorials/${id}`,{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
           .then((response) => {
             console.log(response);
             this.mostrarEditorial();
@@ -240,7 +256,7 @@ body {
   color: white;
 }
 .contenedortabla {
-  width: 80%;
+  width: 90%;
   text-align: center;
   margin-left: 10%;
 }

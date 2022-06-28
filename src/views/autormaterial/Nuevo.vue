@@ -95,7 +95,11 @@ export default {
   methods: {
     async mostrarAutores() {
       await this.axios
-        .get("http://127.0.0.1:8000/api/authors")
+        .get("/authors",{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
         .then((response) => {
           this.Autores = response.data;
         })
@@ -107,7 +111,7 @@ export default {
     asignarAutores(id) {
       this.axios
         .post(
-          `http://127.0.0.1:8000/api/author_materials/${this.$route.params.id},${id}`
+          `/author_materials/${this.$route.params.id},${id}`
         )
         .then((data) => {
           console.log(data);
@@ -120,7 +124,7 @@ export default {
       formDataAutor.append("material_id", this.$route.params.id);
       formDataAutor.append("author_id", this.formData.author_id);
       axios
-        .post("http://127.0.0.1:8000/api/author_materials", formDataAutor)
+        .post("/author_materials", formDataAutor)
         .then((data) => {
           console.log(data);
           this.alert("Hecho", "autor asignado creado", "success");

@@ -178,9 +178,13 @@ export default {
   methods: {
     editararea() {
       axios
-        .put(`http://localhost:8000/api/areas/${this.selectedUserid}`, {
+        .put(`/areas/${this.selectedUserid}`, {
           name: this.selectedUsernom,
-        })
+        },{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
         .then((response) => {
           console.log(response);
           this.mostrarAreas();
@@ -191,14 +195,23 @@ export default {
     },
     handleOk() {
       this.axios
-        .post("http://127.0.0.1:8000/api/areas", { name: this.form.client })
+        .post("/areas", { name: this.form.client },{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
         .then((response) => {
+          console.log(response)
           this.mostrarAreas();
         });
     },
     async mostrarAreas() {
       await this.axios
-        .get("http://127.0.0.1:8000/api/areas")
+        .get("/areas",{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
         .then((response) => {
           this.Areas = response.data;
         })
@@ -210,8 +223,13 @@ export default {
     borrarAreas(id) {
       if (confirm("¿Confirma eliminar el registro?")) {
         this.axios
-          .delete(`http://127.0.0.1:8000/api/areas/${id}`)
+          .delete(`/areas/${id}`,{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
           .then((response) => {
+            console.log(response)
             this.mostrarAreas();
           })
           .catch((error) => {

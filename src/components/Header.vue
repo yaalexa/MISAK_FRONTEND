@@ -177,8 +177,19 @@ export default {
     },
     async cerrarTodo(obj) {
       if (confirm("¿Confirma cerrar sesión?")) {
-        sessionStorage.clear();
-        this.$router.push("/casa");
+        var token = JSON.parse(sessionStorage.getItem("user"));
+        await this.axios
+            .get(`/logout`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: "Bearer " + token
+                    }
+                    }).then((response) => {
+                          console.log("logout: ", response.data);
+                          sessionStorage.clear();
+                         this.$router.push("/casa");
+                    }).catch((errorgrave) => console.log(errorgrave));
+        
       }
     },
   },

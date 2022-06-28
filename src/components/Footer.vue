@@ -32,6 +32,7 @@
 </template>
 <style  scoped>
 .footer {
+  margin-top: -2vw;
   background-color: #2b252c;
   background-size: cover;
   width: 100%;
@@ -60,5 +61,37 @@ img {
   background: rgba(128, 128, 128, 0.05);
   border-radius: 4em;
   padding: 0.35em 0.75em 0.35em 0.75em;
+}
+@media (min-width: 0px) and (max-width: 700px){
+  .footer {
+  background-color: #2b252c;
+  background-size: cover;
+  width: 100%;
+}
+.ul {
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+  padding: 0;
+}
+li {
+  margin-right: 4vw;
+  margin-top: 3vw;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  list-style: none;
+}
+img {
+  width: 3vw;
+}
+.redes {
+  margin-right: 7px;
+}
+.redess {
+  position: relative;
+  background: rgba(128, 128, 128, 0.05);
+  border-radius: 4em;
+  padding: 0.35em 0.75em 0.35em 0.75em;
+}
 }
 </style>

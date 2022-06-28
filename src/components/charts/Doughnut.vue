@@ -61,7 +61,7 @@ export default {
   methods: {
     mostrarReportei() {
       this.axios
-        .get("http://127.0.0.1:8000/api/Reports")
+        .get("/Reports")
         .then((response) => {
           this.consumo = response.data;
           // console.log(this.consumo);

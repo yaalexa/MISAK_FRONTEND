@@ -40,7 +40,11 @@
           </table>
         </div>
         <div>
-          <button @click="DownloadreportVI()" class="btn btn-success">
+          <h2>Seleciona la fecha que se quiere descargar el reporte</h2>
+          <br>
+          <input type="date" name="fecha_inicial" v-model="fechai" >
+          <input type="date" name="fecha_final" v-model="fechaf">
+          <button @click="DownloadreportVI(fechai,fechaf)" class="btn btn-success">
             Descargar Reporte
           </button>
         </div>
@@ -57,6 +61,8 @@ export default {
   name: "Visualizacion",
   data() {
     return {
+      fechai:"",
+      fechaf:"",
       locales: [
         { text: "ingles" },
         { text: "Español" },
@@ -91,7 +97,7 @@ export default {
   methods: {
     async MostrarReporteV() {
       await this.axios
-        .get("http://127.0.0.1:8000/api/Reportsvisua")
+        .get(" /Reportsvisua")
         .then((response) => {
           this.Reporte = response.data;
         })
@@ -100,9 +106,9 @@ export default {
           this.Reporte = [];
         });
     },
-    DownloadreportVI() {
+    DownloadreportVI(fechai,fechaf) {
       axios({
-        url: `http://127.0.0.1:8000/api/Report_ViPDF`,
+        url: ` /Report_ViPDF/${fechai}/${fechaf}`,
         method: "GET",
         responseType: "blob",
       }).then((response) => {

@@ -43,7 +43,7 @@ export default {
   methods: {
     async crear() {
       await this.axios
-        .post("http://127.0.0.1:8000/api/editorials", this.editorial)
+        .post("/editorials", this.editorial)
         .then((response) => {
           this.$router.push({ name: "MostrarEditorial" });
         })

@@ -61,7 +61,7 @@ export default {
   methods: {
     guardar() {
       this.axios
-        .post("http://127.0.0.1:8000/api/rols", this.form)
+        .post("/rols", this.form)
         .then((data) => {
           console.log(data);
           this.makeToast("Hecho", "rol creado", "success");

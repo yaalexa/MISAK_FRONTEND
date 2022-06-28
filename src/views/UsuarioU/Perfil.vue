@@ -1,6 +1,6 @@
 <template>
   <div class="contenedor">
-    <div class="shadow-lg bg-white rounded">
+    <div class="shadow-sm bg-white rounded">
       <Menu1 />
     </div>
 
@@ -132,6 +132,7 @@
                       >
                         Guardar
                       </button>
+                      <button  class="btn btn-primary profile-button" v-on:click="restable()">Cambio Contraseña</button>      
                     </div>
                   </div>
                 </div>
@@ -174,7 +175,7 @@ export default {
     async mostrarusuariou() {
       var id = JSON.parse(sessionStorage.getItem("userid"));
       console.log("el id es ", id);
-      axios.get("http://127.0.0.1:8000/api/users/" + id).then((datos) => {
+      axios.get("/users/" + id).then((datos) => {
         this.per.name = datos.data[0].name;
         this.per.full_name = datos.data[0].full_name;
         this.per.email = datos.data[0].email;
@@ -189,12 +190,15 @@ export default {
     actualizarU() {
       var id = JSON.parse(sessionStorage.getItem("userid"));
       axios
-        .put("http://127.0.0.1:8000/api/users1/" + id, this.per)
+        .put("/users1/" + id, this.per)
         .then((response) => {
           console.log(response);
           this.$router.push("/UsuarioU");
         });
     },
+    restable(){
+                this.$router.push("/Restablecer");
+    }
   },
 };
 </script>
@@ -216,6 +220,7 @@ body {
   background: #23282e;
   box-shadow: none;
   border: none;
+  
 }
 .profile-button:hover {
   background: #682773;
@@ -255,5 +260,8 @@ body {
 }
 .conte1 {
   width: 40%;
+}
+.conte2 {
+  width: 60%;
 }
 </style>

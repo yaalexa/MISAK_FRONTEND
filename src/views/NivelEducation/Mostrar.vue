@@ -186,8 +186,12 @@ export default {
     async editarEdit() {
       axios
         .put(
-          `http://localhost:8000/api/educational_levels/${this.selectedEdid}`,
-          { name: this.selectedEdnom }
+          `/educational_levels/${this.selectedEdid}`,
+          { name: this.selectedEdnom },{
+                  headers: {
+                      "Content-Type": "application/json",
+                      Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                  }}
         )
         .then((response) => {
           console.log(response);
@@ -199,9 +203,13 @@ export default {
     },
     crearEd() {
       this.axios
-        .post("http://127.0.0.1:8000/api/educational_levels", {
+        .post("/educational_levels", {
           name: this.form.nom_editorial,
-        })
+        },{
+                  headers: {
+                      "Content-Type": "application/json",
+                      Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                  }})
         .then((response) => {
           console.log(response);
           this.mostrarNivelEducativo();
@@ -209,7 +217,11 @@ export default {
     },
     async mostrarNivelEducativo() {
       await this.axios
-        .get("http://127.0.0.1:8000/api/educational_levels")
+        .get("/educational_levels",{
+                  headers: {
+                      "Content-Type": "application/json",
+                      Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                  }})
         .then((response) => {
           this.NivelEducativo = response.data;
         })
@@ -221,7 +233,11 @@ export default {
     borrarNivelEducativo(id) {
       if (confirm("¿Confirma eliminar el registro?")) {
         this.axios
-          .delete(`http://127.0.0.1:8000/api/educational_levels/${id}`)
+          .delete(`/educational_levels/${id}`,{
+                  headers: {
+                      "Content-Type": "application/json",
+                      Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                  }})
           .then((response) => {
             console.log(response);
             this.mostrarNivelEducativo();

@@ -58,7 +58,7 @@ export default {
     /* alert:${this.$route.params.id}, */
     async mostrarRol() {
       await this.axios
-        .get(`http://localhost:8000/api/rols/{$this.$route.params.id}`)
+        .get(`/rols/{$this.$route.params.id}`)
         .then((response) => {
           const { name } = response.data;
           this.rol.name = name;
@@ -74,7 +74,7 @@ export default {
     async actualizar() {
       await this.axios
         .put(
-          `http://localhost:8000/api/rols/${this.$route.params.id}`,
+          `/rols/${this.$route.params.id}`,
           this.rol
         )
         .then((response) => {

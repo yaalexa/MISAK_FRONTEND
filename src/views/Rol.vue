@@ -120,12 +120,14 @@ export default {
     //Footer
   },
   mounted() {
+  
     this.mostrarUsr();
   },
   methods: {
+    
     async mostrarUsr() {
       await this.axios
-        .get("http://localhost:8000/api/users")
+        .get("/users")
         .then((response) => {
           this.usr = response.data;
         })

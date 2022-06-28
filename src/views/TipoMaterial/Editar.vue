@@ -64,7 +64,7 @@ export default {
     editar() {
       axios
         .put(
-          `http://localhost:8000/api/type_materials/${this.form.TipoMaterialid}`,
+          `/type_materials/${this.form.TipoMaterialid}`,
           this.form
         )
         .then((response) => {
@@ -80,7 +80,7 @@ export default {
         TipoMaterialid: this.form.TipoMaterialid,
       };
       axios
-        .delete("http://localhost:8000/api/type_materials", { headers: enviar })
+        .delete("/type_materials", { headers: enviar })
         .then((datos) => {
           console.log(datos);
           this.$router.push("/TipoMaterial");
@@ -91,7 +91,7 @@ export default {
     this.form.TipoMaterialid = this.$route.params.id;
     axios
       .get(
-        "http://localhost:8000/api/type_materials/?id=" +
+        "/type_materials/?id=" +
           this.form.TipoMaterialid
       )
       .then((datos) => {

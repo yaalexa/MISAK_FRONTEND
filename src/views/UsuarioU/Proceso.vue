@@ -23,7 +23,7 @@
         :no-border-collapse="noCollapse"
         responsive="sm"
         :filter="filter"
-        id="my-table"
+        id="tableproceso"
         :items="proceso"
         :fields="fieldsMy"
         :per-page="perPage"
@@ -79,7 +79,7 @@ export default {
   methods: {
     async mostrarProcesoUser(id) {
       await this.axios
-        .get(`http://127.0.0.1:8000/api/process__users/${id}`)
+        .get(`/process__users/${id}`)
         .then((response) => {
           this.proceso = response.data;
           console.log(this.proceso);
@@ -111,13 +111,13 @@ body {
   padding: 10px;
   width: 100%;
   padding: 1%;
-  margin-left: 1%;
-  margin-right: 1%;
+  margin-left: 2%;
+  margin-right: 2%;
   overflow: auto;
   margin-top: 3%;
 }
-#my-table {
-  width: 80%;
+.table-responsive-sm {
+  width: 95%;
   overflow-x: auto;
 }
 #menu {

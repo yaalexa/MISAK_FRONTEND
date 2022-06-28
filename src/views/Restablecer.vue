@@ -115,7 +115,7 @@ export default {
   methods: {
     restablecer() {
       axios
-        .put("http://127.0.0.1:8000/api/restablecer", this.json)
+        .put("/restablecer", this.json)
         .then((response) => {
           this.form = response.data;
           console.log("Hola", this.form);

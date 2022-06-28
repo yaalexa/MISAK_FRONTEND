@@ -100,7 +100,11 @@ export default {
   methods: {
     async mostrarAutores() {
       await this.axios
-        .get("http://127.0.0.1:8000/api/authors")
+        .get("/authors",{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
         .then((response) => {
           this.Autores = response.data;
         })
@@ -115,7 +119,11 @@ export default {
     borrarAutores(id) {
       if (confirm("¿Confirma eliminar el registro?")) {
         this.axios
-          .delete(`http://127.0.0.1:8000/api/authors/${id}`)
+          .delete(`/authors/${id}`,{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
           .then((response) => {
             this.mostrarAutores();
           })
@@ -134,14 +142,24 @@ body {
 }
 .pantalla {
   display: flex;
+  overflow: hidden;
+  height: 100vh;
 }
 .cara1 {
   height: 100vh;
   width: 20%;
+  overflow: hidden;
 }
 .cara2 {
   overflow: auto;
   height: 100vh;
-  width: 70%;
+  width: 80%;
+}
+.contenedorautor{
+  overflow: hidden;
+  width: 80%;
+}
+.table{
+  width: 90%;
 }
 </style>

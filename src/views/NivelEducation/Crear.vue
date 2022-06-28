@@ -45,7 +45,7 @@ export default {
     async crear() {
       await this.axios
         .post(
-          "http://127.0.0.1:8000/api/educational_levels",
+          "/educational_levels",
           this.NivelEducativo
         )
         .then((response) => {

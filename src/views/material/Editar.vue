@@ -199,20 +199,32 @@ export default {
   },
   methods: {
     tipoMaterial() {
-      let direccion = "http://localhost:8000/api/type_materials";
-      axios.get(direccion).then((result) => {
+      let direccion = "/type_materials";
+      axios.get(direccion,{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                }).then((result) => {
         this.type_material_id = result.data;
       });
     },
     area() {
-      let direccion3 = "http://127.0.0.1:8000/api/areas";
-      axios.get(direccion3).then((result) => {
+      let direccion3 = "/areas";
+      axios.get(direccion3,{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                }).then((result) => {
         this.area_id = result.data;
       });
     },
     edito() {
-      let direccion2 = "http://127.0.0.1:8000/api/editorials";
-      axios.get(direccion2).then((result) => {
+      let direccion2 = "/editorials";
+      axios.get(direccion2,{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                }).then((result) => {
         this.editorial_id = result.data;
       });
     },
@@ -222,7 +234,11 @@ export default {
     //cosas
     actualizar() {
       axios
-        .put("http://127.0.0.1:8000/api/materials/" + this.mate.id, this.mate)
+        .put("/materials/" + this.mate.id, this.mate,{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
         .then((response) => {
           console.log(response);
           this.$router.push("/dashboard");
@@ -231,7 +247,11 @@ export default {
     async mostrarForm() {
       this.mate.id = this.$route.params.id;
       await axios
-        .get("http://127.0.0.1:8000/api/materials/" + this.mate.id)
+        .get("/materials/" + this.mate.id,{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
         .then((response) => {
           this.mate.id = response.data[0].id;
           this.mate.name = response.data[0].name;

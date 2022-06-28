@@ -61,7 +61,7 @@ export default {
   methods: {
     editar() {
       axios
-        .put(`http://localhost:8000/api/areas/${this.form.areasid}`, this.form)
+        .put(`/areas/${this.form.areasid}`, this.form)
         .then((response) => {
           console.log(response);
           this.$router.push("/Areas");
@@ -75,7 +75,7 @@ export default {
         areasid: this.form.areasid,
       };
       axios
-        .delete("http://localhost:8000/api/areas", { headers: enviar })
+        .delete("/areas", { headers: enviar })
         .then((datos) => {
           console.log(datos);
           this.$router.push("/areas");
@@ -85,7 +85,7 @@ export default {
   mounted: function () {
     this.form.areasid = this.$route.params.id;
     axios
-      .get(`http://localhost:8000/api/areas/${this.form.areasid}`)
+      .get(`/areas/${this.form.areasid}`)
       .then((datos) => {
         this.form.name = datos.data[0].name;
         console.log(this.form);

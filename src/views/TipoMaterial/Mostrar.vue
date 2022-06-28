@@ -182,9 +182,13 @@ export default {
   methods: {
     async editarEdit() {
       axios
-        .put(`http://localhost:8000/api/type_materials/${this.selectedEdid}`, {
+        .put(`/type_materials/${this.selectedEdid}`, {
           name: this.selectedEdnom,
-        })
+        },{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
         .then((response) => {
           console.log(response);
           this.mostarTipoMaterial();
@@ -195,9 +199,13 @@ export default {
     },
     crearEd() {
       this.axios
-        .post("http://127.0.0.1:8000/api/type_materials", {
+        .post("/type_materials", {
           name: this.form.nom_editorial,
-        })
+        },{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
         .then((response) => {
           console.log(response);
           this.mostarTipoMaterial();
@@ -207,10 +215,14 @@ export default {
     borrar(id) {
       if (confirm("¿Confirma eliminar el registro?")) {
         this.axios
-          .delete(`http://127.0.0.1:8000/api/type_materials/${id}`)
+          .delete(`/type_materials/${id}`,{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
           .then((response) => {
             console.log(response);
-            this.$router.push("/TipoMaterial");
+            this.mostarTipoMaterial()
           })
           .catch((error) => {
             console.log(error);
@@ -219,7 +231,11 @@ export default {
     },
     async mostarTipoMaterial() {
       await this.axios
-        .get("http://127.0.0.1:8000/api/type_materials")
+        .get("/type_materials",{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
         .then((response) => {
           this.TipoMaterial = response.data;
         })

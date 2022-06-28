@@ -107,7 +107,7 @@ export default {
     },
   },
   mounted: function () {
-    let direccion = "http://localhost:8000/api/users";
+    let direccion = "/users";
     axios.get(direccion).then((result) => {
       this.usuarios = result.data;
     });
@@ -116,7 +116,7 @@ export default {
     obtenerUsuarios() {
       // alert('estoy en el metodo');
       axios
-        .get("http://127.0.0.1:8000/api/users")
+        .get("/users")
         .then((respuesta) => {
           console.log(respuesta.data);
           this.usuarios = respuesta.data;
@@ -128,7 +128,7 @@ export default {
     borrarUsuario(id) {
       if (confirm("¿Confirma eliminar el registro?")) {
         this.axios
-          .delete(`http://127.0.0.1:8000/api/users'/${id}`)
+          .delete(`/users'/${id}`)
           .then((response) => {
             console.log(response);
             this.$router.push("/usuarios");

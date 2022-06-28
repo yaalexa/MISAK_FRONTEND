@@ -87,7 +87,7 @@ export default {
         email: this.email,
         password: this.password,
       };
-      axios.post("http://localhost:8000/api/login", json).then((data) => {
+      axios.post("/login", json).then((data) => {
         console.log(data.data.status);
         if (data.data.status == "1") {
           this.$session.start();
@@ -138,7 +138,7 @@ html {
   width: 100%;
   height: 100vh;
   overflow: auto;
-  filter: alpha(opacity=50);
+  filter: alpha(opacity=90);
 }
 body {
   font-family: "Poppins", sans-serif;
@@ -175,10 +175,11 @@ h2 {
   -webkit-border-radius: 10px 10px 10px 10px;
   border-radius: 10px 10px 10px 10px;
   background-image: url("@/assets/fondo.png");
-  opacity: 0.8;
   padding: 30px;
   width: 100%;
+  height: 100%;
   max-width: 450px;
+  max-height: 90%;
   position: relative;
   padding: 0px;
   -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);

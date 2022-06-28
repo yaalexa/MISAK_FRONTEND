@@ -335,7 +335,7 @@ export default {
     };
   },
   mounted: function () {
-    this.axios.get("http://localhost:8000/api/rols").then((response) => {
+    this.axios.get("/obtenerrols").then((response) => {
       this.rol = response.data.slice(1, response.data.length);
     });
   },
@@ -352,7 +352,7 @@ export default {
         certificate_misak: this.certificate_misak,
         rol_id: this.selected,
       };
-      axios.post("http://localhost:8000/api/register", json).then((data) => {
+      axios.post("/register", json).then((data) => {
         if (data.data.status == "1") {
           // localStorage.token = data.data.result.token;
 

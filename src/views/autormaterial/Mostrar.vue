@@ -103,7 +103,7 @@ export default {
   methods: {
     autoresasignados() {
       this.nombrematerial = this.$route.params.name;
-      let direccion = `http://127.0.0.1:8000/api/author_materials/${this.$route.params.id}`;
+      let direccion = `/author_materials/${this.$route.params.id}`;
       axios.get(direccion).then((result) => {
         this.Author_material = result.data;
       });
@@ -114,7 +114,7 @@ export default {
     borrarautorasignado(id) {
       if (confirm("¿Confirma eliminar el registro?")) {
         this.axios
-          .delete(`http://127.0.0.1:8000/api/author_materials/${id}`)
+          .delete(`/author_materials/${id}`)
           .then((response) => {
             this.autoresasignados();
           })

@@ -63,7 +63,7 @@ export default {
   methods: {
     guardar() {
       axios
-        .post("http://127.0.0.1:8000/api/type_materials", this.form)
+        .post("/type_materials", this.form)
         .then((data) => {
           console.log(data);
           this.makeToast("Hecho", "TipoMaterial creado", "success");

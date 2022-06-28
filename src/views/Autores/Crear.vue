@@ -85,7 +85,6 @@
 
 <script>
 import Header from "@/components/Header.vue";
-import Footer from "@/components/Footer.vue";
 import axios from "axios";
 export default {
   name: "CrearAutor",
@@ -100,12 +99,15 @@ export default {
   },
   components: {
     Header,
-    //  Footer
   },
   methods: {
     async crear() {
       await this.axios
-        .post("http://127.0.0.1:8000/api/authors", this.Autor)
+        .post("/authors", this.Autor,{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
         .then((response) => {
           this.$router.push({ name: "MostrarAutor" });
         })

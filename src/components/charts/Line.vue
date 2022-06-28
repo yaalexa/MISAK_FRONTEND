@@ -71,7 +71,7 @@ export default {
   methods: {
     MostrarReportes_visualizado() {
       this.axios
-        .get("http://127.0.0.1:8000/api/Reportsvisua")
+        .get("/Reportsvisua")
         .then((response) => {
           this.consumo = response.data;
           this.name = response.data;

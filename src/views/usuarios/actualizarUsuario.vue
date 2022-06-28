@@ -58,6 +58,7 @@
                     v-model="Usuario.email"
                     placeholder="Enter your email"
                     class="form-control"
+                    disabled
                   />
                 </div>
               </div>
@@ -98,46 +99,11 @@
                     v-model="Usuario.document_number"
                     placeholder="Número de documento"
                     class="form-control"
+                    disabled
                   />
                 </div>
               </div>
             </div>
-
-            <div class="col-sm-12">
-              <div class="row">
-                <div class="col-xs-4">
-                  <label class="pass">Password :</label>
-                </div>
-                <div class="col-xs-8">
-                  <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    v-model="Usuario.password"
-                    placeholder="Enter your Password"
-                    class="form-control"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-12">
-              <div class="row">
-                <div class="col-xs-4">
-                  <label class="pass">confirmar Password :</label>
-                </div>
-                <div class="col-xs-8">
-                  <input
-                    type="password"
-                    name="password"
-                    id="password_confirmation"
-                    v-model="Usuario.password_confirmation"
-                    placeholder="Enter your Confirmation Password"
-                    class="form-control"
-                  />
-                </div>
-              </div>
-            </div>
-
             <div class="col-sm-12">
               <div class="row">
                 <div class="col-xs-4">
@@ -210,7 +176,11 @@ export default {
 
   mounted() {
     this.mostrarusuario();
-    this.axios.get("http://localhost:8000/api/rols").then((response) => {
+    this.axios.get("/rols",{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                }).then((response) => {
       this.rol = response.data;
     });
   },
@@ -220,14 +190,11 @@ export default {
     },
     async mostrarusuario() {
       axios
-        .get("http://127.0.0.1:8000/api/users/" + this.$route.params.id)
+        .get("/users/" + this.$route.params.id)
         .then((datos) => {
           this.Usuario.name = datos.data[0].name;
           this.Usuario.full_name = datos.data[0].full_name;
           this.Usuario.email = datos.data[0].email;
-          this.Usuario.password = datos.data[0].password;
-          this.Usuario.password_confirmation =
-            datos.data[0].password_confirmation;
           this.Usuario.document_type = datos.data[0].document_type;
           this.Usuario.document_number = datos.data[0].document_number;
           this.Usuario.certificate_misak = datos.data[0].certificate_misak;
@@ -237,12 +204,12 @@ export default {
     async actualizar() {
       await this.axios
         .put(
-          `http://127.0.0.1:8000/api/users/${this.$route.params.id}`,
+          `/users/${this.$route.params.id}`,
           this.Usuario
         )
         .then((response) => {
           console.log(response);
-          // this.$router.push({name:"/usuarios"})
+          this.$router.push({name:"/usuarios"})
         })
         .catch((error) => {
           console.log(error);

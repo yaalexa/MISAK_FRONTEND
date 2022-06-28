@@ -11,40 +11,52 @@
         <b-container class="bv-example-row">
           <b-row>
             <b-col>
+              <button id="icon" class="form-control position-relative" v-on:click="focusInput()">
               <b-icon icon="pencil-fill" font-scale="2.5"></b-icon>
               <div class="d-block text-center">
                 <h6>Editorial</h6>
               </div>
+              </button>
             </b-col>
             <b-col>
+              <button id="icon" class="form-control position-relative" v-on:click="focusInput()">
               <b-icon icon="person-bounding-box" font-scale="2.5"></b-icon>
               <div class="d-block text-center">
                 <h6>Autor</h6>
               </div>
+              </button>
             </b-col>
             <b-col>
+              <button id="icon" class="form-control position-relative" v-on:click="focusInput()">
               <b-icon icon="reception4" font-scale="2.5"></b-icon>
               <div class="d-block text-center">
                 <h6>Nivel Educativo</h6>
               </div>
+              </button>
             </b-col>
             <b-col>
+              <button id="icon" class="form-control position-relative" v-on:click="focusInput()">
               <b-icon icon="book-fill" font-scale="2.5"></b-icon>
               <div class="d-block text-center">
                 <h6>Material</h6>
               </div>
+              </button>
             </b-col>
             <b-col>
+              <button id="icon" class="form-control position-relative" v-on:click="focusInput()">
               <b-icon icon="stack" font-scale="2.5"></b-icon>
               <div class="d-block text-center">
                 <h6>Area</h6>
               </div>
+              </button>
             </b-col>
             <b-col>
+              <button id="icon" class="form-control position-relative" v-on:click="focusInput()">
               <b-icon icon="inboxes-fill" font-scale="2.5"></b-icon>
               <div class="d-block text-center">
                 <h6>Tipo Material</h6>
               </div>
+              </button>
             </b-col>
           </b-row>
         </b-container>
@@ -58,7 +70,7 @@
           id="barra"
           type="search"
           size="lg"
-          placeholder="Buscar por material, editorial, autor ...."
+          placeholder="Buscar  ...."
           aria-label="Search"
           v-model="buscar"
 
@@ -288,9 +300,16 @@ export default {
     this.destdescarga();
   },
   methods: {
+   focusInput(){
+    document.getElementById("barra").focus();
+   },
     buscadorfinal() {
       axios
-        .get(`http://127.0.0.1:8000/api/buscadorfinal/${this.buscar}`)
+        .get(`/buscadorfinal/${this.buscar}`,{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
         .then((response) => {
           this.getmaterial = response.data;
           console.log("Hola",this.getmaterial);
@@ -303,20 +322,24 @@ export default {
       this.mtr_usr.users_id = usrid;
       this.mtr_usr.material_id = id;
       axios
-        .post("http://127.0.0.1:8000/api/material__users", this.mtr_usr)
+        .post("/material__users", this.mtr_usr,{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
         .then((response) => {
           console.log(response);
         });
       this.$router.push({ name: "Pdf", params: { id: id, pr: priority } });
     },
      destvisual(){
-         axios.get('http://127.0.0.1:8000/api/visualmuser')
+         axios.get('/visualmuser')
          .then(response => {
              this.visual = response.data;
          }) 
         },
     destdescarga(){
-        axios.get('http://127.0.0.1:8000/api/descargasuser')
+        axios.get('/descargasuser')
         .then(response=>{
             this.descarga = response.data;
         })      
@@ -446,5 +469,11 @@ export default {
 .card-body {
   text-align: center;
   float: left;
+}
+#icon{
+  border: #16223f 1px solid;
+  height: 100%;
+  width: 100%;
+  margin: 2px;
 }
 </style>

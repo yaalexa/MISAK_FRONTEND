@@ -94,7 +94,7 @@ export default {
   methods: {
     async mostrarRol2() {
       await this.axios
-        .get("http://localhost:8000/api/users")
+        .get("/users")
         .then((response) => {
           this.rol2 = response.data;
         })
@@ -102,7 +102,7 @@ export default {
           console.log(error);
           this.areas = [];
         });
-      /*             await this.axios.get('http://localhost:8000/api/editorials').then(response=>{
+      /*             await this.axios.get('/editorials').then(response=>{
                 this.editorial = response.data
             }).catch(error=>{
                 console.log(error)
@@ -112,7 +112,7 @@ export default {
     borrarEditorial(id) {
       if (confirm("¿Confirma eliminar el registro?")) {
         this.axios
-          .delete(`http://localhost:8000/api/editorials/${id}`)
+          .delete(`/editorials/${id}`)
           .then((response) => {
             console.log(response);
             this.mostrarEditorial();

@@ -106,7 +106,11 @@ export default {
     },
     async mostrarAutor() {
       axios
-        .get("http://localhost:8000/api/authors/" + this.$route.params.id)
+        .get("/authors/" + this.$route.params.id,{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
         .then((datos) => {
           this.Autor.name = datos.data[0].name;
           this.Autor.address = datos.data[0].address;
@@ -116,8 +120,12 @@ export default {
     async actualizar() {
       await this.axios
         .put(
-          `http://127.0.0.1:8000/api/authors/${this.$route.params.id}`,
-          this.Autor
+          `/authors/${this.$route.params.id}`,
+          this.Autor,{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                }
         )
         .then((response) => {
           this.$router.push({ name: "MostrarAutor" });
