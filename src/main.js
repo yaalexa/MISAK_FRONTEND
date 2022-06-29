@@ -19,7 +19,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 var token=JSON.parse(sessionStorage.getItem("user"));
 axios.defaults.baseURL = 'http://localhost:8000/api';
 axios.defaults.headers.common['Autorization']="Bearer "+token;
-axios.defaults.headers.post['Content-Type']='application/json';
+axios.defaults.headers.post['Content-Type']='application/json'; 
 axios.defaults.headers.get['Content-Type']='application/json';
 new Vue({
   router,

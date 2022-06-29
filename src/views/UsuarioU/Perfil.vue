@@ -30,6 +30,9 @@
                   /><span class="font-weight-bold">{{ per.full_name }}</span
                   ><span class="text-black-50">{{ per.email }}</span
                   ><span> </span>
+                  <div class="">
+                      <button class ="btn btn-warning btn-sm " type="button" v-b-modal.modal-xl  >Cambio contraseña</button>
+                  </div>
                 </div>
               </div>
               <div class="conte2 col-md-5 border-right">
@@ -132,8 +135,112 @@
                       >
                         Guardar
                       </button>
-                      <button  class="btn btn-primary profile-button" v-on:click="restable()">Cambio Contraseña</button>      
+                      
                     </div>
+                  </div>
+                  <!-- aqui comienza el modal de cambio de contraseña -->
+
+                  <div>
+                    <b-modal id="modal-xl" size="lg" title="Cambio de contraseña">
+                      <template #modal-header>
+                        <h3>Cambio de Contraseña</h3>
+                      </template>
+
+                      <form action="">
+                           <div class="form">
+                               <div class="col-sm-6">
+                                  <div class="col-sm-12">
+                                    <div class="row1">
+                                      <div class="col-xs-4">
+                                        <label class="">Email:</label>
+
+                                      </div>
+                                      <div class="col-xs-8">
+                                        <input
+                                          type="email"
+                                          name="email"
+                                          id="email"
+                                          v-model="json.email"
+                                          placeholder="Enter your email"
+                                          class="form-control"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-sm-12">
+                                    <div class="row1">
+                                      <div class="col-xs-4">
+                                        <label class="">Contraseña Antigua:</label>
+                                      </div>
+                                      <div class="col-xs-8">
+                                        <input
+                                          type="password"
+                                          name="password"
+                                          id="password"
+                                          v-model="json.password"
+                                          placeholder="Enter your Password"
+                                          class="form-control"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-sm-12">
+                                    <div class="row1">
+                                      <div class="col-xs-4">
+                                        <label class="">Nueva Contraseña:</label>
+                                      </div>
+                                      <div class="col-xs-8">
+                                        <input
+                                          type="password"
+                                          name="newpassword"
+                                          id="newpassword"
+                                          placeholder="Enter your New Password"
+                                          class="form-control"
+                                          v-model="json.newpassword"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-sm-12">
+                                    <div class="row1">
+                                      <div class="col-xs-4">
+                                        <label class="">Confirmacion de Contraseña Nueva:</label>
+                                      </div>
+                                      <div class="col-xs-8">
+                                        <input
+                                          type="password"
+                                          name="newpassword_confirmation"
+                                          id="newpassword_confirmation"
+                                          placeholder="Enter your Confirmation Password"
+                                          class="form-control"
+                                          v-model="json.newpassword_confirmation"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div>
+                                  <b-button
+                                        id="guardar5"
+                                        type="button"
+                                        class="btn btn-warning"
+                                        v-on:click="restablecer()"
+                                            >Guardar
+                                  </b-button>
+                                </div>
+                              </div>
+                          </div>
+                          
+                      </form>
+                      <template #modal-footer="{ close }">
+                            <b-button class="btn btn-secondary" @click="close()">
+                              Cerrar
+                            </b-button>
+                      </template>
+                       
+                  </b-modal>
                   </div>
                 </div>
               </div>
@@ -151,6 +258,13 @@ import axios from "axios";
 export default {
   data() {
     return {
+      cancelar:false,
+      json: {
+        email: "",
+        password: "",
+        newpassword: "",
+        newpassword_confirmation: "",
+      },
       per: {
         name: "",
         full_name: "",
@@ -186,6 +300,28 @@ export default {
         this.per.certificate_misak = datos.data[0].certificate_misak;
         this.per.rol_id = datos.data[0].rol_id;
       });
+    },
+    restablecer() {
+      var token = JSON.parse(sessionStorage.getItem("user"));
+      axios
+        .put("/restablecer", this.json, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: "Bearer " + token
+                    }
+                    })
+        .then((response) => {
+          this.form = response.data;
+
+            
+          console.log("formulario: ", this.form.mensaje);
+          this.mostrarusuariou();
+          alert(this.form.mensaje);
+        })
+        .catch((errorgrave) => console.log(errorgrave));
+    },
+    cancelar() {
+      this.$router.push("/perfilu");
     },
     actualizarU() {
       var id = JSON.parse(sessionStorage.getItem("userid"));
@@ -263,5 +399,8 @@ body {
 }
 .conte2 {
   width: 60%;
+}
+#guardar5{
+  margin-top: 10px;
 }
 </style>
