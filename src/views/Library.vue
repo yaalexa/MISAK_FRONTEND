@@ -1,6 +1,6 @@
 <template>
   <div class="pantalla">
-    <div class="cara1">
+    <div class="cara1 ">
       <header>
         <Header />
       </header>
@@ -174,8 +174,9 @@ body {
   height: 100vh;
 }
 .cara1 {
-  height: 100vh;
   width: 20%;
+  min-width: 10%;
+  height: min-content;
 }
 .cara2 {
   width: 80%;
