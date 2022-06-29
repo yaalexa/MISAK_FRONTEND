@@ -189,7 +189,7 @@ import Header from "@/components/Header.vue";
 //import Footer from '@/components/Footer.vue'
 import axios from "axios";
 export default {
-  name: "Nuevo",
+  name: "unuevo",
   components: {
     Header,
   },

@@ -12,10 +12,13 @@
           <h1>TIPO DE MATERIAL</h1>
           <div class="form-group left row">
             <div class="control-label col-sm-5" style="text-align: left">
-              <b-button v-b-modal="'creareTipoMaterial'" class="btn btn-warning"
+              <b-button id="nuevo" v-b-modal="'creareTipoMaterial'" class="btn btn-warning"
                 >Nuevo
                 <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon
               ></b-button>
+              <b-tooltip target="nuevo" triggers="hover">
+                    <b>NUEVO TIPO DE MATERIAL</b> 
+              </b-tooltip>
             </div>
             <div class="control-label col-sm-7" style="text-align: left">
               <div class="input-group" style="text-align: right">
@@ -40,21 +43,29 @@
           >
             <template #cell(Acciones)="row">
               <b-button
+                id="edit"
                 v-b-modal="'EditarTipoMaterial'"
                 class="btn btn-warning"
                 @click="sendInfoEditorial(row.item.id, row.item.name)"
                 ><font-awesome-icon icon="fa-solid fa-pen-to-square" />
                 <b-icon icon="pencil" aria-hidden="true"></b-icon
               ></b-button>
+              <b-tooltip target="edit" triggers="hover">
+                    <b>EDITAR TIPO DE MATERIAL</b> 
+              </b-tooltip>
               <a
                 type="button"
+                id="eliminar"
                 @click="borrar(row.item.id)"
                 class="btn btn-secondary"
                 ><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon
                   icon="trash-fill"
                   aria-hidden="true"
                 ></b-icon
-              ></a>
+              ><b-tooltip target="eliminar" triggers="hover">
+                    <b>ELIMINAR TIPO DE MATERIAL</b> 
+              </b-tooltip>
+              </a>
             </template>
           </b-table>
           <b-pagination
@@ -147,7 +158,7 @@
 import Header from "@/components/Header.vue";
 import axios from "axios";
 export default {
-  name: "TipoMaterial",
+  name: "MostrarTipoMaterial",
   data() {
     return {
       form: {

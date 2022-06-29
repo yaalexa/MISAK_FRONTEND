@@ -2,6 +2,9 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 import Home from "../views/home/Casa.vue";
+import HomeView from "../views/HomeView.vue";
+import HomeLogin from "../views/Home.vue";
+
 //import Home from '../views/Home.vue'
 import Register from "../views/Register.vue";
 import Dashboard from "../views/material/Dashboard.vue";
@@ -34,6 +37,8 @@ import Rol2 from "../views/Rol2.vue";
 import Mostrar from "../views/Rol/Mostrar.vue";
 import EditarRol from "../views/Rol/EditarRol.vue";
 import CrearRol from "../views/Rol/CrearRol.vue";
+import Buscarrol from "../views/Rol/Buscar.vue";
+
 
 //para autores
 import CrearAutores from "../views/Autores/Crear.vue";
@@ -66,7 +71,7 @@ import Doughnut from "@/components/charts/Doughnut.vue";
 import Casa from "../views/Home.vue";
 
 //ver pdf
-import Pdf from "../views/UsuarioU/Pdf";
+import Pdf from "../views/UsuarioU/Pdf.vue";
 // daniel cruz
 import Autormaterial from "../views/autormaterial/Mostrar.vue";
 import AsignarAutores from "../views/autormaterial/Nuevo.vue";
@@ -75,13 +80,20 @@ import Nivelmaterial from "../views/NivelMaterial/Mostrar.vue";
 import AsignarMaterial from "../views/NivelMaterial/Nuevo.vue";
 import Cultura from "../views/home/Cultura.vue";
 import Nosotros from "../views/home/Nosotros.vue";
+//components
+import MenuInicio from "../components/MenuInicial.vue";
+import Menu1 from "../components/Menu1.vue";
+import Menu from "../components/Menu.vue";
+import MenuAdmin from "../components/Header.vue";
+import Footer from "../components/Footer.vue";
+import Contenidocasa from "../components/Contenidocasa.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/usuarios",
-    name: "/usuarios",
+    name: "usuarios",
     component: Usuarios,
   },
   {
@@ -96,13 +108,13 @@ const routes = [
   },
   {
     path: "/actualizarusuarios/:id",
-    name: "/actualizarusuarios",
+    name: "actualizarusuarios",
     component: actualizarusuarios,
     meta: { requiresAuth: true },
   },
   {
     path: "/unuevo",
-    name: "/unuevo",
+    name: "unuevo",
     component: Unuevo,
     meta: { requiresAuth: true },
   },
@@ -110,6 +122,16 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+  },
+  {
+    path: "/HomeView",
+    name: "HomeView",
+    component: HomeView,
+  },
+  {
+    path: "/Login",
+    name: "Login",
+    component: HomeLogin,
   },
   {
     path: "/welcome",
@@ -129,6 +151,11 @@ const routes = [
     component: Register,
   },
   {
+    path: "/BuscarRol",
+    name: "BuscarRol",
+    component: Buscarrol,
+  },
+  {
     path: "/dashboard",
     name: "Dashboard",
     component: Dashboard,
@@ -141,8 +168,8 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/nuevo",
-    name: "Nuevo",
+    path: "/nuevoM",
+    name: "NuevoM",
     component: Nuevo,
     meta: { requiresAuth: true },
   },
@@ -183,8 +210,8 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    name: "Mostrar",
-    path: "/mostrar",
+    name: "MostrarRol",
+    path: "/MostrarRol",
     component: Mostrar,
     meta: { requiresAuth: true },
   },
@@ -204,6 +231,11 @@ const routes = [
     path: "/rol2",
     name: "rol2",
     component: Rol2,
+  },
+  {
+    path: "/Roles",
+    name: "Roles",
+    component: Rol,
   },
   {
     name: "CrearAutor",
@@ -286,8 +318,8 @@ const routes = [
     component: ReportesVisualizacion,
   },
   {
-    name: "Grafica",
-    path: "/Grafica",
+    name: "BarChart",
+    path: "/BarChart",
     component: Bar,
   },
   {
@@ -296,13 +328,13 @@ const routes = [
     component: LineChartGenerator,
   },
   {
-    name: "Doughnut",
-    path: "/Doughnut",
+    name: "DoughnutChart",
+    path: "/DoughnutChart",
     component: Doughnut,
   },
   {
-    name: "Casa",
-    path: "/Casa",
+    name: "Login",
+    path: "/Login",
     component: Casa,
   },
   {
@@ -350,6 +382,36 @@ const routes = [
     name: "Proceso",
     component: Proceso,
     meta: { requiresAuth1: true },
+  },
+  {
+    path:"/MenuInicio",
+    name: "MenuInicio",
+    component: MenuInicio
+  },
+  {
+    path:"/Menu1",
+    name: "Menu1",
+    component: Menu1
+  },
+  {
+    path:"/Menu",
+    name: "Menu",
+    component: Menu
+  },
+  {
+    path:"/MenuAdmin",
+    name: "MenuAdmin",
+    component: MenuAdmin
+  },
+  {
+    path:"/Footer",
+    name: "Footer",
+    component: Footer
+  },
+  {
+    path:"/Contenidocasa",
+    name: "Contenidocasa",
+    component: Contenidocasa
   },
 ];
 

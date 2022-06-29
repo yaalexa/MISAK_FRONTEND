@@ -9,7 +9,7 @@
       <section>
         <h1>Reporte de Visualizacion del material</h1>
         <br />
-         <div class="busqueda">
+      <div class="busqueda">
         <b-input-group size="sm"  >
          <label for="datepicker-sm">Buscar:</label>
         <b-form-input 
@@ -66,11 +66,6 @@ export default {
       filter:null,
       fechai:"",
       fechaf:"",
-      locales: [
-        { text: "ingles" },
-        { text: "Español" },
-        { text: "matematicas" },
-      ],
       Reporte: [],
       paginate: ["reporte_docentefiltrado"],
       fields: [

@@ -72,7 +72,7 @@
 import Header from "@/components/Header.vue";
 import axios from "axios";
 export default {
-  name: "MostrarAutoresmaterial",
+  name: "autormaterial",
   data() {
     return {
       Author_material: null,

@@ -60,7 +60,7 @@
 import Header from "@/components/Header.vue";
 import axios from "axios";
 export default {
-  name: "MostrarAutor",
+  name: "AsignarAutores",
   data() {
     return {
       Autores: [],

@@ -17,12 +17,16 @@
                 class="text-center"
               ></b-img>
               <router-link
+                id="material"
                 exact-active-class="active"
                 to="/dashboard"
                 class="nav-link"
                 aria-current="page"
                 >MATERIAL</router-link
               >
+              <b-tooltip target="material" triggers="hover">
+                Crea nuevos <b>Materiales</b> 
+              </b-tooltip>
             </b-col>
             <b-col>
               <b-img
@@ -32,12 +36,16 @@
                 class="text-center"
               ></b-img>
               <router-link
+                id="editorial"
                 exact-active-class="active"
                 to="/Editorial"
                 class="nav-link"
                 aria-current="page"
                 >EDITORIAL</router-link
               >
+              <b-tooltip target="editorial" triggers="hover">
+                Crea nuevos <b>Editoriales</b> 
+              </b-tooltip>
             </b-col>
             <b-col>
               <b-img
@@ -47,12 +55,16 @@
                 class="text-center"
               ></b-img>
               <router-link
+                id="Autor"
                 exact-active-class="active"
                 to="/Autores"
                 class="nav-link"
                 aria-current="page"
                 >AUTOR</router-link
               >
+              <b-tooltip target="Autor" triggers="hover">
+                Crea nuevos <b>Autores</b> 
+              </b-tooltip>
             </b-col>
           </b-row>
           <b-row>
@@ -64,12 +76,16 @@
                 class="text-center"
               ></b-img>
               <router-link
+                id="TipoM"
                 exact-active-class="active"
                 to="/TipoMaterial"
                 class="nav-link"
                 aria-current="page"
                 >TIPO MATERIAL</router-link
               >
+              <b-tooltip target="TipoM" triggers="hover">
+                Crea nuevos <b>Tipos de Materiales</b> 
+              </b-tooltip>
             </b-col>
             <b-col>
               <b-img
@@ -79,12 +95,16 @@
                 class="text-center"
               ></b-img>
               <router-link
+                id="NivelE"
                 exact-active-class="active"
                 to="/NivelEducativo"
                 class="nav-link"
                 aria-current="page"
                 >NIVEL EDUCATIVO</router-link
               >
+              <b-tooltip target="NivelE" triggers="hover">
+                Crea nuevos <b>Niveles Educativo</b> 
+              </b-tooltip>
             </b-col>
             <b-col>
               <b-img
@@ -94,12 +114,16 @@
                 class="text-center"
               ></b-img>
               <router-link
+                id="Areas"
                 exact-active-class="active"
                 to="/Areas"
                 class="nav-link"
                 aria-current="page"
                 >AREAS</router-link
               >
+              <b-tooltip target="Areas" triggers="hover">
+                Crea nuevos <b>Áreas</b> 
+              </b-tooltip>
             </b-col>
           </b-row>
         </b-container>

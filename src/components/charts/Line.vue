@@ -34,7 +34,7 @@ ChartJS.register(
   PointElement
 );
 export default {
-  name: "LineChart",
+  name: "GraficaLinea",
   components: {
     LineChartGenerator,
   },

@@ -9,7 +9,7 @@
       <section>
         <h1>Reporte de Docentes</h1>
         <br />
-         <div class="busqueda">
+      <div class="busqueda">
          <b-input-group size="sm"  >
          <label for="datepicker-sm">Buscar:</label>
         <b-form-input 
@@ -23,7 +23,6 @@
         <div class="justify-contentlg-end col-md-5 col-lg-8 mt-2">
           <paginate-links
             class="pagination justify-contend-end"
-            for="reporte_docentefiltrado"
             :limit="2"
             :hide-single-page="true"
             :show-step-links="true"
@@ -91,14 +90,7 @@ export default {
       filter:null,
       fechai:"",
       fechaf:"",
-      locales: [
-        { text: "ingles" },
-        { text: "Español" },
-        { text: "matematicas" },
-      ],
       Reporte_Docente: [],
-      reporte_docentefiltrado: [],
-      filterbusqueda: "",
       paginate: ["reporte_docentefiltrado"],
       fields: [
         {key:"id", label:"Id"},
@@ -134,24 +126,6 @@ export default {
           console.log(error);
           this.Reporte_Docente = [];
         });
-    },
-    Filtrardocente() {
-      let filter = [];
-
-      for (let busq of this.Reporte_Docente) {
-        let docente = busq.name;
-
-        if (docente.indexOf(this.filterbusqueda) >= 0) {
-          filter.push(busq);
-        }
-      }
-
-      this.reporte_docentefiltrado = filter;
-      if (this.reporte_docentefiltrado == 0) {
-        alert("no se a encontrado el usuario");
-        this.filterbusqueda = "";
-        this.reporte_docentefiltrado = this.Reporte_Docente;
-      }
     },
     DownloadreportDO(fechai,fechaf) {
       axios({

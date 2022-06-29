@@ -63,11 +63,6 @@ export default {
       fechai:"",
       fechaf:"",
       datos: [],
-      locales: [
-        { text: "ingles" },
-        { text: "Español" },
-        { text: "matematicas" },
-      ],
       Reportes_Descargas: [],
       fields: [
         {key:"name", label:"nombre"},

@@ -69,7 +69,7 @@
 import Header from "@/components/Header.vue";
 import Doughnut from "@/components/charts/Doughnut.vue";
 export default {
-  name: "vistaReporte",
+  name: "VistaReporte",
   components: { Header, Doughnut },
 };
 </script>

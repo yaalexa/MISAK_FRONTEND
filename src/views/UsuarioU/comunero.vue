@@ -224,6 +224,7 @@ import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 import Menu1 from "@/components/Menu1.vue";
 import Footer from "@/components/Footer.vue";
 export default {
+  name: "mostarUU",
   data() {
     return {
       opcionbuscar:null,

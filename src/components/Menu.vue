@@ -18,7 +18,9 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  name: "Menu"
+};
 </script>
 <style scoped>
 contenedor {

@@ -11,9 +11,12 @@
 
         <div class="form-group left row">
           <div class="control-label col-sm-5" style="text-align: left">
-            <b-button v-on:click="crear()" class="btn btn-warning">Nuevo 
+            <b-button id="nuvo" v-on:click="crear()" class="btn btn-warning">Nuevo 
             <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon>
             </b-button>
+              <b-tooltip target="nuvo" triggers="hover">
+                      <b>NUEVO AUTOR</b> 
+              </b-tooltip>
           </div>
           <div class="control-label col-sm-7" style="text-align: left">
             <div class="input-group" style="text-align: right">
@@ -38,20 +41,28 @@
         >
           <template #cell(Acciones)="row">
             <router-link
+            id="edit"
               :to="{ name: 'EditarAutor', params: { id: row.item.id } }"
               class="btn btn-warning"
               ><font-awesome-icon icon="fa-solid fa-pen-to-square" />
               <b-icon icon="pencil" aria-hidden="true"></b-icon
             ></router-link>
+            <b-tooltip target="edit" triggers="hover">
+                      <b>EDITAR AUTOR</b> 
+              </b-tooltip>
             <a
               type="button"
+              id="elimi"
               @click="borrarAutores(row.item.id)"
               class="btn btn-secondary"
               ><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon
                 icon="trash-fill"
                 aria-hidden="true"
-              ></b-icon
-            ></a>
+              ></b-icon 
+            ><b-tooltip target="elimi" triggers="hover">
+                      <b>ELIMINAR AUTOR</b> 
+              </b-tooltip>
+            </a>
           </template>
         </b-table>
         <b-pagination

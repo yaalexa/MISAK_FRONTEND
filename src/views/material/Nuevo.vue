@@ -181,7 +181,7 @@ import Header from "@/components/Header.vue";
 //import Footer from '@/components/Footer.vue'
 import axios, { Axios } from "axios";
 export default {
-  name: "Nuevo",
+  name: "NuevoM",
   props: ["imageUrl"],
   data: function () {
     return {

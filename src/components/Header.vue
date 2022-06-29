@@ -36,7 +36,7 @@
             <li data-toggle="collapse" data-target="#new" class="collapsed">
               <router-link
                 exact-active-class="active"
-                to="/mostrar"
+                to="/MostrarRol"
                 class="nav-link"
                 aria-current="page"
                 >ROLES
@@ -59,7 +59,7 @@
                 @click="cerrarTodo()"
                 class="mb-2"
               >
-                <b-icon icon="power" aria-hidden="true"></b-icon> Logout
+                <b-icon icon="power" aria-hidden="true"></b-icon> Cerrar Sesión
               </b-button>
             </li>
           </ul>
@@ -104,7 +104,7 @@
                 <li data-toggle="collapse" data-target="#new" class="collapsed">
                   <router-link
                     exact-active-class="active"
-                    to="/mostrar"
+                    to="/MostrarRol"
                     class="nav-link"
                     aria-current="page"
                     >ROLES
@@ -127,7 +127,7 @@
                     @click="cerrarTodo()"
                     class="mb-2"
                   >
-                    <b-icon icon="power" aria-hidden="true"></b-icon> Logout
+                  <b-icon icon="power" aria-hidden="true" ></b-icon> Cerrar Sesión
                   </b-button>
                 </li>
               </b-nav>
@@ -151,7 +151,7 @@
 <script>
 import axios from "axios";
 export default {
-  name: "dashboard",
+  name: "MenuAdmin",
   mounted() {
     this.motrarBarr();
 
