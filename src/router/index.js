@@ -68,7 +68,6 @@ import Bar from "@/components/charts/Bar.vue";
 import LineChartGenerator from "@/components/charts/Line.vue";
 import Doughnut from "@/components/charts/Doughnut.vue";
 
-import Casa from "../views/Home.vue";
 
 //ver pdf
 import Pdf from "../views/UsuarioU/Pdf.vue";
@@ -332,11 +331,7 @@ const routes = [
     path: "/DoughnutChart",
     component: Doughnut,
   },
-  {
-    name: "Login",
-    path: "/Login",
-    component: Casa,
-  },
+  
   {
     name: "Pdf",
     path: "/Pdf/:id,:pr",
@@ -432,7 +427,7 @@ router.beforeEach((to, from, next) => {
       next();
     } else {
       sessionStorage.clear();
-      router.push({ name: "Casa" });
+      router.push({ name: "mostarUU" });
     }
   } else {
     next();
@@ -449,7 +444,7 @@ router.beforeEach((to, from, next) => {
       next();
     } else {
       sessionStorage.clear();
-      router.push({ name: "Casa" });
+      router.push({ name: "Library" });
     }
   } else {
     next();

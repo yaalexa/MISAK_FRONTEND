@@ -35,6 +35,7 @@
           </div>
 
           <b-table
+             responsive="sm"
             :filter="filter"
             id="my-table"
             :items="Author_material"
@@ -44,14 +45,15 @@
             class="table"
           >
             <template #cell(Acciones)="row">
-              <a
+              <b-button
+                variant="primary"
                 type="button"
                 @click="borrarautorasignado(row.item.id)"
                 class="btn btn-secondary"
               >
                 <font-awesome-icon icon="fa-solid fa-trash-can" />
                 <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
-              </a>
+              </b-button>
             </template>
           </b-table>
           <b-pagination

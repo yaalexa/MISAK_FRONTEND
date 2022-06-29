@@ -160,13 +160,14 @@
           >
             Guardar
           </button>
-          <button
+          <b-button
             type="button"
             class="btn btn-secondary margen"
             v-on:click="salir()"
+            variant="primary"
           >
             Salir
-          </button>
+          </b-button>
         </div>
       </section>
     </div>

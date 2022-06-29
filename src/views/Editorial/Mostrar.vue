@@ -12,7 +12,7 @@
             <h1>EDITORIAL</h1>
             <div class="form-group left row">
               <div class="control-label col-sm-5" style="text-align: left">
-                <b-button id="nuevo" v-b-modal="'creareditorial'" class="btn btn-warning">
+                <b-button id="nuevo" variant="warning" v-b-modal="'creareditorial'" class="btn btn-warning">
                   Nuevo
                   <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon>
                 </b-button>
@@ -34,6 +34,7 @@
             </div>
 
             <b-table
+              responsive="sm"
               :filter="filter"
               id="my-table"
               :items="editorial"
@@ -44,7 +45,8 @@
             >
               <template #cell(Acciones)="row">
                 <b-button
-                id="edita"
+                 variant="warning"
+                 id="edita"
                   v-b-modal="'editar_editorial'"
                   class="btn btn-warning"
                   @click="sendInfoEditorial(row.item.id, row.item.name)"
@@ -54,7 +56,7 @@
                 <b-tooltip target="edita" triggers="hover">
                     <b>EDITAR EDITORIAL</b> 
                   </b-tooltip>
-                <b-button id="elimi" class="btn btn-secondary" @click="borrarEditorial(row.item.id)">
+                <b-button variant="primary" id="elimi" class="btn btn-secondary" @click="borrarEditorial(row.item.id)">
                   <font-awesome-icon icon="fa-solid fa-trash-can" />
                   <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
                 </b-button>
@@ -99,7 +101,7 @@
           </div>
         </form>
         <template #modal-footer="{ close }">
-          <b-button class="btn btn-secondary" @click="close()">
+          <b-button variant="primary" class="btn btn-secondary" @click="close()">
             Cerrar
           </b-button>
         </template>
@@ -130,7 +132,7 @@
           </div>
         </form>
         <template #modal-footer="{ close }">
-          <b-button class="btn btn-secondary" @click="close()">
+          <b-button variant="primary" class="btn btn-secondary" @click="close()">
             Cerrar
           </b-button>
         </template>

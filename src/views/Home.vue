@@ -60,6 +60,8 @@ export default {
     VueSession,
     VueRecaptcha,
   },
+  props: {
+  },
   data: function () {
     return {
       siteKey: "6LdCUjcgAAAAAM-G2M8Y4utP2L87TkkGUiHU12YP",
