@@ -73,7 +73,7 @@ export default {
     async cerrarTodo(obj) {
       if (confirm("¿Confirma cerrar sesión?")) {
         sessionStorage.clear();
-        this.$router.push("/casa");
+        this.$router.push("/");
       }
     },
   },

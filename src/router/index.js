@@ -432,7 +432,7 @@ router.beforeEach((to, from, next) => {
       next();
     } else {
       sessionStorage.clear();
-      router.push({ name: "Casa" });
+      router.push({ name: "mostarUU" });
     }
   } else {
     next();
@@ -449,7 +449,7 @@ router.beforeEach((to, from, next) => {
       next();
     } else {
       sessionStorage.clear();
-      router.push({ name: "Casa" });
+      router.push({ name: "Library" });
     }
   } else {
     next();

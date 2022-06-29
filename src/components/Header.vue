@@ -187,7 +187,7 @@ export default {
                     }).then((response) => {
                           console.log("logout: ", response.data);
                           sessionStorage.clear();
-                         this.$router.push("/casa");
+                         this.$router.push("/");
                     }).catch((errorgrave) => console.log(errorgrave));
         
       }
