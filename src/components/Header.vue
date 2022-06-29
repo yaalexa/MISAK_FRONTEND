@@ -139,6 +139,13 @@
         </template>
       </b-sidebar>
     </div>
+    <a
+        href=""
+        @click.prevent="printme"
+        target="_blank"
+        class="btn btn-default"
+        ><i class="fa fa-print"></i> Print</a
+      >
   </section>
 </template>
 <script>
@@ -161,6 +168,9 @@ export default {
     };
   },
   methods: {
+      printInvoice() {
+      window.print();
+    },
     // motrarBarr() {
     //   var button = document
     //     .getElementById("idBton")
