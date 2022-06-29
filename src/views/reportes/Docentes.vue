@@ -9,20 +9,20 @@
       <section>
         <h1>Reporte de Docentes</h1>
         <br />
-        <div>
-          <input
-            type="search"
-            aria-label="Search"
-            v-model="filterbusqueda"
-            @keyup.prevent="Filtrardocente()"
-          />
-          <button>Buscar</button>
-        </div>
+      <div class="busqueda">
+         <b-input-group size="sm"  >
+         <label for="datepicker-sm">Buscar:</label>
+        <b-form-input 
+          id="example-locales"
+          v-model="filter"
+          type="search"
+          class="mb-2"></b-form-input>
+        </b-input-group>
+      </div>
         <br />
         <div class="justify-contentlg-end col-md-5 col-lg-8 mt-2">
           <paginate-links
             class="pagination justify-contend-end"
-            for="reporte_docentefiltrado"
             :limit="2"
             :hide-single-page="true"
             :show-step-links="true"
@@ -37,58 +37,42 @@
           </paginate-links>
         </div>
         <div class="table-responsive">
-          <paginate
-            ref="paginator"
-            name="reporte_docentefiltrado"
-            :list="reporte_docentefiltrado"
-            :per="10"
-          >
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">id</th>
-                  <th scope="col">docente</th>
-                  <th scope="col">Visualizado</th>
-                  <th scope="col">Descargados</th>
-                  <th scope="col">detalle</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="Reporte_Docente in paginated(
-                    'reporte_docentefiltrado'
-                  )"
-                  :key="Reporte_Docente.id"
-                >
-                  <td>{{ Reporte_Docente.id }}</td>
-                  <td>{{ Reporte_Docente.name }}</td>
-                  <td>{{ Reporte_Docente.visualizado }}</td>
-                  <td>{{ Reporte_Docente.descargado }}</td>
-                  <td>
-                    <button @click="DownloadreportDODETALLE(Reporte_Docente.id)" class="buttom">DETALLE</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </paginate>
+          <b-table
+          :filter="filter"
+            id="my-table"
+            :items="Reporte_Docente"
+            :fields="fields"
+            :per-page="perPage"
+            :current-page="currentPage"
+            class="table"
+            >
+            <template #cell(Acciones)="row">
+              <button
+                @click="DownloadreportDODETALLE(row.item.id)"
+                class="buttom"
+                 >
+                 DETALLE
+              </button>
+            </template>
+            </b-table>
+          <table>
+            <b-pagination
+              align="and"
+              v-model="currentPage"
+              :total-rows="rows"
+              :per-page="perPage"
+              aria-controls="my-table"
+            ></b-pagination>
+          </table>
+          
         </div>
         <div>
-          <paginate-links
-            class="pagination justify-contend-end"
-            for="reporte_docentefiltrado"
-            :limit="2"
-            :hide-single-page="true"
-            :show-step-links="true"
-            :full-page="true"
-            :classes="{
-              ul: 'simple-links-container',
-              li: 'simple-links-item',
-              liActive: ['simple-links-item', 'active1'],
-              'li.active': 'active1',
-            }"
-          />
         </div>
-        <button @click="DownloadreportDO()" class="btn btn-success">
+        <h2>Seleciona la fecha que se quiere descargar el reporte</h2>
+          <br>
+          <input type="date" name="fecha_inicial" v-model="fechai" >
+          <input type="date" name="fecha_final" v-model="fechaf">
+        <button @click="DownloadreportDO(fechai,fechaf)" class="btn btn-success">
           Descargar reporte
         </button>
       </section>
@@ -98,25 +82,34 @@
 
 <script>
 import Header from "@/components/Header.vue";
-import Footer from "@/components/Footer.vue";
 import axios from "axios";
 export default {
   name: "Rdocente",
   data() {
     return {
-      locales: [
-        { text: "ingles" },
-        { text: "Español" },
-        { text: "matematicas" },
-      ],
+      filter:null,
+      fechai:"",
+      fechaf:"",
       Reporte_Docente: [],
-      reporte_docentefiltrado: [],
-      filterbusqueda: "",
       paginate: ["reporte_docentefiltrado"],
+      fields: [
+        {key:"id", label:"Id"},
+        {key:"name", label:"Docente"},
+        {key:"visualizado", label:"Visualizado"},
+        {key:"descargado", label:"Descargado"},
+        "Acciones",
+        ],
+      perPage: 10, //numero de filas que va a tener por pagina
+      currentPage: 1, //donde va a iniciar la paginacion
     };
   },
   components: {
     Header,
+  },
+    computed: {
+    rows() {
+      return this.Reporte_Docente.length;
+    },
   },
   mounted() {
     this.MostrarReporte_Docente();
@@ -124,7 +117,7 @@ export default {
   methods: {
     async MostrarReporte_Docente() {
       await this.axios
-        .get("http://127.0.0.1:8000/api/ReportsDoc")
+        .get("/ReportsDoc")
         .then((response) => {
           this.Reporte_Docente = response.data;
           this.reporte_docentefiltrado = response.data;
@@ -134,27 +127,9 @@ export default {
           this.Reporte_Docente = [];
         });
     },
-    Filtrardocente() {
-      let filter = [];
-
-      for (let busq of this.Reporte_Docente) {
-        let docente = busq.name;
-
-        if (docente.indexOf(this.filterbusqueda) >= 0) {
-          filter.push(busq);
-        }
-      }
-
-      this.reporte_docentefiltrado = filter;
-      if (this.reporte_docentefiltrado == 0) {
-        alert("no se a encontrado el usuario");
-        this.filterbusqueda = "";
-        this.reporte_docentefiltrado = this.Reporte_Docente;
-      }
-    },
-    DownloadreportDO() {
+    DownloadreportDO(fechai,fechaf) {
       axios({
-        url: `http://127.0.0.1:8000/api/Reports_DocPdf`,
+        url: `/Reports_DocPdf/${fechai}/${fechaf}`,
         method: "GET",
         responseType: "blob",
       }).then((response) => {
@@ -169,7 +144,7 @@ export default {
     },
     DownloadreportDODETALLE(id_docente) {
       axios({
-        url: `http://127.0.0.1:8000/api/Reports_DocDePdf/${id_docente}`,
+        url: `/Reports_DocDePdf/${id_docente}`,
         method: "GET",
         responseType: "blob",
       }).then((response) => {
@@ -202,7 +177,7 @@ body {
   width: 80%;
   height: 100vh;
 }
-.buttom{
+.buttom {
   background-color: #ffca2c;
   border-color: #ffc720;
   color: black;

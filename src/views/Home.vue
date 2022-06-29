@@ -1,6 +1,6 @@
 <template>
- <div class="general">
-  <div class="home">
+  <div class="general">
+    <div class="home">
       <div class="wrapper fadeInDown">
               <div id="formContent" class="login" >
                 <!-- Tabs Titles -->
@@ -31,107 +31,119 @@
 
               </div>
             </div>
-  </div>
-  </div>
+            <input type="submit" class="fadeIn fourth" value="ENTRAR" />
+          
+          <router-link class="fadeIn fourth" to="/Register"
+            >Registrate</router-link
+          >
+          <br /><br />
+          <router-link class="fadeIn fourth " to="/">Volver</router-link
+          ><br />
+          <div class="alert alert-danger" role="alert" v-if="error">
+            {{ error_msg }}
+          </div>
+          <br />
+        </div>
+      </div>
 </template>
 
 <script>
-import axios from 'axios';
-import VueSession from 'vue-session';
-import { VueRecaptcha } from 'vue-recaptcha';
+import axios from "axios";
+import VueSession from "vue-session";
+import { VueRecaptcha } from "vue-recaptcha";
 export default {
-  name: 'Login',
+  name: "Login",
   components: {
     VueSession,
-    VueRecaptcha
+    VueRecaptcha,
   },
-  data: function(){
+  data: function () {
     return {
-      siteKey: '6LdCUjcgAAAAAM-G2M8Y4utP2L87TkkGUiHU12YP',
-      error:null,
-      error_msg:null,
+      siteKey: "6LdCUjcgAAAAAM-G2M8Y4utP2L87TkkGUiHU12YP",
+      error: null,
+      error_msg: null,
       email: "",
       password: "",
-    
-    }
+    };
   },
-  methods:{
-    recapt(){
+  methods: {
+    recapt() {
       var response = grecaptcha.getResponse();
-    if(response.length == 0){
-      alert("Captcha no verificado")
-      return false;
-    } else {
-      this.login();
-    }
+      if (response.length == 0) {
+        alert("Captcha no verificado");
+        return false;
+      } else {
+        this.login();
+      }
     },
-   
-    login(){
-        let json = {
-          "email" : this.email,
-          "password": this.password
-        };
-        axios.post('http://localhost:8000/api/login', json)
-       .then( data =>{
-         console.log(data.data.status)
-           if(data.data.status == "1"){
-               this.$session.start()
-               this.$session.set('sactum', data.data.access_token)
-               this.$session.set('useridd', data.data.usr_id)
-               this.$session.set('rol_id', data.data.rol_id)
-               sessionStorage.setItem('user', JSON.stringify(data.data.access_token));
-               sessionStorage.setItem('userid', JSON.stringify(data.data.usr_id));
-            // localStorage.token = data.data.result.token;
-            if( data.data.rol_id==1){
-             this.$router.push('/welcome');
-             sessionStorage.setItem('usuario', JSON.stringify(data.data));      
-             }
-             else{
-               this.$router.push('/usuarioU');
-               sessionStorage.setItem('usuario2', JSON.stringify(data.data));    
-             }
-           }else{
-             this.error = true;
-             this.error_msg = alert("verifique credenciales de usuario")
-           }
-        })
+
+    login() {
+      let json = {
+        email: this.email,
+        password: this.password,
+      };
+      axios.post("/login", json).then((data) => {
+        console.log(data.data.status);
+        if (data.data.status == "1") {
+          this.$session.start();
+          this.$session.set("sactum", data.data.access_token);
+          this.$session.set("useridd", data.data.usr_id);
+          this.$session.set("rol_id", data.data.rol_id);
+          sessionStorage.setItem(
+            "user",
+            JSON.stringify(data.data.access_token)
+          );
+          sessionStorage.setItem("userid", JSON.stringify(data.data.usr_id));
+          // localStorage.token = data.data.result.token;
+          if (data.data.rol_id == 1) {
+            this.$router.push("/welcome");
+            sessionStorage.setItem("usuario", JSON.stringify(data.data));
+          } else {
+            this.$router.push("/usuarioU");
+            sessionStorage.setItem("usuario2", JSON.stringify(data.data));
+          }
+        } else {
+          this.error = true;
+          this.error_msg = alert("verifique credenciales de usuario");
+        }
+      });
     },
-  }
-}
+  },
+};
 </script>
 
 
 <style scoped>
- .img2{
-        width: 100px;
-        height: 100px;
-        background-position: center center;
-        background-size: 100px auto;
-        opacity:70%;
-    }
+.img2 {
+  width: 100px;
+  height: 100px;
+  background-position: center center;
+  background-size: 100px auto;
+  opacity: 70%;
+}
 /* BASIC */
 html {
   background-color: #56baed;
 }
-.general{
- background-image:url("@/assets/Screenshot_2.png");
+.general {
+  background-image: url("@/assets/Screenshot_2.png");
   height: 100vh;
-	 background-repeat:no-repeat;
-	 background-size:cover;
-	 width:100%;
-	 height:100vh;
-	 overflow:auto;
-    filter: alpha(opacity=50);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+  filter: alpha(opacity=90);
 }
 body {
   font-family: "Poppins", sans-serif;
 }
-.volverv{
+.volverv {
   margin-left: 5vw;
 }
 a {
   color: #92badd;
-  display:inline-block;
+  display: inline-block;
   text-decoration: none;
   font-weight: 400;
 }
@@ -140,15 +152,15 @@ h2 {
   font-size: 16px;
   font-weight: 600;
   text-transform: uppercase;
-  display:inline-block;
-  margin: 40px 8px 10px 8px; 
+  display: inline-block;
+  margin: 40px 8px 10px 8px;
   color: #cccccc;
 }
 /* STRUCTURE */
 .wrapper {
   display: flex;
-  align-items: center;
-  flex-direction: column; 
+  align-items: flex-end;
+  flex-direction: column;
   justify-content: center;
   width: 100%;
   min-height: 100%;
@@ -157,15 +169,16 @@ h2 {
 .login {
   -webkit-border-radius: 10px 10px 10px 10px;
   border-radius: 10px 10px 10px 10px;
- background-image:url("@/assets/fondo.png") ;
-   opacity: 0.8;
+  background-image: url("@/assets/fondo.png");
   padding: 30px;
   width: 100%;
+  height: 100%;
   max-width: 450px;
+  max-height: 90%;
   position: relative;
   padding: 0px;
-  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
   text-align: center;
 }
 #formFooter {
@@ -185,7 +198,9 @@ h2.active {
   border-bottom: 2px solid #5fbae9;
 }
 /* FORM TYPOGRAPHY*/
-input[type=button], input[type=submit], input[type=reset]  {
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
   background-color: #56baed;
   border: none;
   color: white;
@@ -195,8 +210,8 @@ input[type=button], input[type=submit], input[type=reset]  {
   display: inline-block;
   text-transform: uppercase;
   font-size: 13px;
-  -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
-  box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  -webkit-box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
+  box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
   margin: 5px 20px 40px 20px;
@@ -206,22 +221,32 @@ input[type=button], input[type=submit], input[type=reset]  {
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
-input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover {
   background-color: #39ace7;
 }
-input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+input[type="button"]:active,
+input[type="submit"]:active,
+input[type="reset"]:active {
   -moz-transform: scale(0.95);
   -webkit-transform: scale(0.95);
   -o-transform: scale(0.95);
   -ms-transform: scale(0.95);
   transform: scale(0.95);
 }
-.catcha{
+.catcha {
   display: inline-block;
   text-align: center;
   padding: 15px 32px;
 }
-input[type=text] {
+.recap {
+  transform: scale(0.87);
+  -webkit-transform: scale(0.87);
+  transform-origin: 0 0;
+  -webkit-transform-origin: 0 0;
+}
+input[type="text"] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -241,11 +266,11 @@ input[type=text] {
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
 }
-input[type=text]:focus {
+input[type="text"]:focus {
   background-color: #fff;
   border-bottom: 2px solid #5fbae9;
 }
-input[type=text]:placeholder {
+input[type="text"]:placeholder {
   color: #cccccc;
 }
 /* ANIMATIONS */
@@ -283,20 +308,41 @@ input[type=text]:placeholder {
   }
 }
 /* Simple CSS3 Fade-in Animation */
-@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .fadeIn {
-  opacity:0;
-  -webkit-animation:fadeIn ease-in 1;
-  -moz-animation:fadeIn ease-in 1;
-  animation:fadeIn ease-in 1;
-  -webkit-animation-fill-mode:forwards;
-  -moz-animation-fill-mode:forwards;
-  animation-fill-mode:forwards;
-  -webkit-animation-duration:1s;
-  -moz-animation-duration:1s;
-  animation-duration:1s;
+  opacity: 0;
+  -webkit-animation: fadeIn ease-in 1;
+  -moz-animation: fadeIn ease-in 1;
+  animation: fadeIn ease-in 1;
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-duration: 1s;
+  -moz-animation-duration: 1s;
+  animation-duration: 1s;
 }
 .fadeIn.first {
   -webkit-animation-delay: 0.4s;
@@ -332,29 +378,29 @@ input[type=text]:placeholder {
 .underlineHover:hover {
   color: #0d0d0d;
 }
-.underlineHover:hover:after{
+.underlineHover:hover:after {
   width: 100%;
 }
 /* OTHERS */
 *:focus {
-    outline: none;
-} 
-#icon {
-  width:60%;
+  outline: none;
 }
-.form-control{
+#icon {
+  width: 60%;
+}
+.form-control {
   background-color: #f6f6f6;
-    border: none;
-    color: #0d0d0d;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 5px;
-    width: 85%;
-    border: 2px solid #f6f6f6;
-    transition: all 0.5s ease-in-out;
-    border-radius: 5px 5px 5px 5px;
+  border: none;
+  color: #0d0d0d;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  width: 85%;
+  border: 2px solid #f6f6f6;
+  transition: all 0.5s ease-in-out;
+  border-radius: 5px 5px 5px 5px;
 }
 </style>

@@ -160,7 +160,7 @@
                <button
                 type="button"
                 class="btn btn-warning margen"
-                v-on:click="Ver(visual.id, visual.priority)"
+                v-on:click="Ver(visual.id, visual.prioridad)"
               >
                 Ver
               </button>
@@ -200,7 +200,7 @@
                <button
                 type="button"
                 class="btn btn-secondary margen"
-                v-on:click="Ver(descarga.id, descarga.priority)"
+                v-on:click="Ver(descarga.id, descarga.prioridad)"
               >
                 Ver
               </button>
@@ -224,6 +224,7 @@ import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 import Menu1 from "@/components/Menu1.vue";
 import Footer from "@/components/Footer.vue";
 export default {
+  name: "mostarUU",
   data() {
     return {
       opcionbuscar:null,
@@ -290,7 +291,6 @@ export default {
       },
     };
   },
-
   components: {
     VueSlickCarousel,
     Menu1,
@@ -300,7 +300,6 @@ export default {
     this.destvisual();
     this.destdescarga();
   },
-
   methods: {
     focusInput(){
       document.getElementById("barra").focus();
@@ -308,7 +307,11 @@ export default {
     
     buscadorfinal() {
       axios
-        .get(`http://127.0.0.1:8000/api/buscadorfinal/${this.buscar}`)
+        .get(`/buscadorfinal/${this.buscar}`,{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
         .then((response) => {
           this.getmaterial = response.data;
           console.log("Hola",this.getmaterial);
@@ -321,20 +324,24 @@ export default {
       this.mtr_usr.users_id = usrid;
       this.mtr_usr.material_id = id;
       axios
-        .post("http://127.0.0.1:8000/api/material__users", this.mtr_usr)
+        .post("/material__users", this.mtr_usr,{ headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
+                }
+                })
         .then((response) => {
           console.log(response);
         });
       this.$router.push({ name: "Pdf", params: { id: id, pr: priority } });
     },
      destvisual(){
-         axios.get('http://127.0.0.1:8000/api/visualmuser')
+         axios.get('/visualmuser')
          .then(response => {
              this.visual = response.data;
          }) 
         },
     destdescarga(){
-        axios.get('http://127.0.0.1:8000/api/descargasuser')
+        axios.get('/descargasuser')
         .then(response=>{
             this.descarga = response.data;
         })      
@@ -471,5 +478,10 @@ export default {
   text-align: center;
   float: left;
 }
-
+#icon{
+  border: #16223f 1px solid;
+  height: 100%;
+  width: 100%;
+  margin: 2px;
+}
 </style>

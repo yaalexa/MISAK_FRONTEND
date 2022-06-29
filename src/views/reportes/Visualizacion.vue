@@ -5,18 +5,20 @@
         <Header />
       </header>
     </div>
-    <div class="cara2">
+    <div class="cara2reporte">
       <section>
         <h1>Reporte de Visualizacion del material</h1>
         <br />
-        <label for="datepicker-sm">Arias:</label>
-        <b-form-select
+      <div class="busqueda">
+        <b-input-group size="sm"  >
+         <label for="datepicker-sm">Buscar:</label>
+        <b-form-input 
           id="example-locales"
-          v-model="locale"
-          :options="locales"
-          class="mb-2"
-        ></b-form-select>
-        <b-button variant="outline-primary">Busar</b-button>
+          v-model="filter"
+          type="search"
+          class="mb-2"></b-form-input>
+        </b-input-group>
+      </div>
         <br />
         <LineChartGenerator />
         <div class="table-responsive">
@@ -40,7 +42,11 @@
           </table>
         </div>
         <div>
-          <button @click="DownloadreportVI()" class="btn btn-success">
+          <h2>Seleciona la fecha que se quiere descargar el reporte</h2>
+          <br>
+          <input type="date" name="fecha_inicial" v-model="fechai" >
+          <input type="date" name="fecha_final" v-model="fechaf">
+          <button @click="DownloadreportVI(fechai,fechaf)" class="btn btn-success">
             Descargar Reporte
           </button>
         </div>
@@ -52,17 +58,14 @@
 <script>
 import Header from "@/components/Header.vue";
 import LineChartGenerator from "@/components/charts/Line.vue";
-import Footer from "@/components/Footer.vue";
 import axios from "axios";
 export default {
   name: "Visualizacion",
   data() {
     return {
-      locales: [
-        { text: "ingles" },
-        { text: "Español" },
-        { text: "matematicas" },
-      ],
+      filter:null,
+      fechai:"",
+      fechaf:"",
       Reporte: [],
       paginate: ["reporte_docentefiltrado"],
       fields: [
@@ -79,7 +82,6 @@ export default {
   },
   components: {
     Header,
-    //  Footer
     LineChartGenerator,
   },
   computed: {
@@ -93,7 +95,7 @@ export default {
   methods: {
     async MostrarReporteV() {
       await this.axios
-        .get("http://127.0.0.1:8000/api/Reportsvisua")
+        .get("/Reportsvisua")
         .then((response) => {
           this.Reporte = response.data;
         })
@@ -102,9 +104,9 @@ export default {
           this.Reporte = [];
         });
     },
-    DownloadreportVI() {
+    DownloadreportVI(fechai,fechaf) {
       axios({
-        url: `http://127.0.0.1:8000/api/Report_ViPDF`,
+        url: `/Report_ViPDF/${fechai}/${fechaf}`,
         method: "GET",
         responseType: "blob",
       }).then((response) => {

@@ -5,18 +5,20 @@
         <Header />
       </header>
     </div>
-    <div class="cara2">
+    <div class="cara2reporte">
       <section>
         <h1>Reporte de Descargas</h1>
         <br />
-        <label for="datepicker-sm">Arias:</label>
-        <b-form-select
+        <div class="busqueda">
+        <b-input-group size="sm"  >
+         <label for="datepicker-sm">Buscar:</label>
+        <b-form-input 
           id="example-locales"
-          v-model="locale"
-          :options="locales"
-          class="mb-2"
-        ></b-form-select>
-        <b-button variant="outline-primary">Busar</b-button>
+          v-model="filter"
+          type="search"
+          class="mb-2"></b-form-input>
+        </b-input-group>
+      </div>
         <br />
         <Bar />
         <b-table
@@ -37,8 +39,11 @@
             aria-controls="my-table"
           ></b-pagination>
         </table>
-
-        <button @click="DownloadreportDE()" class="btn btn-success">
+        <h2>Seleciona la fecha que se quiere descargar el reporte</h2>
+          <br>
+          <input type="date" name="fecha_inicial" v-model="fechai" >
+          <input type="date" name="fecha_final" v-model="fechaf">
+          <button @click="DownloadreportDE(fechai,fechaf)" class="btn btn-success">
           Descargar reporte
         </button>
       </section>
@@ -49,18 +54,15 @@
 <script>
 import Header from "@/components/Header.vue";
 import Bar from "@/components/charts/Bar.vue";
-import Footer from "@/components/Footer.vue";
 import axios from "axios";
 export default {
   name: "Descargas",
   data() {
     return {
+      filter:null,
+      fechai:"",
+      fechaf:"",
       datos: [],
-      locales: [
-        { text: "ingles" },
-        { text: "Español" },
-        { text: "matematicas" },
-      ],
       Reportes_Descargas: [],
       fields: [
         {key:"name", label:"nombre"},
@@ -69,8 +71,6 @@ export default {
         {key:"num_pages", label:"numero paginas"},
         {key:"area", label:"areas"},
         {key:"conteo", label:"conteo"},
-
-
         ],
       perPage: 10, //numero de filas que va a tener por pagina
       currentPage: 1, //donde va a iniciar la paginacion
@@ -79,7 +79,6 @@ export default {
   },
   components: {
     Header,
-    //  Footer
     Bar,
   },
   computed: {
@@ -93,7 +92,7 @@ export default {
   methods: {
     async MostrarReportes_Descargas() {
       await this.axios
-        .get("http://127.0.0.1:8000/api/ReportsDes")
+        .get("/ReportsDes")
         .then((response) => {
           this.Reportes_Descargas = response.data;
           this.datos = response.data;
@@ -103,9 +102,9 @@ export default {
           this.Reportes_Descargas = [];
         });
     },
-    DownloadreportDE() {
+    DownloadreportDE(fechai,fechaf) {
       axios({
-        url: `http://127.0.0.1:8000/api/Report_DesPDF`,
+        url: `/Report_DesPDF/${fechai}/${fechaf}`,
         method: "GET",
         responseType: "blob",
       }).then((response) => {
@@ -133,9 +132,11 @@ body {
   height: 100vh;
   width: 20%;
 }
-.cara2 {
+.cara2reporte {
   width: 80%;
   height: 100vh;
+  overflow: auto;
+  text-align: center;
 }
 .btn-success {
   background-color: #ffca2c;
@@ -145,5 +146,10 @@ body {
 thead {
   background: #16223f;
   color: white;
+}
+.busqueda {
+  width: 40%;
+  display: flex;
+  text-align: center;
 }
 </style>
