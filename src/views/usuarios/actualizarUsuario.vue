@@ -128,11 +128,12 @@
                   <label class="pass">Rol</label>
                 </div>
                 <div class="col-xs-8">
-                  <select class="form-control" v-model="selected">
-                    <option v-for="rol in rol" v-bind:value="Usuario.rol_id">
+                  <select class="form-control" v-model="Usuario.rol_id">
+                    <option v-for="rol in rol" v-bind:value="rol.id">
                       {{ rol.name }}
                     </option>
                   </select>
+                  {{seleccionado}}
                 </div>
               </div>
             </div>
@@ -160,6 +161,7 @@ export default {
   data() {
     return {
       rol: null,
+      seleccionado:null,
       Usuario: {
         name: "",
         full_name: "",
@@ -176,6 +178,7 @@ export default {
 
   mounted() {
     this.mostrarusuario();
+
     this.axios.get("/rols",{ headers: {
                     "Content-Type": "application/json",
                     Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
