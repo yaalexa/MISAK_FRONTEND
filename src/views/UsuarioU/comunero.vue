@@ -283,7 +283,7 @@ export default {
       visual:[],
       descarga:[],
       mtr_usr: {
-        manejo_users: "no se que va aqui",
+        manejo_users: "utilidad de expansion",
         detalle_material: "visualizado",
         date_download: "2022-05-18 23:54:10",
         material_id: "",

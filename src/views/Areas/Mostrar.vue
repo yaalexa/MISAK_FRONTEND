@@ -42,19 +42,18 @@
             class="table"
           >
             <template #cell(Acciones)="row">
-              <b-button
+              <button
                 v-b-modal="'editarareas'"
                 id="edit"
                 class="btn btn-warning"
                 @click="sendInfo(row.item.id, row.item.name)"
                 ><font-awesome-icon icon="fa-solid fa-pen-to-square" />
                 <b-icon icon="pencil" aria-hidden="true"></b-icon
-              ></b-button>
+              ></button>
               <b-tooltip target="edit" triggers="hover">
                     <b>EDITAR ÁREA</b> 
               </b-tooltip>
-              <a
-                type="button"
+              <button
                 id="elimi"
                 @click="borrarAreas(row.item.id)"
                 class="btn btn-secondary"
@@ -65,7 +64,7 @@
               ><b-tooltip target="elimi" triggers="hover">
                     <b>ELIMINAR ÁREA</b> 
               </b-tooltip>
-              </a>
+              </button>
             </template>
           </b-table>
           <b-pagination
@@ -272,15 +271,27 @@ body {
 .pantallaareas {
   display: flex;
 }
-.cara1areas {
-  height: 100vh;
+.cara1 {
+  
   width: 20%;
+}
+.cara2 {
+  width: 80%;
+  height: 100vh;
+  overflow: auto;
+}
+.cara1areas {
+
+  width:20%;
+  min-width: auto;
   overflow: hidden;
+  height: min-content;
 }
 .cara2areas {
   overflow: auto;
   height: 100vh;
   width: 80%;
+  max-width: auto;
 }
 .table thead {
   background-color: #16223f;

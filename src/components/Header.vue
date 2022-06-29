@@ -1,5 +1,12 @@
 <template>
   <section>
+       <div>
+       <b-navbar toggleable="sm"  style="position: fixed;" >
+        <b-navbar-toggle v-b-toggle.sidebar-no-header ></b-navbar-toggle>
+        <b-collapse id="nav-text-collapse" is-nav>
+        </b-collapse>
+      </b-navbar>
+    </div>
     <div class="nav-side-menu" id="nav-side-menu">
       <br />
       <i
@@ -67,9 +74,6 @@
       </div>
     </div>
     <div class="menu1">
-      <b-button v-b-toggle.sidebar-no-header>
-        <img src="@/assets/menu1.jpg" id="icon" alt="User Icon" />
-      </b-button>
       <b-sidebar
         id="sidebar-no-header"
         aria-labelledby="sidebar-no-header-title"
@@ -139,13 +143,7 @@
         </template>
       </b-sidebar>
     </div>
-    <a
-        href=""
-        @click.prevent="printme"
-        target="_blank"
-        class="btn btn-default"
-        ><i class="fa fa-print"></i> Print</a
-      >
+
   </section>
 </template>
 <script>
@@ -168,9 +166,7 @@ export default {
     };
   },
   methods: {
-      printInvoice() {
-      window.print();
-    },
+    
     // motrarBarr() {
     //   var button = document
     //     .getElementById("idBton")
@@ -197,7 +193,7 @@ export default {
                     }).then((response) => {
                           console.log("logout: ", response.data);
                           sessionStorage.clear();
-                         this.$router.push("/casa");
+                         this.$router.push("/Login");
                     }).catch((errorgrave) => console.log(errorgrave));
         
       }
@@ -206,6 +202,15 @@ export default {
 };
 </script>
 <style>
+.navbar {
+    position: fixed;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
 .nav-side-menu {
   overflow: auto;
   font-family: verdana;
