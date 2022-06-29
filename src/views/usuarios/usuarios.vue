@@ -43,7 +43,7 @@
               <router-link
               id="edit"
                 :to="{
-                  name: '/actualizarusuarios',
+                  name: 'actualizarusuarios',
                   params: { id: row.item.id },
                 }"
                 class="btn btn-warning"
