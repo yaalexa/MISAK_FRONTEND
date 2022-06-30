@@ -68,7 +68,6 @@ import Bar from "@/components/charts/Bar.vue";
 import LineChartGenerator from "@/components/charts/Line.vue";
 import Doughnut from "@/components/charts/Doughnut.vue";
 
-
 //ver pdf
 import Pdf from "../views/UsuarioU/Pdf.vue";
 // daniel cruz
