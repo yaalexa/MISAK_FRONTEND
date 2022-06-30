@@ -135,22 +135,23 @@ export default {
 
 #contenido {
   float: left;
-  height: 100vh;
+  height: 120vh;
   padding: 10px;
   width: 100%;
   overflow: auto;
 }
 #contenido2 {
   float: left;
-  height: 150vh;
+  height: 100vh;
   padding: 10px;
   width: 100%;
   padding: 1%;
   margin-left: 2%;
-  overflow: auto;
+  overflow: hidden;
 }
 .archivo {
   height: 100vh;
   width: 80%;
+  overflow: hidden;
 }
 </style>

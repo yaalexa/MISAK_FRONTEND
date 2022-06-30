@@ -11,10 +11,13 @@
           <h1>NIVELES PARA ASIGNAR</h1>
           <div class="form-group left row">
             <div class="control-label col-sm-5" style="text-align: left">
-              <a type="submit" @click="nuevaasignacion()" class="btn btn-danger"
+              <a type="submit" id="guardar" @click="nuevaasignacion()" class="btn btn-danger"
                 ><b-icon icon="plus-circle-fill" aria-hidden="true"
                   >Guardar</b-icon
-                ></a
+                ><b-tooltip target="guardar" triggers="hover">
+                    <b>GUARDAR ASIGNACIÓN</b>
+                  </b-tooltip>
+                </a
               >
             </div>
             <div class="control-label col-sm-7" style="text-align: left">
@@ -40,7 +43,8 @@
             class="table"
           >
             <template #cell(seleccionar)="row">
-              <input type="checkbox"
+              <input
+                type="checkbox"
                 id=""
                 :value="row.item.id"
                 v-model="formData.educational_level_id"
@@ -63,6 +67,7 @@
 <script>
 import Header from "@/components/Header.vue";
 import axios from "axios";
+import Swal from "sweetalert2";
 export default {
   name: "AsignarMaterial",
   data() {
@@ -97,11 +102,13 @@ export default {
   methods: {
     async mostrarNiveles() {
       await this.axios
-        .get("/educational_levels",{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                })
+        .get("/educational_levels", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+          },
+        })
         .then((response) => {
           this.Niveles = response.data;
         })
@@ -112,9 +119,7 @@ export default {
     },
     asignarNiveles(id) {
       this.axios
-        .post(
-          `/material__educational_levels/${this.$route.params.id},${id}`
-        )
+        .post(`/material__educational_levels/${this.$route.params.id},${id}`)
         .then((data) => {
           console.log(data);
           this.makeToast("Hecho", "exito al crear", "success");
@@ -129,13 +134,25 @@ export default {
         this.formData.educational_level_id
       );
       axios
-        .post(
-          "/material__educational_levels",
-          formDataNivel
-        )
-        .then((data) => {
-          console.log(data);
-          this.alert("Hecho", "anivel asignado creado", "success");
+        .post("/material__educational_levels", formDataNivel)
+        .then((response) => {
+          this.form = response.data;
+          console.log("formulario: ", this.form.mensaje);
+          var icono = "success";
+          var colorb = "#ffc107";
+          var colori = "#ffc107";
+          if (this.form.res == true) {
+          } else {
+            icono = "error";
+            colorb = "#c42a2a";
+            colori = "#c42a2a";
+          }
+          Swal.fire({
+            title: this.form.mensaje,
+            icon: icono,
+            confirmButtonColor: colorb,
+            iconColor: colori,
+          });
         })
         .catch((e) => {
           console.log(e);

@@ -11,18 +11,21 @@
           <h1>Areas</h1>
           <div class="form-group left row">
             <div class="control-label col-sm-5" style="text-align: left">
-              <b-button variant="warning" id="nuevo" v-b-modal="'modal-1'" class="btn btn-warning"
+              <b-button
+                variant="warning"
+                id="nuevo"
+                v-b-modal="'modal-1'"
+                class="btn btn-warning"
                 >Nuevo
                 <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon
               ></b-button>
               <b-tooltip target="nuevo" triggers="hover">
-                    <b>NUEVA ÁREA</b> 
+                <b>NUEVA ÁREA</b>
               </b-tooltip>
             </div>
             <div class="control-label col-sm-7" style="text-align: left">
               <div class="input-group" style="text-align: right">
                 <b-form-input
-                 
                   v-model="filter"
                   type="search"
                   placeholder="Buscar"
@@ -45,7 +48,7 @@
           >
             <template #cell(Acciones)="row">
               <b-button
-               variant="warning"
+                variant="warning"
                 v-b-modal="'editarareas'"
                 id="edit"
                 class="btn btn-warning"
@@ -54,7 +57,7 @@
                 <b-icon icon="pencil" aria-hidden="true"></b-icon
               ></b-button>
               <b-tooltip target="edit" triggers="hover">
-                    <b>EDITAR ÁREA</b> 
+                <b>EDITAR ÁREA</b>
               </b-tooltip>
               <b-button
                 variant="primary"
@@ -65,9 +68,9 @@
                   icon="trash-fill"
                   aria-hidden="true"
                 ></b-icon
-              ><b-tooltip target="elimi" triggers="hover">
-                    <b>ELIMINAR ÁREA</b> 
-              </b-tooltip>
+                ><b-tooltip target="elimi" triggers="hover">
+                  <b>ELIMINAR ÁREA</b>
+                </b-tooltip>
               </b-button>
             </template>
           </b-table>
@@ -101,6 +104,9 @@
                 id="client"
                 name="client"
                 v-model="form.client"
+                required minlength="4"
+                  maxlength="20"
+                  size="20"
               />
             </b-form-group>
           </div>
@@ -109,7 +115,11 @@
           </div>
         </form>
         <template #modal-footer="{ close }">
-          <b-button variant="primary" class="btn btn-secondary" @click="close()">
+          <b-button
+            variant="primary"
+            class="btn btn-secondary"
+            @click="close()"
+          >
             Cerrar
           </b-button>
         </template>
@@ -135,11 +145,16 @@
                 id="nombreed"
                 name="nombreed"
                 v-model="selectedUsernom"
+                required minlength="4"
+                  maxlength="20"
+                  size="20"
               />
             </b-form-group>
           </div>
           <div class="botonmodal">
-            <button variant="primary" type="submit" class="btn btn-warning">Guardar</button>
+            <button variant="primary" type="submit" class="btn btn-warning">
+              Guardar
+            </button>
           </div>
         </form>
         <template #modal-footer="{ close }">
@@ -156,6 +171,7 @@
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 import axios from "axios";
+import Swal from "sweetalert2";
 export default {
   name: "MostrarAreas",
   data() {
@@ -192,16 +208,38 @@ export default {
   methods: {
     editararea() {
       axios
-        .put(`/areas/${this.selectedUserid}`, {
-          name: this.selectedUsernom,
-        },{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                })
+        .put(
+          `/areas/${this.selectedUserid}`,
+          {
+            name: this.selectedUsernom,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization:
+                "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+            },
+          }
+        )
         .then((response) => {
-          console.log(response);
-          this.mostrarAreas();
+          this.form = response.data;
+          console.log("formulario: ", this.form.mensaje);
+          var icono = "success";
+          var colorb = "#ffc107";
+          var colori = "#ffc107";
+          if (this.form.res == true) {
+          } else {
+            icono = "error";
+            colorb = "#c42a2a";
+            colori = "#c42a2a";
+          }
+          Swal.fire({
+            title: this.form.mensaje,
+            icon: icono,
+            confirmButtonColor: colorb,
+            iconColor: colori,
+          });
+          this.mostrarAreas();;
         });
     },
     sendInfo(id, nom) {
@@ -209,23 +247,43 @@ export default {
     },
     handleOk() {
       this.axios
-        .post("/areas", { name: this.form.client },{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                })
+        .post(
+          "/areas",
+          { name: this.form.client },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization:
+                "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+            },
+          }
+        )
         .then((response) => {
-          console.log(response)
+          console.log(response);
+          this.format = response.data;
+          console.log("formulario: ", this.format.mensaje);
+          var icono = "success";
+          if (this.format.res=false ) {
+            icono = "error";
+          }
+          Swal.fire({
+            title: this.format.mensaje,
+            icon: icono,
+            confirmButtonColor: "#ffc107",
+            iconColor: "#ffc107",
+          });
           this.mostrarAreas();
         });
     },
     async mostrarAreas() {
       await this.axios
-        .get("/areas",{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                })
+        .get("/areas", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+          },
+        })
         .then((response) => {
           this.Areas = response.data;
         })
@@ -235,28 +293,47 @@ export default {
         });
     },
     borrarAreas(id) {
-      if (confirm("¿Confirma eliminar el registro?")) {
-        this.axios
-          .delete(`/areas/${id}`,{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                })
-          .then((response) => {
-            console.log(response)
-            this.mostrarAreas();
-          })
-          .catch((error) => {
-            console.log(error);
+      Swal.fire({
+        title: "Está seguro?",
+        text: "El área se eliminará permanentemene!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#ffc107",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, eliminalo!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.axios
+            .delete(`/areas/${id}`, {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization:
+                  "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+              },
+            })
+            .then((response) => {
+              console.log(response);
+              this.mostrarAreas();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          Swal.fire({
+            icon: "success",
+            confirmButtonColor: "#ffc107",
+            title: "Eliminado!",
+            text: "El área ha sido eliminada",
+            text: "Exitosamente",
+            iconColor:"#ffc107"
           });
-      }
+        }
+      });
     },
   },
 };
 </script>
 
 <style>
-
 .botonmodal {
   margin: 3%;
   text-align: center;
@@ -277,7 +354,6 @@ body {
   display: flex;
 }
 .cara1 {
-  
   width: 20%;
 }
 .cara2 {
@@ -287,7 +363,7 @@ body {
 }
 .cara1areas {
   position: relative;
-  width:20%;
+  width: 20%;
   min-width: auto;
   overflow: hidden;
   height: min-content;
@@ -311,5 +387,4 @@ body {
   text-align: center;
   width: 70%;
 }
-
 </style>

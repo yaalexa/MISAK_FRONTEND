@@ -5,7 +5,7 @@
     </div>
     <div id="contenido">
       <div id="imagenp" class="mt-4">
-         <b-img fluid  :src="require('../../assets/fondoprincipal.png')" alt="Image 8"></b-img>
+         <b-img fluid-grow :src="require('../../assets/fondoprincipal.jpg')" alt="Image 8"></b-img>
       </div>
       <div id="menu" class="p-3 bg" style="margin-top: 2%; border: 1px solid #d9d9d9">
         <b-container class="bv-example-row">
@@ -228,7 +228,6 @@ export default {
   data() {
     return {
       opcionbuscar:null,
-      
       pr: null,
       id: null,
       buscador: null,

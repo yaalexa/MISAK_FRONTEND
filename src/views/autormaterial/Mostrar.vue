@@ -15,10 +15,12 @@
             >
             <br />
             <div class="control-label col-sm-5" style="text-align: left">
-              <a type="button" @click="asigautor()" class="btn btn-warning">
+              <a type="button" id="asignar" @click="asigautor()" class="btn btn-warning">
                 <b-icon icon="plus-circle-fill" aria-hidden="true"
                   >Asignar Autor</b-icon
-                >
+                ><b-tooltip target="asignar" triggers="hover">
+                  <b>ASIGNAR AUTOR</b>
+                </b-tooltip>
               </a>
             </div>
             <div class="control-label col-sm-7" style="text-align: left">
@@ -35,7 +37,7 @@
           </div>
 
           <b-table
-             responsive="sm"
+            responsive="sm"
             :filter="filter"
             id="my-table"
             :items="Author_material"
@@ -46,6 +48,7 @@
           >
             <template #cell(Acciones)="row">
               <b-button
+              id="elimi"
                 variant="primary"
                 type="button"
                 @click="borrarautorasignado(row.item.id)"
@@ -53,6 +56,9 @@
               >
                 <font-awesome-icon icon="fa-solid fa-trash-can" />
                 <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
+                <b-tooltip target="elimi" triggers="hover">
+                  <b>ELIMINAR ASIGNACION AUTOR</b>
+                </b-tooltip>
               </b-button>
             </template>
           </b-table>
@@ -73,6 +79,7 @@
 <script>
 import Header from "@/components/Header.vue";
 import axios from "axios";
+import Swal from "sweetalert2";
 export default {
   name: "autormaterial",
   data() {
@@ -114,16 +121,41 @@ export default {
       this.$router.push(`/AsignarAutores/${this.$route.params.id}`);
     },
     borrarautorasignado(id) {
-      if (confirm("¿Confirma eliminar el registro?")) {
-        this.axios
-          .delete(`/author_materials/${id}`)
-          .then((response) => {
-            this.autoresasignados();
-          })
-          .catch((error) => {
-            console.log(error);
+      Swal.fire({
+        title: "Está seguro?",
+        text: "¡Autor Se Eliminará Permanentemene!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#ffc107",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, Eliminalo!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.axios
+            .delete(`/author_materials/${id}`, {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization:
+                  "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+              },
+            })
+            .then((response) => {
+              console.log(response);
+
+              this.autoresasignados();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          Swal.fire({
+            title: "Eliminado!",
+            text: "Autor ha sido Eliminado",
+            icon: "success",
+            confirmButtonColor: "#ffc107",
+            iconColor: "#ffc107",
           });
-      }
+        }
+      });
     },
   },
 };

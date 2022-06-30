@@ -38,11 +38,7 @@
             >Registrate</router-link
           >
           <br /><br />
-          <router-link class="fadeIn fourth " to="/">Volver</router-link
-          ><br />
-          <div class="alert alert-danger" role="alert" v-if="error">
-            {{ error_msg }}
-          </div>
+          <router-link class="fadeIn fourth" to="/">Volver</router-link><br />
           <br />
         </div>
       </div>
@@ -54,14 +50,14 @@
 import axios from "axios";
 import VueSession from "vue-session";
 import { VueRecaptcha } from "vue-recaptcha";
+import Swal from "sweetalert2";
 export default {
   name: "Login",
   components: {
     VueSession,
     VueRecaptcha,
   },
-  props: {
-  },
+  props: {},
   data: function () {
     return {
       siteKey: "6LdCUjcgAAAAAM-G2M8Y4utP2L87TkkGUiHU12YP",
@@ -75,7 +71,12 @@ export default {
     recapt() {
       var response = grecaptcha.getResponse();
       if (response.length == 0) {
-        alert("Captcha no verificado");
+        Swal.fire({
+          title: "Captcha No Verificado",
+          icon: "error",
+          confirmButtonColor: "#ffc107",
+          iconColor: "#ffc107",
+        });
         return false;
       } else {
         this.login();
@@ -108,8 +109,12 @@ export default {
             sessionStorage.setItem("usuario2", JSON.stringify(data.data));
           }
         } else {
-          this.error = true;
-          this.error_msg = alert("verifique credenciales de usuario");
+          Swal.fire({
+          title: "Verifique Credenciales de Usuario",
+          icon: "error",
+          confirmButtonColor: "#ffc107",
+          iconColor: "#ffc107",
+        });;
         }
       });
     },

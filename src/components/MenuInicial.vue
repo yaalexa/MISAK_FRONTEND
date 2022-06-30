@@ -24,7 +24,7 @@ export default {
   width: 100%;
 }
 .fondo {
-  background-image: url("@/assets/fondo33.jpg");
+  background-image: url("@/assets/fondoweb1.png");
   background-size: cover;
   width: 100%;
 }
@@ -46,14 +46,14 @@ li {
   } */
 .lia::before {
   content: "_________________________________|";
-  color: white;
+  color: #d19b3d;
 }
 /* .lib{
   border-right: 2px solid #fffdfd;
   } */
 .lib::after {
   content: "|_________________________________";
-  color: white;
+  color: #d19b3d;
 }
 .hr {
   height: 10px;

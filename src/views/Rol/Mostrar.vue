@@ -11,13 +11,17 @@
           <h1>Roles</h1>
           <div class="form-group left row">
             <div class="control-label col-sm-5" style="text-align: left">
-              <b-button variant="warning" id="nuevo" v-b-modal="'modal-1'" class="btn btn-warning"
+              <b-button
+                variant="warning"
+                id="nuevo"
+                v-b-modal="'modal-1'"
+                class="btn btn-warning"
                 >Nuevo
                 <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon>
               </b-button>
               <b-tooltip target="nuevo" triggers="hover">
-                    <b>NUEVO ROL</b> 
-                  </b-tooltip>
+                <b>NUEVO ROL</b>
+              </b-tooltip>
             </div>
             <div class="control-label col-sm-7" style="text-align: left">
               <div class="input-group" style="text-align: right">
@@ -53,8 +57,8 @@
                 <b-icon icon="pencil" aria-hidden="true"></b-icon
               ></b-button>
               <b-tooltip target="edit" triggers="hover">
-                    <b>EDITAR ROL</b> 
-                  </b-tooltip>
+                <b>EDITAR ROL</b>
+              </b-tooltip>
             </template>
           </b-table>
           <b-pagination
@@ -86,6 +90,9 @@
                 id="client"
                 name="client"
                 v-model="form.client"
+                required minlength="4"
+                  maxlength="15"
+                  size="15"
               />
             </b-form-group>
           </div>
@@ -94,7 +101,11 @@
           </div>
         </form>
         <template #modal-footer="{ close }">
-          <b-button variant="primary" class="btn btn-secondary" @click="close()">
+          <b-button
+            variant="primary"
+            class="btn btn-secondary"
+            @click="close()"
+          >
             Cerrar
           </b-button>
         </template>
@@ -120,6 +131,9 @@
                 id="nombreed"
                 name="nombreed"
                 v-model="selectedUsernom"
+                required minlength="4"
+                  maxlength="15"
+                  size="15"
               />
             </b-form-group>
           </div>
@@ -128,7 +142,11 @@
           </div>
         </form>
         <template #modal-footer="{ close }">
-          <b-button variant="primary" class="btn btn-secondary" @click="close()">
+          <b-button
+            variant="primary"
+            class="btn btn-secondary"
+            @click="close()"
+          >
             Cerrar
           </b-button>
         </template>
@@ -140,11 +158,12 @@
 <script>
 import Header from "@/components/Header.vue";
 import axios from "axios";
+import Swal from "sweetalert2";
 export default {
   name: "MostrarRol",
   data() {
     return {
-      token:null,
+      token: null,
       form: {
         client: null,
       },
@@ -177,15 +196,36 @@ export default {
   methods: {
     editarrol() {
       axios
-        .put(`/rols/${this.selectedUserid}`, {
-          name: this.selectedUsernom,
-        },{
-         headers: {
-           "Content-Type": "application/json",
-            Authorization: "Bearer " + this.token
-             }})
+        .put(
+          `/rols/${this.selectedUserid}`,
+          {
+            name: this.selectedUsernom,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + this.token,
+            },
+          }
+        )
         .then((response) => {
-          console.log(response);
+          this.form = response.data;
+          console.log("formulario: ", this.form.mensaje);
+          var icono = "success";
+          var colorb = "#ffc107";
+          var colori = "#ffc107";
+          if (this.form.res == true) {
+          } else {
+            icono = "error";
+            colorb = "#c42a2a";
+            colori = "#c42a2a";
+          }
+          Swal.fire({
+            title: this.form.mensaje,
+            icon: icono,
+            confirmButtonColor: colorb,
+            iconColor: colori,
+          });
           this.mostrarRoles();
         });
     },
@@ -194,23 +234,45 @@ export default {
     },
     handleOk() {
       this.axios
-        .post("/rols", { name: this.form.client },{
-         headers: {
-           "Content-Type": "application/json",
-            Authorization: "Bearer " + this.token
-             }})
+        .post(
+          "/rols",
+          { name: this.form.client },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + this.token,
+            },
+          }
+        )
         .then((response) => {
-          console.log(response);
+          this.form = response.data;
+          console.log("formulario: ", this.form.mensaje);
+          var icono = "success";
+          var colorb = "#ffc107";
+          var colori = "#ffc107";
+          if (this.form.res == true) {
+          } else {
+            icono = "error";
+            colorb = "#c42a2a";
+            colori = "#c42a2a";
+          }
+          Swal.fire({
+            title: this.form.mensaje,
+            icon: icono,
+            confirmButtonColor: colorb,
+            iconColor: colori,
+          });
           this.mostrarRoles();
         });
     },
     async mostrarRoles() {
       await this.axios
-        .get("/rols",{
-         headers: {
-           "Content-Type": "application/json",
-            Authorization: "Bearer " + this.token
-             }})
+        .get("/rols", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + this.token,
+          },
+        })
         .then((response) => {
           this.Roles = response.data;
         })

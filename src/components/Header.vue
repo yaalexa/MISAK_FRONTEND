@@ -1,10 +1,9 @@
 <template>
   <section>
-       <div>
-       <b-navbar toggleable="sm"  style="position: fixed;" >
-        <b-navbar-toggle v-b-toggle.sidebar-no-header ></b-navbar-toggle>
-        <b-collapse id="nav-text-collapse" is-nav>
-        </b-collapse>
+    <div>
+      <b-navbar toggleable="sm" style="position: fixed">
+        <b-navbar-toggle v-b-toggle.sidebar-no-header></b-navbar-toggle>
+        <b-collapse id="nav-text-collapse" is-nav> </b-collapse>
       </b-navbar>
     </div>
     <div class="nav-side-menu" id="nav-side-menu">
@@ -131,7 +130,8 @@
                     @click="cerrarTodo()"
                     class="mb-2"
                   >
-                  <b-icon icon="power" aria-hidden="true" ></b-icon> Cerrar Sesión
+                    <b-icon icon="power" aria-hidden="true"></b-icon> Cerrar
+                    Sesión
                   </b-button>
                 </li>
               </b-nav>
@@ -143,15 +143,14 @@
         </template>
       </b-sidebar>
     </div>
-
   </section>
 </template>
 <script>
 import axios from "axios";
+import Swal from 'sweetalert2';
 export default {
   name: "MenuAdmin",
   mounted() {
-
     var obj = JSON.parse(sessionStorage.getItem("user"));
     var usrid = JSON.parse(sessionStorage.getItem("userid"));
     var rolusr2 = JSON.parse(sessionStorage.getItem("rolusr"));
@@ -165,41 +164,57 @@ export default {
     };
   },
   methods: {
-  
     obtenerUsuario(usrid) {
       this.rolName = JSON.parse(sessionStorage.getItem("usuario"));
       this.rolName = this.rolName.usr_name;
       this.administrador = this.rolName.usr_name;
     },
     async cerrarTodo(obj) {
-      if (confirm("¿Confirma cerrar sesión?")) {
-        var token = JSON.parse(sessionStorage.getItem("user"));
-        await this.axios
+      Swal.fire({
+        title: "Cierre de sesión",
+        icon: "warning",
+        iconColor: "#ffc107",
+        showCancelButton: true,
+        confirmButtonColor: "#ffc107",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, cerrar sesión!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var token = JSON.parse(sessionStorage.getItem("user"));
+          this.axios
             .get(`/logout`, {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: "Bearer " + token
-                    }
-                    }).then((response) => {
-                          console.log("logout: ", response.data);
-                          sessionStorage.clear();
-                         this.$router.push("/");
-                    }).catch((errorgrave) => console.log(errorgrave));
-        
-      }
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+              },
+            })
+            .then((response) => {
+              console.log("logout: ", response.data);
+              sessionStorage.clear();
+              this.$router.push("/");
+            })
+            .catch((errorgrave) => console.log(errorgrave));
+          Swal.fire({
+            icon: "success",
+            iconColor: "#ffc107",
+            confirmButtonColor: "#ffc107",
+            text: "Cierre de sesión exitosa",
+          });
+        }
+      });
     },
   },
 };
 </script>
 <style>
 .navbar {
-    position: fixed;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+  position: fixed;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 .nav-side-menu {
   overflow: auto;

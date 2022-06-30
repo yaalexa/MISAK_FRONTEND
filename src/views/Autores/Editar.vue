@@ -24,6 +24,9 @@
                         id="full_name"
                         v-model="Autor.name"
                         class="form-control last"
+                        required minlength="4"
+                        maxlength="35"
+                        size="30"
                       />
                     </div>
                   </div>
@@ -41,6 +44,9 @@
                         id="name"
                         v-model="Autor.address"
                         class="form-control"
+                        required minlength="4"
+                        maxlength="20"
+                        size="20"
                       />
                     </div>
                   </div>
@@ -52,11 +58,14 @@
                     </div>
                     <div class="col-xs-8">
                       <input
-                        type="text"
+                        type="number"
                         name="fname"
                         id="name"
                         v-model="Autor.phone"
                         class="form-control"
+                        required minlength="4"
+                        maxlength="13"
+                        size="14"
                       />
                     </div>
                   </div>
@@ -83,6 +92,7 @@
 <script>
 import Header from "@/components/Header.vue";
 import axios from "axios";
+import Swal from "sweetalert2";
 export default {
   name: "EditarAutor",
   data() {
@@ -106,11 +116,13 @@ export default {
     },
     async mostrarAutor() {
       axios
-        .get("/authors/" + this.$route.params.id,{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                })
+        .get("/authors/" + this.$route.params.id, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+          },
+        })
         .then((datos) => {
           this.Autor.name = datos.data[0].name;
           this.Autor.address = datos.data[0].address;
@@ -119,15 +131,31 @@ export default {
     },
     async actualizar() {
       await this.axios
-        .put(
-          `/authors/${this.$route.params.id}`,
-          this.Autor,{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                }
-        )
+        .put(`/authors/${this.$route.params.id}`, this.Autor, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+          },
+        })
         .then((response) => {
+          this.form = response.data;
+          console.log("formulario: ", this.form.mensaje);
+          var icono = "success";
+          var colorb = "#ffc107";
+          var colori = "#ffc107";
+          if (this.form.res == true) {
+          } else {
+            icono = "error";
+            colorb = "#c42a2a";
+            colori = "#c42a2a";
+          }
+          Swal.fire({
+            title: this.form.mensaje,
+            icon: icono,
+            confirmButtonColor: colorb,
+            iconColor: colori,
+          });
           this.$router.push({ name: "MostrarAutor" });
         })
         .catch((error) => {

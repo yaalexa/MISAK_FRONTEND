@@ -55,7 +55,7 @@
               </button>
             </template>
             </b-table>
-          <table>
+        
             <b-pagination
               align="and"
               v-model="currentPage"
@@ -63,8 +63,9 @@
               :per-page="perPage"
               aria-controls="my-table"
             ></b-pagination>
-          </table>
-          
+
+   
+          <br/>
         </div>
         <div>
         </div>
@@ -167,15 +168,19 @@ body {
 }
 .pantalla {
   display: flex;
+   height: 100vh;
+   overflow: hidden;
 }
 .cara1 {
   height: 100vh;
   width: 20%;
+  overflow: hidden;
 }
 .cara2 {
   margin-top: 20px;
   width: 80%;
-  height: 100vh;
+  height: 100;
+  overflow: auto;
 }
 .buttom {
   background-color: #ffca2c;

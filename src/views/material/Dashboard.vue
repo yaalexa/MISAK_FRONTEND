@@ -19,8 +19,8 @@
                   <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon>
                 </button>
                 <b-tooltip target="nuevo" triggers="hover">
-                    <b>CREAR NUEVO MATERIAL</b> 
-                  </b-tooltip>
+                  <b>CREAR NUEVO MATERIAL</b>
+                </b-tooltip>
               </div>
               <!-- -------- -->
               <!-- Buscador -->
@@ -48,15 +48,14 @@
               >
                 <template #cell(acciones)="row">
                   <router-link
-                  id="editar"
+                    id="editar"
                     :to="{ name: 'Editar', params: { id: row.item.id } }"
                     class="btn btn-warning"
                     ><font-awesome-icon icon="fa-solid fa-pen-to-square" />
                     <b-icon icon="pencil" aria-hidden="true"></b-icon>
-                    
                   </router-link>
                   <b-tooltip target="editar" triggers="hover">
-                    <b>EDITAR MATERIAL</b> 
+                    <b>EDITAR MATERIAL</b>
                   </b-tooltip>
                   <a
                     type="button"
@@ -67,7 +66,7 @@
                     <font-awesome-icon icon="fa-solid fa-trash-can" />
                     <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
                     <b-tooltip target="eliminar" triggers="hover">
-                    <b>ELIMINAR MATERIAL</b> 
+                      <b>ELIMINAR MATERIAL</b>
                     </b-tooltip>
                   </a>
                   <a
@@ -83,7 +82,7 @@
                     >
                     </b-icon>
                     <b-tooltip target="autor" triggers="hover">
-                    <b>ASIGNAR AUTOR</b> 
+                      <b>ASIGNAR AUTOR</b>
                     </b-tooltip>
                   </a>
                   <a
@@ -94,7 +93,7 @@
                   >
                     <b-icon icon="bar-chart-fill" flip-h flip-v></b-icon>
                     <b-tooltip target="niveled" triggers="hover">
-                    <b>ASIGNAR NIVEL EDUCATIVO</b> 
+                      <b>ASIGNAR NIVEL EDUCATIVO</b>
                     </b-tooltip>
                   </a>
                 </template>
@@ -117,6 +116,7 @@
 <script>
 import Header from "@/components/Header.vue";
 import axios from "axios";
+import Swal from "sweetalert2";
 export default {
   name: "Dashboard",
   data() {
@@ -154,20 +154,19 @@ export default {
     this.mostarMateriales();
   },
   methods: {
-    educationallevel(id, name) {
-      this.$router.push({
-        name: "nivelmaterial",
-        params: { id: id, name: name },
-      });
+    educationallevel(id) {
+      this.$router.push("/nivelmaterial/" + id);
     },
     buscarmaterial(name) {
       console.log(name);
       this.axios
-        .get("/buscar/" + name,{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                })
+        .get("/buscar/" + name, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+          },
+        })
         .then((response) => {
           this.buscar = response.data.material;
           console.log(this.buscar);
@@ -177,46 +176,65 @@ export default {
         });
     },
     editar(id) {
-      this.$router.push("/editar:" + id,{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                });
+      this.$router.push("/editar:" + id, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+        },
+      });
     },
     nuevo() {
       this.$router.push("/nuevoM");
     },
     borrar(id) {
-      if (confirm("¿Confirma eliminar el registro?")) {
-        this.axios
-          .delete(`/materials/${id}`,{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                })
-          .then((response) => {
-            console.log(response);
-            this.mostarMateriales();
-          })
-          .catch((error) => {
-            console.log(error);
+      Swal.fire({
+        title: "Está seguro?",
+        text: "¡Material Se Eliminará Permanentemene!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#ffc107",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, Eliminalo!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.axios
+            .delete(`/materials/${id}`, {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization:
+                  "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+              },
+            })
+            .then((response) => {
+              console.log(response);
+
+              this.mostarMateriales();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          Swal.fire({
+            title: "Eliminado!",
+            text: "Material ha sido Eliminado",
+            icon: "success",
+            confirmButtonColor: "#ffc107",
+            iconColor: "#ffc107",
           });
-      }
-    },
-    autormaterial(id, name) {
-      //this.$router.push('/autormaterial/' +id);
-      this.$router.push({
-        name: "autormaterial",
-        params: { id: id, name: name },
+        }
       });
+    },
+    autormaterial(id) {
+      this.$router.push("/autormaterial/" + id);
     },
     async mostarMateriales() {
       await this.axios
-        .get("/visualizacion/",{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                })
+        .get("/visualizacion/", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+          },
+        })
         .then((response) => {
           this.material = response.data;
           console.log(this.material);

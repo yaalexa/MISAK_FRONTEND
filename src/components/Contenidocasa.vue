@@ -28,36 +28,31 @@
                 <img src="../assets/grupo.jpg" alt="" />
             </div>
             <div class="lefta">
-                <p>Somos un grupo de estudiantes que ha desarrollado  <br>
+                <p class="texto">Somos un grupo de estudiantes que ha desarrollado  <br>
                  una biblioteca virtul para la comunidad misak.  <br>
                   de izquierdad a derecha se encuentran los nombres de los participantes</p>
                   <ul>
-                  <li>Veronica Palechor: Desarrolladora Backend & Frontend  </li>
-                  <li>Daniel Cruz: Desarrollador Frontend                   </li>
-                  <li>Andres Camayo: Desarrollador Backend & Frontend       </li>
-                  <li>Zulema Leon: Intructora lider                         </li>
-                  <li>Josue Rivera: Desarrollador Backend & Frontend        </li>
-                  <li>Eduard Urbano: Desarrollador Backend & Frontend       </li>
-                  <li>Alvaro Morales: Documentacion & Desarrollador Frontend</li>
-                  <li>Erika Martinez: Documentación                         </li>
-                  <li>William Sevilla: Desarrollador Frontend               </li>
-                  <li>Zareth Certuche: Documentación                        </li>
-                  <li>Wilfrido Franco: Diseño                               </li>
+                  <li>Veronica Palechor: Desarrolladora Backend & apoyo a Frontend  </li>
+                  <li>Daniel Cruz: Desarrollador Frontend & apoyo a Documentacion   </li>
+                  <li>Andres Camayo: Desarrollador Backend & apoyo a Frontend       </li>
+                  <li>Zulema Leon: Intructora lider                                 </li>
+                  <li>Josue Rivera: Desarrollador Backend & apoyo a Frontend        </li>
+                  <li>Eduard Urbano: Desarrollador Backend & apoyo a Frontend       </li>
+                  <li>Alvaro Morales: Documentacion & apoyo a Frontend              </li>
+                  <li>Erika Martinez: Documentación & apoyo a Frontend              </li>
+                  <li>William Sevilla: Desarrollador Frontend & apoyo a Backend     </li>
+                  <li>Zareth Certuche: Documentación & apoyo a Frontend             </li>
+                  <li>Wilfrido Franco: Diseño & apoyo a Frontend                    </li>
                   </ul>
             </div>
         </div>
     </div>
 </template>
-<script>
-export default {
-    name:"Contenidocasa"
-}
-</script>
 <style scoped>
 .biblio{
     justify-content: center;
     padding: 0;
-    border: 3px solid gray;
+    border: 3px solid rgb(185, 146, 17);
     margin: 2vw;
     border-radius: 1vw;
 }
@@ -102,12 +97,12 @@ p{
     align-content: center;
     text-align: justify;
     margin: 2vw;
-    border: 3px solid gray;
+    border: 3px solid rgb(185, 146, 17);
     border-radius: 1vw;
 }
 .todo{
     margin: 2vw;
-    border: 3px solid gray;
+    border: 3px solid rgb(185, 146, 17);
     border-radius: 1vw;
 }
 .titulos{
@@ -115,5 +110,72 @@ p{
 }
 .cont{
     background: linear-gradient(to top, rgb(44, 43, 43), 15%, #ffffff);
+}
+@media all and (max-width: 700px) {
+    .biblio{
+    justify-content: center;
+    padding: 0;
+    border: 3px solid rgb(185, 146, 17);
+    margin: 2vw;
+    border-radius: 1vw;
+}
+img{
+    width: 85vw;
+}
+.contenido{
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    flex-direction: column;
+    
+}
+.right{
+    padding:0;
+    margin: 0;
+}
+.left{
+     padding:0;
+    margin: 0;
+}
+p{
+    font-weight:2;
+}
+.righta{
+    padding:0;
+    margin: 0;
+}
+.lefta{
+     padding:0;
+    margin: 0;
+    margin-top: 4vw;
+}
+.contenidoa{
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    text-align: justify;
+    flex-direction: column;
+    margin: 2vw;
+    border: 3px solid rgb(185, 146, 17);
+    border-radius: 1vw;
+}
+.todo{
+    margin: 2vw;
+  border: 3px solid rgb(185, 146, 17);
+    border-radius: 1vw;
+    
+}
+.titulos{
+    margin-top: 1vw;
+}
+.cont{
+    background: linear-gradient(to top, rgb(92, 89, 89), 15%, #ffffff);
+}
+.texto{
+    margin: 3vw;
+}
+ul{
+    margin-right: 3vw;
+}
 }
 </style>

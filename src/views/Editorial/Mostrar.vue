@@ -12,13 +12,18 @@
             <h1>EDITORIAL</h1>
             <div class="form-group left row">
               <div class="control-label col-sm-5" style="text-align: left">
-                <b-button id="nuevo" variant="warning" v-b-modal="'creareditorial'" class="btn btn-warning">
+                <b-button
+                  id="nuevo"
+                  variant="warning"
+                  v-b-modal="'creareditorial'"
+                  class="btn btn-warning"
+                >
                   Nuevo
                   <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon>
                 </b-button>
                 <b-tooltip target="nuevo" triggers="hover">
-                    <b>CREAR NUEVO EDITORIAL</b> 
-                  </b-tooltip>
+                  <b>CREAR NUEVO EDITORIAL</b>
+                </b-tooltip>
               </div>
               <div class="control-label col-sm-7" style="text-align: left">
                 <div class="input-group" style="text-align: right">
@@ -45,8 +50,8 @@
             >
               <template #cell(Acciones)="row">
                 <b-button
-                 variant="warning"
-                 id="edita"
+                  variant="warning"
+                  id="edita"
                   v-b-modal="'editar_editorial'"
                   class="btn btn-warning"
                   @click="sendInfoEditorial(row.item.id, row.item.name)"
@@ -54,15 +59,20 @@
                   <b-icon icon="pencil" aria-hidden="true"></b-icon>
                 </b-button>
                 <b-tooltip target="edita" triggers="hover">
-                    <b>EDITAR EDITORIAL</b> 
-                  </b-tooltip>
-                <b-button variant="primary" id="elimi" class="btn btn-secondary" @click="borrarEditorial(row.item.id)">
+                  <b>EDITAR EDITORIAL</b>
+                </b-tooltip>
+                <b-button
+                  variant="primary"
+                  id="elimi"
+                  class="btn btn-secondary"
+                  @click="borrarEditorial(row.item.id)"
+                >
                   <font-awesome-icon icon="fa-solid fa-trash-can" />
                   <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
                 </b-button>
                 <b-tooltip target="elimi" triggers="hover">
-                    <b>ELIMINAR EDITORIAL</b> 
-                  </b-tooltip>
+                  <b>ELIMINAR EDITORIAL</b>
+                </b-tooltip>
               </template>
             </b-table>
             <b-pagination
@@ -70,7 +80,8 @@
               v-model="currentPage"
               :total-rows="rows"
               :per-page="perPage"
-              aria-controls="my-table">
+              aria-controls="my-table"
+            >
             </b-pagination>
           </div>
         </div>
@@ -87,12 +98,16 @@
               label="Nombre"
               label-for="name-input"
               invalid-feedback="Nombre obligatorio"
-              :state="nameState">
+              :state="nameState"
+            >
               <input
                 type="text"
                 id="nom_editorial"
                 name="nom_editorial"
                 v-model="form.nom_editorial"
+                required minlength="4"
+                  maxlength="20"
+                  size="20"
               />
             </b-form-group>
           </div>
@@ -101,7 +116,11 @@
           </div>
         </form>
         <template #modal-footer="{ close }">
-          <b-button variant="primary" class="btn btn-secondary" @click="close()">
+          <b-button
+            variant="primary"
+            class="btn btn-secondary"
+            @click="close()"
+          >
             Cerrar
           </b-button>
         </template>
@@ -119,12 +138,17 @@
               label="Nombre"
               label-for="name-input"
               invalid-feedback="Nombre obligatorio"
-              :state="nameState" >
+              :state="nameState"
+            >
               <input
                 type="text"
                 id="nombreed"
                 name="nombreed"
-                v-model="selectedEdnom"/>
+                v-model="selectedEdnom"
+                required minlength="4"
+                  maxlength="20"
+                  size="20"
+              />
             </b-form-group>
           </div>
           <div class="botonmodal">
@@ -132,7 +156,11 @@
           </div>
         </form>
         <template #modal-footer="{ close }">
-          <b-button variant="primary" class="btn btn-secondary" @click="close()">
+          <b-button
+            variant="primary"
+            class="btn btn-secondary"
+            @click="close()"
+          >
             Cerrar
           </b-button>
         </template>
@@ -144,6 +172,7 @@
 <script>
 import Header from "@/components/Header.vue";
 import axios from "axios";
+import Swal from "sweetalert2";
 export default {
   name: "MostrarEditorial",
   data() {
@@ -179,15 +208,37 @@ export default {
   methods: {
     async editarEdit() {
       axios
-        .put(`/editorials/${this.selectedEdid}`, {
-          name: this.selectedEdnom,
-        },{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                })
+        .put(
+          `/editorials/${this.selectedEdid}`,
+          {
+            name: this.selectedEdnom,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization:
+                "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+            },
+          }
+        )
         .then((response) => {
-          console.log(response);
+          this.form = response.data;
+          console.log("formulario: ", this.form.mensaje);
+          var icono = "success";
+          var colorb = "#ffc107";
+          var colori = "#ffc107";
+          if (this.form.res == true) {
+          } else {
+            icono = "error";
+            colorb = "#c42a2a";
+            colori = "#c42a2a";
+          }
+          Swal.fire({
+            title: this.form.mensaje,
+            icon: icono,
+            confirmButtonColor: colorb,
+            iconColor: colori,
+          });
           this.mostrarEditorial();
         });
     },
@@ -196,25 +247,49 @@ export default {
     },
     crearEd() {
       this.axios
-        .post("/editorials", {
-          name: this.form.nom_editorial,
-        },{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                })
+        .post(
+          "/editorials",
+          {
+            name: this.form.nom_editorial,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization:
+                "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+            },
+          }
+        )
         .then((response) => {
-          console.log(response);
+          this.form = response.data;
+          console.log("formulario: ", this.form.mensaje);
+          var icono = "success";
+          var colorb = "#ffc107";
+          var colori = "#ffc107";
+          if (this.form.res == true) {
+          } else {
+            icono = "error";
+            colorb = "#c42a2a";
+            colori = "#c42a2a";
+          }
+          Swal.fire({
+            title: this.form.mensaje,
+            icon: icono,
+            confirmButtonColor: colorb,
+            iconColor: colori,
+          });
           this.mostrarEditorial();
         });
     },
     async mostrarEditorial() {
       await this.axios
-        .get("/editorials",{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                })
+        .get("/editorials", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+          },
+        })
         .then((response) => {
           this.editorial = response.data;
         })
@@ -224,21 +299,41 @@ export default {
         });
     },
     borrarEditorial(id) {
-      if (confirm("¿Confirma eliminar el registro?")) {
-        this.axios
-          .delete(`/editorials/${id}`,{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                })
-          .then((response) => {
-            console.log(response);
-            this.mostrarEditorial();
-          })
-          .catch((error) => {
-            console.log(error);
+      Swal.fire({
+        title: "Está seguro?",
+        text: "¡La Editorial Se Eliminará Permanentemene!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#ffc107",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, Eliminalo!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.axios
+            .delete(`/authors/${id}`, {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization:
+                  "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+              },
+            })
+            .then((response) => {
+              console.log(response);
+
+              this.mostrarAutores();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          Swal.fire({
+            title: "Eliminado!",
+            text: "El Tipo de Material ha sido Eliminado",
+            icon: "success",
+            confirmButtonColor: "#ffc107",
+            iconColor: "#ffc107",
           });
-      }
+        }
+      });
     },
   },
 };

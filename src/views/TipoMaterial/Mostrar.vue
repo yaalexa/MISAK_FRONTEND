@@ -12,12 +12,16 @@
           <h1>TIPO DE MATERIAL</h1>
           <div class="form-group left row">
             <div class="control-label col-sm-5" style="text-align: left">
-              <b-button id="nuevo" variant="warning" v-b-modal="'creareTipoMaterial'" class="btn btn-warning"
+              <b-button
+                id="nuevo"
+                variant="warning"
+                v-b-modal="'creareTipoMaterial'"
+                class="btn btn-warning"
                 >Nuevo
                 <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon
               ></b-button>
               <b-tooltip target="nuevo" triggers="hover">
-                    <b>NUEVO TIPO DE MATERIAL</b> 
+                <b>NUEVO TIPO DE MATERIAL</b>
               </b-tooltip>
             </div>
             <div class="control-label col-sm-7" style="text-align: left">
@@ -53,7 +57,7 @@
                 <b-icon icon="pencil" aria-hidden="true"></b-icon
               ></b-button>
               <b-tooltip target="edit" triggers="hover">
-                    <b>EDITAR TIPO DE MATERIAL</b> 
+                <b>EDITAR TIPO DE MATERIAL</b>
               </b-tooltip>
               <b-button
                 variant="primary"
@@ -65,8 +69,8 @@
                   aria-hidden="true"
                 ></b-icon
                 ><b-tooltip target="eliminar" triggers="hover">
-                    <b>ELIMINAR TIPO DE MATERIAL</b> 
-              </b-tooltip>
+                  <b>ELIMINAR TIPO DE MATERIAL</b>
+                </b-tooltip>
               </b-button>
             </template>
           </b-table>
@@ -103,6 +107,9 @@
                 id="nom_editorial"
                 name="nom_editorial"
                 v-model="form.nom_editorial"
+                required minlength="4"
+                  maxlength="30"
+                  size="30"
               />
             </b-form-group>
           </div>
@@ -111,7 +118,11 @@
           </div>
         </form>
         <template #modal-footer="{ close }">
-          <b-button variant="primary" class="btn btn-secondary" @click="close()">
+          <b-button
+            variant="primary"
+            class="btn btn-secondary"
+            @click="close()"
+          >
             Cerrar
           </b-button>
         </template>
@@ -140,6 +151,9 @@
                 id="nombreed"
                 name="nombreed"
                 v-model="selectedEdnom"
+                required minlength="4"
+                  maxlength="30"
+                  size="30"
               />
             </b-form-group>
           </div>
@@ -148,7 +162,11 @@
           </div>
         </form>
         <template #modal-footer="{ close }">
-          <b-button variant="primary" class="btn btn-secondary" @click="close()">
+          <b-button
+            variant="primary"
+            class="btn btn-secondary"
+            @click="close()"
+          >
             Cerrar
           </b-button>
         </template>
@@ -159,6 +177,7 @@
 <script>
 import Header from "@/components/Header.vue";
 import axios from "axios";
+import Swal from "sweetalert2";
 export default {
   name: "MostrarTipoMaterial",
   data() {
@@ -172,7 +191,6 @@ export default {
       filter: null,
       perPage: 7, //numero de filas que va a tener por pagina
       currentPage: 1, //donde va a iniciar la paginacion
-
       fields: [
         { key: "id", label: "#" },
         { key: "name", label: "Nombre" },
@@ -195,15 +213,36 @@ export default {
   methods: {
     async editarEdit() {
       axios
-        .put(`/type_materials/${this.selectedEdid}`, {
-          name: this.selectedEdnom,
-        },{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                })
+        .put(
+          `/type_materials/${this.selectedEdid}`,
+          {
+            name: this.selectedEdnom,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization:
+                "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+            },
+          }
+        )
         .then((response) => {
-          console.log(response);
+          this.form= response.data
+          console.log("formulario: ", this.form.mensaje);
+          var icono = "success";
+          var colorb = "#ffc107";
+          var colori = "#ffc107";
+          if (this.form.res == true){
+          }
+          else{
+            icono = "error";
+            colorb = "#c42a2a";
+            colori = "#c42a2a";
+          }
+          Swal.fire({title:this.form.mensaje,
+                    icon: icono,
+                    confirmButtonColor: colorb,
+                    iconColor:colori});
           this.mostarTipoMaterial();
         });
     },
@@ -212,43 +251,86 @@ export default {
     },
     crearEd() {
       this.axios
-        .post("/type_materials", {
-          name: this.form.nom_editorial,
-        },{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                })
+        .post(
+          "/type_materials",
+          {
+            name: this.form.nom_editorial,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization:
+                "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+            },
+          }
+        )
         .then((response) => {
-          console.log(response);
+          this.form= response.data
+          console.log("formulario: ", this.form.mensaje);
+          var icono = "success";
+          var colorb = "#ffc107";
+          var colori = "#ffc107";
+          if (this.form.res== true){
+          }
+          else{
+            icono = "error";
+            colorb = "#c42a2a";
+            colori = "#c42a2a";
+          }
+          Swal.fire({title:this.form.mensaje,
+                    icon: icono,
+                    confirmButtonColor: colorb,
+                    iconColor:colori});
           this.mostarTipoMaterial();
         });
     },
 
     borrar(id) {
-      if (confirm("¿Confirma eliminar el registro?")) {
-        this.axios
-          .delete(`/type_materials/${id}`,{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                })
-          .then((response) => {
-            console.log(response);
-            this.mostarTipoMaterial()
-          })
-          .catch((error) => {
-            console.log(error);
+      Swal.fire({
+        title: "Está seguro?",
+        text: "¡El Tipo de Material se eliminará permanentemene!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#ffc107",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, Eliminalo!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.axios
+            .delete(`/type_materials/${id}`, {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization:
+                  "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+              },
+            })
+            .then((response) => {
+              console.log(response);
+
+              this.mostarTipoMaterial();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          Swal.fire({
+            title: "Eliminado!",
+            text: "El Tipo de Material ha sido Eliminado",
+            icon: "success",
+            confirmButtonColor: "#ffc107",
+            iconColor: "#ffc107",
           });
-      }
+        }
+      });
     },
     async mostarTipoMaterial() {
       await this.axios
-        .get("/type_materials",{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                })
+        .get("/type_materials", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+          },
+        })
         .then((response) => {
           this.TipoMaterial = response.data;
         })

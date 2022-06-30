@@ -25,6 +25,9 @@
                         placeholder="Ingrese Nombre Completo"
                         v-model="Autor.name"
                         class="form-control last"
+                        required minlength="4"
+                        maxlength="35"
+                        size="30"
                       />
                     </div>
                   </div>
@@ -43,6 +46,9 @@
                         placeholder="Ingrese Direccion"
                         v-model="Autor.address"
                         class="form-control"
+                        required minlength="4"
+                        maxlength="20"
+                        size="20"
                       />
                     </div>
                   </div>
@@ -54,12 +60,15 @@
                     </div>
                     <div class="col-xs-8">
                       <input
-                        type="text"
+                        type="number"
                         name="fname"
                         id="name"
                         placeholder="Ingrese Telefono"
                         v-model="Autor.phone"
                         class="form-control"
+                        required minlength="4"
+                        maxlength="13"
+                        size="14"
                       />
                     </div>
                   </div>
@@ -131,7 +140,6 @@ export default {
           });
           this.$router.push({ name: "MostrarAutor" });
         })
-
         .catch((error) => {
           console.log(error);
         });

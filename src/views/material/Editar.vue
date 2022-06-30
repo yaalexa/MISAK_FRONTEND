@@ -21,6 +21,9 @@
                   name="name"
                   id="name"
                   v-model="mate.name"
+                  required minlength="4"
+                  maxlength="35"
+                  size="30"
                 />
               </div>
             </div>
@@ -29,11 +32,14 @@
                 <label for="" class="control-label col-sm-3">Año</label>
                 <div class="col-sm-7">
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
                     name="year"
                     id="year"
                     v-model="mate.year"
+                    required minlength="4"
+                  maxlength="10"
+                  size="11"
                   />
                 </div>
               </div>
@@ -42,11 +48,14 @@
                 <div class="col-sm-7">
                   <input
                     disabled
-                    type="text"
+                    type="number"
                     class="form-control"
                     name="isbn"
                     id="isbn"
                     v-model="mate.isbn"
+                    required minlength="4"
+                  maxlength="10"
+                  size="11"
                   />
                 </div>
               </div>
@@ -56,11 +65,14 @@
                 <label for="" class="control-label col-sm-3">#Paginas</label>
                 <div class="col-sm-7">
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
                     name="num_pages"
                     id="num_pages"
                     v-model="mate.num_pages"
+                    required minlength="4"
+                    maxlength="10"
+                    size="11"
                   />
                 </div>
               </div>
@@ -165,6 +177,7 @@
 <script>
 import Header from "@/components/Header.vue";
 import axios from "axios";
+import Swal from "sweetalert2";
 export default {
   name: "Editar",
   components: {
@@ -200,33 +213,45 @@ export default {
   methods: {
     tipoMaterial() {
       let direccion = "/type_materials";
-      axios.get(direccion,{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                }).then((result) => {
-        this.type_material_id = result.data;
-      });
+      axios
+        .get(direccion, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+          },
+        })
+        .then((result) => {
+          this.type_material_id = result.data;
+        });
     },
     area() {
       let direccion3 = "/areas";
-      axios.get(direccion3,{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                }).then((result) => {
-        this.area_id = result.data;
-      });
+      axios
+        .get(direccion3, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+          },
+        })
+        .then((result) => {
+          this.area_id = result.data;
+        });
     },
     edito() {
       let direccion2 = "/editorials";
-      axios.get(direccion2,{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                }).then((result) => {
-        this.editorial_id = result.data;
-      });
+      axios
+        .get(direccion2, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+          },
+        })
+        .then((result) => {
+          this.editorial_id = result.data;
+        });
     },
     salir() {
       this.$router.push("/dashboard");
@@ -234,24 +259,44 @@ export default {
     //cosas
     actualizar() {
       axios
-        .put("/materials/" + this.mate.id, this.mate,{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                })
+        .put("/materials/" + this.mate.id, this.mate, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+          },
+        })
         .then((response) => {
           console.log(response);
+          this.form= response.data
+          console.log("formulario: ", this.form.mensaje);
+          var icono = "success";
+          var colorb = "#ffc107";
+          var colori = "#ffc107";
+          if (this.form.res == true){
+          }
+          else{
+            icono = "error";
+            colorb = "#c42a2a";
+            colori = "#c42a2a";
+          }
+          Swal.fire({title:this.form.mensaje,
+                    icon: icono,
+                    confirmButtonColor: colorb,
+                    iconColor:colori});
           this.$router.push("/dashboard");
         });
     },
     async mostrarForm() {
       this.mate.id = this.$route.params.id;
       await axios
-        .get("/materials/" + this.mate.id,{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                })
+        .get("/materials/" + this.mate.id, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+          },
+        })
         .then((response) => {
           this.mate.id = response.data[0].id;
           this.mate.name = response.data[0].name;
@@ -274,7 +319,7 @@ body {
 }
 .pantalla {
   display: flex;
-   height: 100vh;
+  height: 100vh;
 }
 .cara1 {
   height: 100vh;

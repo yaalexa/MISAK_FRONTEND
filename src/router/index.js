@@ -46,8 +46,7 @@ import EditarAutores from "../views/Autores/Editar.vue";
 import MostrarAutores from "../views/Autores/Mostrar.vue";
 
 //para tipo material
-import CrearTipoMaterial from "../views/TipoMaterial/Crear.vue";
-import EditarTipoMaterial from "../views/TipoMaterial/Editar.vue";
+
 import MostrarTipoMaterial from "../views/TipoMaterial/Mostrar.vue";
 //para Areas
 import CrearAreas from "../views/Areas/Crear.vue";
@@ -253,18 +252,8 @@ const routes = [
     component: MostrarAutores,
     meta: { requiresAuth: true },
   },
-  {
-    name: "CrearTipoMaterial",
-    path: "/CrearTipoMaterial",
-    component: CrearTipoMaterial,
-    meta: { requiresAuth: true },
-  },
-  {
-    name: "EditarTipoMaterial",
-    path: "/EditarTipoMaterial/:id",
-    component: EditarTipoMaterial,
-    meta: { requiresAuth: true },
-  },
+
+ 
   {
     name: "MostrarTipoMaterial",
     path: "/TipoMaterial",
@@ -339,7 +328,7 @@ const routes = [
   },
   {
     name: "autormaterial",
-    path: "/autormaterial/:id,:name",
+    path: "/autormaterial/:id",
     component: Autormaterial,
     meta: { requiresAuth: true },
   },
@@ -351,7 +340,7 @@ const routes = [
   },
   {
     name: "nivelmaterial",
-    path: "/nivelmaterial/:id,:name",
+    path: "/nivelmaterial/:id",
     component: Nivelmaterial,
     meta: { requiresAuth: true },
   },

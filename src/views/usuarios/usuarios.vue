@@ -10,12 +10,16 @@
         <h1>USUARIOS</h1>
         <div class="form-group left row">
           <div class="control-label col-sm-5" style="text-align: left">
-            <b-button id="nuevo" variant="warning" v-on:click="unuevo()" class="btn btn-warning"
+            <b-button
+              id="nuevo"
+              variant="warning"
+              v-on:click="unuevo()"
+              class="btn btn-warning"
               >Nuevo <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon
             ></b-button>
             <b-tooltip target="nuevo" triggers="hover">
-                    <b>NUEVA USUARIO</b> 
-              </b-tooltip>
+              <b>NUEVA USUARIO</b>
+            </b-tooltip>
           </div>
           <div class="control-label col-sm-7" style="text-align: left">
             <div class="input-group" style="text-align: right">
@@ -31,7 +35,7 @@
         </div>
         <div class="">
           <b-table
-             responsive="sm"
+            responsive="sm"
             :filter="filter"
             id="my-table"
             :items="usuarios"
@@ -42,7 +46,7 @@
           >
             <template #cell(Acciones)="row">
               <router-link
-              id="edit"
+                id="edit"
                 :to="{
                   name: 'actualizarusuarios',
                   params: { id: row.item.id },
@@ -52,22 +56,21 @@
                 <b-icon icon="pencil" aria-hidden="true"></b-icon
               ></router-link>
               <b-tooltip target="edit" triggers="hover">
-                    <b>EDITAR USUARIO</b> 
+                <b>EDITAR USUARIO</b>
               </b-tooltip>
               <b-button
                 variant="primary"
                 type="button"
                 id="eliminar"
-                @click="borrarAutores(row.item.id)"
+                @click="borrarUsuario(row.item.id)"
                 class="btn btn-secondary"
                 ><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon
                   icon="trash-fill"
                   aria-hidden="true"
-                ></b-icon
-              >
-              <b-tooltip target="eliminar" triggers="hover">
-                    <b>ELIMINAR USUARIO</b> 
-              </b-tooltip>
+                ></b-icon>
+                <b-tooltip target="eliminar" triggers="hover">
+                  <b>ELIMINAR USUARIO</b>
+                </b-tooltip>
               </b-button>
             </template>
           </b-table>
@@ -87,6 +90,7 @@
 //importamos axios
 import Header from "@/components/Header.vue";
 import axios from "axios";
+import Swal from 'sweetalert2';
 export default {
   name: "usuarios",
   components: {
@@ -140,17 +144,37 @@ export default {
         });
     },
     borrarUsuario(id) {
-      if (confirm("¿Confirma eliminar el registro?")) {
-        this.axios
-          .delete(`/users'/${id}`)
-          .then((response) => {
-            console.log(response);
-            this.$router.push("/usuarios");
-          })
-          .catch((error) => {
-            console.log(error);
+      Swal.fire({
+        title: "Está seguro?",
+        text: "El Usuario se eliminará permanentemene!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#ffc107",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, eliminalo!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.axios
+            .delete(`/users/${id}`)
+            .then((response) => {
+              console.log(response);
+              //this.$router.push({name:"/usuarios"});
+              this.$router.push("/usuarios");
+              this.obtenerUsuarios();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          Swal.fire({
+            icon: "success",
+            confirmButtonColor: "#ffc107",
+            title: "Eliminado!",
+            text: "El usuario ha sido eliminado|",
+            text: "Exitosamente",
+            iconColor: "#ffc107",
           });
-      }
+        }
+      });
     },
     unuevo() {
       this.$router.push("/unuevo");

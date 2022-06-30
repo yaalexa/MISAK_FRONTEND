@@ -20,7 +20,7 @@
                 <b-icon icon="plus-circle-fill" aria-hidden="true"> </b-icon
               ></b-button>
               <b-tooltip target="nuevo" triggers="hover">
-                    <b>NUEVO NIVEL EDUCATIVO</b> 
+                <b>NUEVO NIVEL EDUCATIVO</b>
               </b-tooltip>
             </div>
             <div class="control-label col-sm-7" style="text-align: left">
@@ -57,7 +57,7 @@
                 <b-icon icon="pencil" aria-hidden="true"></b-icon
               ></b-button>
               <b-tooltip target="edit" triggers="hover">
-                    <b>EDITAR NIVEL EDUCATIVO</b> 
+                <b>EDITAR NIVEL EDUCATIVO</b>
               </b-tooltip>
               <b-button
                 variant="primary"
@@ -68,9 +68,9 @@
                   icon="trash-fill"
                   aria-hidden="true"
                 ></b-icon
-              ><b-tooltip target="borrar" triggers="hover">
-                    <b>ELIMINAR NIVEL EDUCATIVO</b> 
-              </b-tooltip>
+                ><b-tooltip target="borrar" triggers="hover">
+                  <b>ELIMINAR NIVEL EDUCATIVO</b>
+                </b-tooltip>
               </b-button>
             </template>
           </b-table>
@@ -107,6 +107,9 @@
                 id="nom_editorial"
                 name="nom_editorial"
                 v-model="form.nom_editorial"
+                required minlength="4"
+                  maxlength="30"
+                  size="30"
               />
             </b-form-group>
           </div>
@@ -115,7 +118,11 @@
           </div>
         </form>
         <template #modal-footer="{ close }">
-          <b-button variant="primary" class="btn btn-secondary" @click="close()">
+          <b-button
+            variant="primary"
+            class="btn btn-secondary"
+            @click="close()"
+          >
             Cerrar
           </b-button>
         </template>
@@ -145,6 +152,9 @@
                 id="nombreed"
                 name="nombreed"
                 v-model="selectedEdnom"
+                required minlength="4"
+                  maxlength="30"
+                  size="30"
               />
             </b-form-group>
           </div>
@@ -153,7 +163,11 @@
           </div>
         </form>
         <template #modal-footer="{ close }">
-          <b-button variant="primary" class="btn btn-secondary" @click="close()">
+          <b-button
+            variant="primary"
+            class="btn btn-secondary"
+            @click="close()"
+          >
             Cerrar
           </b-button>
         </template>
@@ -165,6 +179,7 @@
 <script>
 import Header from "@/components/Header.vue";
 import axios from "axios";
+import Swal from "sweetalert2";
 export default {
   name: "MostrarNivelEducativo",
   data() {
@@ -202,14 +217,33 @@ export default {
       axios
         .put(
           `/educational_levels/${this.selectedEdid}`,
-          { name: this.selectedEdnom },{
-                  headers: {
-                      "Content-Type": "application/json",
-                      Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                  }}
+          { name: this.selectedEdnom },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization:
+                "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+            },
+          }
         )
         .then((response) => {
-          console.log(response);
+          this.form = response.data;
+          console.log("formulario: ", this.form.mensaje);
+          var icono = "success";
+          var colorb = "#ffc107";
+          var colori = "#ffc107";
+          if (this.form.res == true) {
+          } else {
+            icono = "error";
+            colorb = "#c42a2a";
+            colori = "#c42a2a";
+          }
+          Swal.fire({
+            title: this.form.mensaje,
+            icon: icono,
+            confirmButtonColor: colorb,
+            iconColor: colori,
+          });
           this.mostrarNivelEducativo();
         });
     },
@@ -218,25 +252,49 @@ export default {
     },
     crearEd() {
       this.axios
-        .post("/educational_levels", {
-          name: this.form.nom_editorial,
-        },{
-                  headers: {
-                      "Content-Type": "application/json",
-                      Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                  }})
+        .post(
+          "/educational_levels",
+          {
+            name: this.form.nom_editorial,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization:
+                "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+            },
+          }
+        )
         .then((response) => {
-          console.log(response);
+          this.form = response.data;
+          console.log("formulario: ", this.form.mensaje);
+          var icono = "success";
+          var colorb = "#ffc107";
+          var colori = "#ffc107";
+          if (this.form.res == true) {
+          } else {
+            icono = "error";
+            colorb = "#c42a2a";
+            colori = "#c42a2a";
+          }
+          Swal.fire({
+            title: this.form.mensaje,
+            icon: icono,
+            confirmButtonColor: colorb,
+            iconColor: colori,
+          });
           this.mostrarNivelEducativo();
         });
     },
     async mostrarNivelEducativo() {
       await this.axios
-        .get("/educational_levels",{
-                  headers: {
-                      "Content-Type": "application/json",
-                      Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                  }})
+        .get("/educational_levels", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+          },
+        })
         .then((response) => {
           this.NivelEducativo = response.data;
         })
@@ -246,21 +304,41 @@ export default {
         });
     },
     borrarNivelEducativo(id) {
-      if (confirm("¿Confirma eliminar el registro?")) {
-        this.axios
-          .delete(`/educational_levels/${id}`,{
-                  headers: {
-                      "Content-Type": "application/json",
-                      Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                  }})
-          .then((response) => {
-            console.log(response);
-            this.mostrarNivelEducativo();
-          })
-          .catch((error) => {
-            console.log(error);
+      Swal.fire({
+        title: "Está seguro?",
+        text: "¡Nivel Educativo Se Eliminará Permanentemene!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#ffc107",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, Eliminalo!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.axios
+            .delete(`/educational_levels/${id}`, {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization:
+                  "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+              },
+            })
+            .then((response) => {
+              console.log(response);
+
+              this.mostrarNivelEducativo();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          Swal.fire({
+            title: "Eliminado!",
+            text: "Nivel Educativo ha sido Eliminado",
+            icon: "success",
+            confirmButtonColor: "#ffc107",
+            iconColor: "#ffc107",
           });
-      }
+        }
+      });
     },
   },
 };
