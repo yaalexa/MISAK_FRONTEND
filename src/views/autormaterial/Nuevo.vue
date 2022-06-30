@@ -31,6 +31,7 @@
           </div>
 
           <b-table
+             responsive="sm"
             :filter="filter"
             id="my-table"
             :items="Autores"

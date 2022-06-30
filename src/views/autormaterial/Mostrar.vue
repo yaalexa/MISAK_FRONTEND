@@ -38,6 +38,7 @@
           </div>
 
           <b-table
+             responsive="sm"
             :filter="filter"
             id="my-table"
             :items="Author_material"
@@ -47,18 +48,27 @@
             class="table"
           >
             <template #cell(Acciones)="row">
+<<<<<<< HEAD
               <a
               id="elimi"
+=======
+              <b-button
+                variant="primary"
+>>>>>>> 0576a8c4f33fd3aefa59fbbac2f2e17833b86ad2
                 type="button"
                 @click="borrarautorasignado(row.item.id)"
                 class="btn btn-secondary"
               >
                 <font-awesome-icon icon="fa-solid fa-trash-can" />
                 <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
+<<<<<<< HEAD
                 <b-tooltip target="elimi" triggers="hover">
                     <b>ELIMINAR ASIGNACION AUTOR</b> 
                     </b-tooltip>
               </a>
+=======
+              </b-button>
+>>>>>>> 0576a8c4f33fd3aefa59fbbac2f2e17833b86ad2
             </template>
           </b-table>
           <b-pagination

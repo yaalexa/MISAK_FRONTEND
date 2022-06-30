@@ -181,7 +181,7 @@ export default {
                 });
     },
     nuevo() {
-      this.$router.push("/nuevo");
+      this.$router.push("/nuevoM");
     },
     borrar(id) {
       if (confirm("¿Confirma eliminar el registro?")) {

@@ -330,6 +330,7 @@ const routes = [
     path: "/DoughnutChart",
     component: Doughnut,
   },
+  
   {
     name: "Pdf",
     path: "/Pdf/:id,:pr",

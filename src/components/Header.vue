@@ -151,7 +151,6 @@ import axios from "axios";
 export default {
   name: "MenuAdmin",
   mounted() {
-    this.motrarBarr();
 
     var obj = JSON.parse(sessionStorage.getItem("user"));
     var usrid = JSON.parse(sessionStorage.getItem("userid"));
@@ -166,16 +165,7 @@ export default {
     };
   },
   methods: {
-    
-    // motrarBarr() {
-    //   var button = document
-    //     .getElementById("idBton")
-    //     .addEventListener("click", function () {
-    //       let clase = document.getElementById("nav-side-menu");
-    //       // clase.remove("nav-side-menu")
-    //       clase.classList.toggle("nav-side-menu");
-    //     });
-    // },
+  
     obtenerUsuario(usrid) {
       this.rolName = JSON.parse(sessionStorage.getItem("usuario"));
       this.rolName = this.rolName.usr_name;

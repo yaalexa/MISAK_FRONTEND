@@ -11,7 +11,7 @@
 
         <div class="form-group left row">
           <div class="control-label col-sm-5" style="text-align: left">
-            <b-button id="nuvo" v-on:click="crear()" class="btn btn-warning">Nuevo 
+            <b-button id="nuvo" variant="warning" v-on:click="crear()" class="btn btn-warning">Nuevo 
             <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon>
             </b-button>
               <b-tooltip target="nuvo" triggers="hover">
@@ -31,6 +31,7 @@
         </div>
 
         <b-table
+          responsive="sm"
           :filter="filter"
           id="my-table"
           :items="Autores"
@@ -50,8 +51,8 @@
             <b-tooltip target="edit" triggers="hover">
                       <b>EDITAR AUTOR</b> 
               </b-tooltip>
-            <a
-              type="button"
+            <b-button
+             variant="primary"
               id="elimi"
               @click="borrarAutores(row.item.id)"
               class="btn btn-secondary"
@@ -62,7 +63,7 @@
             ><b-tooltip target="elimi" triggers="hover">
                       <b>ELIMINAR AUTOR</b> 
               </b-tooltip>
-            </a>
+            </b-button>
           </template>
         </b-table>
         <b-pagination

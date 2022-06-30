@@ -85,6 +85,7 @@
 
 <script>
 import Header from "@/components/Header.vue";
+import Swal from "sweetalert2";
 import axios from "axios";
 export default {
   name: "CrearAutor",
@@ -103,14 +104,34 @@ export default {
   methods: {
     async crear() {
       await this.axios
-        .post("/authors", this.Autor,{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                })
+        .post("/authors", this.Autor, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+          },
+        })
         .then((response) => {
+          this.form = response.data;
+          console.log("formulario: ", this.form.mensaje);
+          var icono = "success";
+          var colorb = "#ffc107";
+          var colori = "#ffc107";
+          if (this.form.res == true) {
+          } else {
+            icono = "error";
+            colorb = "#c42a2a";
+            colori = "#c42a2a";
+          }
+          Swal.fire({
+            title: this.form.mensaje,
+            icon: icono,
+            confirmButtonColor: colorb,
+            iconColor: colori,
+          });
           this.$router.push({ name: "MostrarAutor" });
         })
+
         .catch((error) => {
           console.log(error);
         });

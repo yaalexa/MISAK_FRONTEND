@@ -11,7 +11,7 @@
           <h1>Roles</h1>
           <div class="form-group left row">
             <div class="control-label col-sm-5" style="text-align: left">
-              <b-button id="nuevo" v-b-modal="'modal-1'" class="btn btn-warning"
+              <b-button variant="warning" id="nuevo" v-b-modal="'modal-1'" class="btn btn-warning"
                 >Nuevo
                 <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon>
               </b-button>
@@ -33,6 +33,7 @@
           </div>
 
           <b-table
+            resposnive="sm"
             :filter="filter"
             id="my-table"
             :items="Roles"
@@ -43,6 +44,7 @@
           >
             <template #cell(Acciones)="row">
               <b-button
+                variant="warning"
                 v-b-modal="'editarroles'"
                 id="edit"
                 class="btn btn-warning"
@@ -92,7 +94,7 @@
           </div>
         </form>
         <template #modal-footer="{ close }">
-          <b-button class="btn btn-secondary" @click="close()">
+          <b-button variant="primary" class="btn btn-secondary" @click="close()">
             Cerrar
           </b-button>
         </template>
@@ -126,7 +128,7 @@
           </div>
         </form>
         <template #modal-footer="{ close }">
-          <b-button class="btn btn-secondary" @click="close()">
+          <b-button variant="primary" class="btn btn-secondary" @click="close()">
             Cerrar
           </b-button>
         </template>

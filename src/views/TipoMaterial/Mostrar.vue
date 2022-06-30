@@ -12,7 +12,7 @@
           <h1>TIPO DE MATERIAL</h1>
           <div class="form-group left row">
             <div class="control-label col-sm-5" style="text-align: left">
-              <b-button id="nuevo" v-b-modal="'creareTipoMaterial'" class="btn btn-warning"
+              <b-button id="nuevo" variant="warning" v-b-modal="'creareTipoMaterial'" class="btn btn-warning"
                 >Nuevo
                 <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon
               ></b-button>
@@ -33,6 +33,7 @@
             </div>
           </div>
           <b-table
+            responsive="sm"
             :filter="filter"
             id="my-table"
             :items="TipoMaterial"
@@ -43,6 +44,7 @@
           >
             <template #cell(Acciones)="row">
               <b-button
+                variant="warning"
                 id="edit"
                 v-b-modal="'EditarTipoMaterial'"
                 class="btn btn-warning"
@@ -53,8 +55,8 @@
               <b-tooltip target="edit" triggers="hover">
                     <b>EDITAR TIPO DE MATERIAL</b> 
               </b-tooltip>
-              <a
-                type="button"
+              <b-button
+                variant="primary"
                 id="eliminar"
                 @click="borrar(row.item.id)"
                 class="btn btn-secondary"
@@ -62,10 +64,10 @@
                   icon="trash-fill"
                   aria-hidden="true"
                 ></b-icon
-              ><b-tooltip target="eliminar" triggers="hover">
+                ><b-tooltip target="eliminar" triggers="hover">
                     <b>ELIMINAR TIPO DE MATERIAL</b> 
               </b-tooltip>
-              </a>
+              </b-button>
             </template>
           </b-table>
           <b-pagination
@@ -109,7 +111,7 @@
           </div>
         </form>
         <template #modal-footer="{ close }">
-          <b-button class="btn btn-secondary" @click="close()">
+          <b-button variant="primary" class="btn btn-secondary" @click="close()">
             Cerrar
           </b-button>
         </template>
@@ -146,7 +148,7 @@
           </div>
         </form>
         <template #modal-footer="{ close }">
-          <b-button class="btn btn-secondary" @click="close()">
+          <b-button variant="primary" class="btn btn-secondary" @click="close()">
             Cerrar
           </b-button>
         </template>

@@ -10,7 +10,7 @@
         <h1>USUARIOS</h1>
         <div class="form-group left row">
           <div class="control-label col-sm-5" style="text-align: left">
-            <b-button id="nuevo" v-on:click="unuevo()" class="btn btn-warning"
+            <b-button id="nuevo" variant="warning" v-on:click="unuevo()" class="btn btn-warning"
               >Nuevo <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon
             ></b-button>
             <b-tooltip target="nuevo" triggers="hover">
@@ -31,6 +31,7 @@
         </div>
         <div class="">
           <b-table
+             responsive="sm"
             :filter="filter"
             id="my-table"
             :items="usuarios"
@@ -53,7 +54,8 @@
               <b-tooltip target="edit" triggers="hover">
                     <b>EDITAR USUARIO</b> 
               </b-tooltip>
-              <a
+              <b-button
+                variant="primary"
                 type="button"
                 id="eliminar"
                 @click="borrarAutores(row.item.id)"
@@ -66,7 +68,7 @@
               <b-tooltip target="eliminar" triggers="hover">
                     <b>ELIMINAR USUARIO</b> 
               </b-tooltip>
-              </a>
+              </b-button>
             </template>
           </b-table>
           <b-pagination

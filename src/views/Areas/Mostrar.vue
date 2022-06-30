@@ -11,7 +11,7 @@
           <h1>Areas</h1>
           <div class="form-group left row">
             <div class="control-label col-sm-5" style="text-align: left">
-              <b-button id="nuevo" v-b-modal="'modal-1'" class="btn btn-warning"
+              <b-button variant="warning" id="nuevo" v-b-modal="'modal-1'" class="btn btn-warning"
                 >Nuevo
                 <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon
               ></b-button>
@@ -22,6 +22,7 @@
             <div class="control-label col-sm-7" style="text-align: left">
               <div class="input-group" style="text-align: right">
                 <b-form-input
+                 
                   v-model="filter"
                   type="search"
                   placeholder="Buscar"
@@ -33,6 +34,7 @@
           </div>
 
           <b-table
+            responsive="sm"
             :filter="filter"
             id="my-table"
             :items="Areas"
@@ -42,18 +44,20 @@
             class="table"
           >
             <template #cell(Acciones)="row">
-              <button
+              <b-button
+               variant="warning"
                 v-b-modal="'editarareas'"
                 id="edit"
                 class="btn btn-warning"
                 @click="sendInfo(row.item.id, row.item.name)"
                 ><font-awesome-icon icon="fa-solid fa-pen-to-square" />
                 <b-icon icon="pencil" aria-hidden="true"></b-icon
-              ></button>
+              ></b-button>
               <b-tooltip target="edit" triggers="hover">
                     <b>EDITAR ÁREA</b> 
               </b-tooltip>
-              <button
+              <b-button
+                variant="primary"
                 id="elimi"
                 @click="borrarAreas(row.item.id)"
                 class="btn btn-secondary"
@@ -64,7 +68,7 @@
               ><b-tooltip target="elimi" triggers="hover">
                     <b>ELIMINAR ÁREA</b> 
               </b-tooltip>
-              </button>
+              </b-button>
             </template>
           </b-table>
           <b-pagination
@@ -105,7 +109,7 @@
           </div>
         </form>
         <template #modal-footer="{ close }">
-          <b-button class="btn btn-secondary" @click="close()">
+          <b-button variant="primary" class="btn btn-secondary" @click="close()">
             Cerrar
           </b-button>
         </template>
@@ -135,7 +139,7 @@
             </b-form-group>
           </div>
           <div class="botonmodal">
-            <button type="submit" class="btn btn-warning">Guardar</button>
+            <button variant="primary" type="submit" class="btn btn-warning">Guardar</button>
           </div>
         </form>
         <template #modal-footer="{ close }">
@@ -252,6 +256,7 @@ export default {
 </script>
 
 <style>
+
 .botonmodal {
   margin: 3%;
   text-align: center;
@@ -281,7 +286,7 @@ body {
   overflow: auto;
 }
 .cara1areas {
-
+  position: relative;
   width:20%;
   min-width: auto;
   overflow: hidden;
@@ -306,4 +311,5 @@ body {
   text-align: center;
   width: 70%;
 }
+
 </style>
