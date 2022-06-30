@@ -15,11 +15,14 @@
             >
             <br />
             <div class="control-label col-sm-5" style="text-align: left">
-              <a type="button" @click="asigautor()" class="btn btn-warning">
+              <a type="button" id="asignar" @click="asigautor()" class="btn btn-warning">
                 <b-icon icon="plus-circle-fill" aria-hidden="true"
                   >Asignar Autor</b-icon
                 >
               </a>
+              <b-tooltip target="asignar" triggers="hover">
+                    <b>ASIGNAR AUTOR</b> 
+              </b-tooltip>
             </div>
             <div class="control-label col-sm-7" style="text-align: left">
               <div class="input-group" style="text-align: right">
@@ -45,12 +48,16 @@
           >
             <template #cell(Acciones)="row">
               <a
+              id="elimi"
                 type="button"
                 @click="borrarautorasignado(row.item.id)"
                 class="btn btn-secondary"
               >
                 <font-awesome-icon icon="fa-solid fa-trash-can" />
                 <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
+                <b-tooltip target="elimi" triggers="hover">
+                    <b>ELIMINAR ASIGNACION AUTOR</b> 
+                    </b-tooltip>
               </a>
             </template>
           </b-table>

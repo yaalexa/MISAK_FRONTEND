@@ -338,7 +338,7 @@ const routes = [
   },
   {
     name: "autormaterial",
-    path: "/autormaterial/:id,:name",
+    path: "/autormaterial/:id",
     component: Autormaterial,
     meta: { requiresAuth: true },
   },
@@ -350,7 +350,7 @@ const routes = [
   },
   {
     name: "nivelmaterial",
-    path: "/nivelmaterial/:id,:name",
+    path: "/nivelmaterial/:id",
     component: Nivelmaterial,
     meta: { requiresAuth: true },
   },

@@ -154,11 +154,8 @@ export default {
     this.mostarMateriales();
   },
   methods: {
-    educationallevel(id, name) {
-      this.$router.push({
-        name: "nivelmaterial",
-        params: { id: id, name: name },
-      });
+    educationallevel(id) {
+      this.$router.push('/nivelmaterial/' +id);
     },
     buscarmaterial(name) {
       console.log(name);
@@ -204,11 +201,8 @@ export default {
       }
     },
     autormaterial(id, name) {
-      //this.$router.push('/autormaterial/' +id);
-      this.$router.push({
-        name: "autormaterial",
-        params: { id: id, name: name },
-      });
+      this.$router.push('/autormaterial/' +id);
+      // this.$router.push('/autormaterial/' + id, name);
     },
     async mostarMateriales() {
       await this.axios

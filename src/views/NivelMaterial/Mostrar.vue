@@ -15,11 +15,14 @@
             >
             <br />
             <div class="control-label col-sm-5" style="text-align: left">
-              <a type="button" @click="asignivel()" class="btn btn-warning">
+              <a type="button" id="nivel" @click="asignivel()" class="btn btn-warning">
                 <b-icon icon="plus-circle-fill" aria-hidden="true"
                   >Asignar Nivel Educativo</b-icon
                 >
                 </a>
+                <b-tooltip target="nivel" triggers="hover">
+                    <b>ASIGNAR NIVEL EDUCATIVO</b> 
+              </b-tooltip>
             </div>
             <div class="control-label col-sm-7" style="text-align: left">
               <div class="input-group" style="text-align: right">
@@ -45,6 +48,7 @@
           >
             <template #cell(Acciones)="row">
               <a
+              id="elim"
                 type="button"
                 @click="borrarnivelasignado(row.item.id)"
                 class="btn btn-secondary"
@@ -52,7 +56,10 @@
                   icon="trash-fill"
                   aria-hidden="true"
                 ></b-icon
-              ></a>
+              ><b-tooltip target="elim" triggers="hover">
+                    <b>BORRAR ASIGNACIÓN NIVEL EDUCATIVO</b> 
+              </b-tooltip>
+              </a>
             </template>
           </b-table>
           <b-pagination

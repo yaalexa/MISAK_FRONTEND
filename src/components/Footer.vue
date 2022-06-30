@@ -4,11 +4,11 @@
       <ul class="ul">
         <li>
           <h4>Contactanos</h4>
-          <img src="../assets/twitter-sign.png" alt="" />
+          <img src="../assets/phone.png" alt="" /> <br> <br>
+          
           <h5>Silvia Cauca</h5>
-          <p>Telefono 7032205 ext 201</p>
-          <p>Direccion: calle 7</p>
-          <p>repomisak@misak.com</p>
+          <p>Telefono 3218921903</p>
+          <p>bibliotecamisak@gmail.com</p>
         </li>
 
         <li>
@@ -23,7 +23,7 @@
 
         <li>
           <h4>Lo nuestro</h4>
-          <img src="../assets/twitter-sign.png" alt="" />
+          <img class="imglogo" src="../assets/logo.png" alt="" />
           <p>namuiwan isukun</p>
         </li>
       </ul>
@@ -58,6 +58,9 @@ li {
 img {
   width: 3vw;
 }
+.imglogo{
+  width: 6vw;
+}
 .redes {
   margin-right: 7px;
 }
@@ -67,7 +70,8 @@ img {
   border-radius: 4em;
   padding: 0.35em 0.75em 0.35em 0.75em;
 }
-@media (min-width: 0px) and (max-width: 700px){
+
+@media all and (max-width: 700px) {
   .footer {
   background-color: #2b252c;
   background-size: cover;
@@ -75,7 +79,7 @@ img {
 }
 .ul {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
   margin: 0;
   padding: 0;
 }
@@ -87,16 +91,20 @@ li {
   list-style: none;
 }
 img {
-  width: 3vw;
+  width: 10vw;
+}
+.imglogo{
+  width: 25vw;
 }
 .redes {
   margin-right: 7px;
 }
 .redess {
   position: relative;
-  background: rgba(128, 128, 128, 0.05);
+  background: rgba(7, 3, 3, 0.05);
   border-radius: 4em;
   padding: 0.35em 0.75em 0.35em 0.75em;
 }
 }
+
 </style>

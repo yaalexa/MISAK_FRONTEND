@@ -11,10 +11,13 @@
           <h1>NIVELES PARA ASIGNAR</h1>
           <div class="form-group left row">
             <div class="control-label col-sm-5" style="text-align: left">
-              <a type="submit" @click="nuevaasignacion()" class="btn btn-danger"
+              <a type="submit" id="guardar" @click="nuevaasignacion()" class="btn btn-danger"
                 ><b-icon icon="plus-circle-fill" aria-hidden="true"
                   >Guardar</b-icon
-                ></a
+                ><b-tooltip target="guardar" triggers="hover">
+                    <b> GUARDAR ASIGNACIÓN NIVEL EDUCATIVO</b> 
+              </b-tooltip>
+                </a
               >
             </div>
             <div class="control-label col-sm-7" style="text-align: left">
