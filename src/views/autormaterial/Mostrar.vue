@@ -47,9 +47,8 @@
             class="table"
           >
             <template #cell(Acciones)="row">
-              <b-button
+              <a
               id="elimi"
-                variant="primary"
                 type="button"
                 @click="borrarautorasignado(row.item.id)"
                 class="btn btn-secondary"
@@ -59,7 +58,7 @@
                 <b-tooltip target="elimi" triggers="hover">
                   <b>ELIMINAR ASIGNACION AUTOR</b>
                 </b-tooltip>
-              </b-button>
+              </a>
             </template>
           </b-table>
           <b-pagination

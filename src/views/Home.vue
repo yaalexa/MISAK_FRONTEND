@@ -79,16 +79,7 @@ export default {
         });
         return false;
       } else {
-        this.login();
-      }
-    },
-
-    login() {
-      let json = {
-        email: this.email,
-        password: this.password,
-      };
-      axios.post("/login", json).then((data) => {
+      axios.post("/login", {email:this.email,password: this.password}).then((data) => {
         console.log(data.data.status);
         if (data.data.status == "1") {
           this.$session.start();
@@ -117,7 +108,9 @@ export default {
         });;
         }
       });
+      }
     },
+
   },
 };
 </script>

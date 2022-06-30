@@ -49,10 +49,8 @@ img {
 }
 img {
   position: initial;
-  width: 15vw;
-  margin-top: 20vw;
-  margin-right: 75vw;
-  display: none;
+  width: 40vw;
+  margin-top: 10vw;
 }
 }
 @media only screen and (min-width: 701px) and (max-width: 850px){
@@ -60,13 +58,12 @@ img {
   background-image: url("@/assets/fondoweb1.png");
   background-size: cover;
   width: 100%;
-  height: 40vh;
+  height: 45vh;
 }
 img {
   position: initial;
   width: 50vw;
   margin-top: 10vw;
-  display: none;
 }
 }
 @media only screen and (min-width: 851px) and (max-width: 1130px){
