@@ -301,7 +301,7 @@ export default {
     borrarEditorial(id) {
       Swal.fire({
         title: "Está seguro?",
-        text: "¡La Editorial Se Eliminará Permanentemene!",
+        text: "¡La Editorial Se Eliminará Permanentemente!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#ffc107",
@@ -310,7 +310,7 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           this.axios
-            .delete(`/authors/${id}`, {
+            .delete(`/editorials/${id}`, {
               headers: {
                 "Content-Type": "application/json",
                 Authorization:
@@ -320,14 +320,14 @@ export default {
             .then((response) => {
               console.log(response);
 
-              this.mostrarAutores();
+              this.mostrarEditorial();
             })
             .catch((error) => {
               console.log(error);
             });
           Swal.fire({
             title: "Eliminado!",
-            text: "El Tipo de Material ha sido Eliminado",
+            text: "La Editorial ha sido Eliminada",
             icon: "success",
             confirmButtonColor: "#ffc107",
             iconColor: "#ffc107",
