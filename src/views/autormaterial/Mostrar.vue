@@ -49,12 +49,14 @@
             <template #cell(Acciones)="row">
               <a
               id="elimi"
+
                 type="button"
                 @click="borrarautorasignado(row.item.id)"
                 class="btn btn-secondary"
               >
                 <font-awesome-icon icon="fa-solid fa-trash-can" />
                 <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
+
                 <b-tooltip target="elimi" triggers="hover">
                   <b>ELIMINAR ASIGNACION AUTOR</b>
                 </b-tooltip>
