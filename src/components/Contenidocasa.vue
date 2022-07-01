@@ -28,9 +28,10 @@
                 <img src="../assets/grupo.jpg" alt="" />
             </div>
             <div class="lefta">
-                <p class="texto">Somos un grupo de estudiantes que ha desarrollado  <br>
-                 una biblioteca virtul para la comunidad misak.  <br>
-                  de izquierdad a derecha se encuentran los nombres de los participantes</p>
+                <p class="texto">   Somos un grupo de estudiantes que ha desarrollado  <br>
+                                    una biblioteca virtul para la comunidad misak.  <br>
+                                    De izquierdad a derecha se encuentran los nombres <br>
+                                     de los participantes</p>
                   <ul>
                   <li>Veronica Palechor: Desarrolladora Backend & apoyo a Frontend  </li>
                   <li>Daniel Cruz: Desarrollador Frontend & apoyo a Documentacion   </li>
@@ -111,7 +112,7 @@ p{
 .cont{
     background: linear-gradient(to top, rgb(44, 43, 43), 15%, #ffffff);
 }
-@media all and (max-width: 700px) {
+@media all and (max-width: 999px) {
     .biblio{
     justify-content: center;
     padding: 0;
@@ -148,12 +149,13 @@ p{
      padding:0;
     margin: 0;
     margin-top: 4vw;
+
 }
 .contenidoa{
     display: flex;
     justify-content: space-around;
     align-content: center;
-    text-align: justify;
+    text-align: center;
     flex-direction: column;
     margin: 2vw;
     border: 3px solid rgb(185, 146, 17);
@@ -176,6 +178,80 @@ p{
 }
 ul{
     margin-right: 3vw;
+}
+li{
+    list-style: none;
+}
+}
+@media only screen and (min-width: 1000px) and (max-width: 1600px){
+    .biblio{
+    justify-content: center;
+    padding: 0;
+    border: 3px solid rgb(185, 146, 17);
+    margin: 2vw;
+    border-radius: 1vw;
+}
+img{
+    width: 50vw;
+    box-shadow: 0 0 8px 8px white inset;
+    border-radius: 1vw;
+    margin: 2vw;
+}
+.contenido{
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    
+}
+.right{
+    padding:0;
+    margin: 0;
+    margin-top: 7vw;
+}
+.left{
+     padding:0;
+    margin: 0;
+}
+p{
+    font-weight:2;
+    margin: 2vw;
+}
+.righta{
+    padding:0;
+    margin: 0;
+    margin-right: -25vw;
+}
+.lefta{
+     padding:0;
+    margin: 0;
+    margin-top: 4vw;
+    margin-left: 25vw;
+}
+.contenidoa{
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    text-align: justify;
+    margin: 2vw;
+    border: 3px solid rgb(185, 146, 17);
+    border-radius: 1vw;
+}
+.todo{
+    margin: 2vw;
+    border: 3px solid rgb(185, 146, 17);
+    border-radius: 1vw;
+}
+.titulos{
+    margin-top: 1vw;
+}
+.cont{
+    background: linear-gradient(to top, rgb(44, 43, 43), 15%, #ffffff);
+}
+.texto{
+    margin-right: 3vw;
+}
+ul{
+    margin-right: 2vw;
 }
 }
 </style>
