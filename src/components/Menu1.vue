@@ -20,14 +20,14 @@
               font-scale="1.5"
             ></b-icon
           ></b-nav-item>
-          <b-nav-item href="/proceso" v-b-tooltip.hover title="Proceso" 
+          <b-nav-item href="/proceso" v-b-tooltip.hover title="Proceso"
             ><b-icon
               icon="cloud-download-fill"
               aria-hidden="true"
               font-scale="1.5"
             ></b-icon
           ></b-nav-item>
-          <b-nav-item href="/perfilu" v-b-tooltip.hover title="Usuario" 
+          <b-nav-item href="/perfilu" v-b-tooltip.hover title="Usuario"
             ><b-icon icon="person" aria-hidden="true" font-scale="1.5"></b-icon
           ></b-nav-item>
         </b-navbar-nav>
@@ -39,7 +39,8 @@
               name="cerar"
               value="CerrarSesion"
               v-on:click="cerrarTodo()"
-              v-b-tooltip.hover title="Cerrar Sesion" 
+              v-b-tooltip.hover
+              title="Cerrar Sesion"
             >
               <b-icon icon="box-arrow-right" aria-hidden="true"></b-icon>
             </button>
@@ -52,7 +53,7 @@
 
 <script>
 import axios from "axios";
-
+import Swal from 'sweetalert2';
 export default {
   name: "Menu1",
   data() {
@@ -71,10 +72,39 @@ export default {
 
   methods: {
     async cerrarTodo(obj) {
-      if (confirm("¿Confirma cerrar sesión?")) {
-        sessionStorage.clear();
-        this.$router.push("/casa");
-      }
+      Swal.fire({
+        title: "Cierre de sesión",
+        icon: "warning",
+        iconColor: "#ffc107",
+        showCancelButton: true,
+        confirmButtonColor: "#ffc107",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, cerrar sesión!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var token = JSON.parse(sessionStorage.getItem("user"));
+          this.axios
+            .get(`/logout`, {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+              },
+            })
+            .then((response) => {
+              console.log("logout: ", response.data);
+              sessionStorage.clear();
+              this.$router.push("/");
+            })
+            .catch((errorgrave) => console.log(errorgrave));
+          Swal.fire({
+            icon: "success",
+            iconColor: "#ffc107",
+            confirmButtonColor: "#ffc107",
+            text: "Cierre de sesión exitosa",
+           
+          });
+        }
+      });
     },
   },
 };

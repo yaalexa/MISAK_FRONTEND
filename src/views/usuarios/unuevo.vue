@@ -23,6 +23,9 @@
                     v-model="full_name"
                     placeholder="Enter your Last Name"
                     class="form-control last"
+                    required minlength="4"
+                  maxlength="35"
+                  size="35"
                   />
                 </div>
               </div>
@@ -40,6 +43,9 @@
                     v-model="name"
                     placeholder="Enter your First Name"
                     class="form-control"
+                    required minlength="4"
+                  maxlength="20"
+                  size="20"
                   />
                 </div>
               </div>
@@ -58,6 +64,9 @@
                     v-model="email"
                     placeholder="Enter your email"
                     class="form-control"
+                    required minlength="4"
+                  maxlength="40"
+                  size="40"
                   />
                 </div>
               </div>
@@ -90,12 +99,15 @@
                 </div>
                 <div class="col-xs-8">
                   <input
-                    type="text"
+                    type="number"
                     name="document_number"
                     id="document_number"
                     v-model="document_number"
                     placeholder="Número de documento"
                     class="form-control"
+                    required minlength="4"
+                    maxlength="20"
+                    size="20"
                   />
                 </div>
               </div>
@@ -114,6 +126,9 @@
                     v-model="password"
                     placeholder="Enter your Password"
                     class="form-control"
+                    required minlength="4"
+                  maxlength="40"
+                  size="40"
                   />
                 </div>
               </div>
@@ -131,6 +146,9 @@
                     v-model="password_confirmation"
                     placeholder="Enter your Confirmation Password"
                     class="form-control"
+                    required minlength="4"
+                  maxlength="40"
+                  size="40"
                   />
                 </div>
               </div>
@@ -138,16 +156,19 @@
             <div class="col-sm-12">
               <div class="row">
                 <div class="col-xs-4">
-                  <label class="pass">Certificado misak</label>
+                  <label class="pass">NÚMERO Certificado misak</label>
                 </div>
                 <div class="col-xs-8">
                   <input
-                    type="text"
+                    type="number"
                     name="certificado misak"
                     id="certificate_misak"
                     v-model="certificate_misak"
-                    placeholder="Certificado misak"
+                    placeholder="NÚMERO Certificado misak"
                     class="form-control"
+                    required minlength="4"
+                    maxlength="20"
+                    size="20"
                   />
                 </div>
               </div>
@@ -188,6 +209,7 @@
 import Header from "@/components/Header.vue";
 //import Footer from '@/components/Footer.vue'
 import axios from "axios";
+import Swal from 'sweetalert2';
 export default {
   name: "unuevo",
   components: {
@@ -212,13 +234,16 @@ export default {
     };
   },
   mounted: function () {
-    this.axios.get("/rols",{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                }).then((response) => {
-      this.rol = response.data;
-    });
+    this.axios
+      .get("/rols", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+        },
+      })
+      .then((response) => {
+        this.rol = response.data;
+      });
   },
   methods: {
     register() {
@@ -234,17 +259,30 @@ export default {
         rol_id: this.selected,
       };
       axios.post("/register", json).then((data) => {
-        if (data.data.status == "1") {
+        this.format = data.data;
+        var icono = "success";
+        if (this.format.mensaje != "\u00a1Registro de usuario exitoso!") {
+          icono = "error";
+        }
+        Swal.fire({
+          title: this.format.mensaje,
+          icon: icono,
+          confirmButtonColor: "#ffc107",
+          iconColor: "#ffc107",
+        });
+        this.$router.push("/usuarios");
+        if (this.format.res == true) {
           // localStorage.token = data.data.result.token;
           this.$router.push("/usuarios");
         } else {
           this.error = true;
           this.error_msg = data.data.result.error_msg;
         }
+        //this.$router.push("/usuarios");
       });
     },
     salir() {
-      this.$router.push({ name: "Usuarios" });
+      this.$router.push("/usuarios");
     },
   },
 };

@@ -15,9 +15,9 @@
           <h4>Redes sociales</h4>
           <p>Siguenos como RepoMisak</p>
           <section class="redess">
-            <img class="redes" src="../assets/twitter-sign.png" alt="" />
-            <img class="redes" src="../assets/youtube.png" alt="" />
-            <img class="redes" src="../assets/instagram.png" alt="" />
+            <a href="https://twitter.com/namuiwamSena"><img class="redes" src="../assets/twitter-sign.png" alt="" /></a>
+            <a href="https://www.youtube.com/channel/UCNj4Kw9GQ-x3RQLk9g1otPw"><img class="redes" src="../assets/youtube.png" alt="" /></a>
+           <a href="https://www.instagram.com/namuiwambibliotecavirtualmisak/"> <img class="redes" src="../assets/instagram.png" alt="" /></a>
           </section>
         </li>
 
@@ -30,11 +30,6 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: "Footer"
-}
-</script>
 <style  scoped>
 .footer {
   margin-top: -2vw;
@@ -67,7 +62,9 @@ img {
   border-radius: 4em;
   padding: 0.35em 0.75em 0.35em 0.75em;
 }
-@media (min-width: 0px) and (max-width: 700px){
+
+
+@media all and (max-width: 700px) {
   .footer {
   background-color: #2b252c;
   background-size: cover;

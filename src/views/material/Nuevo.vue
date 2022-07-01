@@ -18,6 +18,9 @@
                 name="name"
                 id="name"
                 v-model="formData.name"
+                required minlength="4"
+                maxlength="35"
+                size="30"
               />
             </div>
           </div>
@@ -26,11 +29,14 @@
               <label for="" class="control-label col-sm-3">AÑO</label>
               <div class="col-sm-7">
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
                   name="year"
                   id="year"
                   v-model="formData.year"
+                  required minlength="4"
+                maxlength="5"
+                size="5"
                 />
               </div>
             </div>
@@ -38,11 +44,13 @@
               <label for="" class="control-label col-sm-5">ISBN</label>
               <div class="col-sm-7">
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
                   name="isbn"
                   id="isbn"
                   v-model="formData.isbn"
+                  required min="2"
+                  max="4"
                 />
               </div>
             </div>
@@ -52,11 +60,14 @@
               <label for="" class="control-label col-sm-3">PAGINAS</label>
               <div class="col-sm-7">
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
                   name="num_pages"
                   id="num_pages"
                   v-model="formData.num_pages"
+                  required minlength="4"
+                  maxlength="10"
+                  size="11"
                 />
               </div>
             </div>
@@ -176,6 +187,7 @@
 <script>
 import Header from "@/components/Header.vue";
 //import Footer from '@/components/Footer.vue'
+import Swal from 'sweetalert2';
 import axios, { Axios } from "axios";
 export default {
   name: "NuevoM",
@@ -285,15 +297,27 @@ export default {
                     Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
                 }
                 })
-        .then((data) => {
-          console.log(data);
+        .then((response) => {
+          this.form= response.data
+          console.log("formulario: ", this.form.mensaje);
+          var icono = "success";
+          var colorb = "#ffc107";
+          var colori = "#ffc107";
+          if (this.form.res == true){
+          }
+          else{
+            icono = "error";
+            colorb = "#c42a2a";
+            colori = "#c42a2a";
+          }
+          Swal.fire({title:this.form.mensaje,
+                    icon: icono,
+                    confirmButtonColor: colorb,
+                    iconColor:colori});
+        });
           this.makeToast("Hecho", "material creado", "success");
           this.$router.push("/dashboard");
-        })
-        .catch((e) => {
-          console.log(e);
-          this.makeToast("Error", "Error al guardar", "error");
-        });
+        
     },
     salir() {
       this.$router.push("/dashboard");

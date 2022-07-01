@@ -14,16 +14,17 @@
             <b-button id="nuvo" v-on:click="crear()" class="btn btn-warning">Nuevo 
             <b-icon icon="plus-circle-fill" aria-hidden="true"></b-icon>
             </b-button>
-              <b-tooltip target="nuvo" triggers="hover">
-                      <b>NUEVO AUTOR</b> 
-              </b-tooltip>
+            <b-tooltip target="nuvo" triggers="hover">
+              <b>NUEVO AUTOR</b>
+            </b-tooltip>
           </div>
           <div class="control-label col-sm-7" style="text-align: left">
             <div class="input-group" style="text-align: right">
               <b-form-input
                 v-model="filter"
                 type="search"
-                placeholder="Buscar Autores">
+                placeholder="Buscar Autores"
+              >
               </b-form-input>
             </div>
             <br />
@@ -41,7 +42,7 @@
         >
           <template #cell(Acciones)="row">
             <router-link
-            id="edit"
+              id="edit"
               :to="{ name: 'EditarAutor', params: { id: row.item.id } }"
               class="btn btn-warning"
               ><font-awesome-icon icon="fa-solid fa-pen-to-square" />
@@ -58,9 +59,9 @@
               ><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon
                 icon="trash-fill"
                 aria-hidden="true"
-              ></b-icon 
-            ><b-tooltip target="elimi" triggers="hover">
-                      <b>ELIMINAR AUTOR</b> 
+              ></b-icon
+              ><b-tooltip target="elimi" triggers="hover">
+                <b>ELIMINAR AUTOR</b>
               </b-tooltip>
             </a>
           </template>
@@ -80,6 +81,7 @@
 <script>
 import Header from "@/components/Header.vue";
 import axios from "axios";
+import Swal from "sweetalert2";
 export default {
   name: "MostrarAutor",
   data() {
@@ -111,11 +113,13 @@ export default {
   methods: {
     async mostrarAutores() {
       await this.axios
-        .get("/authors",{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                })
+        .get("/authors", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+          },
+        })
         .then((response) => {
           this.Autores = response.data;
         })
@@ -128,46 +132,45 @@ export default {
         var token = JSON.parse(sessionStorage.getItem("user"));
         this.mostrarAutores(token)
     },
-    methods:{
-        async mostrarAutores(token){
-            await this.axios.get('http://127.0.0.1:8000/api/authors', {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + token
-                }
-                }).then(response=>{
-                this.Autores = response.data
-            }).catch(error=>{
-                console.log(error)
-                this.Autores = []
+    borrarAutores(id) {
+      Swal.fire({
+        title: "Está seguro?",
+        text: "¡El Autor se eliminará permanentemene!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#ffc107",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, Eliminalo!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.axios
+            .delete(`/authors/${id}`, {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization:
+                  "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+              },
             })
-        },
-        crear(){
-                this.$router.push('/CrearAutor');
-            },
-        borrarAutores(id,token){
-            var token = JSON.parse(sessionStorage.getItem("user"));
-            if(confirm("¿Confirma eliminar el registro?")){
-                this.axios.delete(`http://127.0.0.1:8000/api/authors/${id}`, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + token
-                }
-                }).then(response=>{
-                    this.mostrarAutores(token)
-                }).catch(error=>{
-                    console.log(error)
-                })
-          .then((response) => {
-            this.mostrarAutores();
-          })
-          .catch((error) => {
-            console.log(error);
+            .then((response) => {
+              console.log(response);
+
+              this.mostrarAutores();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          Swal.fire({
+            title: "Eliminado!",
+            text: "El Autor ha sido Eliminado",
+            icon: "success",
+            confirmButtonColor: "#ffc107",
+            iconColor: "#ffc107",
           });
-      }
+        }
+      });
     },
   },
-}};
+};
 </script>
 
 <style>
@@ -189,11 +192,11 @@ body {
   height: 100vh;
   width: 80%;
 }
-.contenedorautor{
+.contenedorautor {
   overflow: hidden;
   width: 80%;
 }
-.table{
+.table {
   width: 90%;
 }
 </style>

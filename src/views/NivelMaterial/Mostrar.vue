@@ -15,11 +15,19 @@
             >
             <br />
             <div class="control-label col-sm-5" style="text-align: left">
-              <a type="button" @click="asignivel()" class="btn btn-warning">
+              <a
+                id="nivel"
+                type="button"
+                @click="asignivel()"
+                class="btn btn-warning"
+              >
                 <b-icon icon="plus-circle-fill" aria-hidden="true"
-                  >Asignar Nivel Educativo</b-icon
+                  >ASIGNAR NIVEL EDUCATIVO</b-icon
                 >
-                </a>
+                <b-tooltip target="nivel" triggers="hover">
+                    <b>ASIGNAR NIVEL EDUCATIVO</b>
+                  </b-tooltip>
+              </a>
             </div>
             <div class="control-label col-sm-7" style="text-align: left">
               <div class="input-group" style="text-align: right">
@@ -45,6 +53,7 @@
           >
             <template #cell(Acciones)="row">
               <a
+              id="eli"
                 type="button"
                 @click="borrarnivelasignado(row.item.id)"
                 class="btn btn-secondary"
@@ -52,7 +61,10 @@
                   icon="trash-fill"
                   aria-hidden="true"
                 ></b-icon
-              ></a>
+              ><b-tooltip target="eli" triggers="hover">
+                      <b>ELIMINAR ASIGNACIÓN NIVEL EDUCATIVO</b>
+                    </b-tooltip>
+              </a>
             </template>
           </b-table>
           <b-pagination
@@ -70,7 +82,7 @@
 
 <script>
 import Header from "@/components/Header.vue";
-import Footer from "@/components/Footer.vue";
+import Swal from "sweetalert2";
 import axios from "axios";
 export default {
   name: "nivelmaterial",
@@ -114,18 +126,41 @@ export default {
       this.$router.push(`/AsignarMaterial/${this.$route.params.id}`);
     },
     borrarnivelasignado(id) {
-      if (confirm("¿Confirma eliminar el registro?")) {
-        this.axios
-          .delete(
-            `/material__educational_levels/${id}`
-          )
-          .then((response) => {
-            this.nivelasignado();
-          })
-          .catch((error) => {
-            console.log(error);
+      Swal.fire({
+        title: "Está seguro?",
+        text: "¡Nivel Educativo Se Eliminará Permanentemene!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#ffc107",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, Eliminalo!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.axios
+            .delete(`/material__educational_levels/${id}`, {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization:
+                  "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+              },
+            })
+            .then((response) => {
+              console.log(response);
+
+              this.nivelasignado();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          Swal.fire({
+            title: "Eliminado!",
+            text: "Nivel Educativo  ha sido Eliminado",
+            icon: "success",
+            confirmButtonColor: "#ffc107",
+            iconColor: "#ffc107",
           });
-      }
+        }
+      });
     },
   },
 };

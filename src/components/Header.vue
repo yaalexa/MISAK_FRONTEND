@@ -127,7 +127,8 @@
                     @click="cerrarTodo()"
                     class="mb-2"
                   >
-                  <b-icon icon="power" aria-hidden="true" ></b-icon> Cerrar Sesión
+                    <b-icon icon="power" aria-hidden="true"></b-icon> Cerrar
+                    Sesión
                   </b-button>
                 </li>
               </b-nav>
@@ -139,17 +140,14 @@
         </template>
       </b-sidebar>
     </div>
-    <a
-        href=""
-        @click.prevent="printme"
-        target="_blank"
-        class="btn btn-default"
-        ><i class="fa fa-print"></i> Print</a
-      >
+    <a href="" @click.prevent="printme" target="_blank" class="btn btn-default"
+      ><i class="fa fa-print"></i> Print</a
+    >
   </section>
 </template>
 <script>
 import axios from "axios";
+import Swal from "sweetalert2";
 export default {
   name: "MenuAdmin",
   mounted() {
@@ -168,7 +166,7 @@ export default {
     };
   },
   methods: {
-      printInvoice() {
+    printInvoice() {
       window.print();
     },
     // motrarBarr() {
@@ -186,21 +184,32 @@ export default {
       this.administrador = this.rolName.usr_name;
     },
     async cerrarTodo(obj) {
-      if (confirm("¿Confirma cerrar sesión?")) {
-        var token = JSON.parse(sessionStorage.getItem("user"));
-        await this.axios
+      Swal.fire({
+        title: "Cierre de sesión",
+        icon: "warning",
+        iconColor: "#ffc107",
+        showCancelButton: true,
+        confirmButtonColor: "#ffc107",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, cerrar sesión!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var token = JSON.parse(sessionStorage.getItem("user"));
+          this.axios
             .get(`/logout`, {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: "Bearer " + token
-                    }
-                    }).then((response) => {
-                          console.log("logout: ", response.data);
-                          sessionStorage.clear();
-                         this.$router.push("/casa");
-                    }).catch((errorgrave) => console.log(errorgrave));
-        
-      }
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+              },
+            })
+            .then((response) => {
+              console.log("logout: ", response.data);
+              sessionStorage.clear();
+              this.$router.push("/casa");
+            })
+            .catch((errorgrave) => console.log(errorgrave));
+        }
+      });
     },
   },
 };

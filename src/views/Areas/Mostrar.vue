@@ -46,15 +46,22 @@
                 ><font-awesome-icon icon="fa-solid fa-pen-to-square" />
                 <b-icon icon="pencil" aria-hidden="true"></b-icon
               ></b-button>
-              <a
-                type="button"
+              <b-tooltip target="edit" triggers="hover">
+                <b>EDITAR ÁREA</b>
+              </b-tooltip>
+              <b-button
+                variant="primary"
+                id="elimi"
                 @click="borrarAreas(row.item.id)"
                 class="btn btn-secondary"
                 ><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon
                   icon="trash-fill"
                   aria-hidden="true"
                 ></b-icon
-              ></a>
+                ><b-tooltip target="elimi" triggers="hover">
+                  <b>ELIMINAR ÁREA</b>
+                </b-tooltip>
+              </b-button>
             </template>
           </b-table>
           <b-pagination
@@ -87,6 +94,9 @@
                 id="client"
                 name="client"
                 v-model="form.client"
+                required minlength="4"
+                  maxlength="20"
+                  size="20"
               />
             </b-form-group>
           </div>
@@ -121,6 +131,9 @@
                 id="nombreed"
                 name="nombreed"
                 v-model="selectedUsernom"
+                required minlength="4"
+                  maxlength="20"
+                  size="20"
               />
             </b-form-group>
           </div>
@@ -142,6 +155,7 @@
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 import axios from "axios";
+import Swal from "sweetalert2";
 export default {
   name: "MostrarAreas",
   data() {
@@ -180,17 +194,38 @@ export default {
     editararea(token) {
         var token = JSON.parse(sessionStorage.getItem("user"));
       axios
-        .put(`http://localhost:8000/api/areas/${this.selectedUserid}`, {
-          name: this.selectedUsernom,
-        }, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + token
-                }
-                })
+        .put(
+          `/areas/${this.selectedUserid}`,
+          {
+            name: this.selectedUsernom,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization:
+                "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+            },
+          }
+        )
         .then((response) => {
-          console.log(response);
-          this.mostrarAreas(token);
+          this.form = response.data;
+          console.log("formulario: ", this.form.mensaje);
+          var icono = "success";
+          var colorb = "#ffc107";
+          var colori = "#ffc107";
+          if (this.form.res == true) {
+          } else {
+            icono = "error";
+            colorb = "#c42a2a";
+            colori = "#c42a2a";
+          }
+          Swal.fire({
+            title: this.form.mensaje,
+            icon: icono,
+            confirmButtonColor: colorb,
+            iconColor: colori,
+          });
+          this.mostrarAreas();;
         });
     },
     sendInfo(id, nom) {
@@ -199,15 +234,32 @@ export default {
     handleOk(token) {
       var token = JSON.parse(sessionStorage.getItem("user"));
       this.axios
-        .post("http://127.0.0.1:8000/api/areas", { name: this.form.client }, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + token
-                }
-                }
-)
+        .post(
+          "/areas",
+          { name: this.form.client },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization:
+                "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+            },
+          }
+        )
         .then((response) => {
-          this.mostrarAreas(token);
+          console.log(response);
+          this.format = response.data;
+          console.log("formulario: ", this.format.mensaje);
+          var icono = "success";
+          if (this.format.res=false ) {
+            icono = "error";
+          }
+          Swal.fire({
+            title: this.format.mensaje,
+            icon: icono,
+            confirmButtonColor: "#ffc107",
+            iconColor: "#ffc107",
+          });
+          this.mostrarAreas();
         });
     },
     async mostrarAreas(token) {
@@ -226,24 +278,42 @@ export default {
           this.Areas = [];
         });
     },
-    borrarAreas(id, token) {
-        var token = JSON.parse(sessionStorage.getItem("user"));
-      if (confirm("¿Confirma eliminar el registro?")) {
-        this.axios
-          .delete(`http://127.0.0.1:8000/api/areas/${id}`, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + token
-                }
-                }
-)
-          .then((response) => {
-            this.mostrarAreas(token);
-          })
-          .catch((error) => {
-            console.log(error);
+    borrarAreas(id) {
+      Swal.fire({
+        title: "Está seguro?",
+        text: "El área se eliminará permanentemene!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#ffc107",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, eliminalo!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.axios
+            .delete(`/areas/${id}`, {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization:
+                  "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+              },
+            })
+            .then((response) => {
+              console.log(response);
+              this.mostrarAreas();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          Swal.fire({
+            icon: "success",
+            confirmButtonColor: "#ffc107",
+            title: "Eliminado!",
+            text: "El área ha sido eliminada",
+            text: "Exitosamente",
+            iconColor:"#ffc107"
           });
-      }
+        }
+      });
     },
   },
 };
@@ -260,8 +330,6 @@ export default {
   font-size: 30px;
   color: white;
   justify-content: center;
-}
-.active {
 }
 body {
   margin: 0%;

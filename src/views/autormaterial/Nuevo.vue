@@ -11,8 +11,18 @@
           <h1>AUTORES PARA ASIGNAR</h1>
           <div class="form-group left row">
             <div class="control-label col-sm-5" style="text-align: left">
-              <a type="submit" @click="nuevaasignacion()" class="btn btn-danger">
-              <b-icon icon="plus-circle-fill" aria-hidden="true">Guardar</b-icon>
+              <a
+              id="guardar"
+                type="submit"
+                @click="nuevaasignacion()"
+                class="btn btn-danger"
+              >
+                <b-icon icon="plus-circle-fill" aria-hidden="true"
+                  >Guardar</b-icon
+                >
+                <b-tooltip target="guardar" triggers="hover">
+                  <b>GUARDAR ASIGNACIÓN</b>
+                </b-tooltip>
               </a>
             </div>
             <div class="control-label col-sm-7" style="text-align: left">
@@ -20,7 +30,8 @@
                 <b-form-input
                   v-model="filter"
                   type="search"
-                  placeholder="Buscar">
+                  placeholder="Buscar"
+                >
                 </b-form-input>
               </div>
               <br />
@@ -28,19 +39,22 @@
           </div>
 
           <b-table
+            responsive="sm"
             :filter="filter"
             id="my-table"
             :items="Autores"
             :fields="fields"
             :per-page="perPage"
             :current-page="currentPage"
-            class="table">
+            class="table"
+          >
             <template #cell(seleccionar)="row">
               <input
                 type="checkbox"
                 id=""
                 :value="row.item.id"
-                v-model="formData.author_id"/>
+                v-model="formData.author_id"
+              />
             </template>
           </b-table>
           <b-pagination
@@ -48,8 +62,9 @@
             v-model="currentPage"
             :total-rows="rows"
             :per-page="perPage"
-            aria-controls="my-table">
-            </b-pagination>
+            aria-controls="my-table"
+          >
+          </b-pagination>
         </div>
       </section>
     </div>
@@ -59,6 +74,7 @@
 <script>
 import Header from "@/components/Header.vue";
 import axios from "axios";
+import Swal from "sweetalert2";
 export default {
   name: "AsignarAutores",
   data() {
@@ -95,11 +111,13 @@ export default {
   methods: {
     async mostrarAutores() {
       await this.axios
-        .get("/authors",{ headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + JSON.parse(sessionStorage.getItem("user"))
-                }
-                })
+        .get("/authors", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+          },
+        })
         .then((response) => {
           this.Autores = response.data;
         })
@@ -108,29 +126,39 @@ export default {
           this.Autores = [];
         });
     },
-    mounted(){
-        var token = JSON.parse(sessionStorage.getItem("user"));
-        this.mostrarAutores(token)
+    asignarAutores(id) {
+      this.axios
+        .post(`/author_materials/${this.$route.params.id},${id}`)
+        .then((data) => {
+          console.log(data);
+          this.makeToast("Hecho", "material creado", "success");
+          this.$router.push("/autormaterial");
+        });
     },
-    methods:{
-        async mostrarAutores(token){
-            await this.axios.get('http://127.0.0.1:8000/api/authors', {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + token
-                }
-                }).then(response=>{
-                this.Autores = response.data
-            }).catch(error=>{
-                console.log(error)
-                this.Autores = []
-            })
-        },
-        asignarAutores(id){
-            this.axios.post(`http://127.0.0.1:8000/api/author_materials/${this.$route.params.id},${id}`).then((data) => {
-            console.log(data);
-            this.makeToast("Hecho", "material creado", "success");
-            this.$router.push("/autormaterial");
+    nuevaasignacion() {
+      let formDataAutor = new FormData();
+      formDataAutor.append("material_id", this.$route.params.id);
+      formDataAutor.append("author_id", this.formData.author_id);
+      axios
+        .post("/author_materials", formDataAutor)
+        .then((response) => {
+          this.form = response.data;
+          console.log("formulario: ", this.form.mensaje);
+          var icono = "success";
+          var colorb = "#ffc107";
+          var colori = "#ffc107";
+          if (this.form.res == true) {
+          } else {
+            icono = "error";
+            colorb = "#c42a2a";
+            colori = "#c42a2a";
+          }
+          Swal.fire({
+            title: this.form.mensaje,
+            icon: icono,
+            confirmButtonColor: colorb,
+            iconColor: colori,
+          });
         })
         .catch((e) => {
           console.log(e);
