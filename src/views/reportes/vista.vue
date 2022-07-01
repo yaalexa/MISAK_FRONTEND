@@ -120,4 +120,9 @@ export default {
   border-color: #ffc720;
   color: black;
 }
+@media only screen and (max-width: 767px) {
+  article.article {
+    flex-wrap: wrap;
+}
+}
 </style>

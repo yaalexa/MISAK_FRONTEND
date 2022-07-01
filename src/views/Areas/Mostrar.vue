@@ -345,8 +345,6 @@ export default {
   color: white;
   justify-content: center;
 }
-.active {
-}
 body {
   margin: 0%;
 }

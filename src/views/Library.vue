@@ -191,4 +191,13 @@ body {
   background-size: 100px auto;
   margin-top: 2em;
 }
+@media only screen and (max-width: 767px) {
+  .nav-link {
+    color: #16223f !important;
+  }
+  .cara2{
+    flex-wrap: wrap;
+  }
+
+}
 </style>

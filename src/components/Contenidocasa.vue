@@ -28,16 +28,10 @@
                 <img src="../assets/grupo.jpg" alt="" />
             </div>
             <div class="lefta">
-<<<<<<< HEAD
                 <p class="texto">   Somos un grupo de estudiantes que ha desarrollado  <br>
                                     una biblioteca virtul para la comunidad misak.  <br>
                                     De izquierdad a derecha se encuentran los nombres <br>
                                      de los participantes</p>
-=======
-                <p class="texto">Somos un grupo de estudiantes que ha desarrollado  <br>
-                 una biblioteca virtul para la comunidad misak.  <br>
-                  de izquierdad a derecha se encuentran los nombres de los participantes</p>
->>>>>>> fc82aee407d0a88e6a5d11fd0edc8622fb8a4742
                   <ul>
                   <li>Veronica Palechor: Desarrolladora Backend & apoyo a Frontend  </li>
                   <li>Daniel Cruz: Desarrollador Frontend & apoyo a Documentacion   </li>
@@ -118,11 +112,7 @@ p{
 .cont{
     background: linear-gradient(to top, rgb(44, 43, 43), 15%, #ffffff);
 }
-<<<<<<< HEAD
 @media all and (max-width: 999px) {
-=======
-@media all and (max-width: 700px) {
->>>>>>> fc82aee407d0a88e6a5d11fd0edc8622fb8a4742
     .biblio{
     justify-content: center;
     padding: 0;
@@ -159,20 +149,12 @@ p{
      padding:0;
     margin: 0;
     margin-top: 4vw;
-<<<<<<< HEAD
-
-=======
->>>>>>> fc82aee407d0a88e6a5d11fd0edc8622fb8a4742
 }
 .contenidoa{
     display: flex;
     justify-content: space-around;
     align-content: center;
-<<<<<<< HEAD
     text-align: center;
-=======
-    text-align: justify;
->>>>>>> fc82aee407d0a88e6a5d11fd0edc8622fb8a4742
     flex-direction: column;
     margin: 2vw;
     border: 3px solid rgb(185, 146, 17);
@@ -196,7 +178,6 @@ p{
 ul{
     margin-right: 3vw;
 }
-<<<<<<< HEAD
 li{
     list-style: none;
 }
@@ -271,7 +252,5 @@ p{
 ul{
     margin-right: 2vw;
 }
-=======
->>>>>>> fc82aee407d0a88e6a5d11fd0edc8622fb8a4742
 }
 </style>

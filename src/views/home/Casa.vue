@@ -4,7 +4,7 @@
       <MenuInicial />
     </div>
     <div class="fondo">
-      <img src="@/assets/logo.png" alt="" />
+      <!-- <img src="@/assets/logo.png" alt="" /> -->
     </div>
     <div>
       <Contenidocasa/>
@@ -30,7 +30,7 @@ export default {
 </script>
 <style scoped>
 .fondo {
-  background-image: url("@/assets/fondoweb1.png");
+  background-image: url("@/assets/final.png");
   background-size: cover;
   width: 100%;
   height: 80vh;
@@ -42,8 +42,9 @@ img {
 }
 @media all and (max-width: 700px) {
   .fondo {
-  background-image: url("@/assets/fondoweb1.png");
-  background-size: cover;
+  background-image: url("@/assets/final.png");
+  background-size: contain, cover;
+  background-repeat: no-repeat;
   width: 100%;
   height: 30vh;
 }
@@ -55,8 +56,9 @@ img {
 }
 @media only screen and (min-width: 701px) and (max-width: 850px){
   .fondo {
-  background-image: url("@/assets/fondoweb1.png");
-  background-size: cover;
+  background-image: url("@/assets/final.png");
+  background-size: contain, cover;
+  background-repeat: no-repeat;
   width: 100%;
   height: 45vh;
 }
@@ -68,8 +70,9 @@ img {
 }
 @media only screen and (min-width: 851px) and (max-width: 1130px){
   .fondo {
-  background-image: url("@/assets/fondoweb1.png");
-  background-size: cover;
+  background-image: url("@/assets/final.png");
+  background-size: contain, cover;
+  background-repeat: no-repeat;
   width: 100%;
   height: 60vh;
 }

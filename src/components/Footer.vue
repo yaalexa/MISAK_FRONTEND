@@ -65,10 +65,6 @@ img {
   border-radius: 4em;
   padding: 0.35em 0.75em 0.35em 0.75em;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> fc82aee407d0a88e6a5d11fd0edc8622fb8a4742
 @media all and (max-width: 700px) {
   .footer {
   background-color: #2b252c;
