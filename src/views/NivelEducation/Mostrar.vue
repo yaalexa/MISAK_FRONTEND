@@ -306,7 +306,7 @@ export default {
     borrarNivelEducativo(id) {
       Swal.fire({
         title: "Está seguro?",
-        text: "¡Nivel Educativo Se Eliminará Permanentemene!",
+        text: "¡Nivel Educativo Se Eliminará Permanentemente!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#ffc107",

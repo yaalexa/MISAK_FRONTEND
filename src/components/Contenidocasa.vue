@@ -25,7 +25,7 @@
         <div><H2 class="titulos">NOSOTROS</H2></div> 
         <div class="contenidoa">
             <div class="righta">
-                <img src="../assets/grupo.jpg" alt="" />
+                <img src="../assets/fotogrupo.png" alt="" />
             </div>
             <div class="lefta">
                 <p class="texto">   Somos un grupo de estudiantes que ha desarrollado  <br>

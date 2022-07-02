@@ -11,7 +11,7 @@
           <h1>ASIGNAR NIVEL DEL MATERIAL</h1>
           <div class="form-group left row">
             <label for="" class="control-label"
-              >NOMBRE NIVEL MATERIAL: {{ this.nombrematerial }}</label
+              >{{ this.nombrematerial }}</label
             >
             <br />
             <div class="control-label col-sm-5" style="text-align: left">
@@ -128,7 +128,7 @@ export default {
     borrarnivelasignado(id) {
       Swal.fire({
         title: "Está seguro?",
-        text: "¡Nivel Educativo Se Eliminará Permanentemene!",
+        text: "¡La asignacion Nivel Educativo Se Eliminará Permanentemente!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#ffc107",
@@ -154,7 +154,7 @@ export default {
             });
           Swal.fire({
             title: "Eliminado!",
-            text: "Nivel Educativo  ha sido Eliminado",
+            text: "la asignacion Nivel Educativo ha sido Eliminada",
             icon: "success",
             confirmButtonColor: "#ffc107",
             iconColor: "#ffc107",

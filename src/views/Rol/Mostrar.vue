@@ -59,6 +59,19 @@
               <b-tooltip target="edit" triggers="hover">
                 <b>EDITAR ROL</b>
               </b-tooltip>
+              <b-button
+              variant="primary"
+              id="elimi"
+              @click="borrarRol(row.item.id)"
+              class="btn btn-secondary"
+              ><font-awesome-icon icon="fa-solid fa-trash-can" /><b-icon
+                icon="trash-fill"
+                aria-hidden="true"
+              ></b-icon
+              ><b-tooltip target="elimi" triggers="hover">
+                <b>ELIMINAR ROL</b>
+              </b-tooltip>
+            </b-button>
             </template>
           </b-table>
           <b-pagination
@@ -75,7 +88,7 @@
     <div>
       <b-modal id="modal-1" v-model="showModal" title="Editar">
         <template #modal-header>
-          <h5>CREAR ROLES</h5>
+          <h5>CREAR ROL</h5>
         </template>
         <form @submit.prevent="handleOk">
           <div class="d-block text-center">
@@ -280,6 +293,43 @@ export default {
           console.log(error);
           this.Roles = [];
         });
+    },
+    borrarRol(id) {
+      Swal.fire({
+        title: "Está seguro?",
+        text: "¡El Rol se eliminará permanentemente!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#ffc107",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, Eliminalo!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.axios
+            .delete(`/rols/${id}`, {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization:
+                  "Bearer " + JSON.parse(sessionStorage.getItem("user")),
+              },
+            })
+            .then((response) => {
+              console.log(response);
+
+              this.mostrarRoles();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          Swal.fire({
+            title: "Eliminado!",
+            text: "El Rol ha sido Eliminado",
+            icon: "success",
+            confirmButtonColor: "#ffc107",
+            iconColor: "#ffc107",
+          });
+        }
+      });
     },
   },
 };

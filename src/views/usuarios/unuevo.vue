@@ -21,7 +21,7 @@
                     name="lname"
                     id="full_name"
                     v-model="full_name"
-                    placeholder="Enter your Last Name"
+                    placeholder="Nombre Completo"
                     class="form-control last"
                     required minlength="4"
                   maxlength="35"
@@ -41,7 +41,7 @@
                     name="fname"
                     id="name"
                     v-model="name"
-                    placeholder="Enter your First Name"
+                    placeholder="Nombre de usuario"
                     class="form-control"
                     required minlength="4"
                   maxlength="20"
@@ -54,7 +54,7 @@
             <div class="col-sm-12">
               <div class="row">
                 <div class="col-xs-4">
-                  <label class="mail">Email :</label>
+                  <label class="mail">Correo:</label>
                 </div>
                 <div class="col-xs-8">
                   <input
@@ -62,7 +62,7 @@
                     name="email"
                     id="email"
                     v-model="email"
-                    placeholder="Enter your email"
+                    placeholder="Ingrese su correo"
                     class="form-control"
                     required minlength="4"
                   maxlength="40"
@@ -116,7 +116,7 @@
             <div class="col-sm-12">
               <div class="row">
                 <div class="col-xs-4">
-                  <label class="pass">Password :</label>
+                  <label class="pass">Contraseña:</label>
                 </div>
                 <div class="col-xs-8">
                   <input
@@ -124,7 +124,7 @@
                     name="password"
                     id="password"
                     v-model="password"
-                    placeholder="Enter your Password"
+                    placeholder="Ingrese su contraseña"
                     class="form-control"
                     required minlength="4"
                   maxlength="40"
@@ -136,7 +136,7 @@
             <div class="col-sm-12">
               <div class="row">
                 <div class="col-xs-4">
-                  <label class="pass">confirmar Password :</label>
+                  <label class="pass">Confirmar contraseña:</label>
                 </div>
                 <div class="col-xs-8">
                   <input
@@ -144,7 +144,7 @@
                     name="password"
                     id="password_confirmation"
                     v-model="password_confirmation"
-                    placeholder="Enter your Confirmation Password"
+                    placeholder="Confirme su contraseña"
                     class="form-control"
                     required minlength="4"
                   maxlength="40"
@@ -156,7 +156,7 @@
             <div class="col-sm-12">
               <div class="row">
                 <div class="col-xs-4">
-                  <label class="pass">NÚMERO Certificado misak</label>
+                  <label class="pass">Número Certificado misak</label>
                 </div>
                 <div class="col-xs-8">
                   <input
@@ -164,7 +164,7 @@
                     name="certificado misak"
                     id="certificate_misak"
                     v-model="certificate_misak"
-                    placeholder="NÚMERO Certificado misak"
+                    placeholder="Número Certificado misak"
                     class="form-control"
                     required minlength="4"
                     maxlength="20"

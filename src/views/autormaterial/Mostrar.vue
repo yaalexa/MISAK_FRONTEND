@@ -11,7 +11,7 @@
           <h1>ASIGNACION AUTOR</h1>
           <div class="form-group left row">
             <label for="" class="control-label"
-              >NOMBRE MATERIAL: {{ this.nombrematerial }}</label
+              > {{ this.nombrematerial }}</label
             >
             <br />
             <div class="control-label col-sm-5" style="text-align: left">
@@ -124,7 +124,7 @@ export default {
     borrarautorasignado(id) {
       Swal.fire({
         title: "Está seguro?",
-        text: "¡Autor Se Eliminará Permanentemene!",
+        text: "¡La asignacion de Autor Se Eliminará Permanentemente!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#ffc107",
@@ -150,7 +150,7 @@ export default {
             });
           Swal.fire({
             title: "Eliminado!",
-            text: "Autor ha sido Eliminado",
+            text: "Asignacion Autor ha sido Eliminado",
             icon: "success",
             confirmButtonColor: "#ffc107",
             iconColor: "#ffc107",

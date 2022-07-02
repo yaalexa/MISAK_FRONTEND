@@ -21,7 +21,7 @@
                     name="lname"
                     id="full_name"
                     v-model="Usuario.full_name"
-                    placeholder="Enter your Last Name"
+                    placeholder="Nombre completo"
                     class="form-control last"
                     required minlength="4"
                   maxlength="35"
@@ -41,7 +41,7 @@
                     name="fname"
                     id="name"
                     v-model="Usuario.name"
-                    placeholder="Enter your First Name"
+                    placeholder="ENombre de usuario"
                     class="form-control"
                     required minlength="4"
                   maxlength="20"
@@ -54,7 +54,7 @@
             <div class="col-sm-12">
               <div class="row">
                 <div class="col-xs-4">
-                  <label class="mail">Email :</label>
+                  <label class="mail">Correo:</label>
                 </div>
                 <div class="col-xs-8">
                   <input
@@ -62,7 +62,7 @@
                     name="email"
                     id="email"
                     v-model="Usuario.email"
-                    placeholder="Enter your email"
+                    placeholder="ingrese su correo"
                     class="form-control"
                     disabled
                     required minlength="4"
@@ -118,7 +118,7 @@
             <div class="col-sm-12">
               <div class="row">
                 <div class="col-xs-4">
-                  <label class="pass">NÚMERO Certificado misak</label>
+                  <label class="pass">Número Certificado misak</label>
                 </div>
                 <div class="col-xs-8">
                   <input
@@ -126,7 +126,7 @@
                     name="certificado misak"
                     id="certificate_misak"
                     v-model="Usuario.certificate_misak"
-                    placeholder="NÚMERO Certificado misak"
+                    placeholder="Número Certificado misak"
                     class="form-control"
                     required minlength="4"
                   maxlength="20"
@@ -154,8 +154,8 @@
         </div>
         <div class="botonusuario">
           <button type="submit" class="btn btn-warning">Guardar</button>
-          <button type="button" class="btn btn-secondary" v-on:click="salir()">
-            Salir
+          <button type="button" class="btn btn-secondary" v-on:click="Volver()">
+            Volver
           </button>
         </div>
       </form>
@@ -203,7 +203,7 @@ export default {
       });
   },
   methods: {
-    salir() {
+    Volver() {
       this.$router.push({ name: "usuarios" });
     },
     async mostrarusuario() {

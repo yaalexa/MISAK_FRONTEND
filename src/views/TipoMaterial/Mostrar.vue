@@ -288,7 +288,7 @@ export default {
     borrar(id) {
       Swal.fire({
         title: "Está seguro?",
-        text: "¡El Tipo de Material se eliminará permanentemene!",
+        text: "¡El Tipo de Material se eliminará permanentemente!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#ffc107",

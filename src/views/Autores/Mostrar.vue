@@ -140,7 +140,7 @@ export default {
     borrarAutores(id) {
       Swal.fire({
         title: "Está seguro?",
-        text: "¡El Autor se eliminará permanentemene!",
+        text: "¡El Autor se eliminará permanentemente!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#ffc107",

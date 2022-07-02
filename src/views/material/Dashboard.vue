@@ -29,7 +29,7 @@
                   <b-form-input
                     v-model="filter"
                     type="search"
-                    placeholder="Ingrese el nombre del libro"
+                    placeholder="Ingrese el nombre del Material a buscar"
                     style="width: 40px"
                   >
                   </b-form-input>
@@ -189,7 +189,7 @@ export default {
     borrar(id) {
       Swal.fire({
         title: "Está seguro?",
-        text: "¡Material Se Eliminará Permanentemene!",
+        text: "¡Material Se Eliminará Permanentemente!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#ffc107",

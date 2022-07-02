@@ -26,7 +26,7 @@
               <b-form-input
                 v-model="filter"
                 type="search"
-                placeholder="Buscar Autores"
+                placeholder="Buscar Usuario"
               >
               </b-form-input>
             </div>
@@ -146,7 +146,7 @@ export default {
     borrarUsuario(id) {
       Swal.fire({
         title: "Está seguro?",
-        text: "El Usuario se eliminará permanentemene!",
+        text: "El Usuario se eliminará permanentemente!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#ffc107",
@@ -169,7 +169,7 @@ export default {
             icon: "success",
             confirmButtonColor: "#ffc107",
             title: "Eliminado!",
-            text: "El usuario ha sido eliminado|",
+            text: "El usuario ha sido eliminado!",
             text: "Exitosamente",
             iconColor: "#ffc107",
           });

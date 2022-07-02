@@ -295,7 +295,7 @@ export default {
     borrarAreas(id) {
       Swal.fire({
         title: "Está seguro?",
-        text: "El área se eliminará permanentemene!",
+        text: "El área se eliminará permanentemente!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#ffc107",
