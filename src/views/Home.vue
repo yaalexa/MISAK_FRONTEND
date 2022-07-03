@@ -105,7 +105,7 @@ export default {
           icon: "error",
           confirmButtonColor: "#ffc107",
           iconColor: "#ffc107",
-        });;
+        });
         }
       });
       }

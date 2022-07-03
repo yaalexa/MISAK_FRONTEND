@@ -239,7 +239,7 @@ export default {
             confirmButtonColor: colorb,
             iconColor: colori,
           });
-          this.mostrarAreas();;
+          this.mostrarAreas();
         });
     },
     sendInfo(id, nom) {
